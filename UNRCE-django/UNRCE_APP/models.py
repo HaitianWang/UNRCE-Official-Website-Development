@@ -9,7 +9,6 @@ class Image(models.Model):
   # django will not store the image in the database.
   # The image field in the database table will contain the
   # image name (with max_length = 36) whereas the actual image
-  # will be stored in the directory defined in giffy/settings.py.
   image = models.ImageField(max_length=36)
 
   # image upload date and time
