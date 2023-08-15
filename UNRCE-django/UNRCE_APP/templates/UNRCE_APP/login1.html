@@ -1,0 +1,23 @@
+{% extends "UNRCE_APP/base.html" %}
+
+{% block content %}
+<div class="centered" style="text-align:center;color:black;background-color:lightgray;margin-top: 20px;border-radius: 10px; padding: 15px;">
+  <h3>Login</h3>
+  <form method="post">
+    {% csrf_token %}
+    
+    {% for field in form %}
+    <div style="margin-bottom: 10px;">
+        {{ field.label_tag }}
+        <input type="{{ field.field.widget.input_type }}" 
+               name="{{ field.name }}" 
+               style="background-color:white; color:black;" 
+               {% if field.field.required %} required {% endif %}
+               value="{{ field.value|default:'' }}" />
+    </div>
+    {% endfor %}
+ 
+    <input type="submit" value="Submit" style="color:black;">
+  </form>
+</div>
+{% endblock content %}

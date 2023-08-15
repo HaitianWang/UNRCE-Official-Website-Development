@@ -1,0 +1,43 @@
+{% extends "UNRCE_APP/base.html" %}
+
+{% block content %}
+<div class="centered" style="text-align:center;color:black;background-color: lightgray;margin-top: 20px;border-radius: 10px; padding: 15px;">
+    <h3>Sign up</h3>
+
+    <form method="post" action="{% url 'UNRCE_APP:signup' %}">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+            {{ form.non_field_errors }}
+        </div>
+        {% endif %}
+
+        {% for field in form %}
+        <div style="margin-bottom: 10px;">
+            {{ field.label_tag }}
+            {% if field.field.widget.input_type == "password" %}
+            <input type="password" 
+                   name="{{ field.name }}" 
+                   style="background-color:white; color:black;" 
+                   {% if field.field.required %} required {% endif %} />
+            {% else %}
+            <input type="{{ field.field.widget.input_type }}" 
+                   name="{{ field.name }}" 
+                   style="background-color:white; color:black;" 
+                   {% if field.field.required %} required {% endif %}
+                   value="{{ field.value|default:'' }}" />
+            {% endif %}
+            
+            {% if field.errors %}
+            <div class="alert alert-danger">
+                {{ field.errors }}
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        <input type="submit" value="Submit" style="color:black;">
+    </form>
+</div>
+{% endblock content %}

@@ -1,0 +1,27 @@
+{% extends "UNRCE_APP/base.html" %}
+
+{% block content %}
+<div class="centered" style="color:white; background-color:#003087; margin-top: 20px; border-radius: 10px; padding: 15px; text-align: center;">
+  <img src="/media/RCEWA_Logo.png" alt="Logo" style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%;">
+  <h3 style="color:white; margin-top: 10px;">Login</h3>
+  <form method="post">
+    {% csrf_token %}
+    
+    {% for field in form %}
+    <div style="margin-bottom: 10px;">
+        {{ field.label_tag }}
+        <input type="{{ field.field.widget.input_type }}" 
+               name="{{ field.name }}" 
+               style="background-color:white; color:black;" 
+               {% if field.field.required %} required {% endif %}
+               value="{{ field.value|default:'' }}" />
+    </div>
+    {% if forloop.counter == 2 %}
+    <p style="color:white;">No account yet? Sign up <a href="{% url 'UNRCE_APP:signup' %}" style="color:white;">HERE</a></p>
+    {% endif %}
+    {% endfor %}
+ 
+    <input type="submit" value="Submit" style="color:black; background-color:white;">
+  </form>
+</div>
+{% endblock content %}

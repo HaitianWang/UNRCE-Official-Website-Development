@@ -1,0 +1,15 @@
+{% extends "UNRCE_APP/base.html" %}
+
+{% block content %}
+<main>
+  {% for image in images %}
+  {% include 'UNRCE_APP/image.html' %}
+  {% endfor%}
+<!--
+  The construction above means the following:
+  - for each image from the images list
+  - go get giffy_app/image.html template, render it 
+    and past the result here
+-->
+</main>
+{% endblock content %}
