@@ -1,3 +1,4 @@
 Django==3.0.9
 django-bootstrap4==2.2.0
 Pillow
+sendgrid==6.10.0
