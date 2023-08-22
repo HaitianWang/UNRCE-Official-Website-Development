@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class PoollsConfig(AppConfig):
+class PollsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'poolls'
+    name = 'polls'
