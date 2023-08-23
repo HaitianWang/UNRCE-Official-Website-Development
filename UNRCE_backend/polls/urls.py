@@ -4,7 +4,7 @@ from . import views
 
 app_name = 'polls'   # 重点是这一行
 
-urlpatterns = [
+# urlpatterns = [
     # # 例如: /polls/
     # path('', views.index, name='index'),
 
@@ -24,7 +24,7 @@ urlpatterns = [
     path('<int:question_id>/vote/', views.vote, name='vote'),
 ]
 
-]
+# ]
 
 
 
