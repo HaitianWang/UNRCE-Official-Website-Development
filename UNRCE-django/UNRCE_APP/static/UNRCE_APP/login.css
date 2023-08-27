@@ -1,0 +1,129 @@
+.login-container {
+    width: 100%;
+    max-width: 1440px;
+    min-height: 100vh;
+    background: white;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+}
+
+.login-box {
+    width: 608px;
+    min-height: 720px;
+    background: #003087;
+    border-radius: 4px;
+    padding-bottom: 20px;
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around; /* Adjusts the spacing between items */
+}
+
+.avatar-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 50px; /* Adjust this value to move the photo up or down */
+}
+
+.avatar-background {
+    width: 180px;
+    height: 180px;
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    z-index: -1; /* Places it behind the image */
+}
+
+.avatar-image {
+    width: 100%;
+    object-fit: cover;
+}
+
+.login-title,
+.input-label,
+.signup-prompt span,
+.signup-prompt a {
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.login-title {
+    text-align: center;
+    font-size: 42px;
+    font-weight: 400;
+    margin-top: 20px;
+}
+
+.input-container {
+    width: 100%;
+    max-width: 460px;
+    margin-bottom: 20px;
+}
+
+.input-label {
+    display: block;
+    text-align: left;
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.input-container input {
+    width: 100%; 
+    padding: 8px 12px; /* Reduced the horizontal padding */
+    border-radius: 4px;
+    background-color: white;
+    color: black;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-size: 16px; 
+    max-width: 500px; 
+}
+
+
+
+.submit-button {
+    margin: 10px auto;
+    color: black;
+    font-size: 24px;
+    font-weight: 400;
+    width: 100%;
+    max-width: 460px;
+    padding: 8px;
+    background-color: white;
+    border: none;
+    border-radius: 4px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer; /* Gives a hand cursor on hover */
+}
+
+.signup-prompt {
+    text-align: center;
+}
+
+.signup-prompt span,
+.signup-prompt a {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.signup-prompt a {
+    text-decoration: underline;
+}
+.reset-prompt {
+    text-align: center;  /* This centers the text */
+    margin-top: 0px;    /* This adds some space above the element */
+    margin-bottom: 10px; /* This adds some space below the element */
+    color: white;        /* Assuming you want the text to be white like other text in the login box */
+    width: 75%;         /* This ensures it spans the full width of the container */
+}
