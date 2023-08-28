@@ -1,20 +1,40 @@
 <header style="background-color: #003087;">
-    <nav>
-        <a href="/">Home</a>
 
-        <a href="{% url 'UNRCE_APP:upload' %}" class="upload-btn">
-          Upload
-        </a>
-        {% if user.is_authenticated %}
-        <!-- show log out link if user is already logged in -->
-        <a href="{% url 'UNRCE_APP:logout' %}">Logout</a>
-  
-        {% else %}
-    
-        <!-- show log in and sing up links otherwise   -->
-        <a href="{% url 'UNRCE_APP:login' %}">Login</a>
-        <a href="{% url 'UNRCE_APP:signup' %}">Signup</a>
-    
-        {% endif %}
-    </nav>
-  </header>
+  <div class="main-header">
+    <!-- This is just so that the header is centered -->
+      <nav>
+        <p></p>
+      </nav>
+    <!-- This is just so that the header is centered -->
+
+
+    <!-- Title -->
+      <h1> United Nations Regional Centre of Expertise for Western Australia</h1>
+    <!-- Title -->
+
+
+    <!-- Login/Signup/Logout -->
+      {% if user.is_authenticated %}
+      <!-- show log out link if user is already logged in -->
+      <nav>
+        <a class="topright" href="{% url 'UNRCE_APP:logout' %}">Logout</a>
+      </nav>
+      {% else %}
+      <!-- show log in and sing up links otherwise   -->
+      <nav>
+        <a class="topright" href="{% url 'UNRCE_APP:login' %}">Login</a><br>
+        <a class="topright" href="{% url 'UNRCE_APP:signup' %}">Signup</a>
+      </nav>
+      {% endif %}
+    <!-- Login/Signup/Logout -->
+
+  </div>
+</header>
+
+<header style="background-color: #5775ac;">
+  <!-- Navigation Panel -->
+  <nav>
+    <a href="/">Home</a>
+    <a href="{% url 'UNRCE_APP:upload' %}" class="upload-btn"> Upload</a>
+  </nav>
+</header>

@@ -1,3 +1,11 @@
 .centered{
     text-align: center;
 }
+
+.main-header {
+    display:flex
+}
+
+.header-nav {
+    background-color: blanchedalmond;
+}
