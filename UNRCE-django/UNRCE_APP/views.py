@@ -107,6 +107,10 @@ class UploadImageView(LoginRequiredMixin, View):
         "form": form,
       },
     )
-  
-def ContactUs(response):
-    return render(response, "UNRCE_APP/contactus.html", {})
+
+
+def forgot_password(request):
+    return render(request, 'UNRCE_APP/forgot-password.html')
+
+def reset_password(request):
+    return render(request, 'UNRCE_APP/reset-password.html')
