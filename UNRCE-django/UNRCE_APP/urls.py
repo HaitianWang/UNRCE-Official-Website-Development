@@ -1,6 +1,7 @@
 from django.urls import path, reverse_lazy
 from django.contrib.auth.views import LoginView, LogoutView
-from .views import IndexView, SignUpView, UploadImageView
+from .views import IndexView, SignUpView, UploadImageView, ContactUs
+# from . import views
 
 app_name = "UNRCE_APP"
 
@@ -25,4 +26,5 @@ urlpatterns = [
       # Added upload view here, don't forget to
   # import UploadImageView from .views
   path("upload/", UploadImageView.as_view(), name="upload"),
+  path("contactus/", ContactUs, name="contactus"),
 ]

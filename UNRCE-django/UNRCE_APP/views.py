@@ -107,3 +107,6 @@ class UploadImageView(LoginRequiredMixin, View):
         "form": form,
       },
     )
+  
+def ContactUs(response):
+    return render(response, "UNRCE_APP/contactus.html", {})
