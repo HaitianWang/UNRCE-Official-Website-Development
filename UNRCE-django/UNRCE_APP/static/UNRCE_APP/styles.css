@@ -2,10 +2,15 @@
     text-align: center;
 }
 
+h1 {
+    font-family: "Century Gothic", sans-serif;
+}
+
 .main-header {
     display:flex
 }
 
 .header-nav {
-    background-color: blanchedalmond;
+    background-color: #5775ac;
+    height: 70px;
 }
