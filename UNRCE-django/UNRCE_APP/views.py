@@ -114,3 +114,9 @@ def forgot_password(request):
 
 def reset_password(request):
     return render(request, 'UNRCE_APP/reset-password.html')
+
+def contact_us(request):
+    return render(request, 'UNRCE_APP/contact-us.html')
+
+def projects(request):
+    return render(request, 'UNRCE_APP/projects.html')

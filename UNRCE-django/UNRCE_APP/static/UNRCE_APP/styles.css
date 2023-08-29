@@ -2,15 +2,57 @@
     text-align: center;
 }
 
+/* Changing the Font of the thing at the top */
 h1 {
     font-family: "Century Gothic", sans-serif;
 }
 
+/* For the base header */
 .main-header {
     display:flex
 }
 
+/* For the base header navigation bar */
 .header-nav {
     background-color: #5775ac;
     height: 70px;
 }
+
+/* Small Headings, such as "Our projects" */
+.small-heading {
+    font-weight: bold;
+    color: black;
+}
+
+
+
+/* All below is for the Projects page, making it 3x3 */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 800px;
+    padding: 20px;
+}
+/* Individual Projects in the "Our projects" Page */
+.project {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.project img {     /* Project image */
+    max-width: 100%;
+    height: auto;
+}
+.project h3 {       /* Project title */
+    margin-top: 10px;
+    font-size: 18px;
+}
+.project:hover {
+    cursor: pointer;
+    /* transform: translateY(-1px); */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+/* All above is for the Projects page, making it 3x3 */
