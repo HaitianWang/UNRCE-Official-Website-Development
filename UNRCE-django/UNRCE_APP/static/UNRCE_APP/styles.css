@@ -52,7 +52,7 @@ h1 {
 }
 .project:hover {
     cursor: pointer;
-    /* transform: translateY(-1px); */
+    transform: translateY(-1px);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 /* All above is for the Projects page, making it 3x3 */
