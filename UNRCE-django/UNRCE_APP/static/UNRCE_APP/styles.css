@@ -9,7 +9,8 @@ h1 {
 
 /* For the base header */
 .main-header {
-    display:flex
+    display:flex;
+    height: 120px;
 }
 
 /* For the base header navigation bar */
@@ -23,8 +24,6 @@ h1 {
     font-weight: bold;
     color: black;
 }
-
-
 
 /* All below is for the Projects page, making it 3x3 */
 .project-grid {
@@ -44,7 +43,7 @@ h1 {
 }
 .project img {     /* Project image */
     max-width: 100%;
-    height: auto;
+    height: 120px;
 }
 .project h3 {       /* Project title */
     margin-top: 10px;
@@ -56,3 +55,4 @@ h1 {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 /* All above is for the Projects page, making it 3x3 */
+
