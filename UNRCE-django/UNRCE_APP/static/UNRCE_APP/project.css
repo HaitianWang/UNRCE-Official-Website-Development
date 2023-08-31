@@ -1,0 +1,109 @@
+/* Styling for the Projects Pages */
+.information{
+    background-color: #f1f1f1;
+    padding: 10px;
+    margin: 20px auto;
+    width: 100%;
+    border-radius: 10px;
+}
+.project-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.info-container {
+    font-size: small;
+    color: black;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 100%;  /* You can adjust this to fit your design */
+    margin: 0 auto; /* Centers the box if it has a max-width */
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for a bit of depth */
+}
+
+.project-title, .edit-project-details, .project-details, .region-label, .orgs-label, .project-desc, .language-label, .audience-label, .sdg-label {
+    font-family: Inter;
+    text-transform: capitalize;
+    word-wrap: break-word;
+}
+
+.project-title, .project-details, .region-label, .orgs-label, .language-label, .audience-label, .sdg-label {
+    font-weight: 700;
+}
+
+.edit-project-details, .project-desc {
+    font-weight: 500;
+}
+
+.project-title, .project-details {
+    font-size: 24px;
+}
+
+.edit-project-details, .region-label, .orgs-label, .language-label, .audience-label, .sdg-label {
+    font-size: 20px;
+}
+
+.project-desc, .audience-item, .frequency-item, .sdg-item {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* Positioning and colors */
+.project-title {
+    width: 268px;
+    height: 45px;
+    left: 50px;
+    top: 213px;
+    position: absolute;
+    color: black;
+}
+
+.edit-project-details {
+    width: 173px;
+    height: 45px;
+    left: 913px;
+    top: 209px;
+    position: absolute;
+    color: #020057;
+}
+
+.white-box {
+    background: white;
+}
+
+/* Sustainable Development Goals styles */
+.sdg {
+    width: 187px;
+    height: 36px;
+    border-radius: 50px;
+    position: absolute;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.no-poverty {
+    background: #FF3434;
+    left: 92px;
+    top: 1536px;
+}
+
+.zero-hunger {
+    background: #F19744;
+    left: 301px;
+    top: 1536px;
+}
+
+/* Placeholder Image */
+.placeholder-img {
+    width: 586px;
+    height: 112px;
+    left: 93px;
+    top: 1399px;
+    position: absolute;
+}

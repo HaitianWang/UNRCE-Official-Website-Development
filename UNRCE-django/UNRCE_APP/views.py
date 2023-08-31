@@ -107,3 +107,22 @@ class UploadImageView(LoginRequiredMixin, View):
         "form": form,
       },
     )
+
+#display forgot password page
+def forgot_password(request):
+    return render(request, 'UNRCE_APP/forgot-password.html')
+#display reset password page
+def reset_password(request):
+    return render(request, 'UNRCE_APP/reset-password.html')
+#display contact page
+def contact_us(request):
+    return render(request, 'UNRCE_APP/contact-us.html')
+#display projects page
+def projects(request):
+    return render(request, 'UNRCE_APP/projects.html')
+
+#display information from the chosen project page 
+def specific_project(request):
+    img_src = request.GET.get('img', '') 
+    title_text = request.GET.get('title', '')
+    return render(request, 'UNRCE_APP/specific_project.html', {'img_src': img_src, 'title_text': title_text})

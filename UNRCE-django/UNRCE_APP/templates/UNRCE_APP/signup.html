@@ -1,43 +1,56 @@
 {% extends "UNRCE_APP/base.html" %}
+{% load static %}
 
 {% block content %}
-<div class="centered" style="text-align:center;color:black;background-color: lightgray;margin-top: 20px;border-radius: 10px; padding: 15px;">
-    <h3>Sign up</h3>
 
-    <form method="post" action="{% url 'UNRCE_APP:signup' %}">
-        {% csrf_token %}
+<div class="login-container">
 
-        {% if form.non_field_errors %}
-        <div class="alert alert-danger">
-            {{ form.non_field_errors }}
+    <div class="login-box">
+
+        <div class="avatar-container">
+            <div class="avatar-background"></div>
+            <!-- Replace with your signup related image or logo -->
+            <img class="avatar-image" src="{% static 'images/Font_1._.png' %}" />
         </div>
-        {% endif %}
 
-        {% for field in form %}
-        <div style="margin-bottom: 10px;">
-            {{ field.label_tag }}
-            {% if field.field.widget.input_type == "password" %}
-            <input type="password" 
-                   name="{{ field.name }}" 
-                   style="background-color:white; color:black;" 
-                   {% if field.field.required %} required {% endif %} />
-            {% else %}
-            <input type="{{ field.field.widget.input_type }}" 
-                   name="{{ field.name }}" 
-                   style="background-color:white; color:black;" 
-                   {% if field.field.required %} required {% endif %}
-                   value="{{ field.value|default:'' }}" />
-            {% endif %}
-            
-            {% if field.errors %}
-            <div class="alert alert-danger">
-                {{ field.errors }}
+        <div class="login-title">Sign Up</div>
+
+        <form method="post" class="login-form" action="{% url 'UNRCE_APP:signup' %}">
+            {% csrf_token %}
+
+            {% for field in form %}
+            <div class="input-container">
+                <label for="{{ field.auto_id }}" class="input-label">{{ field.label }}</label>
+
+                {% if field.field.widget.input_type == "password" %}
+                <input type="password" 
+                       id="{{ field.auto_id }}"
+                       name="{{ field.name }}" 
+                       {% if field.field.required %} required {% endif %} />
+                {% else %}
+                <input type="{{ field.field.widget.input_type }}" 
+                       id="{{ field.auto_id }}"
+                       name="{{ field.name }}" 
+                       {% if field.field.required %} required {% endif %}
+                       value="{{ field.value|default:'' }}" />
+                {% endif %}
+
+                {% if field.errors %}
+                <div class="alert alert-danger">
+                    {{ field.errors }}
+                </div>
+                {% endif %}
             </div>
-            {% endif %}
-        </div>
-        {% endfor %}
+            {% endfor %}
 
-        <input type="submit" value="Submit" style="color:black;">
-    </form>
+            <input type="submit" value="Submit" class="submit-button" style="color:black;">
+        </form>
+
+        <div class="signup-prompt">
+            <span>Already have an account? Log in </span>
+            <a href="/login">HERE</a>
+        </div>
+    </div>
 </div>
+
 {% endblock content %}

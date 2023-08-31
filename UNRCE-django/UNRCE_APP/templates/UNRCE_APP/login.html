@@ -1,23 +1,52 @@
 {% extends "UNRCE_APP/base.html" %}
+{% load static %}
 
 {% block content %}
-<div class="centered" style="text-align:center;color:black;background-color:lightgray;margin-top: 20px;border-radius: 10px; padding: 15px;">
-  <h3>Login</h3>
-  <form method="post">
-    {% csrf_token %}
-    
-    {% for field in form %}
-    <div style="margin-bottom: 10px;">
-        {{ field.label_tag }}
-        <input type="{{ field.field.widget.input_type }}" 
-               name="{{ field.name }}" 
-               style="background-color:white; color:black;" 
-               {% if field.field.required %} required {% endif %}
-               value="{{ field.value|default:'' }}" />
+
+<div class="login-container">
+
+    <div class="login-box">
+
+        <div class="avatar-container">
+            <div class="avatar-background"></div>
+            <img class="avatar-image" src="{% static 'images/Font_1._.png' %}" alt="Avatar Image">
+        </div>
+
+        <div class="login-title">Log In</div>
+
+        <!-- Display the success message if available (Optional based on your logic) -->
+        {% if messages %}
+        {% for message in messages %}
+        <div class="success-message">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
+        
+        <form method="post" class="login-form">
+            {% csrf_token %}
+            
+            {% for field in form %}
+            <div class="input-container">
+                <label for="{{ field.auto_id }}" class="input-label">{{ field.label }}</label>
+                <input type="{{ field.field.widget.input_type }}" 
+                       id="{{ field.auto_id }}"
+                       name="{{ field.name }}" 
+                       {% if field.field.required %} required {% endif %}
+                       value="{{ field.value|default:'' }}" />
+            </div>
+            {% endfor %}
+
+            <input type="submit" value="Submit" class="submit-button" style="color:black;">
+
+            <!-- Forgot Password Link -->
+            <a href="/forgot-password/" class="forgot-password-link">Forgot your password?</a>
+        </form>
+
+        <div class="signup-prompt">
+            <span>No account yet? Sign up </span>
+            <a href="/signup">HERE</a>
+        </div>
+
     </div>
-    {% endfor %}
- 
-    <input type="submit" value="Submit" style="color:black;">
-  </form>
 </div>
+
 {% endblock content %}
