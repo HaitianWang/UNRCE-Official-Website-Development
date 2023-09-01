@@ -1,4 +1,4 @@
-/* Styling for the Projects Pages */
+
 .information {
     background-color: #f1f1f1;
     padding: 10px;
@@ -72,6 +72,8 @@ h5{
 }
 .info-container {
     font-size: small;
+    border: 1px solid lightgray;
+    border-radius: 10px;
     color: black;
     padding: 20px;
     max-width: 100%;  /* You can adjust this to fit your design */
