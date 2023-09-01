@@ -1,7 +1,24 @@
 from django.views import View
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
+from django.core.signing import TimestampSigner
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from django.http import HttpResponse
+from django.urls import reverse
+from django.conf import settings
+
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.contrib.auth.forms import SetPasswordForm
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str
+
+
+
+
+
 
 # LoginRequiredMixin will check that user 
 # is authenticated before rendering the template.
@@ -107,22 +124,66 @@ class UploadImageView(LoginRequiredMixin, View):
         "form": form,
       },
     )
+  
 
-#display forgot password page
-def forgot_password(request):
-    return render(request, 'UNRCE_APP/forgot-password.html')
-#display reset password page
-def reset_password(request):
-    return render(request, 'UNRCE_APP/reset-password.html')
-#display contact page
-def contact_us(request):
-    return render(request, 'UNRCE_APP/contact-us.html')
-#display projects page
-def projects(request):
-    return render(request, 'UNRCE_APP/projects.html')
 
-#display information from the chosen project page 
-def specific_project(request):
-    img_src = request.GET.get('img', '') 
-    title_text = request.GET.get('title', '')
-    return render(request, 'UNRCE_APP/specific_project.html', {'img_src': img_src, 'title_text': title_text})
+
+
+
+
+
+class ForgetPasswordView(View):
+    # ...
+    def post(self, request):
+        email = request.POST.get('email')
+        user = User.objects.filter(email=email).first()
+        if user:
+            token_generator = PasswordResetTokenGenerator()
+            token = token_generator.make_token(user)
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            reset_url = request.build_absolute_uri(reverse('UNRCE_APP:reset_password', args=[uid, token]))
+            # ... (rest of the logic remains same)
+
+class ResetPasswordView(View):
+    def get(self, request, uidb64, token):
+        try:
+            uid = force_str(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(pk=uid)
+            token_generator = PasswordResetTokenGenerator()
+            
+            if token_generator.check_token(user, token):
+                return render(request, 'UNRCE_APP/reset_password.html', {'user': user})
+            else:
+                return HttpResponse('Token is invalid or expired')
+        except User.DoesNotExist:
+            return HttpResponse('Token is invalid')
+
+    def post(self, request, uidb64, token):
+        try:
+            uid = force_str(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(pk=uid)
+
+            form = SetPasswordForm(user, request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('UNRCE_APP:login')
+            return render(request, 'UNRCE_APP/reset_password.html', {'form': form, 'user': user})
+        except User.DoesNotExist:
+            return HttpResponse('Error resetting password')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

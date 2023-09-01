@@ -16,6 +16,8 @@ app_name = 'polls'   # 重点是这一行
 
     # # 例如: /polls/5/vote/
     # path('<int:question_id>/vote/', views.vote, name='vote'),
+
+    # ]
     
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
@@ -24,7 +26,7 @@ urlpatterns = [
     path('<int:question_id>/vote/', views.vote, name='vote'),
 ]
 
-# ]
+
 
 
 
