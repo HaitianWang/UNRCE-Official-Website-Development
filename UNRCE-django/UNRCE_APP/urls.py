@@ -24,7 +24,7 @@ urlpatterns = [
     # Added signup view here
     path("signup/", SignUpView.as_view(), name="signup"),
       # Added upload view here, don't forget to
-  # import UploadImageView from .views
+  # import UploadImageView from .views - hello
   path("upload/", UploadImageView.as_view(), name="upload"),
   path('forgot-password/', views.forgot_password, name='forgot-password'),
   path('reset-password/', views.reset_password, name='reset-password'),

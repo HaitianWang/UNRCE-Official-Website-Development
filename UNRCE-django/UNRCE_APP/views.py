@@ -121,7 +121,8 @@ def contact_us(request):
 def projects(request):
     return render(request, 'UNRCE_APP/projects.html')
 
-#display information from the chosen project page 
+#display information from the chosen project page
+# hello 
 def specific_project(request):
     img_src = request.GET.get('img', '') 
     title_text = request.GET.get('title', '')
