@@ -24,11 +24,6 @@ class Image(models.Model):
     return f"Image<{self.id}>"
 
 
-
-
-    def __str__(self):
-        return f"Image<{self.id}>"
-
 class ProjectFile(models.Model):
     project = models.ForeignKey('Project', on_delete=models.CASCADE)
     file = models.FileField(upload_to='project_files/')
@@ -46,7 +41,7 @@ class ProjectImage(models.Model):
     def __str__(self):
         return f"Image<{self.id}> for Project<{self.project_id}>"
     
-# Assuming you already have a User and Organisation model, if not you need to define/import them.
+
 class Project(models.Model):
     # choices for fields
     AUDIENCE_CHOICES = [
@@ -71,7 +66,6 @@ class Project(models.Model):
     ]
 
     SELECTION_CHOICES = [
-        ('', 'Select'),
         ('direct', 'Direct'),
         ('indirect', 'Indirect'),
     ]
@@ -85,14 +79,13 @@ class Project(models.Model):
         on_delete=models.CASCADE,
         default=1
     )
-# set default for now to 1 but will change it when we start putting functions in so that logged in person would be the default manager! 
+
 
     project_cover_image = models.FileField(upload_to='project_images/', null=True, blank=True)
 
 
     description = models.TextField()
 
-    contributing_organizations = models.ManyToManyField('Organisation')
 
     created_at = models.DateTimeField(auto_now_add=True)  # Set to 'now' when the record is created
     concluded_on = models.DateTimeField(null=True, blank=True)  # Null by default
@@ -117,6 +110,9 @@ class Project(models.Model):
     funding = models.TextField(blank=True)
 
     sdgs = models.ManyToManyField('SDG', through='ProjectSDG')
+    contributing_organizations = models.ManyToManyField('Organisation', related_name='contributing_projects')
+    affiliations = models.ManyToManyField('Organisation', related_name='affiliated_projects')
+
 
     priority_area_1 = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
     priority_area_2 = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
@@ -171,8 +167,14 @@ class SDG(models.Model):
     sdg = models.CharField(max_length=10, choices=SDGEnum.choices)
 
 class ProjectSDG(models.Model):
+    SELECTION_CHOICES = [
+        ('direct', 'Direct'),
+        ('indirect', 'Indirect'),
+    ]
+    
     project = models.ForeignKey('Project', on_delete=models.CASCADE)
     sdg = models.ForeignKey('SDG', on_delete=models.CASCADE)
+    relationship_type = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='')
 
     class Meta:
         unique_together = ['project', 'sdg']
@@ -187,18 +189,5 @@ class Organisation(models.Model):
     org_name = models.CharField(max_length=255, unique=True)
     address = models.TextField(null=True, blank=True)
 
-class Affiliation(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    org = models.ForeignKey('Organisation', on_delete=models.CASCADE)
-    authenticated = models.BooleanField(default=False)
-    #authenticated_by = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True, blank=True, related_name="authenticated_affiliations", verbose_name="Authenticated by")
-    #authentication_timestamp = models.DateTimeField(null=True, blank=True, verbose_name="Authentication Timestamp")
-
-class ProjectPartnerCompanies(models.Model):
-    project = models.ForeignKey('Project', on_delete=models.CASCADE)
-    partner_company = models.ForeignKey('Organisation', on_delete=models.CASCADE)
-
-    class Meta:
-        unique_together = ['project', 'partner_company']
 
 
