@@ -14,10 +14,10 @@
                style="background-color:white; color:black;" 
                {% if field.field.required %} required {% endif %}
                value="{{ field.value|default:'' }}" />
-       
-        <input type="submit" value="Log In" style="color:black;">
-        <a href="{% url 'UNRCE_APP:forget_password' %}">Forgot Password</a>
-        
+        {% if forloop.last %}
+        <input type="submit" value="登录" style="color:black;">
+        <a href="{% url 'UNRCE_APP:forget_password' %}">忘记密码？</a>
+        {% endif %}
     </div>
     {% endfor %}
   </form>
