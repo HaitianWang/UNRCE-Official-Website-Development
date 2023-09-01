@@ -1,3 +1,4 @@
+
 .information {
     background-color: #f1f1f1;
     padding: 10px;
@@ -71,9 +72,9 @@ h5{
 }
 .info-container {
     font-size: small;
-    color: black;
     border: 1px solid lightgray;
     border-radius: 10px;
+    color: black;
     padding: 20px;
     max-width: 100%;  /* You can adjust this to fit your design */
     margin: 0 auto; /* Centers the box if it has a max-width */
@@ -85,28 +86,22 @@ h5{
     text-transform: capitalize;
     word-wrap: break-word;
 }
-
 .project-title, .project-details, .region-label, .orgs-label, .language-label, .audience-label, .sdg-label {
     font-weight: 700;
 }
-
 .edit-project-details, .project-desc {
     font-weight: 500;
 }
-
 .project-title, .project-details {
     font-size: 24px;
 }
-
 .edit-project-details, .region-label, .orgs-label, .language-label, .audience-label, .sdg-label {
     font-size: 20px;
 }
-
 .project-desc, .audience-item, .frequency-item, .sdg-item {
     font-size: 16px;
     font-weight: 600;
 }
-
 /* Positioning and colors */
 .project-title {
     width: 268px;
@@ -116,7 +111,6 @@ h5{
     position: absolute;
     color: black;
 }
-
 .edit-project-details {
     width: 173px;
     height: 45px;
@@ -125,11 +119,9 @@ h5{
     position: absolute;
     color: #020057;
 }
-
 .white-box {
     background: white;
 }
-
 /* Sustainable Development Goals styles */
 .sdg {
     width: 187px;
@@ -140,19 +132,16 @@ h5{
     font-size: 16px;
     font-weight: 600;
 }
-
 .no-poverty {
     background: #FF3434;
     left: 92px;
     top: 1536px;
 }
-
 .zero-hunger {
     background: #F19744;
     left: 301px;
     top: 1536px;
 }
-
 /* Placeholder Image */
 .placeholder-img {
     width: 586px;
