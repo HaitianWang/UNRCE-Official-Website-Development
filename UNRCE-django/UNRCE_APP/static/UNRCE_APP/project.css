@@ -1,10 +1,28 @@
-/* Styling for the Projects Pages */
-.information{
+.information {
     background-color: #f1f1f1;
     padding: 10px;
-    margin: 20px auto;
+    margin: 10px auto;
     width: 100%;
+    max-width: 1400px; /* Limit the width for large screens */
     border-radius: 10px;
+}
+
+.image {
+    max-width: 70%; /* Adjust this percentage as per your requirement */
+    height: 60%; 
+    object-fit: cover;
+    margin-right: 20px; /* Spacing between image and title/details */
+    margin-top: 0;
+    margin-bottom: 20px;
+    align-self: flex-end;
+}
+#projectTitle{
+    margin-bottom: 5px;
+    margin-top: 0%;
+}
+h5{
+    margin-top: 2px;
+    margin-bottom: 10px;
 }
 .project-container {
     width: 100%;
@@ -12,18 +30,54 @@
     position: relative;
     color: black;
     display: flex;
-    justify-content: space-between;
+    align-items: stretch; /* Center items vertically */
+    justify-content: flex-start; /* Align items to the start */
     flex-wrap: wrap;
 }
-.info-container {
+.region {
     font-size: small;
+    line-height: 0.1; /* Ensure the text takes up its natural space without added spacing */
+    height: auto; /* Let the height be determined by content and padding */
+    width: calc(100% - 80px);
     color: black;
     border: 1px solid lightgray;
     border-radius: 10px;
+    padding: 4px 10px; /* Adjust vertical padding */
+    text-align: left;
+    display: inline-flex; /* This will help in vertically centering the content */
+    align-items: center; /* Vertically center the content */
+}
+
+.region-container {
+    margin-bottom: 20px; /* Adjust this value to your liking */
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Pushes items to either end */
+    width: 100%; /* Ensures it spans the full width */
+    padding: 0 20px; /* Padding on left and right */
+}
+.region-title{
+    margin: 0;
+}
+.region-title, .region{
+    display: inline-block;
+    vertical-align: top;
+}
+.project-details {
+    flex: 1; /* Allow the details to expand and take available space */
+    display: flex;
+    flex-direction: column; /* Stack child items vertically */
+    justify-content: space-between; /* Distribute the space between child items */
+}
+.info-container {
+    font-size: small;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    color: black;
     padding: 20px;
     max-width: 100%;  /* You can adjust this to fit your design */
     margin: 0 auto; /* Centers the box if it has a max-width */
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for a bit of depth */
+    margin-bottom: 20px;
 }
 
 .project-title, .edit-project-details, .project-details, .region-label, .orgs-label, .project-desc, .language-label, .audience-label, .sdg-label {
