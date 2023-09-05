@@ -191,3 +191,16 @@ class Organisation(models.Model):
 
 
 
+"""	
+class Affiliation(models.Model):	
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)	
+    org = models.ForeignKey('Organisation', on_delete=models.CASCADE)	
+    authenticated = models.BooleanField(default=False)	
+    #authenticated_by = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True, blank=True, related_name="authenticated_affiliations", verbose_name="Authenticated by")	
+    #authentication_timestamp = models.DateTimeField(null=True, blank=True, verbose_name="Authentication Timestamp")	
+class ProjectPartnerCompanies(models.Model):	
+    project = models.ForeignKey('Project', on_delete=models.CASCADE)	
+    partner_company = models.ForeignKey('Organisation', on_delete=models.CASCADE)	
+    class Meta:	
+        unique_together = ['project', 'partner_company']	
+"""
