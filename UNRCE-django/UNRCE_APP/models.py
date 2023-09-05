@@ -74,11 +74,12 @@ class Project(models.Model):
     
     title = models.TextField(default="Default Title")
 
-    manager = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        default=1
-    )
+
+    #manager = models.ForeignKey(	
+       # settings.AUTH_USER_MODEL,	
+      #  on_delete=models.CASCADE,	
+     #   default=1	
+    #)
 
 
     project_cover_image = models.FileField(upload_to='project_images/', null=True, blank=True)

@@ -3,8 +3,6 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
 from UNRCE_APP.models import Project 
-from django.contrib.auth.decorators import login_required  # Import the login_required decorator
-
 
 
 # LoginRequiredMixin will check that user 
@@ -16,7 +14,6 @@ from .models import Image
 from .forms import UploadImageForm
 
 
-from UNRCE_APP.models import Project, SDG, ProjectSDG
 
 
 class IndexView(View):
@@ -134,7 +131,6 @@ def specific_project(request):
     return render(request, 'UNRCE_APP/specific_project.html', {'img_src': img_src, 'title_text': title_text})
 
 
-
 class CreateProject(View):
     
     def get(self, request):
@@ -187,10 +183,8 @@ class CreateProject(View):
 
         return render(request, 'UNRCE_APP/create_project.html', context)
     
-
-    @login_required
     def post(self, request):
-          
+          print(request.POST)        
           user = request.user
 
           new_project = Project(
@@ -200,7 +194,7 @@ class CreateProject(View):
     delivery_frequency=request.POST.get("delivery_frequency"),
     created_at=request.POST.get("start_date"),
     concluded_on =request.POST.get("end_date"),
-    manager=user,  # to set the currently logged-in user as the manager
+   # manager=user,  # to set the currently logged-in user as the manager
     project_cover_image=request.FILES.get("project_cover_image"),
     language=request.POST.get("language"),
     format=request.POST.get("format"),
@@ -217,7 +211,7 @@ class CreateProject(View):
 
         # Save the new project instance to the database
           new_project.save()
-          return redirect("/projects/")  # Update the URL according to your project
+          return redirect("/upload/")  # Update the URL according to your project
 """
           sdgs = ['SDG1', 'SDG2', 'SDG3', 'SDG4', 'SDG5']  # List of SDGs
           for sdg in sdgs:
