@@ -9,8 +9,8 @@
 
 ## Tests:
 ### Commands
-- Run all tests: `./manage.py test`
-- Run a specific test group: `./manage.py test tests/test_`**group**`.py`
+- Run all tests: `python manage.py test`
+- Run a specific test group: `python manage.py test tests/test_`**group**`.py`
 
 | Useful flags | What they do |
 |--------------|--------------|
