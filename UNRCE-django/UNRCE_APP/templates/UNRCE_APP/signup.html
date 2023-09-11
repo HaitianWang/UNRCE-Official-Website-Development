@@ -9,11 +9,17 @@
 
         <div class="avatar-container">
             <div class="avatar-background"></div>
-            <!-- Replace with your signup related image or logo -->
-            <img class="avatar-image" src="{% static 'images/Font_1._.png' %}" />
+            <img class="avatar-image" src="{% static 'images/Font_1._.png' %}" alt="Signup Avatar">
         </div>
 
         <div class="login-title">Sign Up</div>
+
+        <!-- Display any form errors (like password mismatch) -->
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
 
         <form method="post" class="login-form" action="{% url 'UNRCE_APP:signup' %}">
             {% csrf_token %}
@@ -43,13 +49,15 @@
             </div>
             {% endfor %}
 
-            <input type="submit" value="Submit" class="submit-button" style="color:black;">
+            <input type="submit" value="Register" class="submit-button" style="color:black;">
+
         </form>
 
         <div class="signup-prompt">
-            <span>Already have an account? Log in </span>
-            <a href="/login">HERE</a>
+            <span>Already have an account? </span>
+            <a href="{% url 'UNRCE_APP:login' %}">Log in HERE</a>
         </div>
+
     </div>
 </div>
 

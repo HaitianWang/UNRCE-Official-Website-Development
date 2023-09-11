@@ -1,7 +1,11 @@
 from django.urls import path, reverse_lazy
 from django.contrib.auth.views import LoginView, LogoutView
 from .views import IndexView, SignUpView, UploadImageView, CreateProject
+from .views import CustomLoginView
+from django.contrib.auth.views import LogoutView
+from .views import IndexView, SignUpView, UploadImageView
 from . import views
+from .forms import CustomAuthenticationForm
 
 app_name = "UNRCE_APP"
 
@@ -9,7 +13,8 @@ urlpatterns = [
     path("", IndexView.as_view(), name="index"),
     path(
         "login/",
-        LoginView.as_view(
+        CustomLoginView.as_view(
+            authentication_form=CustomAuthenticationForm,
             template_name="UNRCE_APP/login.html",
             success_url=reverse_lazy("UNRCE_APP:index"),
             redirect_authenticated_user=True,
