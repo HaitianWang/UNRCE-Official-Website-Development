@@ -1,5 +1,6 @@
 from django.urls import path, reverse_lazy
-from django.contrib.auth.views import LoginView, LogoutView
+from .views import CustomLoginView
+from django.contrib.auth.views import LogoutView
 from .views import IndexView, SignUpView, UploadImageView, CreateProject
 from .views import CustomLoginView
 from django.contrib.auth.views import LogoutView

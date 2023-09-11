@@ -2,6 +2,8 @@ from django.views import View
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, views as auth_views
 from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
 from UNRCE_APP.models import Project 
 
 from django.urls import reverse_lazy
@@ -17,8 +19,6 @@ from .forms import UploadImageForm, CustomUserCreationForm
 
 from django.contrib.auth.views import LoginView
 from django.contrib import messages
-
-
 
 class CustomLoginView(LoginView):
     
@@ -47,6 +47,14 @@ class IndexView(View):
 
 
 class SignUpView(View):
+    def get(self, request):
+        return render(
+            request,
+            "UNRCE_APP/signup.html",
+            {
+                "form": CustomUserCreationForm(),
+            },
+        )
     def get(self, request):
         return render(
             request,
