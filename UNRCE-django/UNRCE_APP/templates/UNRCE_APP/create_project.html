@@ -1,0 +1,224 @@
+{% extends "UNRCE_APP/base.html" %}
+
+{% block content %}
+
+<form method="post">
+  {% csrf_token %}
+  <div class="tab">
+  
+    <button class="tablinks" onclick="openTab(event, 'Tab1')" id="defaultOpen">Tab 1</button>
+
+    <button class="tablinks" onclick="openTab(event, 'Tab2')">Location</button>
+    <button class="tablinks" onclick="openTab(event, 'Tab3')">Contents</button>
+    <button class="tablinks" onclick="openTab(event, 'Tab4')">SDG</button>
+    <button class="tablinks" onclick="openTab(event, 'Tab5')">ESD</button>
+    <button class="tablinks" onclick="openTab(event, 'Tab6')">Submission</button>
+    <!-- Add more tabs as needed -->
+  </div>
+
+  <div id="Tab1" class="tabcontent">
+    <!-- Form fields for Tab 1 -->
+
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title"><br><br>
+
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="description" rows="4" cols="50"></textarea><br><br>
+        
+        <label for="language">Language:</label>
+        <input type="text" id="language" name="language"><br><br>
+        
+        <label for="format">Format:</label>
+        <input type="text" id="format" name="format"><br><br>
+        
+        <label for="web_link">Web Link:</label>
+        <input type="text" id="web_link" name="web_link"><br><br>
+        
+        <label for="policy_link">Policy Link:</label>
+        <input type="text" id="policy_link" name="policy_link"><br><br>
+        
+        <!-- Add other fields for Tab 1 here -->
+  </div>
+
+  <div id="Tab2" class="tabcontent">
+    <!-- Form fields for Tab 2 -->
+
+        <label>Target Audience:</label><br>
+        
+        {% for option in audience_options %}
+            <input type="checkbox" id="{{ option.id }}" name="audience-options" value="{{ option.id }}">
+            <label for="{{ option.id }}">{{ option.name }}</label><br>
+        {% endfor %}
+
+        <label>Delivery Frequency:</label>
+        {% for option in delivery_frequency_options %}
+            <input type="radio" id="{{ option.id }}" name="delivery_frequency" value="{{ option.id }}">
+            <label for="{{ option.id }}">{{ option.name }}</label><br>
+        {% endfor %}
+        
+
+
+        
+</div>
+
+
+<div id="Tab3" class="tabcontent">
+    <!--  -->
+    
+        <label for="results">Results:</label>
+        <textarea id="results" name="results" rows="2" cols="50"></textarea><br><br>
+        
+        <label for="lessons_learned">Lessons Learned:</label>
+        <textarea id="lessons_learned" name="lessons_learned" rows="2" cols="50"></textarea><br><br>
+        
+        <label for="key_messages">Key Messages:</label>
+        <input type="text" id="key_messages" name="key_messages"><br><br>
+        
+        <label for="relationship_to_rce_activities">Relationship to RCE Activities:</label>
+        <textarea id="relationship_to_rce_activities" name="relationship_to_rce_activities" rows="2" cols="50"></textarea><br><br>
+        
+        <label for="funding">Funding:</label>
+        <textarea id="funding" name="funding" rows="2" cols="50"></textarea><br><br>
+    
+</div>
+
+<div id="Tab4" class="tabcontent">
+    <!-- SDG -->
+              <label for="sdgs">Choose the SDGs from the following:</label>
+              <div id="sdgs-selection">
+                {% for sdg in sdgs %}
+                <div class="sdg-item">
+                  <div class="sdg-name">
+                    <p>{{ sdg }}</p>
+                  </div>
+                  <div class="sdg-options">
+                    <label class="sdg-option-label" for="sdg_relationship_{{ sdg }}_indirect">Indirect</label>
+                    <input type="radio" id="sdg_relationship_{{ sdg }}_indirect" name="sdg_relationship_{{ sdg }}" value="indirect">
+                    <label class="sdg-option-label" for="sdg_relationship_{{ sdg }}_direct">Direct</label>
+                    <input type="radio" id="sdg_relationship_{{ sdg }}_direct" name="sdg_relationship_{{ sdg }}" value="direct">
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+          </div>
+
+
+          
+
+
+
+<div id="Tab5" class="tabcontent">
+    <!-- ESD and PAA -->
+
+    <label for="esdThemes">Choose the Activities from the following:</label>
+    <div id="sdgs-selection">
+        {% for option in esd_themes %}
+        <div class="sdg-item">
+            <div class="sdg-name">
+                <p>{{ option.name }}</p>
+            </div>
+            <div class="sdg-option">
+                <label class="sdg-option-label" for="{{ option.id }}_indirect">Indirect</label>
+                <input type="radio" id="{{ option.id }}_indirect" name="{{ option.id }}" value="indirect">
+                <label class="sdg-option-label" for="{{ option.id }}_direct">Direct</label>
+                <input type="radio" id="{{ option.id }}_direct" name="{{ option.id }}" value="direct">
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+
+    <label for="esdOptions">Choose the Activities from the following:</label>
+    <div id="sdgs-selection">
+        {% for option in esd_options %}
+        <div class="sdg-item">
+            <div class="sdg-name">
+                <p>{{ option.name }}</p>
+            </div>
+            <div class="sdg-option">
+                <label class="sdg-option-label" for="{{ option.id }}_indirect">Indirect</label>
+                <input type="radio" id="{{ option.id }}_indirect" name="{{ option.id }}" value="indirect">
+                <label class="sdg-option-label" for="{{ option.id }}_direct">Direct</label>
+                <input type="radio" id="{{ option.id }}_direct" name="{{ option.id }}" value="direct">
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+
+</div>
+
+
+<div id="Tab6" class="tabcontent">
+    <!-- last page of the form for submission
+    add functionality to the submit button -->
+
+        <p>terms and conditions</p>
+        <label for="terms_and_conditions" style = "font-size: 14px; ">
+            Personal data provided under this form will be processed by UNU in accordance with the UNU Policy on Personal Data Protection. Your information and personal
+            data will strictly be used for the purpose of payment processing and will be held in confidence. Access to your information and personal data is strictly limited to
+            UNU’s authorized employees and agents on a “need-to-know” basis. UNU will retain your personal data only for the period necessary, unless UNU has an
+            obligation to preserve your personal data for administrative, fiscal, legal, scientific, historical or informational value, or otherwise in accordance with UNU’s
+            retention policies. Further details are available here. Any information about the processing of personal data and how to request access, verification, rectification
+            and/or deletion of personal data may be addressed to: Aya Yokoi, Data Protection Focal Point at UNU-IAS, at yokoi@unu.edu
+        </label>
+        
+        <!-- Add a checkbox for accepting terms and conditions -->
+        <input type="checkbox" id="terms_and_conditions" name="terms_and_conditions" required>
+        <label for="terms_and_conditions">I accept the terms and conditions</label>
+        
+                
+      </div>
+      <input type="submit" value="Submit" class="submit-button" style="color:white; " value="Add Project">
+
+
+</form>
+
+
+  <!-- Add more tab content divs as needed -->
+
+  <script>
+    // Function to show the content of the selected tab
+    function openTab(evt, tabName) {
+      var i, tabcontent, tablinks;
+
+      // Hide all tab content
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+
+      // Deactivate all tab buttons
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+
+      // Show the selected tab content and activate the tab button
+      document.getElementById(tabName).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+
+    // Show Tab 1 content by default
+    // Show Tab 1 content by default
+
+    if (tabName === "Tab6") {
+      document.querySelector(".submit-button").style.display = "block";
+    } else {
+      document.querySelector(".submit-button").style.display = "none";
+    }
+  
+document.getElementById("Tab1").style.display = "block";
+
+
+
+  </script>
+{% endblock %}
+
+
+
+<!--<label for="language">Language:</label>
+        <input type="text" id="language" name="language"><br><br>
+        
+        <label for="format">Format:</label>
+        <input type="text" id="format" name="format"><br><br>-->

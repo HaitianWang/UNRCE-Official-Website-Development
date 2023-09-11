@@ -1,0 +1,19 @@
+.sdg-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .sdg-name {
+    flex: 1;
+    padding-right: 10px;
+  }
+  
+  .sdg-option-label {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  
+  /* Adjust styling as needed */
+  
