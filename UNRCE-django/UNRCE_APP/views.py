@@ -112,13 +112,12 @@ class UploadImageView(LoginRequiredMixin, View):
       },
     )
 
-
+#display forgot password page
 def forgot_password(request):
     return render(request, 'UNRCE_APP/forgot-password.html')
-
+#display reset password page
 def reset_password(request):
     return render(request, 'UNRCE_APP/reset-password.html')
-
 def contact_us(request):
     return render(request, 'UNRCE_APP/contact-us.html')
 #display projects page
