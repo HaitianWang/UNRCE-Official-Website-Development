@@ -17,6 +17,7 @@
 | --keepdb     | Retains the database after testing is complete |
 | --no-input   | Ignores prompt to keep copy of test db if tests fail |
 | --failfast|Stops testing immediately if any test fails|
+| --parallel|Allows tests to run simultaneously|
 [Other Flags](https://docs.djangoproject.com/en/4.2/ref/django-admin/#test)
 
 ### Selenium tests:
