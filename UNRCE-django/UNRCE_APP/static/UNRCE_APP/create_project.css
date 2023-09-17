@@ -1,3 +1,62 @@
+.tablinks {
+  background-color: #f1f1f1 !important;
+
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+.tablinks {
+  background-color: #f1f1f1;
+}
+
+input[type="file"] {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.tabcontent {
+  display: none;
+}
+
+
+form {
+  background-color: #f0f0f0; 
+  padding: 20px;
+  margin-bottom: 50px;
+  padding-bottom: 50px; /* This adds white space inside the grey form area, at the bottom */
+}
+
+form * {
+    border-color: transparent !important;
+}
+
+/* Additional styling for the form fields and elements for a better appearance against the grey background */
+label, input, textarea, button {
+  margin: 10px 0; /* Spacing between form elements */
+}
+
+.navigation-buttons {
+  width: 100%;
+  text-align: center;
+  margin: 20px 0;   /* Adjust the margin to your liking. */
+}
+
+#prevBtn, #nextBtn {
+  margin: 0 10px;   /* Provides spacing between the two buttons. Adjust if needed. */
+  display: inline-block;
+}
+
+form {
+  position: relative;
+  min-height: 100%; /* Ensures form covers full height of its parent container. */
+}
+
+
+
 .sdg-item {
     display: flex;
     align-items: center;
@@ -16,4 +75,96 @@
   }
   
   /* Adjust styling as needed */
-  
+  .terms-container {
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    margin: 20px 0;
+}
+
+h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.terms-text {
+    font-size: 14px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+    color: #555;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-container input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.submit-Btn {
+  display: none;
+}
+
+.submit-Btn {
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    display: block;
+    margin-top: 20px;
+}
+
+.submit-Btn:hover {
+    background-color: #45a049;
+}
+
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+.tablinks {
+    background-color: #f1f1f1;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+
+.tablinks:hover {
+    background-color: #ddd;
+}
+
+.tablinks.active {
+    background-color: #ccc;
+}
+
+.tabcontent {
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+    display: none;
+}
+
+.terms-container {
+    margin: 20px;
+}
+
+.terms-text {
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.checkbox-container {
+    margin: 20px 0;
+}
+
