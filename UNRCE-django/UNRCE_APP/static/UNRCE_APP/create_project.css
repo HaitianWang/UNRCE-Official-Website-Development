@@ -1,5 +1,6 @@
+
 .tablinks {
-  background-color: #f1f1f1 !important;
+  background-color: #0d47a1 !important;
 
   float: left;
   border: none;
@@ -9,14 +10,47 @@
   transition: 0.3s;
 }
 
-.tablinks {
-  background-color: #f1f1f1;
-}
 
 input[type="file"] {
   margin-top: 15px;
   margin-bottom: 15px;
 }
+
+.upload-container {
+  max-width: 150px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Change this to flex-end */
+  justify-content: flex-end; /* Change this to flex-end */
+  margin-left: 20px;
+}
+
+
+
+.upload-text {
+  margin-top: 10px;
+  cursor: pointer;
+  color: #020057;  /* Color of the text. Adjust as necessary. */
+  font-size: 16px;  /* Size of the text. Adjust as necessary. */
+}
+
+#uploadedImage {
+  max-width: 70%;  /* Matches the width of your project image */
+  height: 60%;  /* Matches the height of your project image */
+  object-fit: cover;
+}
+
+
+img {
+  float: left;
+  margin-left: 10px; /* Creates space between the image and the form */
+}
+
+.clear {
+  clear: both;
+}
+
 
 .tabcontent {
   display: none;
@@ -28,6 +62,8 @@ form {
   padding: 20px;
   margin-bottom: 50px;
   padding-bottom: 50px; /* This adds white space inside the grey form area, at the bottom */
+  position: relative;
+  min-height: 100%; /* Ensures form covers full height of its parent container. */
 }
 
 form * {
@@ -50,10 +86,6 @@ label, input, textarea, button {
   display: inline-block;
 }
 
-form {
-  position: relative;
-  min-height: 100%; /* Ensures form covers full height of its parent container. */
-}
 
 
 
@@ -131,7 +163,7 @@ h3 {
 }
 
 .tablinks {
-    background-color: #f1f1f1;
+    background-color: #0d47a1;
     float: left;
     border: none;
     outline: none;
@@ -145,7 +177,7 @@ h3 {
 }
 
 .tablinks.active {
-    background-color: #ccc;
+    background-color:#0d47a1;
 }
 
 .tabcontent {
