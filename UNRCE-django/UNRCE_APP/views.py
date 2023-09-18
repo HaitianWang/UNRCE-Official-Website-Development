@@ -151,6 +151,9 @@ def projects(request):
 # My Account Page
 def myaccount(request):
     return render(request, 'UNRCE_APP/myaccount.html')
+# My Account Page
+def myaccount_edit(request):
+    return render(request, 'UNRCE_APP/myaccount_edit.html')
 
 def specific_project(request):
     img_src = request.GET.get('img', '') 

@@ -40,6 +40,7 @@ urlpatterns = [
   path('specific_project/', views.specific_project, name='specific_project'),
   path("create_project/", CreateProject.as_view(), name="create_project"),
   path("myaccount/", views.myaccount, name="myaccount"),
+  path("myaccount_edit/", views.myaccount_edit, name="myaccount_edit"),
 
 
 
