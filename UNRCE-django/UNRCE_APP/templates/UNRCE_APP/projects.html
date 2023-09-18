@@ -52,10 +52,9 @@
         const newProjectImage = document.createElement("img");
         newProjectImage.src = "https://www.wallpapertip.com/wmimgs/8-82164_soothing-background.jpg"; // Replace with the actual image path
         newProjectImage.alt = "New Project";
-
         // Create title
         const newProjectTitle = document.createElement("h3");
-        newProjectTitle.textContent = "New Project";
+        newProjectTitle.textContent = "{{ project_query.0.title }}";
 
         // Link it all together
         newProject.appendChild(newProjectLink);
