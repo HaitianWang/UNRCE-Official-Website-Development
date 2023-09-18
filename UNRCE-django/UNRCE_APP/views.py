@@ -148,6 +148,9 @@ def contact_us(request):
 #display projects page
 def projects(request):
     return render(request, 'UNRCE_APP/projects.html')
+# My Account Page
+def myaccount(request):
+    return render(request, 'UNRCE_APP/myaccount.html')
 
 def specific_project(request):
     img_src = request.GET.get('img', '') 

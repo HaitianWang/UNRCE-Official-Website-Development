@@ -1,0 +1,41 @@
+
+.container_container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    text-align: center;
+}
+.h2_account {
+    color: #333;
+    font-size: medium;
+}
+
+
+.profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.profile-picture img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #007BFF;
+    margin-right: 20px;
+}
+/* .user-info {
+    text-align: left;
+} */
+
+p {
+    color: rgb(56, 54, 54);
+}
+
+.sdgs {
+    width: 100px;
+    height: 100px;
+}

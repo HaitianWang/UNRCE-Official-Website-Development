@@ -1,0 +1,34 @@
+
+{% extends "UNRCE_APP/base.html" %}
+{% block content %}
+<!-- {% load static %} -->
+<div class="container_account">
+    <header style="display: flex; justify-content: space-between;">
+        <h2 class="h2_account"> My Account</h2>
+        <h2 class="h2_account"> Edit Profile Details</h2>
+    </header>
+    <main>
+        <section class="profile">
+            <div class="profile-picture">
+                <img src="https://www.kindpng.com/picc/m/421-4212275_transparent-default-avatar-png-avatar-img-png-download.png" alt="Profile Picture">
+            </div>
+            <div class="user-info">
+                <p>Name: John Doe</p>
+                <p>Email: john@example.com</p>
+            </div>
+        </section>
+        <section class="account-details">
+            <p> SDG's I'm interested in</p>
+            <img class="sdgs" src="{% static 'images/sdgs/1_no_poverty.png' %}">
+            <img class="sdgs" src="{% static 'images/sdgs/2_zero_hunger.png' %}">
+            <img class="sdgs" src="{% static 'images/sdgs/13_climate_action.jpg' %}">
+        </section>
+        <section class="notification">
+            <p> Emails enabled?</p>
+            <input type="checkbox" id="myCheckbox" name="myCheckbox" value="yes">
+        </section>
+    </main>
+</div>
+
+
+{% endblock content %}
