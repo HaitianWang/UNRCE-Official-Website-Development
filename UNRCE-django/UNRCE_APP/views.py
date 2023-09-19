@@ -19,6 +19,7 @@ from .forms import UploadImageForm, CustomUserCreationForm
 
 from django.contrib.auth.views import LoginView
 from django.contrib import messages
+from .models import Project
 
 class CustomLoginView(LoginView):
     
@@ -149,6 +150,21 @@ def contact_us(request):
 def projects(request):
     return render(request, 'UNRCE_APP/projects.html')
 
+# This is a function to return a list of featured projects by recently added
+# def index(request):
+#     # Just an example: getting the last 5 projects.
+#     # Adjust the query to fetch projects as per your criteria.
+#     featured_projects = Project.objects.all().order_by('-created_date')[:5]
+    
+#     return render(request, 'UNRCE_APP/index.html', {
+#         'featured_projects': featured_projects
+#     })
+
+#return index page
+def index(request):
+    return render(request, 'UNRCE_APP/index.html')
+#display information from the chosen project page
+# hello 
 def specific_project(request):
     img_src = request.GET.get('img', '') 
     title_text = request.GET.get('title', '')
