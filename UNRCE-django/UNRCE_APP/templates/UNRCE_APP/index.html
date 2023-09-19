@@ -1,9 +1,142 @@
 {% extends "UNRCE_APP/base.html" %}
 
 {% block content %}
-<main>
-  {% for image in images %}
-  {% include 'UNRCE_APP/image.html' %}
-  {% endfor%}
-</main>
+{% load static %}
+<style>
+  .header-photo {
+    width: 100%;
+    height: 170px;
+    background-image: url('{% static 'images/header.webp' %}');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover; /* This will cover the entire div without stretching */
+    grid-column: 1/-1;
+    border-radius: 0;
+}
+</style>
+<div class="header-photo"></div>
+<div class="page-wrapper">
+  <div class="sidebar">
+    <h2 class="sub-title">Project Highlights</h2>
+    <ul class="projects-list">
+      <div class="project-listing" id="projectGrid" data-baseurl="{% url 'UNRCE_APP:specific_project' %}">
+      <div class="project-box">
+        <a href="{% url 'UNRCE_APP:specific_project' %}">
+            <div class="project-sidebar" onclick="goToDetails(event, this.children[0].src, this.children[1].textContent)" style="cursor:pointer;">
+                <img src="http://www.thewowstyle.com/wp-content/uploads/2015/01/nature-images..jpg" alt="Project 1" class="project-image">
+                <h4 class="project-title-sidebar">Project 1</h4>
+            </div>
+        </a>
+      </div>
+      <div class="project-box">
+        <a href="{% url 'UNRCE_APP:specific_project' %}">
+            <div class="project-sidebar" onclick="goToDetails(event, this.children[0].src, this.children[1].textContent)" style="cursor:pointer;">
+                <img src="https://www.bwallpaperhd.com/wp-content/uploads/2021/01/NashPoint.jpg" alt="Project 2" class="project-image">
+                <h4 class="project-title-sidebar">Project 2</h4>
+            </div>
+        </a>
+      </div>
+      <div class="project-box">
+        <a href="{% url 'UNRCE_APP:specific_project' %}">
+            <div class="project-sidebar" onclick="goToDetails(event, this.children[0].src, this.children[1].textContent)" style="cursor:pointer;">
+                <img src="https://wallsdesk.com/wp-content/uploads/2016/05/Waterfalls-Photos.jpg" alt="Project 3" class="project-image">
+                <h4 class="project-title-sidebar">Project 3</h4>
+            </div>
+        </a>
+      </div>
+      <div class="project-box">
+        <a href="{% url 'UNRCE_APP:specific_project' %}">
+            <div class="project-sidebar" onclick="goToDetails(event, this.children[0].src, this.children[1].textContent)" style="cursor:pointer;">
+                <img src="https://wallsdesk.com/wp-content/uploads/2016/05/Waterfalls-Photos.jpg" alt="Project 3" class="project-image">
+                <h4 class="project-title-sidebar">Project 4</h4>
+            </div>
+        </a>
+      </div>
+      <div class="project-box">
+        <a href="{% url 'UNRCE_APP:specific_project' %}">
+            <div class="project-sidebar" onclick="goToDetails(event, this.children[0].src, this.children[1].textContent)" style="cursor:pointer;">
+                <img src="https://wallsdesk.com/wp-content/uploads/2016/05/Waterfalls-Photos.jpg" alt="Project 3" class="project-image">
+                <h4 class="project-title-sidebar">Project 5</h4>
+            </div>
+        </a>
+      </div>
+      </div>
+   
+    <h2 class="partner-title">Our Partners</h2>
+    <div class="partners-box">
+    <article class="text-content">
+        <p class="info-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam fuga, odit explicabo nostrum doloribus accusamus vero quasi suscipit dolorum, corporis repudiandae tenetur tempore? Culpa sunt omnis neque dolorem vitae temporibus?</p>
+    </article>
+    </div>
+  </div>
+<div class="main-div">
+    <h1 class="title-box">What is UNRCE?</h1>
+    <article class="info-background">
+        <p class="info-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus culpa tempore autem quas esse incidunt voluptatum dignissimos? Maiores sint et, dolorem eius reprehenderit doloremque, iure ab, aperiam temporibus maxime vel? Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quisquam fuga, odit explicabo nostrum doloribus accusamus vero quasi suscipit dolorum, corporis repudiandae tenetur tempore? Culpa sunt omnis neque dolorem vitae temporibus?</p>
+    </article>
+    <h1 class="title-box">Our History</h1>
+    <article class="info-background lower">
+        <p class="info-text lower">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste eos ipsum molestiae repudiandae odio, dolor recusandae cumque ad id illum mollitia sapiente a autem excepturi nulla illo. Deleniti, enim laudantium! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque tempore corrupti illo. Aut repellendus voluptatibus dolorem explicabo alias corrupti, ratione dicta sunt expedita et vel neque aliquid quisquam impedit. Quod?</p>
+    </article>
+    <h1 class="title-box">What is UNRCE WA?</h1>
+    <article class="info-background">
+        <p class="info-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus culpa tempore autem quas esse incidunt voluptatum dignissimos? Maiores sint et, dolorem eius reprehenderit doloremque, iure ab, aperiam temporibus maxime vel? Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quisquam fuga, odit explicabo nostrum doloribus accusamus vero quasi suscipit dolorum, corporis repudiandae tenetur tempore? Culpa sunt omnis neque dolorem vitae temporibus?</p>
+    </article>
+    
+      <h1 class="title-box">Our Initiatives</h1>
+      <div class="initiatives-wrapper">
+      <div class="flip-container">
+      <label class="flip-card">
+        <input type="checkbox" class="flip-checkbox">
+          <div class="flip-card-inner">
+              <div class="flip-card-front" style="background-image: url('{% static 'images/valley.jpeg' %}');">
+                  <div class="flip-card-overlay">
+                    <span class="overlay-text">More Information</span>
+                  </div>
+                </div>
+              <div class="flip-card-back">
+                  <h2 class="initiative-h2">Initiative 1</h2>
+                  <p class="initiative-text" >Just some basic information about an initiative</p>
+                </div>
+          </div>
+        </label>
+      <label class="flip-card">
+        <input type="checkbox" class="flip-checkbox">
+        <div class="flip-card-inner">
+            <div class="flip-card-front" style="background-image: url('{% static 'images/meelup.jpeg' %}');">
+                <div class="flip-card-overlay">
+                  <span class="overlay-text">More Information</span>
+                </div>
+              </div>
+            <div class="flip-card-back">
+                <h2 class="initiative-h2">Initiative 2</h2>
+                <p class="initiative-text">Just some basic information about an initiative</p>
+            </div>
+        </div>
+      </label>
+      <label class="flip-card">
+        <input type="checkbox" class="flip-checkbox">
+        <div class="flip-card-inner">
+              <div class="flip-card-front" style="background-image: url('{% static 'images/ESD_for_2030.png' %}');">
+                <div class="flip-card-overlay">
+                  <span class="overlay-text">More Information</span>
+                </div>
+              </div>
+            <div class="flip-card-back" style="background-color: white;">
+                <h2 class="initiative-h2">Initiative 3</h2>
+                <p class="initiative-text">Just some basic information about an initiative</p>
+            </div>
+        </div>
+      </label>
+    </div>
+  </div>
+  </div>
+  <div style="clear: both;"></div>
+</div>
+<script src="{% static 'UNRCE_APP/projects.js' %}"></script>
 {% endblock content %}
+
+
+
+
+
