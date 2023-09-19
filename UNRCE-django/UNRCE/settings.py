@@ -131,5 +131,8 @@ MEDIA_ROOT = BASE_DIR / "images"
 MEDIA_URL = "/media/"
 LOGIN_REDIRECT_URL = 'UNRCE_APP:index'
 
+#Point django to new user model 
+AUTH_USER_MODEL = 'UNRCE_APP.CustomUser'
 
-
+#Point django to new authentication backend
+AUTHENTICATION_BACKENDS = ['UNRCE_APP.backends.EmailBackend']

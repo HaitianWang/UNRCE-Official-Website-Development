@@ -1,21 +1,39 @@
 from django.views import View
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, views as auth_views
 from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
 from UNRCE_APP.models import Project 
 
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
 
 # LoginRequiredMixin will check that user 
 # is authenticated before rendering the template.
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from datetime import datetime
-from .models import Image
-from .forms import UploadImageForm
+from .models import Image, CustomUser
+from .forms import UploadImageForm, CustomUserCreationForm
 
+from django.contrib.auth.views import LoginView
+from django.contrib import messages
 
+class CustomLoginView(LoginView):
+    
+    def form_valid(self, form):
+        # Add any custom logic here. 
+        # For instance, log when a user successfully logs in.
+        messages.success(self.request, "Logged in successfully!")
+        return super().form_valid(form)
 
-
+    def form_invalid(self, form):
+        # Add any custom logic for when the form is invalid.
+        # For instance, log when a login attempt fails.
+        messages.error(self.request, "Failed to log in. Please check your credentials.")
+        return super().form_invalid(form)
+ 
 class IndexView(View):
   def get(self, request):
     images = Image.objects.order_by("uploaded_date")
@@ -29,39 +47,46 @@ class IndexView(View):
 
 
 class SignUpView(View):
-  def get(self, request):
-    return render(
-      request,
-      "UNRCE_APP/signup.html",
-      {
-        "form": UserCreationForm(),
-      },
-    )
+    def get(self, request):
+        return render(
+            request,
+            "UNRCE_APP/signup.html",
+            {
+                "form": CustomUserCreationForm(),
+            },
+        )
+    def get(self, request):
+        return render(
+            request,
+            "UNRCE_APP/signup.html",
+            {
+                "form": CustomUserCreationForm(),
+            },
+        )
 
-  def post(self, request):
-    form = UserCreationForm(request.POST)
+    def post(self, request):
+        form = CustomUserCreationForm(request.POST)
 
-    if form.is_valid():
-      form.save()
-      username = form.data["username"]
-      password = form.data["password1"]
-      user = authenticate(
-        request,
-        username=username,
-        password=password,
-      )
-      if user:
-        login(request, user)
-      return redirect("/")
+        if form.is_valid():
+            form.save()
+            email = form.cleaned_data.get('email')  # Get the email from cleaned_data
+            password = form.cleaned_data.get('password1') 
+            user = authenticate(
+                request,
+                email=email,   # Use email to authenticate
+                password=password,
+            )
+            if user:
+                login(request, user)
+            return redirect("/")
 
-    return render(
-      request,
-      "UNRCE_APP/signup.html",
-      {
-        "form": form,
-      },
-    )
-
+        return render(
+            request,
+            "UNRCE_APP/signup.html",
+            {
+                "form": form,
+            },
+        )
 
 class UploadImageView(LoginRequiredMixin, View):
   # Not authenticated users will be redirected
@@ -112,13 +137,12 @@ class UploadImageView(LoginRequiredMixin, View):
       },
     )
 
-
+#display forgot password page
 def forgot_password(request):
     return render(request, 'UNRCE_APP/forgot-password.html')
-
+#display reset password page
 def reset_password(request):
     return render(request, 'UNRCE_APP/reset-password.html')
-
 def contact_us(request):
     return render(request, 'UNRCE_APP/contact-us.html')
 #display projects page

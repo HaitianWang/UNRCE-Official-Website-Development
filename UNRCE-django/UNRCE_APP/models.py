@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
 class Image(models.Model):
   # image title, not blank string with maximum of 60 characters
@@ -22,6 +23,35 @@ class Image(models.Model):
 
   def __str__(self) -> str:
     return f"Image<{self.id}>"
+
+class CustomUserManager(BaseUserManager):
+    def create_user(self, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError("The Email field must be set")
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, password=None, **extra_fields):
+        extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("is_superuser", True)
+        return self.create_user(email, password, **extra_fields)
+
+class CustomUser(AbstractBaseUser, PermissionsMixin):
+    email = models.EmailField(unique=True)
+    date_joined = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+
+    objects = CustomUserManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    def __str__(self):
+        return self.email
 
 
 class ProjectFile(models.Model):
@@ -72,7 +102,8 @@ class Project(models.Model):
 
 
     
-    title = models.TextField(default="Default Title")
+    title = models.TextField(blank=False)
+
 
 
     #manager = models.ForeignKey(	
@@ -145,27 +176,31 @@ class Follow(models.Model):
     following_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
-class SDGEnum(models.TextChoices):   # Using TextChoices to create Enum
-    GOAL_1 = 'goal_1'
-    GOAL_2 = 'goal_2'
-    GOAL_3 = 'goal_3'
-    GOAL_4 = 'goal_4'
-    GOAL_5 = 'goal_5'
-    GOAL_6 = 'goal_6'
-    GOAL_7 = 'goal_7'
-    GOAL_8 = 'goal_8'
-    GOAL_9 = 'goal_9'
-    GOAL_10 = 'goal_10'
-    GOAL_11= 'goal_11'
-    GOAL_12 = 'goal_12'
-    GOAL_13 = 'goal_13'
-    GOAL_14 = 'goal_14'
-    GOAL_15 = 'goal_15'
-    GOAL_16= 'goal_16'
-    GOAL_17 = 'goal_17'
+class SDGEnum(models.TextChoices):  
+    GOAL_1 = 'goal_1', "End poverty in all its forms everywhere"
+    GOAL_2 = 'goal_2', "End hunger, achieve food security and improved nutrition and promote sustainable agriculture"
+    GOAL_3 = 'goal_3', "Ensure healthy lives and promote well-being for all at all ages"
+    GOAL_4 = 'goal_4', "Ensure inclusive and equitable quality education and promote lifelong learning opportunities for all"
+    GOAL_5 = 'goal_5', "Achieve gender equality and empower all women and girls"
+    GOAL_6 = 'goal_6', "Ensure availability and sustainable management of water and sanitation for all"
+    GOAL_7 = 'goal_7', "Ensure access to affordable, reliable, sustainable and modern energy for all"
+    GOAL_8 = 'goal_8', "Promote sustained, inclusive and sustainable economic growth, full and productive employment and decent work for all"
+    GOAL_9 = 'goal_9', "Build resilient infrastructure, promote inclusive and sustainable industrialization and foster innovation"
+    GOAL_10 = 'goal_10', "Reduce inequality within and among countries"
+    GOAL_11= 'goal_11', "Make cities and human settlements inclusive, safe, resilient and sustainable"
+    GOAL_12 = 'goal_12', "Ensure sustainable consumption and production patterns"
+    GOAL_13 = 'goal_13', "Take urgent action to combat climate change and its impacts"
+    GOAL_14 = 'goal_14', "Conserve and sustainably use the oceans, seas and marine resources for sustainable development"
+    GOAL_15 = 'goal_15', "Protect, restore and promote sustainable use of terrestrial ecosystems, sustainably manage forests, combat desertification, and halt and reverse land degradation and halt biodiversity loss"
+    GOAL_16= 'goal_16', "Promote peaceful and inclusive societies for sustainable development, provide access to justice for all and build effective, accountable and inclusive institutions at all levels"
+    GOAL_17 = 'goal_17',"Strengthen the means of implementation and revitalize the Global Partnership for Sustainable Development"
 
 class SDG(models.Model):
     sdg = models.CharField(max_length=10, choices=SDGEnum.choices)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.name
 
 class ProjectSDG(models.Model):
     SELECTION_CHOICES = [

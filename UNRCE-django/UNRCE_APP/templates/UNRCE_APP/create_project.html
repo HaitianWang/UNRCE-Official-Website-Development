@@ -1,5 +1,5 @@
 {% extends "UNRCE_APP/base.html" %}
-
+{% load static %}
 {% block content %}
 
 
@@ -16,19 +16,20 @@
 
   </div>
     
-
   <div id="Tab1" class="tabcontent">
-
-        <label for="title">Title:</label>
-        <input type="text" id="title" name="title"><br><br>
-
-        <div class="upload-container">
-          <label for="imageUpload">
-          <img id="uploadedImage" src="UNRCE_APP/images/Font_1._.png" alt="Default Image">
-              <span class="upload-text">Add Project Image</span>
-          </label>
-          <input type="file" id="imageUpload" name="imageUpload" style="display: none;" onchange="displayImage(this)">
-      </div>
+    <div class="pr-container">
+        <div class="image-section">
+            <label for="imageUpload">
+                <img class="image" id="uploadedImage" src="{% static 'images/Font_1._.png' %}" alt="Default Image">
+            </label>
+            <!--<span class="upload-text">Add Project Image</span>-->
+            <input type="file" id="imageUpload" name="imageUpload" style="display: none;" onchange="displayImage(this)">
+        </div>
+        <div class="project-details">
+            <label for="title">Project Title:</label>
+            <input type="text" id="title" name="title"><br><br>
+        </div>
+    </div>
       
 
 
@@ -47,10 +48,12 @@
         <label for="policy_link">Policy Link:</label>
         <input type="text" id="policy_link" name="policy_link"><br><br>
         
-        <!-- Add other fields for Tab 1 here -->
   </div>
 
+
   <div id="Tab2" class="tabcontent">
+
+    
     <!-- Form fields for Tab 2 -->
 
         <label>Target Audience:</label><br>
@@ -162,7 +165,7 @@
     <!-- last page of the form for submission
     add functionality to the submit button -->
 
-        <p>zTerms and Conditions</p>
+        <p>Terms and Conditions</p>
         <label for="terms_and_conditions" style = "font-size: 14px; ">
             Personal data provided under this form will be processed by UNU in accordance with the UNU Policy on Personal Data Protection. Your information and personal
             data will strictly be used for the purpose of payment processing and will be held in confidence. Access to your information and personal data is strictly limited to
@@ -183,15 +186,18 @@
 
       
       <div class="navigation-buttons">
-        <button id="prevBtn">Previous</button>
-      <button id="nextBtn">Next</button>
+        <button class="tabnav" id="prevBtn">←</button>
+<button class="tabnav" id="nextBtn">→</button>
+
       </div>
       
       
 </form>
 
 
-  <script>document.addEventListener('DOMContentLoaded', function() {
+  <script>
+    
+    document.addEventListener('DOMContentLoaded', function() {
     function openTab(evt) {
         // Hide all tab contents
         const tabContents = document.querySelectorAll('.tabcontent');
@@ -216,13 +222,9 @@
     document.querySelector('#defaultOpen').click();
 });
 
+
 document.addEventListener('DOMContentLoaded', function() {
   let currentTab = 0;  // Start at the first tab
-
-  document.querySelector('#defaultOpen').click();
-
-    // Initially hide the "Previous" button
-    document.getElementById("prevBtn").style.display = 'none';
 
   function openTab(evt) {
       // Hide all tab contents
@@ -240,30 +242,35 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function showTab(n) {
-    const tabLinks = document.querySelectorAll('.tablinks');
-    const prevBtn = document.getElementById("prevBtn");
-    const nextBtn = document.getElementById("nextBtn");
+      const tabLinks = document.querySelectorAll('.tablinks');
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
 
-    if (n >= tabLinks.length) {
-        n = tabLinks.length - 1;  // prevent going beyond the last tab
-    } else if (n < 0) {
-        n = 0;  // prevent going before the first tab
-    }
+      if (n >= tabLinks.length) {
+          n = tabLinks.length - 1;  // prevent going beyond the last tab
+      } else if (n < 0) {
+          n = 0;  // prevent going before the first tab
+      }
 
-    tabLinks[n].click();
-    currentTab = n;
+      tabLinks[n].click();
+      currentTab = n;
 
-    // Control button visibility based on current tab
-    prevBtn.style.display = (currentTab === 0) ? 'none' : 'inline-block';
-    nextBtn.style.display = (currentTab === tabLinks.length - 1) ? 'none' : 'inline-block';
-}
-
+      // Control button visibility based on current tab
+      prevBtn.style.display = (currentTab === 0) ? 'none' : 'inline-block';
+      nextBtn.style.display = (currentTab === tabLinks.length - 1) ? 'none' : 'inline-block';
+  }
 
   const tabLinks = document.querySelectorAll('.tablinks');
   
   // Attach the openTab function to each tab link
-  tabLinks.forEach(link => link.addEventListener('click', openTab));
-  
+  tabLinks.forEach((link, index) => {
+      link.addEventListener('click', function(evt) {
+          openTab(evt);
+          currentTab = index;  // Update the current tab index
+          showTab(currentTab); // Update buttons based on new tab
+      });
+  });
+
   // Set the first tab as default
   document.querySelector('#defaultOpen').click();
 
@@ -276,6 +283,17 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+function displayImage(inputElement) {
+  const file = inputElement.files[0];
+  if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+          const imageElement = document.getElementById('uploadedImage');
+          imageElement.src = e.target.result;
+      }
+      reader.readAsDataURL(file);
+  }
+}
 
 
 
@@ -286,7 +304,6 @@ function displayImage(inputElement) {
       reader.onload = function(e) {
           const imageElement = document.getElementById('uploadedImage');
           imageElement.src = e.target.result;
-          document.querySelector('.upload-text').textContent = 'Change Image';  // Update text once image is uploaded
       }
       reader.readAsDataURL(file);
   }
