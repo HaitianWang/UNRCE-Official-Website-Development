@@ -1,3 +1,4 @@
+
 <header style="background-color: #003087;">
 
   <div class="main-header">
@@ -9,7 +10,7 @@
 
 
     <!-- Title -->
-      <h3> United Nations Regional Centre of Expertise for Western Australia</h1>
+      <h3> United Nations Regional Centre of Expertise of Western Australia</h1>
     <!-- Title -->
 
 
@@ -23,7 +24,7 @@
       <!-- show log in and sing up links otherwise   -->
       <nav>
         <a class="topright" href="{% url 'UNRCE_APP:login' %}">Login</a><br>
-        <a class="topright" href="{% url 'UNRCE_APP:signup' %}">Signup</a>
+        <a class="topright" href="{% url 'UNRCE_APP:signup' %}">Create an Account</a>
       </nav>
       {% endif %}
     <!-- Login/Signup/Logout -->
@@ -35,7 +36,6 @@
   <!-- Navigation Panel -->
   <nav>
     <a href="/">Home</a>
-    <a href="{% url 'UNRCE_APP:upload' %}" class="upload-btn"> Upload</a>
     <a href="/projects"> Our Projects</a>
     <a href="/contact-us"> Contact Us</a>
   </nav>
