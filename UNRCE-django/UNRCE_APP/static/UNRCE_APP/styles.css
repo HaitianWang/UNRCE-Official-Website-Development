@@ -3,21 +3,53 @@
 }
 
 /* Changing the Font of the thing at the top */
-h1 {
+h3 {
     font-family: "Century Gothic", sans-serif;
 }
 
 /* For the base header */
 .main-header {
     display:flex;
-    height: 120px;
+    height: fit-content;
+    flex-direction: column;
+    background-color: #003087;
+}
+
+/* for header bar top row content */
+.top-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: min-content;
+}
+
+/* for horizontal button menus */
+.horizontal-menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: min-content;
 }
 
 /* For the base header navigation bar */
 .header-nav {
-    background-color: #5775ac;
+    background-color: #003087;
     height: 70px;
 }
+
+/*for button in nav bar */
+nav>a {
+    background-color: #5775ac;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    margin: 0.2rem;
+}
+
 
 /* Small Headings, such as "Our projects" */
 .small-heading {
