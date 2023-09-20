@@ -102,8 +102,7 @@ class Project(models.Model):
 
 
     
-    title = models.TextField(blank=False)
-
+    title = models.TextField(default="Default Title")
 
 
     #manager = models.ForeignKey(	
@@ -131,8 +130,9 @@ class Project(models.Model):
     delivery_frequency = models.CharField(max_length=20, choices=FREQUENCY_CHOICES)
     language = models.TextField()
     format = models.TextField()
-    web_link = models.TextField()
-    policy_link = models.TextField()
+    web_link = models.URLField()
+    policy_link = models.URLField()
+
 
     
     results = models.TextField(max_length=150, blank=True)
@@ -146,22 +146,13 @@ class Project(models.Model):
     affiliations = models.ManyToManyField('Organisation', related_name='affiliated_projects')
 
 
-    priority_area_1 = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
-    priority_area_2 = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
-    priority_area_3 = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
-    priority_area_4 = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
-    priority_area_5 = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
+    priority_areas = models.ManyToManyField('PriorityArea', through='ProjectPriorityArea')
+
+    esds = models.ManyToManyField('ESD', through ="ProjectESD")
+    #themese of educational sustainable debvelopement
 
 
-    disaster_risk_reduction = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
-    traditional_knowledge = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
-    agriculture = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
-    arts = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
-    curriculum_development = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
-    ecotourism = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
-    forests_trees = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
-    plants_animals = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
-    waste = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
+    
 
 
     
@@ -176,44 +167,97 @@ class Follow(models.Model):
     following_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
-class SDGEnum(models.TextChoices):  
+
+class SDGEnum(models.TextChoices):   # Using TextChoices to create Enum
     GOAL_1 = 'goal_1', "End poverty in all its forms everywhere"
-    GOAL_2 = 'goal_2', "End hunger, achieve food security and improved nutrition and promote sustainable agriculture"
-    GOAL_3 = 'goal_3', "Ensure healthy lives and promote well-being for all at all ages"
+    GOAL_2 = 'goal_2',"End hunger, achieve food security and improved nutrition and promote sustainable agriculture"
+    GOAL_3 = 'goal_3',"Ensure healthy lives and promote well-being for all at all ages"
     GOAL_4 = 'goal_4', "Ensure inclusive and equitable quality education and promote lifelong learning opportunities for all"
     GOAL_5 = 'goal_5', "Achieve gender equality and empower all women and girls"
-    GOAL_6 = 'goal_6', "Ensure availability and sustainable management of water and sanitation for all"
+    GOAL_6 = 'goal_6',"Ensure availability and sustainable management of water and sanitation for all"
     GOAL_7 = 'goal_7', "Ensure access to affordable, reliable, sustainable and modern energy for all"
-    GOAL_8 = 'goal_8', "Promote sustained, inclusive and sustainable economic growth, full and productive employment and decent work for all"
-    GOAL_9 = 'goal_9', "Build resilient infrastructure, promote inclusive and sustainable industrialization and foster innovation"
-    GOAL_10 = 'goal_10', "Reduce inequality within and among countries"
-    GOAL_11= 'goal_11', "Make cities and human settlements inclusive, safe, resilient and sustainable"
-    GOAL_12 = 'goal_12', "Ensure sustainable consumption and production patterns"
-    GOAL_13 = 'goal_13', "Take urgent action to combat climate change and its impacts"
-    GOAL_14 = 'goal_14', "Conserve and sustainably use the oceans, seas and marine resources for sustainable development"
-    GOAL_15 = 'goal_15', "Protect, restore and promote sustainable use of terrestrial ecosystems, sustainably manage forests, combat desertification, and halt and reverse land degradation and halt biodiversity loss"
-    GOAL_16= 'goal_16', "Promote peaceful and inclusive societies for sustainable development, provide access to justice for all and build effective, accountable and inclusive institutions at all levels"
+    GOAL_8 = 'goal_8',"Promote sustained, inclusive and sustainable economic growth, full and productive employment and decent work for all"
+    GOAL_9 = 'goal_9',"Build resilient infrastructure, promote inclusive and sustainable industrialization and foster innovation"
+    GOAL_10 = 'goal_10',"Reduce inequality within and among countries"
+    GOAL_11= 'goal_11',"Make cities and human settlements inclusive, safe, resilient and sustainable"
+    GOAL_12 = 'goal_12',"Ensure sustainable consumption and production patterns"
+    GOAL_13 = 'goal_13',"Take urgent action to combat climate change and its impacts"
+    GOAL_14 = 'goal_14',"Conserve and sustainably use the oceans, seas and marine resources for sustainable development"
+    GOAL_15 = 'goal_15',"Protect, restore and promote sustainable use of terrestrial ecosystems, sustainably manage forests, combat desertification, and halt and reverse land degradation and halt biodiversity loss"
+    GOAL_16= 'goal_16',"Promote peaceful and inclusive societies for sustainable development, provide access to justice for all and build effective, accountable and inclusive institutions at all levels"
     GOAL_17 = 'goal_17',"Strengthen the means of implementation and revitalize the Global Partnership for Sustainable Development"
+
+class PriorityAccessEnum(models.TextChoices):
+    PAA1 = 'paa_1', "Priority Action Area 1 - Advancing policy Direct"    
+    PAA2 = 'paa_2', "Priority Action Area 2 - Transforming learning and training environments Direct"    
+    PAA3 = 'paa_3', "Priority Action Area 3 - Developing capacities of educators and trainers Direct"
+    PAA4 = 'paa_4', "Priority Action Area 4 - Mobilizing youth Direct"    
+    PAA5 = 'paa_5', "Priority Action Area 5 - Accelerating sustainable solutions at local level Direct"
+
+class ESDEnum(models.TextChoices):
+    ESD_1 = 'disaster_risk_reduction', "Disaster Risk Reduction"
+    ESD_2 = 'traditional_knowledge', "Traditional Knowledge"
+    ESD_3 = 'agriculture', "Agriculture"
+    ESD_4 = 'arts', "Arts"
+    ESD_5 = 'curriculum_development', "Curriculum Development"
+    ESD_6 = 'ecotourism', "Ecotourism"
+    ESD_7 = 'forests_trees', "Forests & Trees"
+    ESD_8 = 'plants_animals', "Plants & Animals"
+    ESD_9 = 'waste', "Waste"
 
 class SDG(models.Model):
     sdg = models.CharField(max_length=10, choices=SDGEnum.choices)
-    description = models.TextField()
-
-    def __str__(self):
-        return self.name
 
 class ProjectSDG(models.Model):
-    SELECTION_CHOICES = [
+    RELATIONSHIP_CHOICES = [
         ('direct', 'Direct'),
         ('indirect', 'Indirect'),
     ]
-    
+
     project = models.ForeignKey('Project', on_delete=models.CASCADE)
-    sdg = models.ForeignKey('SDG', on_delete=models.CASCADE)
-    relationship_type = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='')
+    goal = models.ForeignKey('SDG', on_delete=models.CASCADE)
+    relationship_type = models.CharField(max_length=10, choices=RELATIONSHIP_CHOICES)
 
     class Meta:
-        unique_together = ['project', 'sdg']
+        unique_together = ['project', 'goal']
+
+
+class ESD(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+    
+
+class ProjectESD(models.Model):
+    project = models.ForeignKey('Project', on_delete=models.CASCADE)
+    esd = models.ForeignKey('ESD', on_delete=models.CASCADE)
+    relationship_type = models.CharField(max_length=10, choices=[('direct', 'Direct'), ('indirect', 'Indirect')])
+
+    class Meta:
+        unique_together = ['project', 'esds']
+        
+
+
+class PriorityArea(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+    
+
+class ProjectPriorityArea(models.Model):
+    project = models.ForeignKey('Project', on_delete=models.CASCADE)
+    priority_area = models.ForeignKey('PriorityArea', on_delete=models.CASCADE)
+    relationship_type = models.CharField(max_length=10, choices=[('direct', 'Direct'), ('indirect', 'Indirect')])
+
+    class Meta:
+        unique_together = ['project', 'priority_area']
+
+
+
 
 
 class RCEHub(models.Model):
@@ -239,4 +283,16 @@ class ProjectPartnerCompanies(models.Model):
     partner_company = models.ForeignKey('Organisation', on_delete=models.CASCADE)	
     class Meta:	
         unique_together = ['project', 'partner_company']	
+
+
+
+        disaster_risk_reduction = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
+    traditional_knowledge = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
+    agriculture = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
+    arts = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
+    curriculum_development = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
+    ecotourism = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
+    forests_trees = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
+    plants_animals = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
+    waste = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
 """
