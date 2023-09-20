@@ -1,5 +1,6 @@
 from django import forms
-
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from .models import CustomUser
 from .models import Image
 
 
@@ -20,3 +21,14 @@ class UploadImageForm(forms.ModelForm):
         }
       ),
     }
+
+#Create a form that will use email for authentication 
+class CustomAuthenticationForm(AuthenticationForm):
+    username = forms.EmailField(label="Email")
+class CustomUserCreationForm(UserCreationForm):
+    class Meta:
+        model = CustomUser
+        fields = ("email",)
+        labels = {
+            "email": "Email",
+        }

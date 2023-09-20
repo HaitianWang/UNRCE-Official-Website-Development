@@ -1,7 +1,12 @@
 from django.urls import path, reverse_lazy
-from django.contrib.auth.views import LoginView, LogoutView
+from .views import CustomLoginView
+from django.contrib.auth.views import LogoutView
+from .views import IndexView, SignUpView, UploadImageView, CreateProject
+from .views import CustomLoginView
+from django.contrib.auth.views import LogoutView
 from .views import IndexView, SignUpView, UploadImageView
 from . import views
+from .forms import CustomAuthenticationForm
 
 app_name = "UNRCE_APP"
 
@@ -9,7 +14,8 @@ urlpatterns = [
     path("", IndexView.as_view(), name="index"),
     path(
         "login/",
-        LoginView.as_view(
+        CustomLoginView.as_view(
+            authentication_form=CustomAuthenticationForm,
             template_name="UNRCE_APP/login.html",
             success_url=reverse_lazy("UNRCE_APP:index"),
             redirect_authenticated_user=True,
@@ -21,6 +27,7 @@ urlpatterns = [
         LogoutView.as_view(next_page=reverse_lazy("UNRCE_APP:index")),
         name="logout",
     ),
+    
     # Added signup view here
     path("signup/", SignUpView.as_view(), name="signup"),
       # Added upload view here, don't forget to
@@ -31,5 +38,8 @@ urlpatterns = [
   path('contact-us/', views.contact_us, name='contact-us'),
   path('projects/', views.projects, name='projects'),
   path('specific_project/', views.specific_project, name='specific_project'),
+  path("create_project/", CreateProject.as_view(), name="create_project"),
+
+
 
 ]

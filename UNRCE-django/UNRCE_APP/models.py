@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
 class Image(models.Model):
   # image title, not blank string with maximum of 60 characters
@@ -23,11 +24,35 @@ class Image(models.Model):
   def __str__(self) -> str:
     return f"Image<{self.id}>"
 
+class CustomUserManager(BaseUserManager):
+    def create_user(self, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError("The Email field must be set")
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
 
+    def create_superuser(self, email, password=None, **extra_fields):
+        extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("is_superuser", True)
+        return self.create_user(email, password, **extra_fields)
 
+class CustomUser(AbstractBaseUser, PermissionsMixin):
+    email = models.EmailField(unique=True)
+    date_joined = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+
+    objects = CustomUserManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
     def __str__(self):
-        return f"Image<{self.id}>"
+        return self.email
+
 
 class ProjectFile(models.Model):
     project = models.ForeignKey('Project', on_delete=models.CASCADE)
@@ -46,7 +71,7 @@ class ProjectImage(models.Model):
     def __str__(self):
         return f"Image<{self.id}> for Project<{self.project_id}>"
     
-# Assuming you already have a User and Organisation model, if not you need to define/import them.
+
 class Project(models.Model):
     # choices for fields
     AUDIENCE_CHOICES = [
@@ -71,7 +96,6 @@ class Project(models.Model):
     ]
 
     SELECTION_CHOICES = [
-        ('', 'Select'),
         ('direct', 'Direct'),
         ('indirect', 'Indirect'),
     ]
@@ -80,19 +104,19 @@ class Project(models.Model):
     
     title = models.TextField(default="Default Title")
 
-    manager = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        default=1
-    )
-# set default for now to 1 but will change it when we start putting functions in so that logged in person would be the default manager! 
+
+    #manager = models.ForeignKey(	
+       # settings.AUTH_USER_MODEL,	
+      #  on_delete=models.CASCADE,	
+     #   default=1	
+    #)
+
 
     project_cover_image = models.FileField(upload_to='project_images/', null=True, blank=True)
 
 
     description = models.TextField()
 
-    contributing_organizations = models.ManyToManyField('Organisation')
 
     created_at = models.DateTimeField(auto_now_add=True)  # Set to 'now' when the record is created
     concluded_on = models.DateTimeField(null=True, blank=True)  # Null by default
@@ -117,6 +141,9 @@ class Project(models.Model):
     funding = models.TextField(blank=True)
 
     sdgs = models.ManyToManyField('SDG', through='ProjectSDG')
+    contributing_organizations = models.ManyToManyField('Organisation', related_name='contributing_projects')
+    affiliations = models.ManyToManyField('Organisation', related_name='affiliated_projects')
+
 
     priority_area_1 = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
     priority_area_2 = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
@@ -171,8 +198,14 @@ class SDG(models.Model):
     sdg = models.CharField(max_length=10, choices=SDGEnum.choices)
 
 class ProjectSDG(models.Model):
+    SELECTION_CHOICES = [
+        ('direct', 'Direct'),
+        ('indirect', 'Indirect'),
+    ]
+    
     project = models.ForeignKey('Project', on_delete=models.CASCADE)
     sdg = models.ForeignKey('SDG', on_delete=models.CASCADE)
+    relationship_type = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='')
 
     class Meta:
         unique_together = ['project', 'sdg']
@@ -187,18 +220,18 @@ class Organisation(models.Model):
     org_name = models.CharField(max_length=255, unique=True)
     address = models.TextField(null=True, blank=True)
 
-class Affiliation(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    org = models.ForeignKey('Organisation', on_delete=models.CASCADE)
-    authenticated = models.BooleanField(default=False)
-    #authenticated_by = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True, blank=True, related_name="authenticated_affiliations", verbose_name="Authenticated by")
-    #authentication_timestamp = models.DateTimeField(null=True, blank=True, verbose_name="Authentication Timestamp")
-
-class ProjectPartnerCompanies(models.Model):
-    project = models.ForeignKey('Project', on_delete=models.CASCADE)
-    partner_company = models.ForeignKey('Organisation', on_delete=models.CASCADE)
-
-    class Meta:
-        unique_together = ['project', 'partner_company']
 
 
+"""	
+class Affiliation(models.Model):	
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)	
+    org = models.ForeignKey('Organisation', on_delete=models.CASCADE)	
+    authenticated = models.BooleanField(default=False)	
+    #authenticated_by = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True, blank=True, related_name="authenticated_affiliations", verbose_name="Authenticated by")	
+    #authentication_timestamp = models.DateTimeField(null=True, blank=True, verbose_name="Authentication Timestamp")	
+class ProjectPartnerCompanies(models.Model):	
+    project = models.ForeignKey('Project', on_delete=models.CASCADE)	
+    partner_company = models.ForeignKey('Organisation', on_delete=models.CASCADE)	
+    class Meta:	
+        unique_together = ['project', 'partner_company']	
+"""

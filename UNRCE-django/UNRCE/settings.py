@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
     "UNRCE_APP",
 ]
 
@@ -76,8 +77,12 @@ WSGI_APPLICATION = 'UNRCE.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': str(BASE_DIR / "db.sqlite3"),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'rce_uwa',
+        'USER': 'root',
+        'PASSWORD': '****',
+        'HOST': 'localhost',  # or the hostname where your MySQL server is running
+        'PORT': '3306',      # or the port on which your MySQL server is listening
     }
 }
 
@@ -116,7 +121,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'UNRCE_APP/static/'
+STATIC_URL = 'UNRCE_APP/static/'	
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "UNRCE_APP/static"),]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -126,5 +131,8 @@ MEDIA_ROOT = BASE_DIR / "images"
 MEDIA_URL = "/media/"
 LOGIN_REDIRECT_URL = 'UNRCE_APP:index'
 
+#Point django to new user model 
+AUTH_USER_MODEL = 'UNRCE_APP.CustomUser'
 
-
+#Point django to new authentication backend
+AUTHENTICATION_BACKENDS = ['UNRCE_APP.backends.EmailBackend']
