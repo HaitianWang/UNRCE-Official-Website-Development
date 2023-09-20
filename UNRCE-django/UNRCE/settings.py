@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'UNRCE.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'Database-1',
+        'NAME': 'dbmaster',
         'USER': 'dbmasteruser',
         'PASSWORD': ',Yy8N0jC<&7.,7m*kUH)TKsU_(I!j`]D',
         'HOST': 'ls-99842c38855ffa2f97fb191db94cd898aae44b20.c5c4ycagorbe.ap-southeast-2.rds.amazonaws.com',  # or the hostname where your MySQL server is running
