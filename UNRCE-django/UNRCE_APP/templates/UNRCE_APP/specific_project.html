@@ -32,23 +32,6 @@
     </div>    
 </div>
 </div>
-
-<script>
-    window.onload = function() {
-        // Fetch the image source from the URL parameter
-        const urlParams = new URLSearchParams(window.location.search);
-        const imgSrc = urlParams.get('img');
-
-        if (imgSrc) {
-            const imageElement = document.getElementById('detailImage');
-            imageElement.src = decodeURIComponent(imgSrc);
-        }
-        const titleText = urlParams.get('title');
-        if(titleText){
-            const titleElement = document.getElementById('projectTitle');
-            titleElement.textContent = decodeURIComponent(titleText);
-        }
-    }
-</script>
+<script src="{% static 'UNRCE_APP/projects.js' %}"></script>
 {% endblock content %}
 
