@@ -1,13 +1,28 @@
+.container_outer {
+    display:flex;
+    justify-content: space-between;
+    grid-column: 1/-1;
+    width: 100%;
 
-.container_container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    text-align: center;
 }
+
+.container_account {
+    flex: 0 0 75%;
+    background-color: rgb(215, 215, 215);
+    border-radius: 10px;
+    margin-top: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.projects_container {
+    flex: 0 0 25%;
+    border-radius: 10px;
+    padding-left: 25px
+    /* background-color: blue; */
+}
+
+
 .h2_account {
     color: #333;
     font-size: medium;
