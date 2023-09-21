@@ -3,6 +3,13 @@
   align-items: start;
 }
 
+
+#description {
+  background-color: white; /* replace with your desired color */
+}
+
+
+
 label {
   margin-right: 20px;
   font-size: 12px;
@@ -38,6 +45,7 @@ label {
   text-align: center; /* Centers the text */
   background-color: rgba(255, 255, 255, 0.6);
   padding: 2px 5px;
+  
 }
 
 
@@ -135,6 +143,7 @@ form * {
 /* Additional styling for the form fields and elements for a better appearance against the grey background */
 label, input, textarea, button {
   margin: 10px 0; /* Spacing between form elements */
+  background-color:white;
 }
 
 .navigation-buttons {

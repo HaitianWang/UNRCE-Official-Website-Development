@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, views as auth_views
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
-from UNRCE_APP.models import Project
+from UNRCE_APP.models import Project, ProjectImage
 # ProjectImage
 
 from django.urls import reverse_lazy
@@ -20,7 +20,7 @@ from .forms import UploadImageForm, CustomUserCreationForm
 
 from django.contrib.auth.views import LoginView
 from django.contrib import messages
-from .models import Project
+from .models import Project, SDG, ProjectSDG, ESD, ProjectESD, ProjectPriorityArea, PriorityArea
 
 class CustomLoginView(LoginView):
     
@@ -173,6 +173,8 @@ def specific_project(request):
 
 
 class CreateProject(View):
+
+    
     
     def get(self, request):
         sdgs_options = ['SDG1', 'SDG2', 'SDG3', 'SDG4', 'SDG5', 'SDG6', 'SDG7', 'SDG8', 'SDG9', 'SDG10','SDG11', 'SDG12', 'SDG13', 'SDG14', 'SDG15', 'SDG16', 'SDG17']  # List of SDGs
@@ -201,41 +203,64 @@ class CreateProject(View):
 ]
 
         esd_themes = [
-    {"name": "Disaster Risk Reduction", "id": "disaster_risk_reduction"},
-    {"name": "Traditional Knowledge", "id": "traditional_knowledge"},
-    {"name": "Agriculture", "id": "agriculture"},
-    {"name": "Arts", "id": "arts"},
-    {"name": "Curriculum Development", "id": "curriculum_development"},
-    {"name": "Ecotourism", "id": "ecotourism"},
-    {"name": "Forests Trees", "id": "forests_trees"},
-    {"name": "Plants Animals", "id": "plants_animals"},
-    {"name": "Waste", "id": "waste"}
+    {"description": "Disaster Risk Reduction", "name": "disaster_risk_reduction"},
+    {"description": "Traditional Knowledge", "name": "traditional_knowledge"},
+    {"description": "Agriculture", "name": "agriculture"},
+    {"description": "Arts", "name": "arts"},
+    {"description": "Curriculum Development", "name": "curriculum_development"},
+    {"description": "Ecotourism", "name": "ecotourism"},
+    {"description": "Forests Trees", "name": "forests_trees"},
+    {"description": "Plants Animals", "name": "plants_animals"},
+    {"description": "Waste", "name": "waste"}
 ]
 
 
-        esd_options = [
-            {"name": "Priority Action Area 1", "id": "priority_area_1"},
-            {"name": "Priority Action Area 2", "id": "priority_area_2"},
-            {"name": "Priority Action Area 3", "id": "priority_area_3"},
-            {"name": "Priority Action Area 4", "id": "priority_area_4"},
-            {"name": "Priority Action Area 5", "id": "priority_area_5"},
+        pa_options = [
+            {"description": "Priority Action Area 1", "name": "priority_area_1"},
+            {"description": "Priority Action Area 2", "name": "priority_area_2"},
+            {"description": "Priority Action Area 3", "name": "priority_area_3"},
+            {"description": "Priority Action Area 4", "name": "priority_area_4"},
+            {"description": "Priority Action Area 5", "name": "priority_area_5"},
         ]
-        context = {'sdgs': sdgs_options, 'audience_options': audience_options, 'delivery_frequency_options': delivery_frequency_options, 'esd_options': esd_options, 'esd_themes':esd_themes}
+        context = {'sdgs': sdgs_options, 'audience_options': audience_options, 'delivery_frequency_options': delivery_frequency_options, 'pa_options': pa_options, 'esd_themes':esd_themes}
 
         return render(request, 'UNRCE_APP/create_project.html', context)
     
-def post(self, request):
-    print(request.POST)        
-    user = request.user
+    def post(self, request):
+                
+        sdgs_options = ['goal_1','goal_2','goal_3','goal_4','goal_5','goal_6','goal_7','goal_8','goal_9','goal_10','goal_11','goal_12','goal_13','goal_14','goal_15','goal_16','goal_17']  
 
-    new_project = Project(
+        pa_options = [
+            {"description": "Priority Action Area 1", "name": "priority_area_1"},
+            {"description": "Priority Action Area 2", "name": "priority_area_2"},
+            {"description": "Priority Action Area 3", "name": "priority_area_3"},
+            {"description": "Priority Action Area 4", "name": "priority_area_4"},
+            {"description": "Priority Action Area 5", "name": "priority_area_5"},
+        ]
+
+        esd_themes = [
+    {"description": "Disaster Risk Reduction", "name": "disaster_risk_reduction"},
+    {"description": "Traditional Knowledge", "name": "traditional_knowledge"},
+    {"description": "Agriculture", "name": "agriculture"},
+    {"description": "Arts", "name": "arts"},
+    {"description": "Curriculum Development", "name": "curriculum_development"},
+    {"description": "Ecotourism", "name": "ecotourism"},
+    {"description": "Forests Trees", "name": "forests_trees"},
+    {"description": "Plants Animals", "name": "plants_animals"},
+    {"description": "Waste", "name": "waste"}
+]
+
+        print(request.POST)        
+        user = request.user
+
+        new_project = Project(
         title=request.POST.get("title"),
         description=request.POST.get("description"),
         audience=request.POST.getlist("audience-options"),
         delivery_frequency=request.POST.get("delivery_frequency"),
         created_at=request.POST.get("start_date"),
         concluded_on=request.POST.get("end_date"),
-        # manager=user,  # to set the currently logged-in user as the manager
+        #manager=user,  # to set the currently logged-in user as the manager
         #project_cover_image=request.FILES.get("project_cover_image"),
         language=request.POST.get("language"),
         format=request.POST.get("format"),
@@ -249,15 +274,68 @@ def post(self, request):
     )
 
     # Save the new project instance to the database
-    new_project.save()
+        new_project.save()
+
+        for sdg in sdgs_options:
+            relationship_value = request.POST.get("sdg_relationship_" + "SDG" + sdg.split('_')[-1])
+            print(f"Checking SDG: {sdg}, Relationship Value: {relationship_value}")
+
+            if relationship_value:
+                try:
+                    sdg_instance = SDG.objects.get(sdg=sdg)
+                except SDG.DoesNotExist:
+                    print(f"SDG {sdg} does not exist in the database! and RV == {relationship_value}")
+                    continue
+
+                project_sdg = ProjectSDG(project=new_project, goal=sdg_instance, relationship_type=relationship_value)
+                print(sdg + " heyyyyyyyyyyyyyyyyyy")
+                project_sdg.save()
+
+
+        for esd in esd_themes:
+            relationship_value = request.POST.get(esd["name"])
+
+            if relationship_value:
+                try:
+                    esd_instance = ESD.objects.get(name=esd["name"])
+                    project_esd = ProjectESD(project=new_project, esd=esd_instance, relationship_type=relationship_value)
+                    project_esd.save()
+                except ESD.DoesNotExist:
+                    print(f"ESD {esd} does not exist in the database! and RV == {relationship_value}")
+                    continue
+
+                
+
+
+        for pa in pa_options:
+            relationship_value = request.POST.get(pa["name"])
+
+            if relationship_value:
+                try:
+            # Assuming you're fetching the ESD instance based on its name
+                    pa_instance = PriorityArea.objects.get(name=pa["name"])
+            
+            # Move the code that uses esd_instance inside the try block
+                    project_priorityarea = ProjectPriorityArea(project=new_project, priority_area=pa_instance, relationship_type=relationship_value)
+                    print(pa['name'] + " processed!")
+                    project_priorityarea.save()
+            
+                except PriorityArea.DoesNotExist:
+                    print(f"PriorityArea {pa['name']} does not exist in the database! and RV == {relationship_value}")
+                    continue
+
+
+
+
+        return render(request, 'UNRCE_APP/contact-us.html')
 
     # Now that the project has been saved, you can save its image
-    """ if 'imageUpload' in request.FILES:  # Making sure an image was uploaded
-        project_image = ProjectImage(project=new_project, image=request.FILES.get('imageUpload'))
-        project_image.save()
+        #if 'imageUpload' in request.FILES:  # Making sure an image was uploaded
+        #    project_image = ProjectImage(project=new_project, image=request.FILES.get('imageUpload'))
+        #project_image.save()
 
-    return redirect("/upload/")  # Update the URL according to your project
-"""
+        #return redirect("/upload/")  # Update the URL according to your project
+
 """
           sdgs = ['SDG1', 'SDG2', 'SDG3', 'SDG4', 'SDG5']  # List of SDGs
           for sdg in sdgs:

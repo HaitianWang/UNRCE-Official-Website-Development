@@ -112,7 +112,7 @@ class Project(models.Model):
     #)
 
 
-    #project_cover_image = models.FileField(upload_to='project_images/', null=True, blank=True)
+    project_cover_image = models.FileField(upload_to='project_images/', null=True, blank=True)
 
 
     description = models.TextField()
@@ -133,7 +133,7 @@ class Project(models.Model):
 
     
     results = models.TextField(max_length=150, blank=True)
-    lessons_learned = models.TextField(max_length=100, blank=True)
+    lessons_learned = models.TextField(max_length=300, blank=True)
     key_messages = models.CharField(max_length=50, blank=True)
     relationship_to_rce_activities = models.TextField(blank=True)
     funding = models.TextField(blank=True)
@@ -185,11 +185,11 @@ class SDGEnum(models.TextChoices):   # Using TextChoices to create Enum
     GOAL_17 = 'goal_17',"Strengthen the means of implementation and revitalize the Global Partnership for Sustainable Development"
 
 class PriorityAccessEnum(models.TextChoices):
-    PAA1 = 'paa_1', "Priority Action Area 1 - Advancing policy Direct"    
-    PAA2 = 'paa_2', "Priority Action Area 2 - Transforming learning and training environments Direct"    
-    PAA3 = 'paa_3', "Priority Action Area 3 - Developing capacities of educators and trainers Direct"
-    PAA4 = 'paa_4', "Priority Action Area 4 - Mobilizing youth Direct"    
-    PAA5 = 'paa_5', "Priority Action Area 5 - Accelerating sustainable solutions at local level Direct"
+    PAA1 = 'priority_area_1', "Priority Action Area 1 - Advancing policy Direct"    
+    PAA2 = 'priority_area_2', "Priority Action Area 2 - Transforming learning and training environments Direct"    
+    PAA3 = 'priority_area_3', "Priority Action Area 3 - Developing capacities of educators and trainers Direct"
+    PAA4 = 'priority_area_4', "Priority Action Area 4 - Mobilizing youth Direct"    
+    PAA5 = 'priority_area_5', "Priority Action Area 5 - Accelerating sustainable solutions at local level Direct"
 
 class ESDEnum(models.TextChoices):
     ESD_1 = 'disaster_risk_reduction', "Disaster Risk Reduction"
@@ -204,6 +204,9 @@ class ESDEnum(models.TextChoices):
 
 class SDG(models.Model):
     sdg = models.CharField(max_length=10, choices=SDGEnum.choices)
+    description = models.TextField(null=True)
+
+
 
 class ProjectSDG(models.Model):
     RELATIONSHIP_CHOICES = [

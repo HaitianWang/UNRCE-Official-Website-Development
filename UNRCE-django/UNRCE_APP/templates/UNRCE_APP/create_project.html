@@ -3,6 +3,7 @@
 {% block content %}
 
 
+
 <form method="post">
   {% csrf_token %}
  
@@ -122,7 +123,7 @@
 <div id="Tab5" class="tabcontent">
     <!-- ESD and PAA -->
 
-    <label for="esdThemes">Choose the Activities from the following:</label>
+    <label for="esd_themes">Choose the Activities from the following:</label>
     <div id="sdgs-selection">
         {% for option in esd_themes %}
         <div class="sdg-item">
@@ -130,28 +131,28 @@
                 <p>{{ option.name }}</p>
             </div>
             <div class="sdg-option">
-                <label class="sdg-option-label" for="{{ option.id }}_indirect">Indirect</label>
-                <input type="radio" id="{{ option.id }}_indirect" name="{{ option.id }}" value="indirect">
-                <label class="sdg-option-label" for="{{ option.id }}_direct">Direct</label>
-                <input type="radio" id="{{ option.id }}_direct" name="{{ option.id }}" value="direct">
+                <label class="sdg-option-label" for="{{ option.name }}_indirect">Indirect</label>
+                <input type="radio" id="{{ option.name }}_indirect" name="{{ option.name }}" value="indirect">
+                <label class="sdg-option-label" for="{{ option.name }}_direct">Direct</label>
+                <input type="radio" id="{{ option.name }}_direct" name="{{ option.name }}" value="direct">
             </div>
         </div>
         {% endfor %}
     </div>
 
 
-    <label for="esdOptions">Choose the Activities from the following:</label>
+    <label for="pa_options">Choose the Activities from the following:</label>
     <div id="sdgs-selection">
-        {% for option in esd_options %}
+        {% for option in pa_options %}
         <div class="sdg-item">
             <div class="sdg-name">
-                <p>{{ option.name }}</p>
+                <p>{{ option.description }}</p>
             </div>
             <div class="sdg-option">
-                <label class="sdg-option-label" for="{{ option.id }}_indirect">Indirect</label>
-                <input type="radio" id="{{ option.id }}_indirect" name="{{ option.id }}" value="indirect">
-                <label class="sdg-option-label" for="{{ option.id }}_direct">Direct</label>
-                <input type="radio" id="{{ option.id }}_direct" name="{{ option.id }}" value="direct">
+                <label class="sdg-option-label" for="{{ option.name }}_indirect">Indirect</label>
+                <input type="radio" id="{{ option.name }}_indirect" name="{{ option.name }}" value="indirect">
+                <label class="sdg-option-label" for="{{ option.name }}_direct">Direct</label>
+                <input type="radio" id="{{ option.name }}_direct" name="{{ option.name }}" value="direct">
             </div>
         </div>
         {% endfor %}
