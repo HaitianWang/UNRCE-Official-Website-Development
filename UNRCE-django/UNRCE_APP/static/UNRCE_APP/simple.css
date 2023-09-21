@@ -1,4 +1,4 @@
-::backdrop,:root {
+/* ::backdrop,:root {
     --sans-font: -apple-system,BlinkMacSystemFont,"Avenir Next",Avenir,"Nimbus Sans L",Roboto,"Noto Sans","Segoe UI",Arial,Helvetica,"Helvetica Neue",sans-serif;
     --mono-font: Consolas,Menlo,Monaco,"Andale Mono","Ubuntu Mono",monospace;
     --standard-border-radius: 5px;
@@ -567,4 +567,4 @@ sub {
     border-radius: 5px;
     padding: 1.5rem;
     margin: 2rem 0
-}
+} */

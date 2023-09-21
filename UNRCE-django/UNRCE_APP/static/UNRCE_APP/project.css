@@ -35,6 +35,7 @@ h5{
     align-items: stretch; /* Center items vertically */
     justify-content: flex-start; /* Align items to the start */
     flex-wrap: wrap;
+    grid-column: 1/-1;
 }
 .region {
     font-size: small;
