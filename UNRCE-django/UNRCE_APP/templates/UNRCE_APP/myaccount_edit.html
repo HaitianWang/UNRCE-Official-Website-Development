@@ -4,7 +4,7 @@
 <!-- {% load static %} -->
 <div class="container_outer">
     <div class="container_account">
-        <header style="display: flex; justify-content: space-between;">
+        <header style="display: flex; justify-content: space-between; padding: 0%; margin: 0%;">
             <h2 class="h2_account"> Edit Account Details</h2>
         </header>
         <main style="padding:0%; margin: 0%;">
@@ -17,7 +17,7 @@
                     <p style="font-size:medium;">Email: john@example.com</p>
                 </div>
             </section>
-            <section class="account-details">
+            <section style="padding: 0%; margin: 0%;" class="account-details">
                 <p id="testingpotato"> SDG's I'm interested in </p>
                 <!-- <img class="sdgs" src="{% static 'images/sdgs/1_no_poverty.png' %}">
                 <img class="sdgs" src="{% static 'images/sdgs/2_zero_hunger.png' %}">
@@ -42,8 +42,6 @@
                     <div class="sdg-icon" data-sdg="6"> <!-- SDG 6 -->
                         <img src="{% static 'images/sdgs/6_clean_water_and_sanitation.png' %}" class="sdgs sdg-icon" alt="SDG 6">
                     </div>
-                </div>
-                <div class="sdg-icons" >    <!-- Second Row -->
                     <div class="sdg-icon" data-sdg="7"> <!-- SDG 7 -->
                         <img src="{% static 'images/sdgs/7_affordable_and_clean_energy.png' %}" class="sdgs sdg-icon" alt="SDG 7">
                     </div>
@@ -53,6 +51,8 @@
                     <div class="sdg-icon" data-sdg="9"> <!-- SDG 9 -->
                         <img src="{% static 'images/sdgs/9_industry_ innovation_and_infrastructure.png' %}" class="sdgs sdg-icon" alt="SDG 9">
                     </div>
+                </div>
+                <div class="sdg-icons" >    <!-- Second Row -->
                     <div class="sdg-icon" data-sdg="10"> <!-- SDG 10 -->
                         <img src="{% static 'images/sdgs/10_reduced_inequalities.png' %}" class="sdgs sdg-icon" alt="SDG 10">
                     </div>
@@ -62,8 +62,6 @@
                     <div class="sdg-icon" data-sdg="12"> <!-- SDG 12 -->
                         <img src="{% static 'images/sdgs/12_responsible_consumption_and_production.png' %}" class="sdgs sdg-icon" alt="SDG 12">
                     </div>
-                </div>
-                <div class="sdg-icons" >    <!-- Third Row -->
                     <div class="sdg-icon" data-sdg="13"> <!-- SDG 13 -->
                         <img src="{% static 'images/sdgs/13_climate_action.jpg' %}" class="sdgs sdg-icon" alt="SDG 13">
                     </div>
@@ -85,7 +83,7 @@
     
     
             </section>
-            <section class="notification">
+            <section style="padding: 0%; margin: 0%;" class="notification">
                 <p> Emails enabled?</p>
                 <input type="checkbox" id="myCheckbox" name="myCheckbox" value="yes">
             </section>
