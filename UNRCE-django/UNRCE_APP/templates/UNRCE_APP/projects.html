@@ -3,40 +3,84 @@
 {% block content %}
 
 <p class="small-heading"> Our Projects</p>
-<button id="addNewProject"> Add Sample New Project</button>
+<!-- <p> {{ project_query.0.title }} </p> -->
+
+
+<!-- {% for project in project_query %}
+<p>{{ project.title }}</p>
+{% endfor %} -->
+
+
+
+<!-- <button id="addNewProject"> Add Sample New Project (Testing button only, will delete later) </button> -->
 
 <!-- Project Listings -->
 <div class="project-grid" id="projectGrid" data-baseurl="{% url 'UNRCE_APP:specific_project' %}">
     <a href="{% url 'UNRCE_APP:specific_project' %}">
         <div class="project" onclick="goToDetails(event, this.children[0].src, this.children[1].textContent)" style="cursor:pointer;">
             <img src="http://www.thewowstyle.com/wp-content/uploads/2015/01/nature-images..jpg" alt="Project 1">
-            <h3 class="projectTitle">Project 1</h3>
+            <h3 class="projectTitle"> The Tree Project</h3>
         </div>
     </a>
     <a href="{% url 'UNRCE_APP:specific_project' %}">
         <div class="project" onclick="goToDetails(event, this.children[0].src, this.children[1].textContent)" style="cursor:pointer;">
             <img src="https://www.bwallpaperhd.com/wp-content/uploads/2021/01/NashPoint.jpg" alt="Project 2">
-            <h3 class="projectTitle">Project 2</h3>
+            <h3 class="projectTitle"> Over the Clouds</h3>
         </div>
     </a>
     <a href="{% url 'UNRCE_APP:specific_project' %}">
         <div class="project" onclick="goToDetails(event, this.children[0].src, this.children[1].textContent)" style="cursor:pointer;">
             <img src="https://wallsdesk.com/wp-content/uploads/2016/05/Waterfalls-Photos.jpg" alt="Project 3">
-            <h3 class="projectTitle">Project 3</h3>
+            <h3 class="projectTitle"> Lake Monga</h3>
         </div>
     </a>
     <a href="{% url 'UNRCE_APP:specific_project' %}">
         <div class="project" onclick="goToDetails(event, this.children[0].src, this.children[1].textContent)" style="cursor:pointer;">
-            <img src="https://wallsdesk.com/wp-content/uploads/2016/05/Waterfalls-Photos.jpg" alt="Project 3">
-            <h3 class="projectTitle">Project 4</h3>
+            <img src="http://www.thewowstyle.com/wp-content/uploads/2015/01/1280_1024_nature_scene_wallpaper_1600FG100_029.jpg" alt="Project 4">
+            <h3 class="projectTitle"> Atsuka Steps</h3>
         </div>
     </a>
     <a href="{% url 'UNRCE_APP:specific_project' %}">
         <div class="project" onclick="goToDetails(event, this.children[0].src, this.children[1].textContent)" style="cursor:pointer;">
-            <img src="https://wallsdesk.com/wp-content/uploads/2016/05/Waterfalls-Photos.jpg" alt="Project 3">
-            <h3 class="projectTitle">Project 5</h3>
+            <img src="https://www.bandt.com.au/information/uploads/2020/10/GettyImages-1149030626-Large.jpg" alt="Project 5">
+            <h3 class="projectTitle"> Race Across Borders</h3>
         </div>
     </a>
+    <a href="{% url 'UNRCE_APP:specific_project' %}">
+        <div class="project" onclick="goToDetails(event, this.children[0].src, this.children[1].textContent)" style="cursor:pointer;">
+            <img src="https://www.technocrazed.com/wp-content/uploads/2015/12/Tree-wallpaper-to-use-as-background-135.jpg" alt="Image 6">
+            <h3 class="projectTitle"> The Wildlands</h3>
+        </div>
+    </a>
+    <a href="{% url 'UNRCE_APP:specific_project' %}">
+        <div class="project" onclick="goToDetails(event, this.children[0].src, this.children[1].textContent)" style="cursor:pointer;">
+            <img src="https://www.bandt.com.au/information/uploads/2015/09/getty3.jpg" alt="Image 7">
+            <h3 class="projectTitle"> Save the Turtles</h3>
+        </div>
+    </a>
+    <a href="{% url 'UNRCE_APP:specific_project' %}">
+        <div class="project" onclick="goToDetails(event, this.children[0].src, this.children[1].textContent)" style="cursor:pointer;">
+            <img src="https://getwallpapers.com/wallpaper/full/8/d/1/798741-download-free-awesome-nature-backgrounds-1920x1080-for-tablet.jpg" alt="Image 8">
+            <h3 class="projectTitle"> Windows XP</h3>
+        </div>
+    </a>
+    <a href="{% url 'UNRCE_APP:specific_project' %}">
+        <div class="project" onclick="goToDetails(event, this.children[0].src, this.children[1].textContent)" style="cursor:pointer;">
+            <img src="https://getwallpapers.com/wallpaper/full/9/d/7/403861.jpg" alt="Image 8">
+            <h3 class="projectTitle"> Forest</h3>
+        </div>
+    </a>
+    
+
+    <!-- The code below is for actually filling the projects page with projects from the database -->
+    {% for project in project_query %}
+        <a href="{ url 'UNRCE_APP:specific_project' %}">
+            <div class="project" onclick="goToDetails(event, this.children[0].src, this.children[1].textContent)" style="cursor:pointer;">
+                <img src="https://wallsdesk.com/wp-content/uploads/2016/05/Waterfalls-Photos.jpg" alt="Project 3">
+                <h3 class="projectTitle"> {{ project.title }} </h3>
+            </div>
+        </a>
+    {% endfor %}
 </div>
 
 <script src="{% static 'UNRCE_APP/projects.js' %}"></script>
