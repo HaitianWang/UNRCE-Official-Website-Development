@@ -4,8 +4,9 @@
     padding: 10px;
     margin: 10px auto;
     width: 100%;
-    max-width: 1400px; /* Limit the width for large screens */
+    max-width: 90%;
     border-radius: 10px;
+    grid-column: 1/-1;
 }
 
 .image {
@@ -149,4 +150,30 @@ h5{
     left: 93px;
     top: 1399px;
     position: absolute;
+}
+.project-sidebar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-left: 0;     /* Ensure no left margin on the project listing */
+    text-decoration: none;
+    color: inherit;
+}
+
+.project-image {
+    width: 160px;
+    height: 150px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 0;     /* Ensure no left margin on the image */
+    padding-left: 0;    /* Ensure there's no padding on the left */
+}
+
+.project-title-sidebar {
+    font-size: large;
+    margin-left: 0;     /* Ensure no left margin on the title */
+    color: black;
+}
+.projectTitle{
+    color:black;
 }

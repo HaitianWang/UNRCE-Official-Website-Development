@@ -1,7 +1,6 @@
 {% extends "UNRCE_APP/base.html" %}
-
+{% load static %}
 {% block content %}
-
 
 <p class="small-heading"> Our Projects</p>
 <!-- <p> {{ project_query.0.title }} </p> -->
@@ -16,7 +15,7 @@
 <button id="addNewProject"> Add Sample New Project (Testing button only, will delete later) </button>
 
 <!-- Project Listings -->
-<div class="project-grid" id="projectGrid">
+<div class="project-grid" id="projectGrid" data-baseurl="{% url 'UNRCE_APP:specific_project' %}">
     <a href="{% url 'UNRCE_APP:specific_project' %}">
         <div class="project" onclick="goToDetails(event, this.children[0].src, this.children[1].textContent)" style="cursor:pointer;">
             <img src="http://www.thewowstyle.com/wp-content/uploads/2015/01/nature-images..jpg" alt="Project 1">
@@ -45,51 +44,5 @@
     {% endfor %}
 </div>
 
-
-
-
-<!-- JavaScript to make the button work, to add new projects -->
-<script>
-    // Sample add a new project button
-    const addProjectButton = document.getElementById("addNewProject");      // Get the button element
-    const projectGrid = document.getElementById("projectGrid");             // Get the project grid element
-
-    // Add functionality to the button
-    addProjectButton.addEventListener("click", () => {
-        // Create project
-        const newProject = document.createElement("div");
-        newProject.classList.add("project");
-
-        // Create tag for href
-        const newProjectLink = document.createElement("a");
-        newProjectLink.href = "/";
-
-        // Create image
-        const newProjectImage = document.createElement("img");
-        newProjectImage.src = "https://www.wallpapertip.com/wmimgs/8-82164_soothing-background.jpg"; // Replace with the actual image path
-        newProjectImage.alt = "New Project";
-        // Create title
-        const newProjectTitle = document.createElement("h3");
-        newProjectTitle.textContent = "NewProject";
-
-        // Link it all together
-        newProject.appendChild(newProjectLink);
-        newProject.appendChild(newProjectImage);
-        newProject.appendChild(newProjectTitle); 
-        
-        projectGrid.appendChild(newProjectLink)     // Add the href to the project grid
-        newProjectLink.appendChild(newProject);     // Add the project to the href
-    })
-    //Add functionality for display of image on project page 
-    function goToDetails(event, imgSrc, titleText) {
-        event.preventDefault(); // prevent the default action (navigating to the href)
-        const modifiedHref = `{% url 'UNRCE_APP:specific_project' %}?img=` + encodeURIComponent(imgSrc) + '&title=' + encodeURIComponent(titleText);
-        window.location.href = modifiedHref;
-}
-
-
-
-</script>
-
-
+<script src="{% static 'UNRCE_APP/projects.js' %}"></script>
 {% endblock content %}

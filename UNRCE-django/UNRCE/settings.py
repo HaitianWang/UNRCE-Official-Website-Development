@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-*4#w1xtd7#hfw_kyd$(4pwlv&@uv9xbzgxg8!e1d-g9dp!r@p7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['3.24.216.179','.localhost', '127.0.0.1', '[::1]']
 
 
 # Application definition
@@ -77,12 +77,8 @@ WSGI_APPLICATION = 'UNRCE.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'rce_uwa',
-        'USER': 'root',
-        'PASSWORD': '****',
-        'HOST': 'localhost',  # or the hostname where your MySQL server is running
-        'PORT': '3306',      # or the port on which your MySQL server is listening
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': str(BASE_DIR / "db.sqlite3"),
     }
 }
 
@@ -136,3 +132,14 @@ AUTH_USER_MODEL = 'UNRCE_APP.CustomUser'
 
 #Point django to new authentication backend
 AUTHENTICATION_BACKENDS = ['UNRCE_APP.backends.EmailBackend']
+
+
+
+
+
+
+
+
+
+
+
