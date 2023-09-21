@@ -1,0 +1,30 @@
+.sdg-icons {
+    display:flex;
+    /* justify-content: space-around; */
+    align-items: left;
+}
+
+.sdg-icon {
+    cursor: pointer;
+    border: 2px solid transparent; /* Initial border is transparent */
+    width: 100px; /* Set the width to match the icon size */
+    height: 100px; /* Set the height to match the icon size */
+    box-sizing: border-box; /* Include padding and border in the element's total width/height */
+    transition: border-color 0.3s, border-radius 0.3s; /* Smooth transitions */
+    border-radius: 8px; /* Adjust the value to control the amount of rounding */
+}
+
+.sdg-icon:hover {
+    opacity: 0.8;
+}
+
+.sdg-icon img {
+    width: 100%; /* Ensure the image fills the entire container */
+    height: 100%; /* Ensure the image fills the entire container */
+}
+
+.sdg-icon.selected {
+    border-color: #007bff; /* Border color when selected */
+    border-radius: 8px; /* Apply the same border-radius when selected */
+}
+  
