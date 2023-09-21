@@ -53,7 +53,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
 
-
 class ProjectFile(models.Model):
     project = models.ForeignKey('Project', on_delete=models.CASCADE)
     file = models.FileField(upload_to='project_files/')
@@ -62,16 +61,17 @@ class ProjectFile(models.Model):
     def __str__(self):
         return f"File<{self.id}> for Project<{self.project_id}>"
     
-
+"""
 class ProjectImage(models.Model):
     project = models.ForeignKey('Project', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='project_images/')
+    project_cover_image = models.OneToOneField('ProjectImage', on_delete=models.SET_NULL, null=True, blank=True)
+
+
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"Image<{self.id}> for Project<{self.project_id}>"
-    
-
+"""
 class Project(models.Model):
     # choices for fields
     AUDIENCE_CHOICES = [
@@ -112,7 +112,7 @@ class Project(models.Model):
     #)
 
 
-    project_cover_image = models.FileField(upload_to='project_images/', null=True, blank=True)
+    #project_cover_image = models.FileField(upload_to='project_images/', null=True, blank=True)
 
 
     description = models.TextField()
@@ -122,10 +122,7 @@ class Project(models.Model):
     concluded_on = models.DateTimeField(null=True, blank=True)  # Null by default
 
     files = models.ManyToManyField('ProjectFile', related_name='projects')
-    images = models.ManyToManyField('ProjectImage', related_name='projects')
 
-
-    
     audience = models.CharField(max_length=50, choices=AUDIENCE_CHOICES)
     delivery_frequency = models.CharField(max_length=20, choices=FREQUENCY_CHOICES)
     language = models.TextField()
@@ -236,7 +233,7 @@ class ProjectESD(models.Model):
     relationship_type = models.CharField(max_length=10, choices=[('direct', 'Direct'), ('indirect', 'Indirect')])
 
     class Meta:
-        unique_together = ['project', 'esds']
+        unique_together = ['project', 'esd']
         
 
 

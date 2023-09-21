@@ -4,7 +4,8 @@ from django.contrib.auth import authenticate, login, views as auth_views
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
-from UNRCE_APP.models import Project 
+from UNRCE_APP.models import Project
+# ProjectImage
 
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
@@ -207,35 +208,40 @@ class CreateProject(View):
 
         return render(request, 'UNRCE_APP/create_project.html', context)
     
-    def post(self, request):
-          print(request.POST)        
-          user = request.user
+def post(self, request):
+    print(request.POST)        
+    user = request.user
 
-          new_project = Project(
-            title = request.POST.get("title"),
-            description = request.POST.get("description"),
-            audience = request.POST.getlist("audience-options"),
-    delivery_frequency=request.POST.get("delivery_frequency"),
-    created_at=request.POST.get("start_date"),
-    concluded_on =request.POST.get("end_date"),
-   # manager=user,  # to set the currently logged-in user as the manager
-    project_cover_image=request.FILES.get("project_cover_image"),
-    language=request.POST.get("language"),
-    format=request.POST.get("format"),
-    web_link=request.POST.get("web_link"),
-    policy_link=request.POST.get("policy_link"),
-    results=request.POST.get("results"),
-    lessons_learned=request.POST.get("lessons_learned"),
-    key_messages=request.POST.get("key_messages"),
-    relationship_to_rce_activities=request.POST.get("relationship_to_rce_activities"),
-          funding=request.POST.get("funding"),)
-        
-    
+    new_project = Project(
+        title=request.POST.get("title"),
+        description=request.POST.get("description"),
+        audience=request.POST.getlist("audience-options"),
+        delivery_frequency=request.POST.get("delivery_frequency"),
+        created_at=request.POST.get("start_date"),
+        concluded_on=request.POST.get("end_date"),
+        # manager=user,  # to set the currently logged-in user as the manager
+        #project_cover_image=request.FILES.get("project_cover_image"),
+        language=request.POST.get("language"),
+        format=request.POST.get("format"),
+        web_link=request.POST.get("web_link"),
+        policy_link=request.POST.get("policy_link"),
+        results=request.POST.get("results"),
+        lessons_learned=request.POST.get("lessons_learned"),
+        key_messages=request.POST.get("key_messages"),
+        relationship_to_rce_activities=request.POST.get("relationship_to_rce_activities"),
+        funding=request.POST.get("funding")
+    )
 
+    # Save the new project instance to the database
+    new_project.save()
 
-        # Save the new project instance to the database
-          new_project.save()
-          return redirect("/upload/")  # Update the URL according to your project
+    # Now that the project has been saved, you can save its image
+    """ if 'imageUpload' in request.FILES:  # Making sure an image was uploaded
+        project_image = ProjectImage(project=new_project, image=request.FILES.get('imageUpload'))
+        project_image.save()
+
+    return redirect("/upload/")  # Update the URL according to your project
+"""
 """
           sdgs = ['SDG1', 'SDG2', 'SDG3', 'SDG4', 'SDG5']  # List of SDGs
           for sdg in sdgs:
