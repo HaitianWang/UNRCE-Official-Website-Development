@@ -6,7 +6,6 @@
 <html>
 
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UNRCE</title>
   <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/styles.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/login.css' %}">
@@ -18,7 +17,7 @@
 
 </head>
 <style>
-  /* Autofill styles
+  /* Autofill styles */
   input:-webkit-autofill,
   input:-webkit-autofill:hover, 
   input:-webkit-autofill:focus,
@@ -32,18 +31,16 @@
       -webkit-text-fill-color: black !important;
       -webkit-box-shadow: 0 0 0px 1000px white inset !important;
       transition: background-color 5000s ease-in-out 0s;
-  } */
+  }
 </style>
 <body style="background-color: #ffffff;">
-  <div class="container">
-      <!-- Added header.html -->
-      {% include 'UNRCE_APP/header.html' %}
-  
-      {% block content %}
-      {% endblock content %}
-  
-      {% include 'UNRCE_APP/footer.html' %}
-  </div>
-  </body>
-  
+<!-- Added header.html -->
+{% include 'UNRCE_APP/header.html' %}
+
+{% block content %}
+{% endblock content %}
+
+{% include 'UNRCE_APP/footer.html' %}
+
+</body>
 </html>
