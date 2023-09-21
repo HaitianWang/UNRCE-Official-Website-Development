@@ -61,7 +61,7 @@ class ProjectFile(models.Model):
     def __str__(self):
         return f"File<{self.id}> for Project<{self.project_id}>"
     
-"""
+
 class ProjectImage(models.Model):
     project = models.ForeignKey('Project', on_delete=models.CASCADE)
     project_cover_image = models.OneToOneField('ProjectImage', on_delete=models.SET_NULL, null=True, blank=True)
@@ -71,7 +71,7 @@ class ProjectImage(models.Model):
 
     def __str__(self):
         return f"Image<{self.id}> for Project<{self.project_id}>"
-"""
+
 class Project(models.Model):
     # choices for fields
     AUDIENCE_CHOICES = [
