@@ -8,6 +8,17 @@ from UNRCE_APP.models import Project
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 
+from django.contrib.sites.shortcuts import get_current_site
+from django.shortcuts import render, redirect, HttpResponse
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str
+from .tokens import account_activation_token
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+from django.contrib.auth import get_user_model
+from django.contrib import messages
+
 # LoginRequiredMixin will check that user 
 # is authenticated before rendering the template.
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -137,12 +148,67 @@ class UploadImageView(LoginRequiredMixin, View):
       },
     )
 
-#display forgot password page
 def forgot_password(request):
-    return render(request, 'UNRCE_APP/forgot-password.html')
+  User = get_user_model()
+  if request.method == "POST":
+      email = request.POST['email']
+      user = User.objects.filter(email=email).first()
+      if not user:
+          print('no user found')
+          messages.error(request, 'No account with this email address exists.')
+          return render(request, 'UNRCE_APP/forgot_password.html')
+      elif user:
+          print('found user')
+          current_site = get_current_site(request)
+          mail_subject = 'Reset your password.'
+          message = render_to_string('UNRCE_APP/reset_password_email.html', {
+              'user': user,
+              'domain': current_site.domain,
+              'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+              'token': account_activation_token.make_token(user),
+          })
+          
+          # Send the email using SendGrid
+          sg = SendGridAPIClient('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')  # Make sure to replace with your SendGrid API key
+          email_msg = Mail(
+              from_email='simonqiu4@gmail.com',
+              to_emails=email,
+              subject=mail_subject,
+              html_content=message)
+          response = sg.send(email_msg)
+          print('sent message successfully')
+          messages.success(request, 'A reset password link has been sent to your email.')
+          return render(request, 'UNRCE_APP/email_sent_confirmation.html')
+
+  return render(request, 'UNRCE_APP/forgot_password.html')
+
 #display reset password page
-def reset_password(request):
-    return render(request, 'UNRCE_APP/reset-password.html')
+def reset_password(request, uidb64, token):
+  print("UID:", uidb64)
+  print("TOKEN:", token)
+  User = get_user_model()
+  try:
+      uid = force_str(urlsafe_base64_decode(uidb64))
+      user = User.objects.get(pk=uid)
+  except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+      user = None
+  if user is not None and account_activation_token.check_token(user, token):
+      if request.method == 'POST':
+          password = request.POST['new_password']
+          password2 = request.POST['retype_password']
+          if password == password2:
+              user.set_password(password)
+              user.save()
+              messages.success(request, 'Password reset successfully.')
+              return redirect('login')
+          else:
+              messages.error(request, 'Passwords do not match.')
+      return render(request, 'UNRCE_APP/reset_password.html')
+  else:
+      return HttpResponse('Reset password link is invalid!')
+
+
+
 def contact_us(request):
     return render(request, 'UNRCE_APP/contact-us.html')
 #display projects page
