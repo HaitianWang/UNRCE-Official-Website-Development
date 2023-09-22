@@ -8,7 +8,7 @@
   {% csrf_token %}
  
  <div class="tab">
-    <button class="tablinks" data-tabname="Tab1" id="defaultOpen">Tab 1</button>
+    <button class="tablinks" data-tabname="Tab1" id="defaultOpen">Main</button>
     <button class="tablinks" data-tabname="Tab2">Location</button>
     <button class="tablinks" data-tabname='Tab3'>Contents</button>
     <button class="tablinks" data-tabname='Tab4'>SDG</button>
@@ -34,19 +34,19 @@
       
 
 
-        <label for="description">Description:</label><br>
+        <label class = "custom-label" for="description">Description:</label><br>
         <textarea id="description" name="description" rows="4" cols="50"></textarea><br><br>
         
-        <label for="language">Language:</label>
+        <label class = "custom-label" for="language">Language:</label>
         <input type="text" id="language" name="language"><br><br>
         
-        <label for="format">Format:</label>
+        <label class = "custom-label" for="format">Format:</label>
         <input type="text" id="format" name="format"><br><br>
         
-        <label for="web_link">Web Link:</label>
+        <label class = "custom-label" for="web_link">Web Link:</label>
         <input type="text" id="web_link" name="web_link"><br><br>
         
-        <label for="policy_link">Policy Link:</label>
+        <label class = "custom-label" for="policy_link">Policy Link:</label>
         <input type="text" id="policy_link" name="policy_link"><br><br>
         
   </div>
@@ -57,17 +57,17 @@
     
     <!-- Form fields for Tab 2 -->
 
-        <label>Target Audience:</label><br>
+        <label class = "custom-label" >Target Audience:</label><br>
         
         {% for option in audience_options %}
             <input type="checkbox" id="{{ option.id }}" name="audience-options" value="{{ option.id }}">
-            <label for="{{ option.id }}">{{ option.name }}</label><br>
+            <label class="selection-label" for="{{ option.id }}">{{ option.name }}</label><br>
         {% endfor %}
 
-        <label>Delivery Frequency:</label>
+        <label class = "custom-label">Delivery Frequency:</label>
         {% for option in delivery_frequency_options %}
             <input type="radio" id="{{ option.id }}" name="delivery_frequency" value="{{ option.id }}">
-            <label for="{{ option.id }}">{{ option.name }}</label><br>
+            <label class="selection-label" for="{{ option.id }}">{{ option.name }}</label><br>
         {% endfor %}
         
 
@@ -78,26 +78,26 @@
 
 <div id="Tab3" class="tabcontent">
     
-        <label for="results">Results:</label>
+        <label class = "custom-label" for="results">Results:</label>
         <textarea id="results" name="results" rows="2" cols="50"></textarea><br><br>
         
-        <label for="lessons_learned">Lessons Learned:</label>
+        <label class = "custom-label" for="lessons_learned">Lessons Learned:</label>
         <textarea id="lessons_learned" name="lessons_learned" rows="2" cols="50"></textarea><br><br>
         
-        <label for="key_messages">Key Messages:</label>
-        <input type="text" id="key_messages" name="key_messages"><br><br>
+        <label class = "custom-label" for="key_messages">Key Messages:</label>
+        <textarea id="key_messages" name="key_messages" rows="2" cols="50"></textarea><br><br>
         
-        <label for="relationship_to_rce_activities">Relationship to RCE Activities:</label>
+        <label class = "custom-label" for="relationship_to_rce_activities">Relationship to RCE Activities:</label>
         <textarea id="relationship_to_rce_activities" name="relationship_to_rce_activities" rows="2" cols="50"></textarea><br><br>
         
-        <label for="funding">Funding:</label>
+        <label class = "custom-label" for="funding">Funding:</label>
         <textarea id="funding" name="funding" rows="2" cols="50"></textarea><br><br>
     
 </div>
 
 <div id="Tab4" class="tabcontent">
     <!-- SDG -->
-              <label for="sdgs">Choose the SDGs from the following:</label>
+              <label class = "custom-label" for="sdgs">Choose the SDGs from the following:</label>
               <div id="sdgs-selection">
                 {% for sdg in sdgs %}
                 <div class="sdg-item">
@@ -123,7 +123,7 @@
 <div id="Tab5" class="tabcontent">
     <!-- ESD and PAA -->
 
-    <label for="esd_themes">Choose the Activities from the following:</label>
+    <label class = "custom-label" for="esd_themes">Choose the Activities from the following:</label>
     <div id="sdgs-selection">
         {% for option in esd_themes %}
         <div class="sdg-item">
@@ -141,7 +141,7 @@
     </div>
 
 
-    <label for="pa_options">Choose the Activities from the following:</label>
+    <label class = "custom-label" for="pa_options">Choose the Activities from the following:</label>
     <div id="sdgs-selection">
         {% for option in pa_options %}
         <div class="sdg-item">
@@ -167,7 +167,7 @@
     add functionality to the submit button -->
 
         <p>Terms and Conditions</p>
-        <label for="terms_and_conditions" style = "font-size: 14px; ">
+        <label class = "terms-label" for="terms_and_conditions" style = "font-size: 14px; ">
             Personal data provided under this form will be processed by UNU in accordance with the UNU Policy on Personal Data Protection. Your information and personal
             data will strictly be used for the purpose of payment processing and will be held in confidence. Access to your information and personal data is strictly limited to
             UNU’s authorized employees and agents on a “need-to-know” basis. UNU will retain your personal data only for the period necessary, unless UNU has an

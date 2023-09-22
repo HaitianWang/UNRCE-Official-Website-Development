@@ -1,0 +1,56 @@
+.container_outer {
+    display:flex;
+    justify-content: space-between;
+    grid-column: 1/-1;
+    width: 100%;
+
+}
+
+.container_account {
+    flex: 0 0 75%;
+    background-color: rgb(215, 215, 215);
+    border-radius: 10px;
+    margin-top: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.projects_container {
+    flex: 0 0 25%;
+    border-radius: 10px;
+    padding-left: 25px
+    /* background-color: blue; */
+}
+
+
+.h2_account {
+    color: #333;
+    font-size: medium;
+}
+
+
+.profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.profile-picture img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #007BFF;
+    margin-right: 20px;
+}
+/* .user-info {
+    text-align: left;
+} */
+
+p {
+    color: rgb(56, 54, 54);
+}
+
+.sdgs {
+    width: 100px;
+    height: 100px;
+}

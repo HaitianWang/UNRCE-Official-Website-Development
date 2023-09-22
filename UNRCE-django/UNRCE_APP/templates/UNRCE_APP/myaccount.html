@@ -1,0 +1,48 @@
+
+{% extends "UNRCE_APP/base.html" %}
+{% block content %}
+<!-- {% load static %} -->
+<div class="container_outer">
+    <div class="container_account">
+        <header style="display: flex; justify-content: space-between;">
+            <h2 class="h2_account"> My Account</h2>
+            <a href="/myaccount_edit">
+                <h2 class="h2_account"> Edit Profile Details</h2>
+            </a>
+        </header>
+        <main style="padding:0%; margin: 0%;">
+            <section style="padding: 0%; margin: 0%; display:flex;">
+                <div class="profile-picture">
+                    <img src="https://www.kindpng.com/picc/m/421-4212275_transparent-default-avatar-png-avatar-img-png-download.png" alt="Profile Picture">
+                </div>
+                <div>
+                    <p style="font-size:medium;">Name: John Doe</p>
+                    <p style="font-size:medium;">Email: john@example.com</p>
+                </div>
+            </section>
+            <section style="padding: 0%; margin: 0%;" class="account-details">
+                <p> SDG's I'm interested in</p>
+                <img class="sdgs" src="{% static 'images/sdgs/1_no_poverty.png' %}">
+                <img class="sdgs" src="{% static 'images/sdgs/2_zero_hunger.png' %}">
+                <img class="sdgs" src="{% static 'images/sdgs/13_climate_action.jpg' %}">
+                <img class="sdgs" src="{% static 'images/sdgs/14_life_below_water.jpg' %}">
+            </section>
+            <section style="padding: 0%; margin: 0%;" class="notification">
+                <p> Emails notifications enabled?</p>
+                    <!-- Emails are enabled -->
+                <input type="checkbox" id="myCheckbox" name="myCheckbox" value="yes" checked disabled>
+                    <!-- Emails are not enabled -->
+                <!-- <input type="checkbox" id="myCheckbox" name="myCheckbox" value="yes" disabled> -->
+            </section>
+        </main>
+    </div>
+    <div class="projects_container">
+        <header>
+            <h2 class="h2_account"> My Projects</h2>
+        </header>
+    </div>
+</div>
+
+
+
+{% endblock content %}
