@@ -223,12 +223,13 @@ class CreateProject(View):
 
 
         pa_options = [
-            {"description": "Priority Action Area 1", "name": "priority_area_1"},
-            {"description": "Priority Action Area 2", "name": "priority_area_2"},
-            {"description": "Priority Action Area 3", "name": "priority_area_3"},
-            {"description": "Priority Action Area 4", "name": "priority_area_4"},
-            {"description": "Priority Action Area 5", "name": "priority_area_5"},
+            {"description": "Advancing policy Direct", "name": "priority_area_1"},
+            {"description": "Transforming learning and training environments Direct", "name": "priority_area_2"},
+            {"description": "Developing capacities of educators and trainers Direct", "name": "priority_area_3"},
+            {"description": "Mobilizing youth Direct", "name": "priority_area_4"},
+            {"description": "Accelerating sustainable solutions at local level Direct", "name": "priority_area_5"},
         ]
+
         context = {'sdgs': sdgs_options, 'audience_options': audience_options, 'delivery_frequency_options': delivery_frequency_options, 'pa_options': pa_options, 'esd_themes':esd_themes}
 
         return render(request, 'UNRCE_APP/create_project.html', context)
@@ -238,13 +239,14 @@ class CreateProject(View):
         sdgs_options = ['goal_1','goal_2','goal_3','goal_4','goal_5','goal_6','goal_7','goal_8','goal_9','goal_10','goal_11','goal_12','goal_13','goal_14','goal_15','goal_16','goal_17']  
 
         pa_options = [
-            {"description": "Priority Action Area 1", "name": "priority_area_1"},
-            {"description": "Priority Action Area 2", "name": "priority_area_2"},
-            {"description": "Priority Action Area 3", "name": "priority_area_3"},
-            {"description": "Priority Action Area 4", "name": "priority_area_4"},
-            {"description": "Priority Action Area 5", "name": "priority_area_5"},
+            {"description": "Advancing policy Direct", "name": "priority_area_1"},
+            {"description": "Transforming learning and training environments Direct", "name": "priority_area_2"},
+            {"description": "Developing capacities of educators and trainers Direct", "name": "priority_area_3"},
+            {"description": "Mobilizing youth Direct", "name": "priority_area_4"},
+            {"description": "Accelerating sustainable solutions at local level Direct", "name": "priority_area_5"},
         ]
 
+       
         esd_themes = [
     {"description": "Disaster Risk Reduction", "name": "disaster_risk_reduction"},
     {"description": "Traditional Knowledge", "name": "traditional_knowledge"},

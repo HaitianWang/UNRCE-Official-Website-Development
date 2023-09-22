@@ -5,7 +5,7 @@
 
 
 #description {
-  width: 300px;  /* Set the width you want */
+  width: 800px;  /* Set the width you want */
   height: 150px; /* Set the height you want */
   resize: none;  /* Prevents user from resizing the textarea */
 }
@@ -237,7 +237,7 @@ input[type="radio"] {
     display: inline-block;
     margin-right: 10px;
     //font-family: Intern; /* Replace 'YourDesiredFontFamily' with the name of the font you want. */
-    font-size: 18px;
+    font-size: 15px;
     font-weight: normal;
 
   }

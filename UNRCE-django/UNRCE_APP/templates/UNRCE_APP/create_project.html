@@ -123,12 +123,12 @@
 <div id="Tab5" class="tabcontent">
     <!-- ESD and PAA -->
 
-    <label class = "custom-label" for="esd_themes">Choose the Activities from the following:</label>
+    <label class = "custom-label" for="esd_themes">Choose the ESD themes from the following:</label>
     <div id="sdgs-selection">
         {% for option in esd_themes %}
         <div class="sdg-item">
             <div class="sdg-name">
-                <p>{{ option.name }}</p>
+                <p>{{ option.description }}</p>
             </div>
             <div class="sdg-option">
                 <label class="sdg-option-label" for="{{ option.name }}_indirect">Indirect</label>
@@ -141,7 +141,7 @@
     </div>
 
 
-    <label class = "custom-label" for="pa_options">Choose the Activities from the following:</label>
+    <label class = "custom-label" for="pa_options">Choose the Priority Access Activities from the following:</label>
     <div id="sdgs-selection">
         {% for option in pa_options %}
         <div class="sdg-item">
