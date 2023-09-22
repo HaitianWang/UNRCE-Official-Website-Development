@@ -1,3 +1,156 @@
+.pr-container {
+  display: flex;
+  align-items: start;
+}
+
+label {
+  margin-right: 20px;
+  font-size: 12px;
+  
+}
+
+.tabnav {
+  font-size: 20px; /* Adjust size as needed */
+  background-color: transparent; /* Make the button background transparent */
+  border: none; /* Remove borders */
+  cursor: pointer; /* Hand cursor for better UX */
+  padding: 5px 10px; /* Adjust padding as needed */
+  margin: 0 5px; /* Space between the arrows if they are side by side */
+}
+
+
+.image-section {
+  display: flex;
+  flex-direction: column; /* Ensures children of this div stack vertically */
+  align-items: center;    /* This will center the items if they have different widths */
+}
+
+
+#uploadedImage {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover; /* This keeps the image aspect ratio while filling the label dimensions */
+}
+
+.upload-text {
+  display: block; /* Ensures it's on a new line under the image */
+  text-align: center; /* Centers the text */
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: 2px 5px;
+}
+
+
+.tablinks {
+  background-color: #0d47a1 !important;
+  border-radius: 20px;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  margin-right: 30px;
+}
+
+.tablinks {
+  background-color: #0d47a1;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  margin-right: 5px; /* spacing between tabs */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* subtle shadow for 3D effect */
+  border-radius: 5px; /* rounded corners */
+}
+
+
+.tablinks:not(:last-child) {
+  margin-right: 10px; /* Adjust as per your requirement */
+}
+
+
+
+input[type="file"] {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.upload-container {
+  max-width: 150px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Change this to flex-end */
+  justify-content: flex-end; /* Change this to flex-end */
+  margin-left: 20px;
+}
+
+
+
+.upload-text {
+  margin-top: 10px;
+  cursor: pointer;
+  color: #020057;  /* Color of the text. Adjust as necessary. */
+  font-size: 16px;  /* Size of the text. Adjust as necessary. */
+}
+
+#uploadedImage {
+  max-width: 70%;  /* Matches the width of your project image */
+  height: 60%;  /* Matches the height of your project image */
+  object-fit: cover;
+}
+
+
+img {
+  float: left;
+  margin-left: 10px; /* Creates space between the image and the form */
+}
+
+.clear {
+  clear: both;
+}
+
+
+.tabcontent {
+  display: none;
+}
+
+
+form {
+  background-color: #f0f0f0; 
+  padding: 20px;
+  margin-bottom: 50px;
+  padding-bottom: 50px; /* This adds white space inside the grey form area, at the bottom */
+  position: relative;
+  min-height: 100%; /* Ensures form covers full height of its parent container. */
+}
+
+form * {
+    border-color: transparent !important;
+}
+
+/* Additional styling for the form fields and elements for a better appearance against the grey background */
+label, input, textarea, button {
+  margin: 10px 0; /* Spacing between form elements */
+}
+
+.navigation-buttons {
+  width: 100%;
+  text-align: center;
+  margin: 20px 0;   /* Adjust the margin to your liking. */
+}
+
+#prevBtn, #nextBtn {
+  margin: 0 10px;   /* Provides spacing between the two buttons. Adjust if needed. */
+  display: inline-block;
+}
+
+
+
+
 .sdg-item {
     display: flex;
     align-items: center;
@@ -16,4 +169,88 @@
   }
   
   /* Adjust styling as needed */
-  
+  .terms-container {
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    margin: 20px 0;
+}
+
+h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.terms-text {
+    font-size: 14px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+    color: #555;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-container input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.submit-Btn {
+  display: none;
+}
+
+.submit-Btn {
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    display: block;
+    margin-top: 20px;
+}
+
+.submit-Btn:hover {
+    background-color: #45a049;
+}
+
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+
+
+.tablinks:hover {
+    background-color: #ddd;
+}
+
+.tablinks.active {
+    background-color:#0d47a1;
+}
+
+.tabcontent {
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+    display: none;
+}
+
+.terms-container {
+    margin: 20px;
+}
+
+.terms-text {
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.checkbox-container {
+    margin: 20px 0;
+}
+
