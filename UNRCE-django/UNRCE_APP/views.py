@@ -19,6 +19,8 @@ from sendgrid.helpers.mail import Mail
 from django.contrib.auth import get_user_model
 from django.contrib import messages
 
+from captcha.models import CaptchaStore
+
 # LoginRequiredMixin will check that user 
 # is authenticated before rendering the template.
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -31,9 +33,23 @@ from django.contrib.auth.views import LoginView
 from django.contrib import messages
 from .models import Project
 
+from django.contrib.auth.views import LoginView
+from django.shortcuts import render
+from django.contrib import messages
+#from .models import CaptchaStore  # Make sure to import CaptchaStore if not already done
+
 class CustomLoginView(LoginView):
     
     def form_valid(self, form):
+        captcha_value = self.request.POST.get('captcha_0')
+        captcha_key = self.request.POST.get('captcha_1')
+
+        # Check the captcha
+        captcha_check = CaptchaStore.objects.filter(response=captcha_value, hashkey=captcha_key)
+        if not captcha_check.exists():
+            messages.error(self.request, "Captcha is incorrect.")
+            return self.form_invalid(form)  # Changed from super().form_invalid(form)
+        
         # Add any custom logic here. 
         # For instance, log when a user successfully logs in.
         messages.success(self.request, "Logged in successfully!")
@@ -42,41 +58,76 @@ class CustomLoginView(LoginView):
     def form_invalid(self, form):
         # Add any custom logic for when the form is invalid.
         # For instance, log when a login attempt fails.
+        captcha_key = CaptchaStore.generate_key()  # Always regenerate the captcha_key
         messages.error(self.request, "Failed to log in. Please check your credentials.")
-        return super().form_invalid(form)
- 
-class IndexView(View):
-  def get(self, request):
-    images = Image.objects.order_by("uploaded_date")
-    return render(
-      request,
-      "UNRCE_APP/index.html",
-      {
-        "images": images,
-      },
-    )
+        return render(
+            self.request,
+            "UNRCE_APP/login.html",
+            {
+                "form": form,
+                "captcha_key": captcha_key
+            }
+        )
+
+    def get(self, request, *args, **kwargs):
+        captcha_key = CaptchaStore.generate_key()
+        return render(
+            request, 
+            "UNRCE_APP/login.html", 
+            {
+                "captcha_key": captcha_key, 
+                "form": self.get_form()
+            },
+        ) 
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            captcha_key = CaptchaStore.generate_key()
+            return render(
+                request,
+                "UNRCE_APP/login.html",
+                {
+                    "form": form,
+                    "captcha_key": captcha_key
+                }
+            )
 
 
 class SignUpView(View):
+
     def get(self, request):
+        captcha_key = CaptchaStore.generate_key()
         return render(
             request,
             "UNRCE_APP/signup.html",
             {
                 "form": CustomUserCreationForm(),
-            },
-        )
-    def get(self, request):
-        return render(
-            request,
-            "UNRCE_APP/signup.html",
-            {
-                "form": CustomUserCreationForm(),
+                "captcha_key": captcha_key,
             },
         )
 
     def post(self, request):
         form = CustomUserCreationForm(request.POST)
+        captcha_value = request.POST.get('captcha_0')
+        captcha_key = request.POST.get('captcha_1')
+    
+        captcha_check = CaptchaStore.objects.filter(response=captcha_value, hashkey=captcha_key)
+        
+        if not captcha_check.exists():
+            messages.error(request, "Captcha is incorrect.")
+            captcha_key = CaptchaStore.generate_key()  # Regenerate the captcha_key
+            return render(
+                request,
+                "UNRCE_APP/signup.html",
+                {
+                    "form": form,  # Use the same form instance to retain the user's input
+                    "captcha_key": captcha_key,
+                },
+            )
 
         if form.is_valid():
             form.save()
@@ -91,13 +142,28 @@ class SignUpView(View):
                 login(request, user)
             return redirect("/")
 
+        # If form is not valid, also regenerate the captcha_key
+        captcha_key = CaptchaStore.generate_key()
         return render(
             request,
             "UNRCE_APP/signup.html",
             {
                 "form": form,
+                "captcha_key": captcha_key,
             },
         )
+
+class IndexView(View):
+  def get(self, request):
+    images = Image.objects.order_by("uploaded_date")
+    return render(
+      request,
+      "UNRCE_APP/index.html",
+      {
+        "images": images,
+      },
+    )
+
 
 class UploadImageView(LoginRequiredMixin, View):
   # Not authenticated users will be redirected
@@ -200,7 +266,7 @@ def reset_password(request, uidb64, token):
               user.set_password(password)
               user.save()
               messages.success(request, 'Password reset successfully.')
-              return redirect('login')
+              return redirect('UNRCE_APP:login')
           else:
               messages.error(request, 'Passwords do not match.')
       return render(request, 'UNRCE_APP/reset_password.html')
