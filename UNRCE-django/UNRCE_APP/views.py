@@ -1,5 +1,6 @@
 from django.views import View
-from django.shortcuts import render, redirect
+from django.shortcuts import render, get_object_or_404, redirect
+from .forms import ProjectForm
 from django.contrib.auth import authenticate, login, views as auth_views
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
@@ -337,13 +338,23 @@ class CreateProject(View):
 
 
         return render(request, 'UNRCE_APP/contact-us.html')
+    
+def edit_project(request, project_id):
 
-    # Now that the project has been saved, you can save its image
-        #if 'imageUpload' in request.FILES:  # Making sure an image was uploaded
-        #    project_image = ProjectImage(project=new_project, image=request.FILES.get('imageUpload'))
-        #project_image.save()
 
-        #return redirect("/upload/")  # Update the URL according to your project
+    project = get_object_or_404(Project, pk=project_id)
+
+    if request.method == 'POST':
+        form = ProjectForm(request.POST, instance=project)
+        if form.is_valid():
+            form.save()
+            # Redirect to a success page or update the current page as needed
+            return redirect('UNRCE_APP/contact-us.html')  # Change 'success_page' to your desired URL name
+
+    else:
+        form = ProjectForm(instance=project)
+
+    return render(request, 'UNRCE_APP/edit_project.html', {'form': form})
 
 """
           sdgs = ['SDG1', 'SDG2', 'SDG3', 'SDG4', 'SDG5']  # List of SDGs

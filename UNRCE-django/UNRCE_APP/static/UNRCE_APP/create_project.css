@@ -4,7 +4,7 @@
 }
 
 
-#description {
+#description, #results , #lessons_learned, #key_messages, #relationship_to_rce_activities, #funding {
   width: 800px;  /* Set the width you want */
   height: 150px; /* Set the height you want */
   resize: none;  /* Prevents user from resizing the textarea */
