@@ -19,6 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+  path('captcha/', include('captcha.urls')),
   path("", include("UNRCE_APP.urls")),
 
   # Default django admin interface

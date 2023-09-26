@@ -49,6 +49,13 @@
             </div>
             {% endfor %}
 
+            <div class="input-container">
+                <label for="captcha" class="input-label">Captcha</label>
+                <img src="{% url 'captcha-image' captcha_key %}" alt="Captcha" />
+                <input type="text" name="captcha_0" class="form-control" placeholder="Enter Captcha" required />
+                <input type="hidden" name="captcha_1" value="{{ captcha_key }}" />
+            </div>
+
             <input type="submit" value="Register" class="submit-button" style="color:black;">
 
         </form>
