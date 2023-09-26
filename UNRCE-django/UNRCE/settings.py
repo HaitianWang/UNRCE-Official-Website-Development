@@ -77,15 +77,8 @@ WSGI_APPLICATION = 'UNRCE.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dbmaster',
-        'USER': 'dbmasteruser',
-        'PASSWORD': ',Yy8N0jC<&7.,7m*kUH)TKsU_(I!j`]D',
-        'HOST': 'ls-99842c38855ffa2f97fb191db94cd898aae44b20.c5c4ycagorbe.ap-southeast-2.rds.amazonaws.com',  # or the hostname where your MySQL server is running
-        'PORT': '3306',      # or the port on which your MySQL server is listening
-        'OPTIONS': {
-            'init_command': 'SET sql_mode="STRICT_ALL_TABLES"',
-        },
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': str(BASE_DIR / "db.sqlite3"),
     }
 }
 
