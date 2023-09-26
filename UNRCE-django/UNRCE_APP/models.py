@@ -146,6 +146,22 @@ class Project(models.Model):
     priority_areas = models.ManyToManyField('PriorityArea', through='ProjectPriorityArea')
 
     esds = models.ManyToManyField('ESD', through ="ProjectESD")
+    PENDING = 'pending'
+    ACCEPTED = 'accepted'
+    REJECTED = 'rejected'
+    
+    APPROVAL_CHOICES = [
+        (PENDING, 'Pending'),
+        (ACCEPTED, 'Accepted'),
+        (REJECTED, 'Rejected'),
+    ]
+
+    approval = models.CharField(
+        max_length=8,
+        choices=APPROVAL_CHOICES,
+        default=PENDING,
+    )
+    
     #themese of educational sustainable debvelopement
 
 

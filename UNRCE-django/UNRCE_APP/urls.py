@@ -4,7 +4,7 @@ from django.contrib.auth.views import LogoutView
 from .views import IndexView, SignUpView, UploadImageView, CreateProject
 from .views import CustomLoginView
 from django.contrib.auth.views import LogoutView
-from .views import IndexView, SignUpView, UploadImageView, edit_project
+from .views import IndexView, SignUpView, UploadImageView, edit_project, users_info
 from . import views
 from .forms import CustomAuthenticationForm
 
@@ -42,6 +42,7 @@ urlpatterns = [
   path("myaccount/", views.myaccount, name="myaccount"),
   path("myaccount_edit/", views.myaccount_edit, name="myaccount_edit"),
   path('edit-project/<int:project_id>/', views.edit_project, name='edit_project'),
+  path('users/', views.users_info, name='users'),
 
 
 

@@ -148,6 +148,8 @@ def reset_password(request):
     return render(request, 'UNRCE_APP/reset-password.html')
 def contact_us(request):
     return render(request, 'UNRCE_APP/contact-us.html')
+def users_info(request):
+    return render(request, 'UNRCE_APP/users_info.html')
 #display projects page
 def projects(request):
     project_query = Project.objects.all()   # Store the rows from the "Project" table, and store them in project_query
