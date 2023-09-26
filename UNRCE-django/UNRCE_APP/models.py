@@ -173,7 +173,8 @@ class Project(models.Model):
     
 
     def __str__(self) -> str:
-        return f"Project<{self.id}>"
+        # return f"Project<{self.id}>"
+        return self.title
 
 
 

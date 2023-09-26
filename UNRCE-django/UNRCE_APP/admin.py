@@ -3,7 +3,7 @@ from django.contrib import admin
 from .models import Image
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser
+from .models import CustomUser, Project
 
 class CustomUserAdmin(UserAdmin):
     # Define which fields are displayed on the admin page
@@ -28,5 +28,10 @@ class CustomUserAdmin(UserAdmin):
         ),
     )
 
+# class ProjectAdmin(admin.ModelAdmin):
+#     list_display = ("title")
+#     search_fields = ("title")
+
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(Image)
+admin.site.register(Project)
