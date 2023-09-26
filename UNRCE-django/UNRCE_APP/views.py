@@ -265,6 +265,10 @@ class CreateProject(View):
         print(request.POST)        
         user = request.user
 
+        action = request.POST.get("action", "save")  # Default to 'save' if 'action' isn't present
+        status = "submitted" if action == "submit" else "draft"
+
+
         new_project = Project(
         title=request.POST.get("title"),
         description=request.POST.get("description"),
@@ -282,7 +286,8 @@ class CreateProject(View):
         lessons_learned=request.POST.get("lessons_learned"),
         key_messages=request.POST.get("key_messages"),
         relationship_to_rce_activities=request.POST.get("relationship_to_rce_activities"),
-        funding=request.POST.get("funding")
+        funding=request.POST.get("funding"),
+        status=status
     )
 
     # Save the new project instance to the database

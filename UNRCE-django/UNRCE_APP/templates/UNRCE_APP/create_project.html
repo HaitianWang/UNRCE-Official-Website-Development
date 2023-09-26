@@ -15,6 +15,9 @@
     <button class="tablinks" data-tabname='Tab5'>ESD</button>
     <button class="tablinks" data-tabname='Tab6'>Submission</button>
 
+    <input type="hidden" name="action" value="save" id="form-action">
+
+
   </div>
     
   <div id="Tab1" class="tabcontent">
@@ -179,8 +182,10 @@
         <!-- Add a checkbox for accepting terms and conditions -->
         <input type="checkbox" id="terms_and_conditions" name="terms_and_conditions" required>
         <label for="terms_and_conditions">I accept the terms and conditions</label>
-        
-        <input type="submit" value="Submit" class="submit-button" style="color:white; " value="Add Project">
+
+        <button type="submit" onclick="document.getElementById('form-action').value='save';">Save as Draft</button>
+        <button type="submit" onclick="document.getElementById('form-action').value='submit';">Submit</button>
+
      
       </div>
 
@@ -284,19 +289,6 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-function displayImage(inputElement) {
-  const file = inputElement.files[0];
-  if (file) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-          const imageElement = document.getElementById('uploadedImage');
-          imageElement.src = e.target.result;
-      }
-      reader.readAsDataURL(file);
-  }
-}
-
-
 
 function displayImage(inputElement) {
   const file = inputElement.files[0];
@@ -309,6 +301,19 @@ function displayImage(inputElement) {
       reader.readAsDataURL(file);
   }
 }
+
+document.getElementById('saveButton').addEventListener('click', function() {
+    // Add logic to indicate this is a save action, not submit
+    // For example, you could add a hidden field to your form
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'action';
+    input.value = 'save';
+    document.querySelector('form').appendChild(input);
+    
+    // Submit the form
+    document.querySelector('form').submit();
+});
 
 
 </script>

@@ -162,6 +162,8 @@ class Project(models.Model):
         default=PENDING,
     )
     
+    status = models.CharField(max_length=20, choices=[('draft', 'Draft'), ('submitted', 'Submitted')], default='draft')
+
     #themese of educational sustainable debvelopement
 
 
