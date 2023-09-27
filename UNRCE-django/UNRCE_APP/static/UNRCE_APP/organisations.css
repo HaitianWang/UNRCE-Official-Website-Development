@@ -1,0 +1,158 @@
+.organisation-page{
+    max-width: 1400px; /* You can adjust this value based on your design */
+    margin: 0;
+    position: relative; /* To use for absolute positioning of children elements */
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 50px;  /* Adjust this value to control the spacing between the squares */
+    border: 2px solid #f1f1f1;
+    border-radius: 10px;
+    padding: 40px;
+}
+
+.square {
+    width: 200px;   /* Adjust this value to control the size of the squares */
+    height: 200px;
+    background-color: #F1F1F1;
+    background-size: cover; /* makes sure the image covers the whole square */
+    background-repeat: no-repeat; /* ensures the image doesn't repeat */
+    background-position: center; /* centers the image in the square */
+    cursor: pointer;
+    margin: 0 auto;
+}
+
+.grid-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    background-color: #ffffff;
+    padding-bottom:50px;
+    padding-top:0px;  
+}
+
+
+.org-block {
+    display: flex;
+    flex-direction: column; /* stacks child elements vertically */
+    align-items: center; /* center child elements horizontally */
+    justify-content: center; /* center child elements vertically */
+}
+
+.organisation-title{
+    font-size: 30px;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 50px;
+    color:black;
+}
+
+.btn-organisations{
+  background-color: #5775ac;
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  height: 40px;
+  line-height: 20px;
+  list-style: none;
+  margin-left: 0;
+  outline: none;
+  padding: 10px 16px;
+  text-align: center;
+  text-decoration: none;
+  transition: color 100ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  position: relative;
+  top: 13%; 
+  transform: translateY(-50%); /* This works with 'top' to perfectly center the button vertically */
+}
+
+.btn-organisations:hover,
+.btn-organisation:focus {
+  background-color: #003087;
+}
+
+.edit-organisations {
+    top: 10px;    /* Adjust as needed */
+    right: 150px;  /* Adjust as needed */
+}
+
+.confirm-organisations {
+    top: 10px;    /* Adjust as needed */
+    right: 150px;  /* Adjust as needed */
+}
+
+.add-organisations {
+    top: 10px;  /* Adjust as needed */
+    left: 570px;    /* Adjust as needed */
+}
+
+.delete-organisations {
+    top: 10px;  /* Adjust as needed */
+    left: 230px;   /* Adjust as needed */
+}
+
+.organisation-name{
+    color:black;
+}
+
+/* Styles for Modal Pop-Up */
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+  
+  /* Modal Content */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%; /* Could be more or less, depending on screen size */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    display: flex;
+    flex-direction: column; /* To stack children elements (inputs) vertically */
+    align-items: center; /* To center children elements horizontally */
+}
+
+  /* The Close Button */
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.input-organisations {
+    margin-top: 10px;
+    padding: 20px;
+    width: 80%; /* You can adjust as needed */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #F1F1F1;
+    color: darkgray;
+}
+  

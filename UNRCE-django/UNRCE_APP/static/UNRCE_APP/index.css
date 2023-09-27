@@ -271,29 +271,3 @@
     padding: 0;
 }
 
-.footer {
-    display: flex;
-    align-items: center; /* Centers items vertically */
-    justify-content: space-between; /* Spreads out the items */
-    padding: 10px; /* Padding around the footer content */
-    height: 100px; /* Adjust as needed */
-    background-color: #003087;
-    color: white;
-    grid-column: 1/-1;
-    font-weight: 300;
-    padding-right: 60px;
-}
-
-.footer-image {
-    height: 100%; /* Ensures the container takes the full height of the footer */
-    flex-shrink: 0; /* Prevents the image container from shrinking */
-}
-
-.footer-logo {
-    height: 100%; /* Makes sure the image takes up the entire height of its container */
-    display: block; /* Removes any gaps below the image */
-}
-
-.footer h5 {
-    margin: 0 10px; /* Spacing between the items. Adjust as needed */
-}

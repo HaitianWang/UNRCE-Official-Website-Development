@@ -39,7 +39,7 @@ urlpatterns = [
   path('projects/', views.projects, name='projects'),
   path('specific_project/', views.specific_project, name='specific_project'),
   path("create_project/", CreateProject.as_view(), name="create_project"),
-
-
+  path('organisations/', views.organisations, name='organisations'),
+  path('organisations_admin/', views.organisations_admin, name='organisations_admin'),
 
 ]

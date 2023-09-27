@@ -1,24 +1,41 @@
+*{
+    font-family: "Century Gothic", sans-serif;
+}
 .centered{
     text-align: center;
 }
 
-/* Changing the Font of the thing at the top */
-h1 {
-    font-family: "Century Gothic", sans-serif;
-}
+
 
 /* For the base header */
 .main-header {
     display:flex;
     height: 120px;
+    color: white;
+    font-family: Century gothic; 
+    font-weight: lighter;
+    font-size: 30px;
+    padding-left: 20px;
 }
 
 /* For the base header navigation bar */
 .header-nav {
     background-color: #5775ac;
-    height: 70px;
+
+    padding-top: 25px;
 }
 
+.topright{
+    color:white;
+}
+
+.nav-element{
+    color:white;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 20px;
+    
+}
 /* Small Headings, such as "Our projects" */
 .small-heading {
     font-weight: bold;
@@ -55,4 +72,32 @@ h1 {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 /* All above is for the Projects page, making it 3x3 */
+
+.footer {
+    display: flex;
+    align-items: center; /* Centers items vertically */
+    justify-content: space-between; /* Spreads out the items */
+    padding: 10px; /* Padding around the footer content */
+    height: 110px; /* Adjust as needed */
+    background-color: #003087;
+    color: white;
+    grid-column: 1/-1;
+    font-weight: 300;
+    padding-right: 60px;
+}
+
+.footer-image {
+    height: 100%; /* Ensures the container takes the full height of the footer */
+    flex-shrink: 0; /* Prevents the image container from shrinking */
+}
+
+.footer-logo {
+    height: 100%; /* Makes sure the image takes up the entire height of its container */
+    display: block; /* Removes any gaps below the image */
+}
+
+.footer h5 {
+    margin: 0 10px; /* Spacing between the items. Adjust as needed */
+}
+
 

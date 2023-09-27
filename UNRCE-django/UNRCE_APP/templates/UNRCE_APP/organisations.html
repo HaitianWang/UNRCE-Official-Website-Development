@@ -1,0 +1,28 @@
+{% extends "UNRCE_APP/base.html" %}
+
+{% block content %}
+{% load static %}
+{% load customfilters %}
+<h3 class="organisation-title">Organisations</h3>
+<div class="organisation-page">
+{% if user.is_superuser %}
+<a class="btn-organisations edit-organisations" id="btn-organisations" href="/organisations_admin">Edit Organisations</a>
+{% endif %}
+<div class="grid-wrapper">
+    <div class="grid-container">
+
+        {% with org_data="RCEWA_Logo.png|Organisation One|https://www.rcenetwork.org/portal/rce-profile-detail/rce-western-australia|SDGs_RCE.png|Organisation Two|https://www.rcenetwork.org/portal/rce-profile-detail/rce-western-australia|Font_1.png|Organisation Three|https://www.rcenetwork.org/portal/rce-profile-detail/rce-western-australia|ESD_for_2030.png|Organisation Four|https://www.rcenetwork.org/portal/rce-profile-detail/rce-western-australia|RCEWA_Logo.png|Organisation One|https://www.rcenetwork.org/portal/rce-profile-detail/rce-western-australia|SDGs_RCE.png|Organisation Two|https://www.rcenetwork.org/portal/rce-profile-detail/rce-western-australia|Font_1.png|Organisation Three|https://www.rcenetwork.org/portal/rce-profile-detail/rce-western-australia|ESD_for_2030.png|Organisation Four|https://www.rcenetwork.org/portal/rce-profile-detail/rce-western-australia|RCEWA_Logo.png|Organisation One|https://www.rcenetwork.org/portal/rce-profile-detail/rce-western-australia|SDGs_RCE.png|Organisation Two|https://www.rcenetwork.org/portal/rce-profile-detail/rce-western-australia|Font_1.png|Organisation Three|https://www.rcenetwork.org/portal/rce-profile-detail/rce-western-australia|ESD_for_2030.png|Organisation Four|https://www.rcenetwork.org/portal/rce-profile-detail/rce-western-australia" %}
+        {% for image, name, link in org_data|pairs %}
+        <div class="org-block">
+            <a href="{{ link }}" target="_blank">
+                <div class="square" style="background-image: url('{% static 'images/'|add:image %}')"></div>
+            </a>
+            <p class="organisation-name">{{ name }}</p>
+        </div>
+        {% endfor %}        
+        {% endwith %}
+
+    </div>
+</div>
+</div>
+{% endblock content %}

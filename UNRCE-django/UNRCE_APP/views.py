@@ -21,6 +21,11 @@ from django.contrib.auth.views import LoginView
 from django.contrib import messages
 from .models import Project
 
+# Super user check for admin
+# Return http reponse error
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
+
 class CustomLoginView(LoginView):
     
     def form_valid(self, form):
@@ -170,6 +175,16 @@ def specific_project(request):
     title_text = request.GET.get('title', '')
     return render(request, 'UNRCE_APP/specific_project.html', {'img_src': img_src, 'title_text': title_text})
 
+
+def organisations(request):
+    return render(request, 'UNRCE_APP/organisations.html')
+
+@login_required
+def organisations_admin(request):
+    if not request.user.is_superuser:
+        messages.error(request, "You are not allowed to access this page.")
+        return redirect('UNRCE_APP:index')
+    return render(request, 'UNRCE_APP/organisations_admin.html')
 
 class CreateProject(View):
     
