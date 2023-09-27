@@ -33,7 +33,9 @@ class CustomUserAdmin(UserAdmin):
         ),
     )
 
+## New Admin class for 'Project' Model. Allows customisation of admin page
 class ProjectAdmin(admin.ModelAdmin):
+    # Allows the download of Project table as a CSV file
     actions = ["download_csv"]
 
     def download_csv(self, request, queryset):
@@ -55,6 +57,12 @@ class ProjectAdmin(admin.ModelAdmin):
         return response
     
     download_csv.short_description = "Download Selected Projects as CSV"
+
+
+    # Display the attributes in the admin page
+    list_display = ('title', 'description', 'created_at')         # Add more fields accordingly, for what you want to show
+    search_fields = ['title', 'description', 'created_at']        # Add columns to search bar
+
 
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(Image)
