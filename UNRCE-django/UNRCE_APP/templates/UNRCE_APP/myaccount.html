@@ -37,8 +37,10 @@
         </main>
     </div>
     <div class="projects_container">
-        <h2 class="h2_account"> My Projects</h2>
-        <a href="{% url 'UNRCE_APP:create_project' %}">Add New Project?</a> 
+        <div style="justify-content: space-around; display:flex; align-content:baseline; flex-wrap: wrap">
+            <h2 class="h2_account" style="display: inline;"> My Projects</h2>
+            <a href="{% url 'UNRCE_APP:create_project' %}" style="display: inline">Add New Project?</a>  <!--TODO: Make styling part of stylesheet-->
+        </div>
         <!-- Tom's Sidebar Projects Code -->
         <div class="sidebar">
             <ul class="projects-list">

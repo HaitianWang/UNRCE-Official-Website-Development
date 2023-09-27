@@ -12,14 +12,14 @@ h3 {
     color:white;
     display:flex;
     height: 120px;
+    justify-content: space-between;
 }
 .main-header>span{
-    margin: auto;
-    margin-right: 0;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
 }
-.main-header>span>a{
-    display: block;
-}
+
 
 /* For the base header navigation bar */
 .header-nav {
