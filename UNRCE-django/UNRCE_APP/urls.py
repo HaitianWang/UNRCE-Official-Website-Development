@@ -41,8 +41,10 @@ urlpatterns = [
   path("create_project/", CreateProject.as_view(), name="create_project"),
   path("myaccount/", views.myaccount, name="myaccount"),
   path("myaccount_edit/", views.myaccount_edit, name="myaccount_edit"),
-  path('edit-project/<int:project_id>/', views.edit_project, name='edit_project'),
+  path('edit_project/<int:project_id>/', views.edit_project, name='edit_project'),
   path('users/', views.users_info, name='users'),
+  path('admin/fetch_projects/', views.fetch_projects, name='fetch_projects'),
+
 
 
 

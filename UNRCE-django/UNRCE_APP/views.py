@@ -6,6 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from UNRCE_APP.models import Project, ProjectImage
+from django.http import JsonResponse
 # ProjectImage
 
 from django.urls import reverse_lazy
@@ -349,6 +350,7 @@ class CreateProject(View):
 def edit_project(request, project_id):
 
 
+
     project = get_object_or_404(Project, pk=project_id)
 
     if request.method == 'POST':
@@ -393,3 +395,9 @@ def edit_project(request, project_id):
     waste=request.POST.get("waste"),"""
 
 
+
+
+def fetch_projects(request):
+    query = request.GET.get('q', '')
+    projects = Project.objects.filter(title__icontains=query)
+    return JsonResponse([{'id': proj.id, 'text': proj.title} for proj in projects], safe=False)

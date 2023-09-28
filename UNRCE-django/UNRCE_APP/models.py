@@ -2,6 +2,35 @@ from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
+
+
+class SDGEnum(models.TextChoices):   # Using TextChoices to create Enum
+    GOAL_1 = 'goal_1', "End poverty in all its forms everywhere"
+    GOAL_2 = 'goal_2',"End hunger, achieve food security and improved nutrition and promote sustainable agriculture"
+    GOAL_3 = 'goal_3',"Ensure healthy lives and promote well-being for all at all ages"
+    GOAL_4 = 'goal_4', "Ensure inclusive and equitable quality education and promote lifelong learning opportunities for all"
+    GOAL_5 = 'goal_5', "Achieve gender equality and empower all women and girls"
+    GOAL_6 = 'goal_6',"Ensure availability and sustainable management of water and sanitation for all"
+    GOAL_7 = 'goal_7', "Ensure access to affordable, reliable, sustainable and modern energy for all"
+    GOAL_8 = 'goal_8',"Promote sustained, inclusive and sustainable economic growth, full and productive employment and decent work for all"
+    GOAL_9 = 'goal_9',"Build resilient infrastructure, promote inclusive and sustainable industrialization and foster innovation"
+    GOAL_10 = 'goal_10',"Reduce inequality within and among countries"
+    GOAL_11= 'goal_11',"Make cities and human settlements inclusive, safe, resilient and sustainable"
+    GOAL_12 = 'goal_12',"Ensure sustainable consumption and production patterns"
+    GOAL_13 = 'goal_13',"Take urgent action to combat climate change and its impacts"
+    GOAL_14 = 'goal_14',"Conserve and sustainably use the oceans, seas and marine resources for sustainable development"
+    GOAL_15 = 'goal_15',"Protect, restore and promote sustainable use of terrestrial ecosystems, sustainably manage forests, combat desertification, and halt and reverse land degradation and halt biodiversity loss"
+    GOAL_16= 'goal_16',"Promote peaceful and inclusive societies for sustainable development, provide access to justice for all and build effective, accountable and inclusive institutions at all levels"
+    GOAL_17 = 'goal_17',"Strengthen the means of implementation and revitalize the Global Partnership for Sustainable Development"
+
+
+class SDG(models.Model):
+    sdg = models.CharField(max_length=10, choices=SDGEnum.choices)
+    description = models.TextField(null=True)
+    def __str__(self):
+        return self.title
+    
+    
 class Image(models.Model):
   # image title, not blank string with maximum of 60 characters
   title = models.CharField(max_length=60, blank=False)
@@ -14,6 +43,7 @@ class Image(models.Model):
 
   # image upload date and time
   uploaded_date = models.DateTimeField()
+
 
   # link to the user that uploaded the image
   uploaded_by = models.ForeignKey(
@@ -45,6 +75,12 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
+
+    ####
+    interested_projects = models.ManyToManyField('Project', blank=True, related_name="users_interested")
+    interested_sdgs = models.ManyToManyField(SDG, related_name='interested_users')
+
+    
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'
@@ -172,8 +208,8 @@ class Project(models.Model):
 
     
 
-    def __str__(self) -> str:
-        return f"Project<{self.id}>"
+    def __str__(self):
+        return self.title
 
 
 
@@ -181,26 +217,6 @@ class Follow(models.Model):
     followed_project = models.ForeignKey('Project', on_delete=models.CASCADE)
     following_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
-
-
-class SDGEnum(models.TextChoices):   # Using TextChoices to create Enum
-    GOAL_1 = 'goal_1', "End poverty in all its forms everywhere"
-    GOAL_2 = 'goal_2',"End hunger, achieve food security and improved nutrition and promote sustainable agriculture"
-    GOAL_3 = 'goal_3',"Ensure healthy lives and promote well-being for all at all ages"
-    GOAL_4 = 'goal_4', "Ensure inclusive and equitable quality education and promote lifelong learning opportunities for all"
-    GOAL_5 = 'goal_5', "Achieve gender equality and empower all women and girls"
-    GOAL_6 = 'goal_6',"Ensure availability and sustainable management of water and sanitation for all"
-    GOAL_7 = 'goal_7', "Ensure access to affordable, reliable, sustainable and modern energy for all"
-    GOAL_8 = 'goal_8',"Promote sustained, inclusive and sustainable economic growth, full and productive employment and decent work for all"
-    GOAL_9 = 'goal_9',"Build resilient infrastructure, promote inclusive and sustainable industrialization and foster innovation"
-    GOAL_10 = 'goal_10',"Reduce inequality within and among countries"
-    GOAL_11= 'goal_11',"Make cities and human settlements inclusive, safe, resilient and sustainable"
-    GOAL_12 = 'goal_12',"Ensure sustainable consumption and production patterns"
-    GOAL_13 = 'goal_13',"Take urgent action to combat climate change and its impacts"
-    GOAL_14 = 'goal_14',"Conserve and sustainably use the oceans, seas and marine resources for sustainable development"
-    GOAL_15 = 'goal_15',"Protect, restore and promote sustainable use of terrestrial ecosystems, sustainably manage forests, combat desertification, and halt and reverse land degradation and halt biodiversity loss"
-    GOAL_16= 'goal_16',"Promote peaceful and inclusive societies for sustainable development, provide access to justice for all and build effective, accountable and inclusive institutions at all levels"
-    GOAL_17 = 'goal_17',"Strengthen the means of implementation and revitalize the Global Partnership for Sustainable Development"
 
 class PriorityAccessEnum(models.TextChoices):
     PAA1 = 'priority_area_1', "Priority Action Area 1 - Advancing policy Direct"    
@@ -220,9 +236,6 @@ class ESDEnum(models.TextChoices):
     ESD_8 = 'plants_animals', "Plants & Animals"
     ESD_9 = 'waste', "Waste"
 
-class SDG(models.Model):
-    sdg = models.CharField(max_length=10, choices=SDGEnum.choices)
-    description = models.TextField(null=True)
 
 
 

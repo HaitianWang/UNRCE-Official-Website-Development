@@ -1,0 +1,56 @@
+{% extends "admin/base.html" %}
+
+{% block extrahead %}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
+{% block title %}
+    {% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Django site admin') }}
+{% endblock %}
+
+{% block branding %}
+    <h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></h1>
+    
+    <!-- Custom Search Form -->
+    <form method="get">
+        <div class="search-bar">
+            <div class="input-group">
+                <select name="project_search" multiple="multiple" id="projectSearch" style="width:300px;">
+                    {% for project in projects %}
+                        <option value="{{ project.id }}">{{ project.title }}</option>
+                    {% endfor %}
+                </select>
+                <select name="sdg_search" multiple="multiple" id="sdgSearch" style="width:300px;">
+                    {% for sdg in sdgs %}
+                        <option value="{{ sdg.id }}">{{ sdg.name }}</option>
+                    {% endfor %}
+                </select>
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary" title="Search"><i class="fa fa-search"></i></button>
+                </span>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        $(document).ready(function() {
+            $('#projectSearch').select2();
+            $('#sdgSearch').select2();
+        });
+    </script>
+
+    {% if user.is_anonymous %}
+        {% include "admin/color_theme_toggle.html" %}
+    {% endif %}
+{% endblock %}
+
+
+
+{% block nav-global %}{% endblock %}
+
+{% block extra_scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script>
+        // Add the JavaScript provided previously here.
+    </script>
+{% endblock %}
