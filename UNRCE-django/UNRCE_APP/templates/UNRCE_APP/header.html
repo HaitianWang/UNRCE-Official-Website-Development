@@ -1,7 +1,5 @@
-<header id="navbar" class="main-header">
-  <div>
-  <h3> United Nations Regional Centre of Expertise for Western Australia</h3>
-  </div>
+
+<header style="background-color: #003087;">
 
   <div class="top-bar">
     <div id="navbar-bottom">
@@ -11,9 +9,14 @@
         <a href="/projects"> Our Projects</a>
         <a href="/contact-us"> Contact Us</a>
       </nav>
-    </div>
+    <!-- This is just so that the header is centered -->
 
-    <div class="horizontal-menu">
+
+    <!-- Title -->
+      <h3> United Nations Regional Centre of Expertise of Western Australia</h1>
+    <!-- Title -->
+
+
     <!-- Login/Signup/Logout -->
       {% if user.is_authenticated %}
       <!-- show log out link if user is already logged in -->
@@ -24,24 +27,19 @@
       <!-- show log in and sign up links otherwise   -->
       <nav style="display: flex;">
         <a class="topright" href="{% url 'UNRCE_APP:login' %}">Login</a><br>
-        <a class="topright" href="{% url 'UNRCE_APP:signup' %}">Signup</a>
+        <a class="topright" href="{% url 'UNRCE_APP:signup' %}">Create an Account</a>
       </nav>
       {% endif %}
     <!-- Login/Signup/Logout -->
     </div>
   </div>
+</header>
 
-  <!-- When the user scrolls down, hide the navbar. When the user scrolls up, show the navbar -->
-  <script>
-    var prevScrollpos = window.pageYOffset;
-    window.onscroll = function() {
-      var currentScrollPos = window.pageYOffset;
-      if (prevScrollpos > currentScrollPos) {
-        document.getElementById("navbar-bottom").style.bottom = "0";
-      } else {
-        document.getElementById("navbar-bottom").style.bottom = "-50px";
-      }
-      prevScrollpos = currentScrollPos;
-    }
-  </script>
-  </header>
+<header class="header-nav">
+  <!-- Navigation Panel -->
+  <nav>
+    <a href="/">Home</a>
+    <a href="/projects"> Our Projects</a>
+    <a href="/contact-us"> Contact Us</a>
+  </nav>
+</header>

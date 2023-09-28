@@ -4,6 +4,10 @@ from django.contrib.auth import authenticate, login, views as auth_views
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
+from UNRCE_APP.models import Project 
+
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
 
 # LoginRequiredMixin will check that user 
 # is authenticated before rendering the template.
@@ -15,6 +19,7 @@ from .forms import UploadImageForm, CustomUserCreationForm
 
 from django.contrib.auth.views import LoginView
 from django.contrib import messages
+from .models import Project
 
 class CustomLoginView(LoginView):
     
@@ -43,6 +48,14 @@ class IndexView(View):
 
 
 class SignUpView(View):
+    def get(self, request):
+        return render(
+            request,
+            "UNRCE_APP/signup.html",
+            {
+                "form": CustomUserCreationForm(),
+            },
+        )
     def get(self, request):
         return render(
             request,
@@ -131,16 +144,141 @@ def forgot_password(request):
 #display reset password page
 def reset_password(request):
     return render(request, 'UNRCE_APP/reset-password.html')
-#display contact page
 def contact_us(request):
     return render(request, 'UNRCE_APP/contact-us.html')
 #display projects page
 def projects(request):
     return render(request, 'UNRCE_APP/projects.html')
 
+# This is a function to return a list of featured projects by recently added
+# def index(request):
+#     # Just an example: getting the last 5 projects.
+#     # Adjust the query to fetch projects as per your criteria.
+#     featured_projects = Project.objects.all().order_by('-created_date')[:5]
+    
+#     return render(request, 'UNRCE_APP/index.html', {
+#         'featured_projects': featured_projects
+#     })
+
+#return index page
+def index(request):
+    return render(request, 'UNRCE_APP/index.html')
 #display information from the chosen project page
 # hello 
 def specific_project(request):
     img_src = request.GET.get('img', '') 
     title_text = request.GET.get('title', '')
     return render(request, 'UNRCE_APP/specific_project.html', {'img_src': img_src, 'title_text': title_text})
+
+
+class CreateProject(View):
+    
+    def get(self, request):
+        sdgs_options = ['SDG1', 'SDG2', 'SDG3', 'SDG4', 'SDG5', 'SDG6', 'SDG7', 'SDG8', 'SDG9', 'SDG10','SDG11', 'SDG12', 'SDG13', 'SDG14', 'SDG15', 'SDG16', 'SDG17']  # List of SDGs
+        
+
+        delivery_frequency_options = [
+        {"name": "Monthly", "id": "monthly"},
+        {"name": "Quarterly", "id": "quarterly"},
+        {"name": "Biannually", "id": "biannually"},
+        {"name": "Annually", "id": "annually"},
+        {"name": "Ongoing", "id": "ongoing"},
+        {"name": "Once", "id": "once"},
+        {"name": "Opportunistic/Irregularly", "id": "irregular"},
+        {"name": "Permanent/On demand", "id": "on_demand"}]
+
+
+        audience_options = [
+    {"name": "General", "id": "general"},
+    {"name": "Particular target Audience (Please specify)", "id": "target"},
+    {"name": "Adults", "id": "adults"},
+    {"name": "Tertiary students", "id": "tertiary"},
+    {"name": "High school age", "id": "high_school"},
+    {"name": "Primary School age", "id": "primary_school"},
+    {"name": "Early years", "id": "early_years"},
+    {"name": "Adults >60 please", "id": "adults_60"}
+]
+
+        esd_themes = [
+    {"name": "Disaster Risk Reduction", "id": "disaster_risk_reduction"},
+    {"name": "Traditional Knowledge", "id": "traditional_knowledge"},
+    {"name": "Agriculture", "id": "agriculture"},
+    {"name": "Arts", "id": "arts"},
+    {"name": "Curriculum Development", "id": "curriculum_development"},
+    {"name": "Ecotourism", "id": "ecotourism"},
+    {"name": "Forests Trees", "id": "forests_trees"},
+    {"name": "Plants Animals", "id": "plants_animals"},
+    {"name": "Waste", "id": "waste"}
+]
+
+
+        esd_options = [
+            {"name": "Priority Action Area 1", "id": "priority_area_1"},
+            {"name": "Priority Action Area 2", "id": "priority_area_2"},
+            {"name": "Priority Action Area 3", "id": "priority_area_3"},
+            {"name": "Priority Action Area 4", "id": "priority_area_4"},
+            {"name": "Priority Action Area 5", "id": "priority_area_5"},
+        ]
+        context = {'sdgs': sdgs_options, 'audience_options': audience_options, 'delivery_frequency_options': delivery_frequency_options, 'esd_options': esd_options, 'esd_themes':esd_themes}
+
+        return render(request, 'UNRCE_APP/create_project.html', context)
+    
+    def post(self, request):
+          print(request.POST)        
+          user = request.user
+
+          new_project = Project(
+            title = request.POST.get("title"),
+            description = request.POST.get("description"),
+            audience = request.POST.getlist("audience-options"),
+    delivery_frequency=request.POST.get("delivery_frequency"),
+    created_at=request.POST.get("start_date"),
+    concluded_on =request.POST.get("end_date"),
+   # manager=user,  # to set the currently logged-in user as the manager
+    project_cover_image=request.FILES.get("project_cover_image"),
+    language=request.POST.get("language"),
+    format=request.POST.get("format"),
+    web_link=request.POST.get("web_link"),
+    policy_link=request.POST.get("policy_link"),
+    results=request.POST.get("results"),
+    lessons_learned=request.POST.get("lessons_learned"),
+    key_messages=request.POST.get("key_messages"),
+    relationship_to_rce_activities=request.POST.get("relationship_to_rce_activities"),
+          funding=request.POST.get("funding"),)
+        
+    
+
+
+        # Save the new project instance to the database
+          new_project.save()
+          return redirect("/upload/")  # Update the URL according to your project
+"""
+          sdgs = ['SDG1', 'SDG2', 'SDG3', 'SDG4', 'SDG5']  # List of SDGs
+          for sdg in sdgs:
+            sdg_id = sdg.id
+            relationship_type = request.POST.get(f'sdg_relationship_{sdg_id}', '')
+
+            if relationship_type:
+              sdg = SDG.objects.get(id=sdg_id)
+
+            # Create a ProjectSDG instance to associate SDG with Project
+            project_sdg = ProjectSDG.objects.create(project=new_project, sdg=sdg, relationship_type=relationship_type)
+
+        # Redirect to a success page or to the project list page
+
+    priority_area_1=request.POST.get("priority_area_1"),
+    priority_area_2=request.POST.get("priority_area_2"),
+    priority_area_3=request.POST.get("priority_area_3"),
+    priority_area_4=request.POST.get("priority_area_4"),
+    priority_area_5=request.POST.get("priority_area_5"),
+    disaster_risk_reduction=request.POST.get("disaster_risk_reduction"),
+    traditional_knowledge=request.POST.get("traditional_knowledge"),
+    agriculture=request.POST.get("agriculture"),
+    arts=request.POST.get("arts"),
+    curriculum_development=request.POST.get("curriculum_development"),
+    ecotourism=request.POST.get("ecotourism"),
+    forests_trees=request.POST.get("forests_trees"),
+    plants_animals=request.POST.get("plants_animals"),
+    waste=request.POST.get("waste"),"""
+
+
