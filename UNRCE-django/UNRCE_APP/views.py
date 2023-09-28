@@ -35,7 +35,7 @@ from .models import Project
 
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render
-from django.contrib import messages
+from django.contrib import messages 
 #from .models import CaptchaStore  # Make sure to import CaptchaStore if not already done
 
 class CustomLoginView(LoginView):
