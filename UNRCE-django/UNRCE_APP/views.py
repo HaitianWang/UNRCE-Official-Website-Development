@@ -23,6 +23,10 @@ from django.contrib.auth.views import LoginView
 from django.contrib import messages
 from .models import Project, SDG, ProjectSDG, ESD, ProjectESD, ProjectPriorityArea, PriorityArea
 
+# For downloading projects as a CSV
+import csv
+from django.http import HttpResponse
+
 class CustomLoginView(LoginView):
     
     def form_valid(self, form):
@@ -362,6 +366,23 @@ def edit_project(request, project_id):
         form = ProjectForm(instance=project)
 
     return render(request, 'UNRCE_APP/edit_project.html', {'form': form})
+
+
+# 
+def download_projects_csv(request):
+    # Creating HTTP Response object with appropriate CSV header.
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="projects.csv"'
+    
+    writer = csv.writer(response)
+    writer.writerow(['ID', 'Title'])  # Writing header
+    
+    projects = Project.objects.all()  # Getting all Project objects.
+    for project in projects:
+        writer.writerow([project.id, project.title])  # Writing data rows
+    
+    return response
+
 
 """
           sdgs = ['SDG1', 'SDG2', 'SDG3', 'SDG4', 'SDG5']  # List of SDGs
