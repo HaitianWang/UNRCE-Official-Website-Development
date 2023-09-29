@@ -1,33 +1,391 @@
-.centered{
+/* General Settings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+}
+
+.page-wrapper {
+    display: flex;
+    align-items: flex-start;
+    max-width: 1400px;
+    box-sizing: border-box;
+    flex-direction: row-reverse;
+    padding-left: 20px;
+}
+
+.main-div, .sidebar, .header-photo {
+    box-sizing: border-box;
+    border-radius: 10px;
+    color: black;
+    padding-right: 25px;
+    padding-left: 25px;
+}
+
+.main-div {
+    background-color: white;
+    flex: 0 0 75%;
+    order: 2;
+}
+
+.sidebar {
+    background-color: lightgray;
+    flex: 0 0 25%;
+    order: 1;
+}
+
+/* Title & Subtitle Settings */
+.title-box, .sub-title {
+    text-align: left;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 20px 0;
+}
+
+.sub-title {
+    font-size: 20px;
+    padding-left: 45px;
+}
+
+/* Info Background & Text Settings */
+.info-background {
+    background: #F1F1F1;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.info-text {
+    font-size: 20px;
+    font-weight: 400;
+    padding: 10px;
+}
+
+/* Image Settings */
+.feature-image {
+    max-width: 145px;
+    height: auto;
+    margin: 20px;
+    object-fit: cover;
+}
+
+/* Small Info & Transparent Box Settings */
+.small-info-text {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 10px;
+    margin: 20px 0;
+}
+
+.transparent-border-box {
+    border: 1px solid black;
+    padding: 10px;
+    margin: 20px 0;
+    background: transparent;
+}
+
+.floating-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    color: white;
+    margin: 20px 0;
+}
+
+.project-box {
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 5px;
+    padding-bottom: 0;
+    margin: 10px 0;
+    background: white;
+    text-align: center;
+    height: 164px;
+    margin-right: 5px;
+    margin-left: 5px;
+    width: max-content;
+}
+
+.partners-box {
+    background-color: white;
+    font-weight: 400;
+    padding: 0;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.partner-title {
+    text-align: left;
+    padding-left: 5px;
+    font-size: 20px;
+}
+
+.initiatives {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.initiative-h2 {
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.initiative-text {
+    font-size: 20px;
+    font-weight: 400;
+    padding: 20px;
+    text-align: center;
+}
+
+.initiatives .title-box {
+    margin-bottom: 20px;
+}
+
+.initiatives .flip-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    flex-direction: row;
+}
+
+.initiatives .flip-card {
+    flex: 1;
+}
+
+.flip-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.flip-card {
+    width: calc(33.33% - 20px);
+    max-width: 300px;
+    margin: 5px;
+    perspective: 1000px;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 1.0s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.flip-card input[type="checkbox"].flip-checkbox:checked ~ .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.flip-card-front {
+    width: 100%;
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    z-index: 2;
+}
+
+.flip-card .flip-card-front img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.flip-card-back {
+    background-color: white;
+    transform: rotateY(180deg);
+    z-index: 1;
+    font-weight: 300;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.initiatives-wrapper {
+    background: #F1F1F1;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 20px 0;
+    margin-bottom: 50px;
+    height: 350px;
+}
+
+.flip-checkbox {
+    display: none;
+}
+
+.flip-card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 20px;
+    pointer-events: none;
+    flex-direction: column;
+    justify-content: flex-end;
+    text-align: center;
+}
+
+.overlay-text {
+    font-size: 18px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 5px 10px;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: "Century Gothic", sans-serif;
+}
+
+.flip-card:hover .flip-card-overlay {
+    opacity: 1;
+}
+
+.flip-card-front, .flip-card-back, .flip-card-front img, .flip-card-back h2, .flip-card-back p {
+    margin: 0;
+    padding: 0;
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    height: 100px;
+    background-color: #003087;
+    color: white;
+    grid-column: 1/-1;
+    font-weight: 300;
+    padding-right: 60px;
+}
+
+.footer-image {
+    height: 100%;
+    flex-shrink: 0;
+}
+
+.footer-logo {
+    height: 100%;
+    display: block;
+}
+
+.footer h5 {
+    margin: 0 10px;
+}
+
+/* Responsive Enhancements */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+@media only screen and (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+
+    .main-div, .sidebar {
+        flex: 0 0 100%;
+    }
+
+    .flip-card {
+        width: calc(50% - 10px);
+    }
+
+    /* Add more styles for this breakpoint as needed */
+}
+
+.centered {
     text-align: center;
 }
 
 /* Changing the Font of the thing at the top */
 h3 {
-    font-family: "Century Gothic", sans-serif !important; 
+    font-family: "Century Gothic", sans-serif;
 }
 
 /* For the base header */
 .main-header {
-    color:white;
-    display:flex;
-    height: 120px;
-    justify-content: space-between;
-}
-.main-header>span{
-    display: inline-flex;
+    display: flex;
+    height: fit-content;
     flex-direction: column;
-    justify-content: center;
+    background-color: #003087;
 }
 
+/* for header bar top row content */
+.top-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: min-content;
+}
+
+/* for horizontal button menus */
+.horizontal-menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: min-content;
+}
 
 /* For the base header navigation bar */
 .header-nav {
-    background-color: #5775ac;
+    background-color: #003087;
     height: 70px;
 }
-header.header-nav>nav>a:not(:active,:hover){
-    color: white; 
+
+/* for button in nav bar */
+nav > a {
+    background-color: #5775ac;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    margin: 0.2rem;
 }
 
 /* Small Headings, such as "Our projects" */
@@ -44,6 +402,7 @@ header.header-nav>nav>a:not(:active,:hover){
     max-width: 800px;
     padding: 20px;
 }
+
 /* Individual Projects in the "Our projects" Page */
 .project {
     background-color: #fff;
@@ -52,18 +411,43 @@ header.header-nav>nav>a:not(:active,:hover){
     text-align: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-.project img {     /* Project image */
+
+.project img {
     max-width: 100%;
     height: 120px;
 }
-.project h3 {       /* Project title */
+
+.project h3 {
     margin-top: 10px;
     font-size: 18px;
 }
+
 .project:hover {
     cursor: pointer;
     transform: translateY(-1px);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
-/* All above is for the Projects page, making it 3x3 */
 
+/* All above is for the Projects page, making it 3x3 */
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transform-origin: 0 0;
+    transition: transform 0.3s ease;
+    grid-column: 1/-1;
+    overflow-y: auto;
+}
+
+@media screen and (max-width: 1400px) {
+    .container {
+        transform: scale(calc(100vw / 1400px));
+    }
+}
