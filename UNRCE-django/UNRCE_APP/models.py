@@ -220,7 +220,11 @@ class Organisation(models.Model):
     org_name = models.CharField(max_length=255, unique=True)
     address = models.TextField(null=True, blank=True)
 
-
+#Model view for Institutions
+# class Institution(models.Model):
+#     name = models.CharField(max_length=255)
+#     link = models.URLField()
+#     image = models.ImageField(upload_to='images_organisations/')
 
 """	
 class Affiliation(models.Model):	

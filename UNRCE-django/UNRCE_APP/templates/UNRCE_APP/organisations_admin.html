@@ -5,11 +5,12 @@
 {% load customfilters %}
 
 <h3 class="organisation-title">Organisations</h3>
+<div class="buttons-container">
+    <a class="btn-organisations confirm-organisations" id="confirm-organisations" href="/organisations">Confirm Changes</a>
+    <a class="btn-organisations add-organisations" id="myBtn" href="">Add Organisation</a>
+    <a class="btn-organisations delete-organisations" id="delete-organisations" href="">Delete Organisation</a>
+</div>
 <div class="organisation-page">
-        <a class="btn-organisations confirm-organisations" id="confirm-organisations" href="/organisations">Confirm Changes</a>
-        <a class="btn-organisations add-organisations" id="myBtn" href="">Add Organisation</a>
-        <a class="btn-organisations delete-organisations" id="delete-organisations" href="">Delete Organisation</a>
-    
     <div class="grid-wrapper">
         <div class="grid-container">
 
@@ -32,11 +33,24 @@
     <div class="modal-content">
     <h2 style="color:black;">Add Organisation</h2>
       <span class="close">&times;</span>
-      <input class="input-organisations" value="Organisation Name"></input>
-      <input class="input-organisations" value="Organisation Link"></input>
-      <input class="input-organisations" value="Organisation Image (.png, .jpeg)"></input>
-    <button class="submit-button" style="background-color:#DAAA00;">Add Organisation</button>
+      
+      <input class="input-organisations" placeholder="Organisation Name"></input>
+      <input class="input-organisations" placeholder="Organisation Link"></input>
+      <label for="organisationImage" class="input-organisations" id="input-label">Organisation Image (.png, .jpeg)</label>
+      <input class="input-organisations" type="file" id="organisationImage" name="organisationImage" accept=".png, .jpeg, .jpg" style="display: none;"> <button class="submit-button" style="background-color:#DAAA00;">Add Organisation</button>
+    
     </div>
   </div>
 <script src="{% static 'UNRCE_APP/organisations.js' %}"></script>  
 {% endblock content %}
+
+
+<!-- <form method="post" enctype="multipart/form-data" action="{% url 'organisations_admin' %}">
+    {% csrf_token %}
+    <input class="input-organisations" name="name" placeholder="Organisation Name">
+    <input class="input-organisations" name="link" placeholder="Organisation Link">
+    <label for="organisationImage" class="input-organisations" id="input-label">Organisation Image (.png, .jpeg)</label>
+    <input class="input-organisations" type="file" id="organisationImage" name="image" accept=".png, .jpeg, .jpg">
+    <button class="submit-button" style="background-color:#DAAA00;">Add Organisation</button>
+</form>
+ -->

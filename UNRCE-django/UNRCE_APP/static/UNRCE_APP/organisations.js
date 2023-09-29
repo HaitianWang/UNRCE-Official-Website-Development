@@ -26,3 +26,16 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
+
+//Function to help with image input 
+document.getElementById("organisationImage").addEventListener('change', function() {
+    var fileName = this.value.split("\\").pop(); // Extract filename from full path
+    var label = document.querySelector("#input-label");
+    
+    if(fileName) {
+        label.textContent = fileName;
+    } else {
+        label.textContent = "Organisation Image (.png, .jpeg)"; // Reset to placeholder if no file selected
+    }
+});
+

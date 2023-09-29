@@ -15,7 +15,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from datetime import datetime
 from .models import Image, CustomUser
-from .forms import UploadImageForm, CustomUserCreationForm
+from .forms import CustomUserCreationForm
 
 from django.contrib.auth.views import LoginView
 from django.contrib import messages
@@ -185,6 +185,8 @@ def organisations_admin(request):
         messages.error(request, "You are not allowed to access this page.")
         return redirect('UNRCE_APP:index')
     return render(request, 'UNRCE_APP/organisations_admin.html')
+
+#View to upload images 
 
 class CreateProject(View):
     

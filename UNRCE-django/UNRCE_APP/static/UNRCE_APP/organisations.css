@@ -28,7 +28,6 @@
     justify-content: center;
     align-items: center;
     height: 80vh;
-    background-color: #ffffff;
     padding-bottom:50px;
     padding-top:0px;  
 }
@@ -45,8 +44,13 @@
     font-size: 30px;
     font-weight: 500;
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 100px;
     color:black;
+}
+.buttons-container {
+    display: flex;
+    justify-content: space-between;  /* This spaces out the buttons evenly */
+
 }
 
 .btn-organisations{
@@ -70,10 +74,10 @@
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  position: relative;
-  top: 13%; 
-  transform: translateY(-50%); /* This works with 'top' to perfectly center the button vertically */
+  flex-shrink: 0;
+  transform: none;
 }
+
 
 .btn-organisations:hover,
 .btn-organisation:focus {
@@ -81,23 +85,21 @@
 }
 
 .edit-organisations {
-    top: 10px;    /* Adjust as needed */
-    right: 150px;  /* Adjust as needed */
+    width:150px;
 }
 
 .confirm-organisations {
-    top: 10px;    /* Adjust as needed */
-    right: 150px;  /* Adjust as needed */
+    width:150px;
+    margin-right:120px;
 }
 
 .add-organisations {
-    top: 10px;  /* Adjust as needed */
-    left: 570px;    /* Adjust as needed */
+    width: 150px;
+    margin-left:100px;
 }
 
 .delete-organisations {
-    top: 10px;  /* Adjust as needed */
-    left: 230px;   /* Adjust as needed */
+    width:170px;
 }
 
 .organisation-name{
@@ -116,6 +118,7 @@
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    border-radius: 20px;
 }
   
   /* Modal Content */
@@ -153,6 +156,17 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: #F1F1F1;
-    color: darkgray;
+    color: black;
 }
-  
+
+#input-label {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    color:darkgray;
+}
+
+#input-label:hover {
+    background-color: white;  /* A slight hover effect, optional */
+}
