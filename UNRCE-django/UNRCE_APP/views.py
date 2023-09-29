@@ -186,6 +186,22 @@ def organisations_admin(request):
         return redirect('UNRCE_APP:index')
     return render(request, 'UNRCE_APP/organisations_admin.html')
 
+# # # views.py
+# from django.shortcuts import render, redirect
+# from .models import Organisation
+
+# def organisations_admin(request):
+#     if request.method == "POST":
+#         name = request.POST.get('name')
+#         link = request.POST.get('link')
+#         image = request.FILES.get('image')
+#         org = Organisation(name=name, link=link, image=image)
+#         org.save()
+#         return redirect('organisations_admin')
+#     org_data = Organisation.objects.all()
+#     return render(request, 'UNRCE_APP/organisations_admin.html', {'org_data': org_data})
+
+
 #View to upload images 
 
 class CreateProject(View):
