@@ -7,17 +7,21 @@
   {% csrf_token %}
  
  <div class="tab">
-    <button class="tablinks" data-tabname="Tab1" id="defaultOpen">Tab 1</button>
+    <button class="tablinks" data-tabname="Tab1" id="defaultOpen">General</button>
     <button class="tablinks" data-tabname="Tab2">Location</button>
     <button class="tablinks" data-tabname='Tab3'>Contents</button>
     <button class="tablinks" data-tabname='Tab4'>SDG</button>
     <button class="tablinks" data-tabname='Tab5'>ESD</button>
-    <button class="tablinks" data-tabname='Tab6'>Submission</button>
+    <button class="tablinks" data-tabname='Tab6'>Submit</button>
 
   </div>
     
   <div id="Tab1" class="tabcontent">
     <div class="pr-container">
+        <div class="project-details">
+            <label for="title">Project Title:</label>
+            <input type="text" id="title" name="title"><br><br>
+        </div>
         <div class="image-section">
             <label for="imageUpload">
                 <img class="image" id="uploadedImage" src="{% static 'images/Font_1._.png' %}" alt="Default Image">
@@ -25,15 +29,11 @@
             <!--<span class="upload-text">Add Project Image</span>-->
             <input type="file" id="imageUpload" name="imageUpload" style="display: none;" onchange="displayImage(this)">
         </div>
-        <div class="project-details">
-            <label for="title">Project Title:</label>
-            <input type="text" id="title" name="title"><br><br>
-        </div>
     </div>
       
 
 
-        <label for="description">Description:</label><br>
+        <label for="description">Description:</label>
         <textarea id="description" name="description" rows="4" cols="50"></textarea><br><br>
         
         <label for="language">Language:</label>
@@ -56,14 +56,14 @@
     
     <!-- Form fields for Tab 2 -->
 
-        <label>Target Audience:</label><br>
+        <label class="form_header">Target Audience:</label>
         
         {% for option in audience_options %}
             <input type="checkbox" id="{{ option.id }}" name="audience-options" value="{{ option.id }}">
             <label for="{{ option.id }}">{{ option.name }}</label><br>
         {% endfor %}
 
-        <label>Delivery Frequency:</label>
+        <label class="form_header">Delivery Frequency:</label>
         {% for option in delivery_frequency_options %}
             <input type="radio" id="{{ option.id }}" name="delivery_frequency" value="{{ option.id }}">
             <label for="{{ option.id }}">{{ option.name }}</label><br>
