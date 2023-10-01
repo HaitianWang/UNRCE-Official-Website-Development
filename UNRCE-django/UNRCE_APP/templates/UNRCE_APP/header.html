@@ -19,6 +19,7 @@
       {% if user.is_authenticated %}
       <!-- show log out link if user is already logged in -->
       <nav style="display: flex;">
+        <a class="topright" href="{% url 'UNRCE_APP:myaccount' %}">My Account</a>
         <a class="topright" href="{% url 'UNRCE_APP:logout' %}">Logout</a>
       </nav>
       {% else %}
