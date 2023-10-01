@@ -59,11 +59,12 @@ label {
   border: none;
   outline: none;
   cursor: pointer;
-  padding: 14px 16px;
+  padding: .5em .5em;
   transition: 0.3s;
   margin-right: 5px; /* spacing between tabs */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* subtle shadow for 3D effect */
   border-radius: 5px; /* rounded corners */
+  width: -webkit-fill-available;
 }
 
 
@@ -125,7 +126,6 @@ form {
   margin-bottom: 50px;
   padding-bottom: 50px; /* This adds white space inside the grey form area, at the bottom */
   position: relative;
-  min-height: 100%; /* Ensures form covers full height of its parent container. */
 }
 
 form * {
@@ -147,9 +147,6 @@ label, input, textarea, button {
   margin: 0 10px;   /* Provides spacing between the two buttons. Adjust if needed. */
   display: inline-block;
 }
-
-
-
 
 .sdg-item {
     display: flex;
@@ -222,6 +219,9 @@ h3 {
     overflow: hidden;
     border: 1px solid #ccc;
     background-color: #f1f1f1;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
 }
 
 
