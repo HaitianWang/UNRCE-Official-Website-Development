@@ -2,18 +2,16 @@
 {% load static %}
 {% block content %}
 
-<p class="small-heading"> Our Projects</p>
-<!-- <p> {{ project_query.0.title }} </p> -->
 
 
-<!-- {% for project in project_query %}
-<p>{{ project.title }}</p>
-{% endfor %} -->
+<div style="display:flex; justify-content:space-between; width:100%; align-items: center;">
+    <p class="small-heading"> Our Projects</p>
+    <a style="align-items: center;" href="/download_projects_csv" class="btn btn-primary">Download Projects</a>
+</div>
 
 
 
-<button id="addNewProject"> Add Sample New Project (Testing button only, will delete later) </button>
-<a href="/download_projects_csv" class="btn btn-primary">Download Projects</a>
+
 
 
 <!-- Project Listings -->

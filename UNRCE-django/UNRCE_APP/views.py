@@ -375,11 +375,17 @@ def download_projects_csv(request):
     response['Content-Disposition'] = 'attachment; filename="projects.csv"'
     
     writer = csv.writer(response)
-    writer.writerow(['ID', 'Title'])  # Writing header
+    writer.writerow(["ID", "Title", "Description", "Creation", "Conclusion", "Audience", "Delivery Frequency",
+                         "Language", "Web Link", "Policy Link", "Results", "Lessons Learned", "Key Messages",
+                         "Relationship to RCE Activities", "Funding", "Approval", "Status"])  # Writing header
     
     projects = Project.objects.all()  # Getting all Project objects.
     for project in projects:
-        writer.writerow([project.id, project.title])  # Writing data rows
+        writer.writerow([project.id, project.title, project.description, project.created_at, 
+                             project.concluded_on, project.audience, project.delivery_frequency,
+                             project.language, project.web_link, project.policy_link, project.results,
+                             project.lessons_learned, project.key_messages, project.relationship_to_rce_activities,
+                             project.funding, project.approval, project.status])  # Writing data rows
     
     return response
 
