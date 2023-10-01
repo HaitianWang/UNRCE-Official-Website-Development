@@ -44,6 +44,7 @@ urlpatterns = [
   path('edit-project/<int:project_id>/', views.edit_project, name='edit_project'),
   path('users/', views.users_info, name='users'),
   path('download_projects_csv/', views.download_projects_csv, name='download_projects_csv'),    # To download projects
+  path('faq/', views.faq, name='faq'),
 
 
 

@@ -164,6 +164,9 @@ def myaccount(request):
 # My Account Page
 def myaccount_edit(request):
     return render(request, 'UNRCE_APP/myaccount_edit.html')
+# FAQ Page
+def faq(request):
+    return render(request, 'UNRCE_APP/faq.html')
 
 # This is a function to return a list of featured projects by recently added
 # def index(request):

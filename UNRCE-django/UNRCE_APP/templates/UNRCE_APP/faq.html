@@ -1,0 +1,55 @@
+{% extends "UNRCE_APP/base.html" %}
+
+{% block content %}
+
+<!-- CSS -->
+<style>
+    /* Basic styles for the FAQ page */
+    .faq-question {
+        cursor: pointer;
+        margin: 10px 0;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f7f7f7;
+    }
+
+    .faq-answer {
+        display: none;  /* By default, answers are hidden */
+        margin: 5px 0 10px;
+        padding: 10px;
+        border-left: 3px solid #007BFF;
+        background-color: #f0f0f0;
+    }
+</style>
+
+<!-- HTML -->
+<div class="faq-section">
+    <div class="faq">
+        <div class="faq-question">What is ChatGPT?</div>
+        <div class="faq-answer">ChatGPT is a model developed by OpenAI, based on the GPT architecture, designed for generating human-like text.</div>
+    </div>
+    <div class="faq">
+        <div class="faq-question">How does ChatGPT work?</div>
+        <div class="faq-answer">ChatGPT works by taking input text and generating a continuation of that text. It's trained on vast amounts of text data to generate human-like responses.</div>
+    </div>
+    <!-- Add more FAQ pairs as needed -->
+</div>
+
+
+<!-- Javascript -->
+<script>
+    // Simple JavaScript to toggle the visibility of the answer
+    document.querySelectorAll('.faq-question').forEach(item => {
+        item.addEventListener('click', event => {
+            const answer = event.target.nextElementSibling;
+            if (answer.style.display === "none") {
+                answer.style.display = "block";
+            } else {
+                answer.style.display = "none";
+            }
+        });
+    });
+</script>
+
+{% endblock %}
