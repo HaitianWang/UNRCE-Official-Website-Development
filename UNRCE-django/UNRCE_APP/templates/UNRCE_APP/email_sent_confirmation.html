@@ -1,0 +1,26 @@
+{% extends "UNRCE_APP/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="login-container">
+    <div class="login-box">
+        <div class="avatar-container">
+            <div class="avatar-background"></div>
+            <img class="avatar-image" src="{% static 'images/Font_1._.png' %}" alt="Avatar Image">
+        </div>
+
+        <div class="login-title">Email Sent</div>
+
+        <p>
+            A password reset link has been sent to your email address. Please check your inbox and follow the instructions to reset your password.
+        </p>
+
+        <p>
+            If you don't see the email, check your spam folder or request another email.
+        </p>
+
+    </div>
+</div>
+
+{% endblock content %}

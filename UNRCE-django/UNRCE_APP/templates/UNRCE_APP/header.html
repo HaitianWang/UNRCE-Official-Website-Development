@@ -1,42 +1,22 @@
-
 <header style="background-color: #003087;">
-
   <div class="main-header">
-    <!-- This is just so that the header is centered -->
-      <nav>
-        <p></p>
-      </nav>
-    <!-- This is just so that the header is centered -->
-
-
-    <!-- Title -->
-      <h3> United Nations Regional Centre of Expertise of Western Australia</h1>
-    <!-- Title -->
-
-
-    <!-- Login/Signup/Logout -->
-      {% if user.is_authenticated %}
-      <!-- show log out link if user is already logged in -->
-      <nav>
-        <a class="topright" href="{% url 'UNRCE_APP:logout' %}">Logout</a>
-      </nav>
-      {% else %}
-      <!-- show log in and sing up links otherwise   -->
-      <nav>
-        <a class="topright" href="{% url 'UNRCE_APP:login' %}">Login</a><br>
-        <a class="topright" href="{% url 'UNRCE_APP:signup' %}">Create an Account</a>
-      </nav>
-      {% endif %}
-    <!-- Login/Signup/Logout -->
-
+      <h3>United Nations Regional Centre of Expertise of Western Australia</h3>
+      <span>
+        {% if user.is_authenticated %}
+          <a href="{% url 'UNRCE_APP:logout' %}">Logout</a>
+          <a href="{% url 'UNRCE_APP:myaccount' %}">My Account</a>
+        {% else %}
+          <a href="{% url 'UNRCE_APP:login' %}">Login</a>
+          <a href="{% url 'UNRCE_APP:signup' %}">Create an Account</a>
+        {% endif %}
+      </span>
   </div>
 </header>
 
 <header class="header-nav">
-  <!-- Navigation Panel -->
   <nav>
     <a href="/">Home</a>
-    <a href="/projects"> Our Projects</a>
-    <a href="/contact-us"> Contact Us</a>
+    <a href="/projects">Our Projects</a>
+    <a href="/contact-us">Contact Us</a>
   </nav>
 </header>

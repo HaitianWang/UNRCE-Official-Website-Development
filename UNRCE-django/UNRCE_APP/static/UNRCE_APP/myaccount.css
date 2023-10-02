@@ -18,8 +18,10 @@
 .projects_container {
     flex: 0 0 25%;
     border-radius: 10px;
-    padding-left: 25px
-    /* background-color: blue; */
+    margin-top: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+    /* background-color: rgb(215, 173, 173); */
 }
 
 

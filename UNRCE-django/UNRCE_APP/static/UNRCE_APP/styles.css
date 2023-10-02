@@ -3,20 +3,31 @@
 }
 
 /* Changing the Font of the thing at the top */
-h1 {
-    font-family: "Century Gothic", sans-serif;
+h3 {
+    font-family: "Century Gothic", sans-serif !important; 
 }
 
 /* For the base header */
 .main-header {
+    color:white;
     display:flex;
     height: 120px;
+}
+.main-header>span{
+    margin: auto;
+    margin-right: 0;
+}
+.main-header>span>a{
+    display: block;
 }
 
 /* For the base header navigation bar */
 .header-nav {
     background-color: #5775ac;
     height: 70px;
+}
+header.header-nav>nav>a:not(:active,:hover){
+    color: white; 
 }
 
 /* Small Headings, such as "Our projects" */

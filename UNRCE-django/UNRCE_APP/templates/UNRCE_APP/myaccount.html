@@ -37,9 +37,30 @@
         </main>
     </div>
     <div class="projects_container">
-        <header>
-            <h2 class="h2_account"> My Projects</h2>
-        </header>
+        <h2 class="h2_account"> My Projects</h2>
+        
+        <!-- Tom's Sidebar Projects Code -->
+        <div class="sidebar">
+            <ul class="projects-list">
+              <div class="project-listing" id="projectGrid" data-baseurl="{% url 'UNRCE_APP:specific_project' %}">
+              <div class="project-box">
+                <a href="{% url 'UNRCE_APP:specific_project' %}">
+                    <div class="project-sidebar" onclick="goToDetails(event, this.children[0].src, this.children[1].textContent)" style="cursor:pointer;">
+                        <img src="http://www.thewowstyle.com/wp-content/uploads/2015/01/nature-images..jpg" alt="Project 1" class="project-image">
+                        <h4 class="project-title-sidebar"> Your Project 1 1</h4>
+                    </div>
+                </a>
+              </div>
+              <div class="project-box">
+                <a href="{% url 'UNRCE_APP:specific_project' %}">
+                    <div class="project-sidebar" onclick="goToDetails(event, this.children[0].src, this.children[1].textContent)" style="cursor:pointer;">
+                        <img src="https://www.bwallpaperhd.com/wp-content/uploads/2021/01/NashPoint.jpg" alt="Project 2" class="project-image">
+                        <h4 class="project-title-sidebar"> Your Project 2</h4>
+                    </div>
+                </a>
+              </div>
+              </div>
+          </div>
     </div>
 </div>
 

@@ -7,6 +7,7 @@ from django.contrib.auth.views import LogoutView
 from .views import IndexView, SignUpView, UploadImageView, edit_project, users_info
 from . import views
 from .forms import CustomAuthenticationForm
+from django.urls import path, re_path
 
 app_name = "UNRCE_APP"
 
@@ -33,8 +34,8 @@ urlpatterns = [
       # Added upload view here, don't forget to
   # import UploadImageView from .views - hello
   path("upload/", UploadImageView.as_view(), name="upload"),
-  path('forgot-password/', views.forgot_password, name='forgot-password'),
-  path('reset-password/', views.reset_password, name='reset-password'),
+  path('forgot_password/', views.forgot_password, name='forgot_password'),
+  re_path(r'^reset_password/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>.+)/$', views.reset_password, name='reset_password_confirm'),
   path('contact-us/', views.contact_us, name='contact-us'),
   path('projects/', views.projects, name='projects'),
   path('specific_project/', views.specific_project, name='specific_project'),
