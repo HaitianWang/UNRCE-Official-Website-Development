@@ -18,16 +18,18 @@
     
   <div id="Tab1" class="tabcontent">
     <div class="pr-container">
-        <div class="project-details">
-            <label for="title">Project Title:</label>
-            <input type="text" id="title" name="title"><br><br>
-        </div>
-        <div class="image-section">
-            <label for="imageUpload">
-                <img class="image" id="uploadedImage" src="{% static 'images/Font_1._.png' %}" alt="Default Image">
-            </label>
-            <!--<span class="upload-text">Add Project Image</span>-->
-            <input type="file" id="imageUpload" name="imageUpload" style="display: none;" onchange="displayImage(this)">
+        <div class="project-details-edit">
+            <div class="label-section">
+                <label for="title">Project Title:</label>
+                <input type="text" id="title" name="title">
+            </div>
+            <div class="image-section">
+                <label for="imageUpload">
+                    <img class="image" id="uploadedImage" src="{% static 'images/Font_1._.png' %}" alt="Default Image">
+                </label>
+                <!--<span class="upload-text">Add Project Image</span>-->
+                <input type="file" id="imageUpload" name="imageUpload" style="display: none;" onchange="displayImage(this)">
+            </div>
         </div>
     </div>
       
@@ -38,9 +40,6 @@
         
         <label for="language">Language:</label>
         <input type="text" id="language" name="language"><br><br>
-        
-        <label for="format">Format:</label>
-        <input type="text" id="format" name="format"><br><br>
         
         <label for="web_link">Web Link:</label>
         <input type="text" id="web_link" name="web_link"><br><br>

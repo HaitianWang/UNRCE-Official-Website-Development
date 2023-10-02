@@ -5,6 +5,7 @@
     color-scheme:dark;
     --bg: #212121;
     --accent-bg: #2b2b2b;
+    --blue-bg: #5775ac;
     --text: #dcdcdc;
     --text-light: #ababab;
     --accent: #ffb300;
@@ -339,7 +340,7 @@ table caption {
 
 input,select,textarea {
     color: var(--text);
-    background-color: var(--bg);
+    background-color: var(--text);
     border: 1px solid var(--border)
 }
 
