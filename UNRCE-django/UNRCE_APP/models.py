@@ -30,6 +30,17 @@ class SDG(models.Model):
     def __str__(self):
         return self.title
     
+
+
+
+class RCEHub(models.Model):
+    hub_name = models.CharField(max_length=255)
+    contact_info = models.TextField()
+    location = models.CharField(max_length=255, null=True, blank=True)
+
+
+    
+    
     
 class Image(models.Model):
   # image title, not blank string with maximum of 60 characters
@@ -80,6 +91,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     interested_projects = models.ManyToManyField('Project', blank=True, related_name="users_interested")
     interested_sdgs = models.ManyToManyField(SDG, related_name='interested_users')
+    organisation = models.ForeignKey('Organisation', on_delete=models.SET_NULL, null=True, blank=True)
+    role_organisation = models.CharField(max_length=150)
+    rce_hub = models.ForeignKey(RCEHub, on_delete=models.SET_NULL, null=True, blank=True)  
     
     
     objects = CustomUserManager()
@@ -151,9 +165,9 @@ class Project(models.Model):
 
 
     project_cover_image = models.FileField(upload_to='project_images/', null=True, blank=True)
-
-
     description = models.TextField()
+
+
 
 
     created_at = models.DateTimeField(auto_now_add=True)  # Set to 'now' when the record is created
@@ -177,8 +191,11 @@ class Project(models.Model):
     funding = models.TextField(blank=True)
 
     sdgs = models.ManyToManyField('SDG', through='ProjectSDG')
+    
+    main_organisation = models.ForeignKey('Organisation', on_delete=models.SET_NULL, null=True, blank=True, related_name='projects')
     contributing_organizations = models.ManyToManyField('Organisation', related_name='contributing_projects')
-    affiliations = models.ManyToManyField('Organisation', related_name='affiliated_projects')
+    rce_hub = models.ForeignKey(RCEHub, on_delete=models.SET_NULL, null=True, blank=True)  # New RCEHub field
+
 
 
     priority_areas = models.ManyToManyField('PriorityArea', through='ProjectPriorityArea')
@@ -201,12 +218,6 @@ class Project(models.Model):
     )
     
     status = models.CharField(max_length=20, choices=[('draft', 'Draft'), ('submitted', 'Submitted')], default='draft')
-
-    #themese of educational sustainable debvelopement
-
-
-    
-
 
     
 
@@ -293,39 +304,14 @@ class ProjectPriorityArea(models.Model):
 
 
 
-class RCEHub(models.Model):
-    hub_name = models.CharField(max_length=255)
-    contact_info = models.TextField()
-
 class Organisation(models.Model):
-    hub = models.ForeignKey('RCEHub', on_delete=models.CASCADE)
+   # hub = models.ForeignKey('RCEHub', on_delete=models.CASCADE)
     org_name = models.CharField(max_length=255, unique=True)
-    address = models.TextField(null=True, blank=True)
+   # address = models.TextField(null=True, blank=True)
+    website_url = models.URLField(null=True, blank=True)
+    contact_info = models.TextField(null=True, blank=True)
+    image = models.ImageField(upload_to='organisation_images/', null=True, blank=True)
+    
+    def __str__(self):
+        return self.org_name
 
-
-
-"""	
-class Affiliation(models.Model):	
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)	
-    org = models.ForeignKey('Organisation', on_delete=models.CASCADE)	
-    authenticated = models.BooleanField(default=False)	
-    #authenticated_by = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True, blank=True, related_name="authenticated_affiliations", verbose_name="Authenticated by")	
-    #authentication_timestamp = models.DateTimeField(null=True, blank=True, verbose_name="Authentication Timestamp")	
-class ProjectPartnerCompanies(models.Model):	
-    project = models.ForeignKey('Project', on_delete=models.CASCADE)	
-    partner_company = models.ForeignKey('Organisation', on_delete=models.CASCADE)	
-    class Meta:	
-        unique_together = ['project', 'partner_company']	
-
-
-
-        disaster_risk_reduction = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
-    traditional_knowledge = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
-    agriculture = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
-    arts = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
-    curriculum_development = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
-    ecotourism = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
-    forests_trees = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
-    plants_animals = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
-    waste = models.CharField(max_length=10, choices=SELECTION_CHOICES, default='', blank=True)
-"""

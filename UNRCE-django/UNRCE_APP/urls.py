@@ -45,7 +45,7 @@ urlpatterns = [
   path('users/', views.users_info, name='users'),
   path('admin/fetch_projects/', views.fetch_projects, name='fetch_projects'),
   path('user-search/', views.search_users, name='search_users'),
-
+  path('delete-users/', views.delete_users, name='delete_users'),
 
 
 

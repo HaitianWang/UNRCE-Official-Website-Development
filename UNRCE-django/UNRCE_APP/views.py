@@ -5,9 +5,13 @@ from django.contrib.auth import authenticate, login, views as auth_views
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
-from UNRCE_APP.models import Project, ProjectImage
+from UNRCE_APP.models import Project, ProjectImage, CustomUser
 from django.http import JsonResponse
 # ProjectImage
+
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
+
 
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
@@ -28,15 +32,19 @@ from .models import Project, SDG, ProjectSDG, ESD, ProjectESD, ProjectPriorityAr
 from .models import CustomUser
 from django.db.models import Q
 
-
 def search_users(request):
     if request.method == 'GET':
         search_query = request.GET.get('search_query', '')
+
         # Perform the search query based on user input
         users = CustomUser.objects.filter(
             Q(email__icontains=search_query) |
+            Q(user_name__icontains=search_query) |
             Q(interested_projects__title__icontains=search_query) |
-            Q(interested_sdgs__sdg__icontains=search_query)
+            Q(organisation__org_name__icontains=search_query) |
+            Q(role_organisation__icontains=search_query) |
+            Q(interested_sdgs__sdg__icontains=search_query) |
+            Q(rce_hub__hub_name__icontains=search_query)
         ).distinct()
     else:
         users = CustomUser.objects.none()  # Return an empty queryset by default
@@ -421,3 +429,11 @@ def fetch_projects(request):
     query = request.GET.get('q', '')
     projects = Project.objects.filter(title__icontains=query)
     return JsonResponse([{'id': proj.id, 'text': proj.title} for proj in projects], safe=False)
+
+
+
+def delete_users(request):
+    if request.method == "POST":
+        user_ids = request.POST.getlist("user_ids") # "user_ids" matches the checkbox name
+        CustomUser.objects.filter(id__in=user_ids).delete()
+        return HttpResponseRedirect('/user-search/') # Redirect back to the search page
