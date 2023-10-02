@@ -90,3 +90,9 @@
     color: white;        /* Assuming you want the text to be white like other text in the login box */
     width: 75%;         /* This ensures it spans the full width of the container */
 }
+
+.errorlist{
+    color: red;
+    list-style-type: none;
+    padding: 1rem;
+}
