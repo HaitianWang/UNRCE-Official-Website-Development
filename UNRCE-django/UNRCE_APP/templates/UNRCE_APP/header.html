@@ -8,7 +8,6 @@
     <div id="navbar-bottom">
       <nav>
         <a href="/">Home</a>
-        <a href="{% url 'UNRCE_APP:upload' %}" class="upload-btn"> Upload</a>
         <a href="/projects"> Our Projects</a>
         <a href="/contact-us"> Contact Us</a>
       </nav>
@@ -20,6 +19,7 @@
       <!-- show log out link if user is already logged in -->
       <nav style="display: flex;">
         <a class="topright" href="{% url 'UNRCE_APP:myaccount' %}">My Account</a>
+        <a href="{% url 'UNRCE_APP:upload' %}" class="upload-btn"> Upload</a>
         <a class="topright" href="{% url 'UNRCE_APP:logout' %}">Logout</a>
       </nav>
       {% else %}
