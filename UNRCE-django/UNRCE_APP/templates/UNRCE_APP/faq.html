@@ -12,6 +12,8 @@
         border: 1px solid #ddd;
         border-radius: 5px;
         background-color: #f7f7f7;
+        color: rgb(74, 74, 74);
+        font-weight: bold;
     }
 
     .faq-answer {
@@ -20,34 +22,71 @@
         padding: 10px;
         border-left: 3px solid #007BFF;
         background-color: #f0f0f0;
+        color: rgb(74, 74, 74);
     }
 </style>
 
 <!-- HTML -->
+<h3 style="color: rgb(74, 74, 74);"> Frequently Asked Questions</h3>
+
 <div class="faq-section">
+
     <div class="faq">
-        <div class="faq-question">What is ChatGPT?</div>
-        <div class="faq-answer">ChatGPT is a model developed by OpenAI, based on the GPT architecture, designed for generating human-like text.</div>
+        <div class="faq-question"> How can I become involved with the UN RCE WA?</div>
+        <div class="faq-answer"> Register your details on this page to join the UN RCE WA network (to receive newsletters and updates). 
+            You can also nominate to become a member who attends events and meetings and actively collaborates on education for sustainable development projects.
+            </div>
     </div>
+
     <div class="faq">
-        <div class="faq-question">How does ChatGPT work?</div>
-        <div class="faq-answer">ChatGPT works by taking input text and generating a continuation of that text. It's trained on vast amounts of text data to generate human-like responses.</div>
+        <div class="faq-question"> Does it cost money to join?</div>
+        <div class="faq-answer"> Membership of the UN RCE is free. We are all working together toward achieving the UN SDGs and your support and engagement at a local level makes this possible. The bigger the network, the wider the message. </div>
     </div>
-    <!-- Add more FAQ pairs as needed -->
+
+    <div class="faq">
+        <div class="faq-question"> Can I join as an organisation or an individual?</div>
+        <div class="faq-answer"> Yes- both. If your organisation is interested in education for sustainable development projects we would love to have you involved. 
+            If you are interested in contributing as an individual you are also welcome.
+             </div>
+    </div>
+
+    <div class="faq">
+        <div class="faq-question"> I don’t have a project but I’m interested in becoming involved. </div>
+        <div class="faq-answer"> Wonderful! Please contact the secretariat and we will try and connect you with the appropriate working group. </div>
+    </div>
+
+    <div class="faq">
+        <div class="faq-question"> I’m working on an education-based initiative that contributes to the UN SDGs, how can I get involved.  </div>
+        <div class="faq-answer"> That’s great! Please contact the UN RCE Secretariat to discuss how we can collaborate. </div>
+    </div>
+
+    <div class="faq">
+        <div class="faq-question"> There isn’t a hub in my region but I’m involved in/interested in leading an project focused on education for sustainable development. What can I do?  </div>
+        <div class="faq-answer"> Currently we have Hubs in Perth and Albany. Please contact the UN RCE Secretariat to discuss how we can support you.  </div>
+    </div>
+
 </div>
+
+<p> Any other questions please email rce@uwa.edu.au  </p>
 
 
 <!-- Javascript -->
 <script>
     // Simple JavaScript to toggle the visibility of the answer
-    document.querySelectorAll('.faq-question').forEach(item => {
-        item.addEventListener('click', event => {
-            const answer = event.target.nextElementSibling;
-            if (answer.style.display === "none") {
-                answer.style.display = "block";
-            } else {
-                answer.style.display = "none";
-            }
+    // document.querySelectorAll('.faq-question').forEach(item => {
+    //     item.addEventListener('click', event => {
+    //         const answer = event.target.nextElementSibling;
+    //         if (answer.style.display === "none") {
+    //             answer.style.display = "block";
+    //         } else {
+    //             answer.style.display = "none";
+    //         }
+    //     });
+    // });
+    document.querySelectorAll('.faq').forEach(item => {
+        item.querySelector('.faq-question').addEventListener('click', event => {
+            const answer = item.querySelector('.faq-answer');
+            answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
         });
     });
 </script>
