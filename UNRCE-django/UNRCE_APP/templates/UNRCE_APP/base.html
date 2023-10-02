@@ -3,7 +3,7 @@
 <html>
 
 <head>
-  <title>UNRCE</title>
+  <title>UNRCE WA</title>
   <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/simple.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/styles.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/login.css' %}">
@@ -13,7 +13,7 @@
   <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/myaccount_edit.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/index.css' %}">
   
-  
+  <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}" >
 
 </head>
 <style>
@@ -36,10 +36,10 @@
 <body style="background-color: #ffffff;">
 <!-- Added header.html -->
 {% include 'UNRCE_APP/header.html' %}
-
+<main>
 {% block content %}
 {% endblock content %}
-
+</main>
 {% include 'UNRCE_APP/footer.html' %}
 
 </body>

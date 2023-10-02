@@ -10,10 +10,10 @@
                 <h2 class="h2_account"> Edit Profile Details</h2>
             </a>
         </header>
-        <main style="padding:0%; margin: 0%;">
+        <div style="padding:0%; margin: 0%;">
             <section style="padding: 0%; margin: 0%; display:flex;">
                 <div class="profile-picture">
-                    <img src="https://www.kindpng.com/picc/m/421-4212275_transparent-default-avatar-png-avatar-img-png-download.png" alt="Profile Picture">
+                    <img src="{% static 'images/avatar.png' %}" alt="Profile Picture">
                 </div>
                 <div>
                     <p style="font-size:medium;">Name: John Doe</p>
@@ -34,11 +34,15 @@
                     <!-- Emails are not enabled -->
                 <!-- <input type="checkbox" id="myCheckbox" name="myCheckbox" value="yes" disabled> -->
             </section>
-        </main>
+        </div>
     </div>
     <div class="projects_container">
-        <h2 class="h2_account"> My Projects</h2>
-        
+        <div style="justify-content: space-around; display:flex; align-content:baseline; flex-wrap: wrap">
+            <h2 class="h2_account" style="display: inline;"> My Projects</h2>
+            <a href="{% url 'UNRCE_APP:create_project' %}" style="display: inline">
+                <h2 class="h2_account">Add New Project?</h2>
+            </a>  <!--TODO: Make styling part of stylesheet-->
+        </div>
         <!-- Tom's Sidebar Projects Code -->
         <div class="sidebar">
             <ul class="projects-list">

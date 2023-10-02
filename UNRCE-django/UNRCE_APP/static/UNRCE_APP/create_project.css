@@ -1,16 +1,15 @@
 .pr-container {
   display: flex;
-  align-items: start;
+  justify-content: space-between;
+  align-items: center;
 }
 
 label {
-  margin-right: 20px;
-  font-size: 12px;
-  
+  font-weight: bold;
 }
 
 .tabnav {
-  font-size: 20px; /* Adjust size as needed */
+  font-size: xx-large; /* Adjust size as needed */
   background-color: transparent; /* Make the button background transparent */
   border: none; /* Remove borders */
   cursor: pointer; /* Hand cursor for better UX */
@@ -20,9 +19,18 @@ label {
 
 
 .image-section {
+  text-align: center;
+  /**display: flex;
+  flex-direction: column; Ensures children of this div stack vertically
+  align-items: center;    This will center the items if they have different widths
+**/}
+
+.label-section {
   display: flex;
-  flex-direction: column; /* Ensures children of this div stack vertically */
-  align-items: center;    /* This will center the items if they have different widths */
+  flex-direction: column;
+  align-items: flex-start; /* Change this to flex-end */
+  justify-content: flex-end; /* Change this to flex-end */
+  width: -webkit-fill-available;
 }
 
 
@@ -30,7 +38,10 @@ label {
   width: 100%;
   height: 100%;
   display: block;
-  object-fit: cover; /* This keeps the image aspect ratio while filling the label dimensions */
+  max-width: fit-content;
+  object-fit: cover;
+  max-block-size: 12em;
+  margin-bottom: 0.5em !important;
 }
 
 .upload-text {
@@ -42,36 +53,23 @@ label {
 
 
 .tablinks {
-  background-color: #0d47a1 !important;
-  border-radius: 20px;
+  /*background-color: var(--blue-bg) !important;*/
+  background-color: #003087 !important;
   float: left;
   border: none;
   outline: none;
   cursor: pointer;
-  padding: 14px 16px;
+  padding: .5em .5em;
   transition: 0.3s;
-  margin-right: 30px;
-}
-
-.tablinks {
-  background-color: #0d47a1;
-  float: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  transition: 0.3s;
-  margin-right: 5px; /* spacing between tabs */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* subtle shadow for 3D effect */
-  border-radius: 5px; /* rounded corners */
+  border-radius: 1em 1em 0 0;
+  width: -webkit-fill-available;
 }
 
 
 .tablinks:not(:last-child) {
-  margin-right: 10px; /* Adjust as per your requirement */
+  margin-right: .2em; /* Adjust as per your requirement */
 }
-
-
 
 input[type="file"] {
   margin-top: 15px;
@@ -97,12 +95,6 @@ input[type="file"] {
   font-size: 16px;  /* Size of the text. Adjust as necessary. */
 }
 
-#uploadedImage {
-  max-width: 70%;  /* Matches the width of your project image */
-  height: 60%;  /* Matches the height of your project image */
-  object-fit: cover;
-}
-
 
 img {
   float: left;
@@ -120,12 +112,9 @@ img {
 
 
 form {
-  background-color: #f0f0f0; 
-  padding: 20px;
-  margin-bottom: 50px;
-  padding-bottom: 50px; /* This adds white space inside the grey form area, at the bottom */
+  background-color: var(--blue-bg);
   position: relative;
-  min-height: 100%; /* Ensures form covers full height of its parent container. */
+  margin: 0 4vw 0 4vw;
 }
 
 form * {
@@ -133,23 +122,30 @@ form * {
 }
 
 /* Additional styling for the form fields and elements for a better appearance against the grey background */
-label, input, textarea, button {
+label {
   margin: 10px 0; /* Spacing between form elements */
+  color: var(--accent);
 }
+
+button {
+  margin: .4em .2em 0 0;
+  color: var(--accent);
+}
+
+button:last-child {
+  margin: .4em 0 0 0 !important;
+}
+
 
 .navigation-buttons {
   width: 100%;
   text-align: center;
-  margin: 20px 0;   /* Adjust the margin to your liking. */
 }
 
 #prevBtn, #nextBtn {
-  margin: 0 10px;   /* Provides spacing between the two buttons. Adjust if needed. */
+  margin: 0 .2em !important;   /* Provides spacing between the two buttons. Adjust if needed. */
   display: inline-block;
 }
-
-
-
 
 .sdg-item {
     display: flex;
@@ -178,8 +174,8 @@ label, input, textarea, button {
 }
 
 h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
+    font-size: 24px;
+    margin-bottom: 30px;
     font-weight: bold;
 }
 
@@ -220,8 +216,10 @@ h3 {
 
 .tab {
     overflow: hidden;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
 }
 
 
@@ -231,14 +229,15 @@ h3 {
 }
 
 .tablinks.active {
-    background-color:#0d47a1;
+    /*background-color:#0d47a1 !important;*/
+    background-color:var(--blue-bg)!important;
 }
 
 .tabcontent {
-    padding: 6px 12px;
-    border: 1px solid #ccc;
-    border-top: none;
-    display: none;
+  padding: 2vh 4vw 0 4vw;
+  border: 1px solid #ccc;
+  border-top: none;
+  display: none;
 }
 
 .terms-container {
@@ -254,3 +253,28 @@ h3 {
     margin: 20px 0;
 }
 
+.form_header {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    /* margin-bottom: 20px; */
+    font-size: medium;
+    font-weight: bold;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: var(--bg);
+}
+
+.project-details-edit {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}

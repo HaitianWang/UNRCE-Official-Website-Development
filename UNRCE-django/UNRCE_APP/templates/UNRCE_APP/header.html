@@ -1,22 +1,35 @@
-<header style="background-color: #003087;">
-  <div class="main-header">
-      <h3>United Nations Regional Centre of Expertise of Western Australia</h3>
-      <span>
-        {% if user.is_authenticated %}
-          <a href="{% url 'UNRCE_APP:logout' %}">Logout</a>
-          <a href="{% url 'UNRCE_APP:myaccount' %}">My Account</a>
-        {% else %}
-          <a href="{% url 'UNRCE_APP:login' %}">Login</a>
-          <a href="{% url 'UNRCE_APP:signup' %}">Create an Account</a>
-        {% endif %}
-      </span>
+<header id="navbar" class="main-header">
+  <div>
+  <h3> United Nations Regional Centre of Expertise for Western Australia</h3>
+  
   </div>
-</header>
 
-<header class="header-nav">
-  <nav>
-    <a href="/">Home</a>
-    <a href="/projects">Our Projects</a>
-    <a href="/contact-us">Contact Us</a>
-  </nav>
+  <div class="top-bar">
+    <div id="navbar-bottom">
+      <nav>
+        <a href="/">Home</a>
+        <a href="/projects"> Our Projects</a>
+        <a href="/contact-us"> Contact Us</a>
+      </nav>
+    </div>
+
+    <div class="horizontal-menu">
+      <!-- Login/Signup/Logout -->
+      {% if user.is_authenticated %}
+      <!-- show log out link if user is already logged in -->
+      <nav style="display: flex;">
+        <a class="topright" href="{% url 'UNRCE_APP:myaccount' %}">My Account</a>
+        <a href="{% url 'UNRCE_APP:upload' %}" class="upload-btn"> Upload</a>
+        <a class="topright" href="{% url 'UNRCE_APP:logout' %}">Logout</a>
+      </nav>
+      {% else %}
+      <!-- show log in and sign up links otherwise   -->
+      <nav style="display: flex;">
+        <a class="topright" href="{% url 'UNRCE_APP:login' %}">Login</a>
+        <a class="topright" href="{% url 'UNRCE_APP:signup' %}">Signup</a>
+      </nav>
+      {% endif %}
+      <!-- Login/Signup/Logout -->
+    </div>
+  </div>
 </header>
