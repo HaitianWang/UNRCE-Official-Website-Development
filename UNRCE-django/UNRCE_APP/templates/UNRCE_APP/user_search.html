@@ -1,0 +1,78 @@
+{% extends "UNRCE_APP/base.html" %}
+
+{% block content %}
+
+<style>/* Center the heading and search bar */
+    h1, form {
+        text-align: center;
+    }
+    
+    /* Style the table for user search */
+    table {
+        margin: 0 auto;
+        border-collapse: collapse;
+        width: 80%; /* Adjust the width as needed */
+    }
+    
+    /* Style the table header */
+    table th {
+        background-color: #003087;
+        color: white;
+        padding: 10px;
+    }
+    
+    /* Style table rows alternately */
+    table tr:nth-child(even) {
+        background-color: #f2f2f2; /* Light gray shade */
+    }
+    
+    /* Style table rows */
+    table td {
+        background-color: white;
+        color: #003087;
+        padding: 10px;
+    }
+    </style>
+<div class="user-search-content">
+    <h1>User Search</h1>
+
+    <!-- Search Form -->
+    <form class="search-form" method="GET" action="/user-search/">
+        <input class="search-input" type="text" name="search_query" placeholder="Search">
+        <button class="search-button" type="submit">Search</button>
+    </form>
+
+    <!-- Display Search Results -->
+    <table class="search-results">
+        <thead>
+            <tr>
+                <th>User Name</th>
+                <th>Email</th>
+                <th>Interested Projects</th>
+                <th>Interested SDGs</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.email }}</td>
+                <td>
+                    {% for project in user.interested_projects.all %}
+                        {{ project.title }}<br>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for sdg in user.interested_sdgs.all %}
+                        {{ sdg.name }}<br>
+                    {% endfor %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No users found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

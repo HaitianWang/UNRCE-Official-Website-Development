@@ -24,6 +24,26 @@ from django.contrib.auth.views import LoginView
 from django.contrib import messages
 from .models import Project, SDG, ProjectSDG, ESD, ProjectESD, ProjectPriorityArea, PriorityArea
 
+# views.py
+from .models import CustomUser
+from django.db.models import Q
+
+
+def search_users(request):
+    if request.method == 'GET':
+        search_query = request.GET.get('search_query', '')
+        # Perform the search query based on user input
+        users = CustomUser.objects.filter(
+            Q(email__icontains=search_query) |
+            Q(interested_projects__title__icontains=search_query) |
+            Q(interested_sdgs__sdg__icontains=search_query)
+        ).distinct()
+    else:
+        users = CustomUser.objects.none()  # Return an empty queryset by default
+
+    return render(request, 'UNRCE_APP/user_search.html', {'users': users})
+
+
 class CustomLoginView(LoginView):
     
     def form_valid(self, form):

@@ -44,6 +44,7 @@ urlpatterns = [
   path('edit_project/<int:project_id>/', views.edit_project, name='edit_project'),
   path('users/', views.users_info, name='users'),
   path('admin/fetch_projects/', views.fetch_projects, name='fetch_projects'),
+  path('user-search/', views.search_users, name='search_users'),
 
 
 

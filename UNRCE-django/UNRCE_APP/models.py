@@ -74,12 +74,13 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    user_name = models.CharField(max_length=150)  
 
 
-    ####
+
     interested_projects = models.ManyToManyField('Project', blank=True, related_name="users_interested")
     interested_sdgs = models.ManyToManyField(SDG, related_name='interested_users')
-
+    
     
     objects = CustomUserManager()
 
@@ -119,6 +120,7 @@ class Project(models.Model):
         ('primary_school', 'Primary School age'),
         ('early_years', 'Early years'),
         ('adults_60', 'Adults >60 please'),
+        ('other', 'Other'),
     ]
     FREQUENCY_CHOICES = [
         ('monthly', 'Monthly'),
