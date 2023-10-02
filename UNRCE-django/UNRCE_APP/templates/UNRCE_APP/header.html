@@ -19,7 +19,7 @@
       <!-- show log out link if user is already logged in -->
       <nav style="display: flex;">
         <a class="topright" href="{% url 'UNRCE_APP:myaccount' %}">My Account</a>
-        <a href="{% url 'UNRCE_APP:upload' %}" class="upload-btn"> Upload</a>
+        <a href="{% url 'UNRCE_APP:create_project' %}" class="upload-btn"> Upload</a>
         <a class="topright" href="{% url 'UNRCE_APP:logout' %}">Logout</a>
       </nav>
       {% else %}
