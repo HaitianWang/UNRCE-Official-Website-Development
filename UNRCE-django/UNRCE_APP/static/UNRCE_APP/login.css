@@ -57,14 +57,13 @@
 
 
 .submit-button {
-    margin: 10px auto;
+    margin: 1rem auto;
+    background-color: #ffb300;
     color: black;
-    font-size: 24px;
+    font-size: 1.5rem;
     font-weight: 400;
     width: 100%;
-    max-width: 460px;
-    padding: 8px;
-    background-color: white;
+    padding: 0.5rem;
     border: none;
     border-radius: 4px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
