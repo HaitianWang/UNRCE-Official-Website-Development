@@ -24,6 +24,11 @@
         background-color: #f0f0f0;
         color: rgb(74, 74, 74);
     }
+
+    .faq-open {
+            /* border-bottom: 2px solid #007BFF; */
+            margin-bottom: 30px;
+        }
 </style>
 
 <!-- HTML -->
@@ -87,6 +92,7 @@
         item.querySelector('.faq-question').addEventListener('click', event => {
             const answer = item.querySelector('.faq-answer');
             answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+            item.classList.toggle('faq-open', answer.style.display === 'block');
         });
     });
 </script>
