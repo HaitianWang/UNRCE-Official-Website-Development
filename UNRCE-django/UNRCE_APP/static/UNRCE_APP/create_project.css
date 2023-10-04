@@ -115,6 +115,9 @@ form {
   background-color: var(--blue-bg);
   position: relative;
   margin: 0 4vw 0 4vw;
+  max-width: fit-content;
+  display: flex;
+  flex-direction: column;
 }
 
 form * {
