@@ -5,7 +5,8 @@
     color-scheme:dark;
     --bg: #212121;
     --accent-bg: #2b2b2b;
-    --blue-bg: #5775ac;
+    --blue-bg: #003087;
+    --blue-accent: #5775ac;
     --text: #dcdcdc;
     --text-light: #ababab;
     --accent: #ffb300;
@@ -66,7 +67,7 @@ body>header p {
 }
 
 main {
-    padding-top: 1.5rem;
+        padding-top: 1.5rem;
     display: flex;
     justify-content: center;
 }
@@ -333,7 +334,7 @@ table caption {
     font-size: inherit;
     font-family: inherit;
     padding: .5rem;
-    margin-bottom: .5rem;
+    margin-bottom: 20px;
     border-radius: var(--standard-border-radius);
     box-shadow: none;
     max-width: 100%;

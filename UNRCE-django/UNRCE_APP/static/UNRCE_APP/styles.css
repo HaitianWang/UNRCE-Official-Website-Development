@@ -350,7 +350,7 @@ h3 {
     display: flex;
     height: fit-content;
     flex-direction: column;
-    background-color: #003087;
+    background-color: var(--blue-bg);
 }
 
 /* for header bar top row content */
