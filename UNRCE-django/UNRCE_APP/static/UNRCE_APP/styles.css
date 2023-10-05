@@ -33,7 +33,6 @@ html {
 }
 
 .sidebar {
-    background-color: lightgray;
     flex: 0 0 25%;
     order: 1;
 }
