@@ -44,9 +44,10 @@
 
         <div class="input-container">
             <label for="captcha" class="input-label">Captcha</label>
-            <img src="{% url 'captcha-image' captcha_key %}" alt="Captcha" />
+            <img id="captcha_image" src="{% url 'captcha-image' captcha_key %}" alt="Captcha" />
+            <a href="#" id="refresh_captcha">Refresh Captcha</a>
             <input type="text" name="captcha_0" class="form-control" placeholder="Enter Captcha" required />
-            <input type="hidden" name="captcha_1" value="{{ captcha_key }}" />
+            <input type="hidden" id="captcha_key_input" name="captcha_1" value="{{ captcha_key }}" />
         </div>
 
         <input type="submit" value="Register" class="submit-button" style="color:black;">

@@ -2,7 +2,7 @@ from django.views import View
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, views as auth_views
 from django.contrib.auth.forms import UserCreationForm
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView
 from UNRCE_APP.models import Project 
 from django.urls import reverse_lazy
@@ -20,6 +20,7 @@ from django.contrib.auth import get_user_model
 from django.contrib import messages
 
 from captcha.models import CaptchaStore
+from django.http import JsonResponse
 
 # LoginRequiredMixin will check that user 
 # is authenticated before rendering the template.
@@ -38,6 +39,12 @@ from django.shortcuts import render
 from django.contrib import messages 
 #from .models import CaptchaStore  # Make sure to import CaptchaStore if not already done
 
+def new_captcha(request):
+    """Return new captcha image and key."""
+    captcha_key = CaptchaStore.generate_key()
+    captcha_image_url = reverse('captcha-image', kwargs={'key': captcha_key})
+    return JsonResponse({'captcha_image_url': captcha_image_url, 'captcha_key': captcha_key})
+
 class CustomLoginView(LoginView):
     
     def form_valid(self, form):
@@ -45,19 +52,16 @@ class CustomLoginView(LoginView):
         captcha_key = self.request.POST.get('captcha_1')
 
         # Check the captcha
-        captcha_check = CaptchaStore.objects.filter(response=captcha_value, hashkey=captcha_key)
+        captcha_check = CaptchaStore.objects.filter(response__iexact=captcha_value, hashkey=captcha_key)
         if not captcha_check.exists():
             messages.error(self.request, "Captcha is incorrect.")
             return self.form_invalid(form)  # Changed from super().form_invalid(form)
         
-        # Add any custom logic here. 
-        # For instance, log when a user successfully logs in.
         messages.success(self.request, "Logged in successfully!")
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        # Add any custom logic for when the form is invalid.
-        # For instance, log when a login attempt fails.
+
         captcha_key = CaptchaStore.generate_key()  # Always regenerate the captcha_key
         messages.error(self.request, "Failed to log in. Please check your credentials.")
         return render(
@@ -115,7 +119,7 @@ class SignUpView(View):
         captcha_value = request.POST.get('captcha_0')
         captcha_key = request.POST.get('captcha_1')
     
-        captcha_check = CaptchaStore.objects.filter(response=captcha_value, hashkey=captcha_key)
+        captcha_check = CaptchaStore.objects.filter(response__iexact=captcha_value, hashkey=captcha_key)
         
         if not captcha_check.exists():
             messages.error(request, "Captcha is incorrect.")
