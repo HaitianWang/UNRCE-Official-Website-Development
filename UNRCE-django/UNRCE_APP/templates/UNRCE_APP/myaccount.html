@@ -20,20 +20,23 @@
                     <p style="font-size:medium;">Email: john@example.com</p>
                 </div>
             </section>
-            <section style="padding: 0%; margin: 0%;" class="account-details">
-                <p> SDG's I'm interested in</p>
-                <img class="sdgs" src="{% static 'images/sdgs/1_no_poverty.png' %}">
-                <img class="sdgs" src="{% static 'images/sdgs/2_zero_hunger.png' %}">
-                <img class="sdgs" src="{% static 'images/sdgs/13_climate_action.jpg' %}">
-                <img class="sdgs" src="{% static 'images/sdgs/14_life_below_water.jpg' %}">
-            </section>
-            <section style="padding: 0%; margin: 0%;" class="notification">
-                <p> Emails notifications enabled?</p>
-                    <!-- Emails are enabled -->
-                <input type="checkbox" id="myCheckbox" name="myCheckbox" value="yes" checked disabled>
-                    <!-- Emails are not enabled -->
-                <!-- <input type="checkbox" id="myCheckbox" name="myCheckbox" value="yes" disabled> -->
-            </section>
+            <div style="display: flex; flex-direction: column;">
+                <section style="padding: 0%; margin: 0%;" class="account-details">
+                    <p> SDG's I'm interested in</p>
+                    <img class="sdgs" src="{% static 'images/sdgs/1_no_poverty.png' %}">
+                    <img class="sdgs" src="{% static 'images/sdgs/2_zero_hunger.png' %}">
+                    <img class="sdgs" src="{% static 'images/sdgs/13_climate_action.jpg' %}">
+                    <img class="sdgs" src="{% static 'images/sdgs/14_life_below_water.jpg' %}">
+                </section>
+                <br>
+                <section style="display: flex; align-items: center; padding: 0%; margin: 0%;" class="notification">
+                        <!-- Emails are enabled -->
+                    <input type="checkbox" id="myCheckbox" name="myCheckbox" value="yes" checked disabled style="margin: 5px;">
+                        <!-- Emails are not enabled -->
+                    <!-- <input type="checkbox" id="myCheckbox" name="myCheckbox" value="yes" disabled> -->
+                    <p>I would like to receive email notifications from RCE WA.</p>
+                </section>
+            </div>
         </div>
     </div>
     <div class="projects_container">
