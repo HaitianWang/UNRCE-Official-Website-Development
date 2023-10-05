@@ -1,7 +1,8 @@
+{% load static %}
 <header id="navbar" class="main-header">
-  <div>
-  <h3> United Nations Regional Centre of Expertise for Western Australia</h3>
-  
+  <div class="grid">
+    <!--<img src = "{% static 'images/UNRCEWA_Logo.png' alt="UNRCE Logo" class="logo"%}">-->
+    <h3> United Nations Regional Centre of Expertise, Western Australia</h3>
   </div>
 
   <div class="top-bar">
@@ -19,7 +20,7 @@
       <!-- show log out link if user is already logged in -->
       <nav style="display: flex;">
         <a class="topright" href="{% url 'UNRCE_APP:myaccount' %}">My Account</a>
-        <a href="{% url 'UNRCE_APP:upload' %}" class="upload-btn"> Upload</a>
+        <a href="{% url 'UNRCE_APP:create_project' %}" class="upload-btn"> Upload</a>
         <a class="topright" href="{% url 'UNRCE_APP:logout' %}">Logout</a>
       </nav>
       {% else %}
