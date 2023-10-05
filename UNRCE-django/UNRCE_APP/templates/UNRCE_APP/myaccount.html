@@ -1,0 +1,76 @@
+
+{% extends "UNRCE_APP/base.html" %}
+{% block content %}
+<!-- {% load static %} -->
+<div class="container_outer">
+    <div class="container_account">
+        <header style="display: flex; justify-content: space-between;">
+            <h2 class="h2_account"> My Account</h2>
+            <a href="/myaccount_edit">
+                <h2 class="h2_account"> Edit Profile Details</h2>
+            </a>
+        </header>
+        <div style="padding:0%; margin: 0%;">
+            <section style="padding: 0%; margin: 0%; display:flex;">
+                <div class="profile-picture">
+                    <img src="{% static 'images/avatar.png' %}" alt="Profile Picture">
+                </div>
+                <div>
+                    <p style="font-size:medium;">Name: John Doe</p>
+                    <p style="font-size:medium;">Email: john@example.com</p>
+                </div>
+            </section>
+            <div style="display: flex; flex-direction: column;">
+                <section style="padding: 0%; margin: 0%;" class="account-details">
+                    <p> SDG's I'm interested in</p>
+                    <img class="sdgs" src="{% static 'images/sdgs/1_no_poverty.png' %}">
+                    <img class="sdgs" src="{% static 'images/sdgs/2_zero_hunger.png' %}">
+                    <img class="sdgs" src="{% static 'images/sdgs/13_climate_action.jpg' %}">
+                    <img class="sdgs" src="{% static 'images/sdgs/14_life_below_water.jpg' %}">
+                </section>
+                <br>
+                <section style="display: flex; align-items: center; padding: 0%; margin: 0%;" class="notification">
+                        <!-- Emails are enabled -->
+                    <input type="checkbox" id="myCheckbox" name="myCheckbox" value="yes" checked disabled style="margin: 5px;">
+                        <!-- Emails are not enabled -->
+                    <!-- <input type="checkbox" id="myCheckbox" name="myCheckbox" value="yes" disabled> -->
+                    <p>I would like to receive email notifications from RCE WA.</p>
+                </section>
+            </div>
+        </div>
+    </div>
+    <div class="projects_container">
+        <div style="justify-content: space-around; display:flex; align-content:baseline; flex-wrap: wrap">
+            <h2 class="h2_account" style="display: inline;"> My Projects</h2>
+            <a href="{% url 'UNRCE_APP:create_project' %}" style="display: inline">
+                <h2 class="h2_account">Add New Project?</h2>
+            </a>  <!--TODO: Make styling part of stylesheet-->
+        </div>
+        <!-- Tom's Sidebar Projects Code -->
+        <div class="sidebar">
+            <ul class="projects-list">
+              <div class="project-listing" id="projectGrid" data-baseurl="{% url 'UNRCE_APP:specific_project' %}">
+              <div class="project-box">
+                <a href="{% url 'UNRCE_APP:specific_project' %}">
+                    <div class="project-sidebar" onclick="goToDetails(event, this.children[0].src, this.children[1].textContent)" style="cursor:pointer;">
+                        <img src="http://www.thewowstyle.com/wp-content/uploads/2015/01/nature-images..jpg" alt="Project 1" class="project-image">
+                        <h4 class="project-title-sidebar"> Your Project 1 1</h4>
+                    </div>
+                </a>
+              </div>
+              <div class="project-box">
+                <a href="{% url 'UNRCE_APP:specific_project' %}">
+                    <div class="project-sidebar" onclick="goToDetails(event, this.children[0].src, this.children[1].textContent)" style="cursor:pointer;">
+                        <img src="https://www.bwallpaperhd.com/wp-content/uploads/2021/01/NashPoint.jpg" alt="Project 2" class="project-image">
+                        <h4 class="project-title-sidebar"> Your Project 2</h4>
+                    </div>
+                </a>
+              </div>
+              </div>
+          </div>
+    </div>
+</div>
+
+
+
+{% endblock content %}

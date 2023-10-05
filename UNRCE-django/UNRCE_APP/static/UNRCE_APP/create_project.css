@@ -1,19 +1,250 @@
+/* Consolidated CSS */
+
+.pr-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+label {
+  font-weight: bold;
+  padding-bottom: 10px;
+}
+
+.tabnav {
+  font-size: xx-large;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  margin: 0 5px;
+}
+
+.image-section {
+  text-align: center;
+}
+
+.label-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: -webkit-fill-available;
+}
+
+#uploadedImage {
+  width: 100%;
+  height: 100%;
+  display: block;
+  max-width: fit-content;
+  object-fit: cover;
+  max-block-size: 12em;
+  margin-bottom: 20px !important;
+}
+
+.upload-text {
+  display: block;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: 2px 5px;
+}
+
+.tablinks {
+  background-color: #003087 !important;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: .5em .5em;
+  transition: 0.3s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 5px 5px 0 0;
+  width: -webkit-fill-available;
+}
+
+.tablinks:not(:last-child) {
+  margin-right: .2em;
+}
+
+input[type="file"] {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.upload-container {
+  max-width: 150px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  margin-left: 20px;
+}
+
+img {
+  float: left;
+  margin-left: 10px;
+}
+
+.clear {
+  clear: both;
+}
+
+.tabcontent {
+  padding: 2vh 4vw 0 4vw;
+  border: 1px solid #ccc;
+  border-top: none;
+  display: flex;
+  flex-direction: column;
+}
+
+form {
+  background-color: var(--blue-bg);
+  position: relative;
+  margin: 0 4vw 0 4vw;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+form * {
+  border-color: transparent !important;
+}
+
+button {
+  margin: .4em .2em 0 0;
+  color: var(--text);
+}
+
+button:last-child {
+  margin: .4em 0 0 0 !important;
+}
+
+.navigation-buttons {
+  width: 100%;
+  text-align: center;
+}
+
+#prevBtn,
+#nextBtn {
+  margin: 0 .2em !important;
+  display: inline-block;
+}
+
 .sdg-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 10px;
-  }
-  
-  .sdg-name {
-    flex: 1;
-    padding-right: 10px;
-  }
-  
-  .sdg-option-label {
-    display: inline-block;
-    margin-right: 10px;
-  }
-  
-  /* Adjust styling as needed */
-  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.sdg-name {
+  flex: 1;
+  padding-right: 10px;
+}
+
+.sdg-option-label {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+/* Adjust styling as needed */
+
+.terms-container {
+  border: 1px solid #e0e0e0;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  margin: 20px 0;
+}
+
+h3 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+.terms-text {
+  font-size: 14px;
+  margin-bottom: 20px;
+  line-height: 1.5;
+  color: #555;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-container input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+/* Merged .submit-Btn rules */
+
+.submit-Btn {
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  display: block;
+  margin-top: 20px;
+}
+
+.submit-Btn:hover {
+  background-color: #45a049;
+}
+
+.tab {
+  overflow: hidden;
+  background-color: #FFFFFF;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+}
+
+.tablinks:hover {
+  background-color: #ddd;
+}
+
+.tablinks.active {
+  background-color: var(--blue-accent) !important;
+}
+
+/* Merged .terms-container and .terms-text rules */
+
+.terms-container {
+  margin: 20px;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.checkbox-container {
+  margin: 20px 0;
+}
+
+.form_header {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  font-size: medium;
+  font-weight: bold;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: var(--bg);
+}
+
+.project-details-edit {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}

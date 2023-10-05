@@ -1,0 +1,120 @@
+
+{% extends "UNRCE_APP/base.html" %}
+{% block content %}
+<!-- {% load static %} -->
+<div class="container_outer">
+    <div class="container_account">
+        <header style="display: flex; justify-content: space-between; padding: 0%; margin: 0%;">
+            <h2 class="h2_account"> Edit Account Details</h2>
+        </header>
+        <div style="padding:0%; margin: 0%;">
+            <section style="padding: 0%; margin: 0%; display:flex;" class="profile">
+                <div class="profile-picture">
+                    <img src="https://www.kindpng.com/picc/m/421-4212275_transparent-default-avatar-png-avatar-img-png-download.png" alt="Profile Picture">
+                </div>
+                <div class="user-info">
+                    <p style="font-size:medium;">Name: John Doe</p>
+                    <p style="font-size:medium;">Email: john@example.com</p>
+                </div>
+            </section>
+            <section style="padding: 0%; margin: 0%;" class="account-details">
+                <p id="testingpotato"> SDG's I'm interested in </p>
+                <!-- <img class="sdgs" src="{% static 'images/sdgs/1_no_poverty.png' %}">
+                <img class="sdgs" src="{% static 'images/sdgs/2_zero_hunger.png' %}">
+                <img class="sdgs" src="{% static 'images/sdgs/13_climate_action.jpg' %}"> -->
+    
+                <div class="sdg-icons" >    <!-- Second Row -->
+                    <div class="sdg-icon" data-sdg="1"> <!-- SDG 1 -->
+                        <img src="{% static 'images/sdgs/1_no_poverty.png' %}" class="sdgs sdg-icon" alt="SDG 1">
+                    </div>
+                    <div class="sdg-icon" data-sdg="2"> <!-- SDG 2 -->
+                        <img src="{% static 'images/sdgs/2_zero_hunger.png' %}" class="sdgs sdg-icon" alt="SDG 2">
+                    </div>
+                    <div class="sdg-icon" data-sdg="3"> <!-- SDG 3 -->
+                        <img src="{% static 'images/sdgs/3_good_health_and_wellbeing.png' %}" class="sdgs sdg-icon" alt="SDG 3">
+                    </div>
+                    <div class="sdg-icon" data-sdg="4"> <!-- SDG 4 -->
+                        <img src="{% static 'images/sdgs/4_quality_education.png' %}" class="sdgs sdg-icon" alt="SDG 4">
+                    </div>
+                    <div class="sdg-icon" data-sdg="5"> <!-- SDG 5 -->
+                        <img src="{% static 'images/sdgs/5_gender_equality.png' %}" class="sdgs sdg-icon" alt="SDG 5">
+                    </div>
+                    <div class="sdg-icon" data-sdg="6"> <!-- SDG 6 -->
+                        <img src="{% static 'images/sdgs/6_clean_water_and_sanitation.png' %}" class="sdgs sdg-icon" alt="SDG 6">
+                    </div>
+                    <div class="sdg-icon" data-sdg="7"> <!-- SDG 7 -->
+                        <img src="{% static 'images/sdgs/7_affordable_and_clean_energy.png' %}" class="sdgs sdg-icon" alt="SDG 7">
+                    </div>
+                    <div class="sdg-icon" data-sdg="8"> <!-- SDG 8 -->
+                        <img src="{% static 'images/sdgs/8_decent_work_and_economic_growth.png' %}" class="sdgs sdg-icon" alt="SDG 8">
+                    </div>
+                    <div class="sdg-icon" data-sdg="9"> <!-- SDG 9 -->
+                        <img src="{% static 'images/sdgs/9_industry_ innovation_and_infrastructure.png' %}" class="sdgs sdg-icon" alt="SDG 9">
+                    </div>
+                </div>
+                <div class="sdg-icons" >    <!-- Second Row -->
+                    <div class="sdg-icon" data-sdg="10"> <!-- SDG 10 -->
+                        <img src="{% static 'images/sdgs/10_reduced_inequalities.png' %}" class="sdgs sdg-icon" alt="SDG 10">
+                    </div>
+                    <div class="sdg-icon" data-sdg="11"> <!-- SDG 11 -->
+                        <img src="{% static 'images/sdgs/11_sustainable_cities_and communities.png' %}" class="sdgs sdg-icon" alt="SDG 11">
+                    </div>
+                    <div class="sdg-icon" data-sdg="12"> <!-- SDG 12 -->
+                        <img src="{% static 'images/sdgs/12_responsible_consumption_and_production.png' %}" class="sdgs sdg-icon" alt="SDG 12">
+                    </div>
+                    <div class="sdg-icon" data-sdg="13"> <!-- SDG 13 -->
+                        <img src="{% static 'images/sdgs/13_climate_action.jpg' %}" class="sdgs sdg-icon" alt="SDG 13">
+                    </div>
+                    <div class="sdg-icon" data-sdg="14"> <!-- SDG 14 -->
+                        <img src="{% static 'images/sdgs/14_life_below_water.jpg' %}" class="sdgs sdg-icon" alt="SDG 14">
+                    </div>
+                    <div class="sdg-icon" data-sdg="15"> <!-- SDG 15 -->
+                        <img src="{% static 'images/sdgs/15_life_on_land.png' %}" class="sdgs sdg-icon" alt="SDG 15">
+                    </div>
+                    <div class="sdg-icon" data-sdg="16"> <!-- SDG 16 -->
+                        <img src="{% static 'images/sdgs/16_peace_justice_and_strong_institutions.png' %}" class="sdgs sdg-icon" alt="SDG 16">
+                    </div>
+                    <div class="sdg-icon" data-sdg="17"> <!-- SDG 17 -->
+                        <img src="{% static 'images/sdgs/17_partnerships_for_the_goals.jpg' %}" class="sdgs sdg-icon" alt="SDG 17">
+                    </div>
+                </div>
+                <p style="font-size:smaller;"> Click <a href="https://sdgs.un.org/goals">here</a> for more information on the Sustainable Development Goals by the UN</p> 
+    
+    
+    
+            </section>
+            <section style="padding: 0%; margin: 0%;" class="notification">
+                <p> Emails enabled?</p>
+                <input type="checkbox" id="myCheckbox" name="myCheckbox" value="yes">
+            </section>
+            <input type="button" value="Update User Details">
+        </div>
+    </div>
+    <div class="projects_container">
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+<!-- Javascript -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const sdgIcons = document.querySelectorAll(".sdg-icon");
+
+  sdgIcons.forEach((icon) => {
+    icon.addEventListener("click", () => {
+      icon.classList.toggle("selected");
+    });
+  });
+});
+</script>
+  
+
+
+
+{% endblock content %}

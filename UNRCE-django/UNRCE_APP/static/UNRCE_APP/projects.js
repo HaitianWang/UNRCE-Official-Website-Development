@@ -1,36 +1,36 @@
 // Sample add a new project button
-const addProjectButton = document.getElementById("addNewProject");
-const projectGrid = document.getElementById("projectGrid");
+// const addProjectButton = document.getElementById("addNewProject");
+// const projectGrid = document.getElementById("projectGrid");
 
-// Add functionality to the button
-if (addProjectButton && projectGrid) {
-    addProjectButton.addEventListener("click", () => {
-        // Create project
-        const newProject = document.createElement("div");
-        newProject.classList.add("project");
+// // Add functionality to the button
+// if (addProjectButton && projectGrid) {
+//     addProjectButton.addEventListener("click", () => {
+//         // Create project
+//         const newProject = document.createElement("div");
+//         newProject.classList.add("project");
 
-        // Create tag for href
-        const newProjectLink = document.createElement("a");
-        newProjectLink.href = "/";
+//         // Create tag for href
+//         const newProjectLink = document.createElement("a");
+//         newProjectLink.href = "/";
 
-        // Create image
-        const newProjectImage = document.createElement("img");
-        newProjectImage.src = "https://www.wallpapertip.com/wmimgs/8-82164_soothing-background.jpg"; // Replace with the actual image path
-        newProjectImage.alt = "New Project";
+//         // Create image
+//         const newProjectImage = document.createElement("img");
+//         newProjectImage.src = "https://www.wallpapertip.com/wmimgs/8-82164_soothing-background.jpg"; // Replace with the actual image path
+//         newProjectImage.alt = "New Project";
 
-        // Create title
-        const newProjectTitle = document.createElement("h3");
-        newProjectTitle.textContent = "New Project";
+//         // Create title
+//         const newProjectTitle = document.createElement("h3");
+//         newProjectTitle.textContent = "New Project";
 
-        // Link it all together
-        newProject.appendChild(newProjectLink);
-        newProject.appendChild(newProjectImage);
-        newProject.appendChild(newProjectTitle); 
+//         // Link it all together
+//         newProject.appendChild(newProjectLink);
+//         newProject.appendChild(newProjectImage);
+//         newProject.appendChild(newProjectTitle); 
         
-        projectGrid.appendChild(newProjectLink);
-        newProjectLink.appendChild(newProject);
-    });
-}
+//         projectGrid.appendChild(newProjectLink);
+//         newProjectLink.appendChild(newProject);
+//     });
+// }
 
 function goToDetails(event, imgSrc, titleText) {
     event.preventDefault(); 
