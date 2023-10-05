@@ -69,7 +69,9 @@ body>header p {
 main {
         padding-top: 1.5rem;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    margin: auto;
 }
 
 body>footer {

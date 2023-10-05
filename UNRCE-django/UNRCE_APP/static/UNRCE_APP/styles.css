@@ -391,6 +391,7 @@ nav > a {
 .small-heading {
     font-weight: bold;
     color: black;
+    text-align: center;
 }
 
 /* All below is for the Projects page, making it 3x3 */
@@ -409,6 +410,8 @@ nav > a {
     padding: 20px;
     text-align: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
 }
 
 .project img {
