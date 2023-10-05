@@ -43,7 +43,11 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     date_joined = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)  # for accessing the admin site
+
+    # Different permissions
+    is_moderator = models.BooleanField(default=False)
+    is_superadmin = models.BooleanField(default=False)
 
     objects = CustomUserManager()
 
@@ -52,6 +56,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
 
 
 class ProjectFile(models.Model):
@@ -101,7 +106,7 @@ class Project(models.Model):
     ]
 
 
-    
+    is_approved = models.BooleanField(default=False)
     title = models.TextField(blank=False)
 
 

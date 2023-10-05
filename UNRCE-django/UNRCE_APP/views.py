@@ -278,7 +278,6 @@ def reset_password(request, uidb64, token):
       return HttpResponse('Reset password link is invalid!')
 
 
-
 def contact_us(request):
     return render(request, 'UNRCE_APP/contact-us.html')
 #display projects page
@@ -379,6 +378,8 @@ class CreateProject(View):
             title = request.POST.get("title"),
             description = request.POST.get("description"),
             audience = request.POST.getlist("audience-options"),
+
+            
     delivery_frequency=request.POST.get("delivery_frequency"),
     created_at=request.POST.get("start_date"),
     concluded_on =request.POST.get("end_date"),
