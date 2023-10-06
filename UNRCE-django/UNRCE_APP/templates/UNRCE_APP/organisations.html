@@ -4,10 +4,11 @@
 {% load static %}
 {% load customfilters %}
 <h3 class="organisation-title">Organisations</h3>
-<div class="organisation-page">
+<div class="buttons-container">
 {% if user.is_superuser %}
 <a class="btn-organisations edit-organisations" id="btn-organisations" href="/organisations_admin">Edit Organisations</a>
 {% endif %}
+</div>
 <div class="grid-wrapper">
     <div class="grid-container">
 
