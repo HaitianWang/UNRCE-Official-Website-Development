@@ -2,22 +2,8 @@
 {% load static %}
 {% block content %}
 
-<p class="small-heading"> Our Projects</p>
-<!-- <p> {{ project_query.0.title }} </p> -->
+<p class="small-heading"> Approved Projects</p>
 
-
-<!-- {% for project in project_query %}
-<p>{{ project.title }}</p>
-{% endfor %} -->
-
-
-
-<!-- <button id="addNewProject"> Add Sample New Project (Testing button only, will delete later) </button> -->
-{% if user.is_superuser %}
-<a href="{% url 'UNRCE_APP:pending_projects' %}">
-    <button id="approvedProjects"> Go to Pending Projects</button>
-</a>
-{% endif %}
 <!-- Project Listings -->
 <div class="project-grid" id="projectGrid" data-baseurl="{% url 'UNRCE_APP:specific_project' %}">
     <a href="{% url 'UNRCE_APP:specific_project' %}">

@@ -14,8 +14,8 @@
 
 <!-- <button id="addNewProject"> Add Sample New Project (Testing button only, will delete later) </button> -->
 {% if user.is_superuser %}
-<a href="{% url 'UNRCE_APP:pending_projects' %}">
-    <button id="approvedProjects"> Go to Pending Projects</button>
+<a href="{% url 'UNRCE_APP:projects' %}">
+    <button id="approvedProjects"> Go to Approved Projects</button>
 </a>
 {% endif %}
 <!-- Project Listings -->

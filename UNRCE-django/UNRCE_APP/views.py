@@ -155,7 +155,12 @@ def myaccount(request):
 # My Account Page
 def myaccount_edit(request):
     return render(request, 'UNRCE_APP/myaccount_edit.html')
-
+#display approved projects page
+def approved_projects(request):
+    return render(request, 'UNRCE_APP/approved_projects.html')
+#display pending projects
+def pending_projects(request):
+    return render(request, 'UNRCE_APP/pending_projects.html')
 # This is a function to return a list of featured projects by recently added
 # def index(request):
 #     # Just an example: getting the last 5 projects.

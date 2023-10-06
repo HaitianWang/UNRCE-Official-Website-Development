@@ -41,7 +41,7 @@ urlpatterns = [
   path("create_project/", CreateProject.as_view(), name="create_project"),
   path("myaccount/", views.myaccount, name="myaccount"),
   path("myaccount_edit/", views.myaccount_edit, name="myaccount_edit"),
-
-
+  path("approved_projects/", views.approved_projects, name="approved_projects"),
+  path("pending_projects/", views.pending_projects, name="pending_projects"),
 
 ]
