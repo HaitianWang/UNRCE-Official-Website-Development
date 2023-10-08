@@ -1,0 +1,35 @@
+{% extends "UNRCE_APP/base.html" %}
+
+{% block content %}
+  <h2>Edit Project</h2>
+
+  <form method="post" action="{% url 'UNRCE_APP:edit_project' project.id %}">
+
+    {% csrf_token %}
+    {{ form.title.label_tag }} {{ form.title }}
+    {{ form.description.label_tag }} {{ form.description }}
+    {{ form.language.label_tag }} {{ form.language }}
+    {{ form.format.label_tag }} {{ form.format }}
+    {{ form.web_link.label_tag }} {{ form.web_link }}
+    {{ form.policy_link.label_tag }} {{ form.policy_link }}
+
+    <!-- Displaying selected audiences -->
+    <label for="audience">Target Audience:</label><br>
+    {% for audience in form.audience.options %}
+      <input type="checkbox" id="{{ audience.id }}" name="audience" value="{{ audience.id }}"
+             {% if audience.id in form.instance.audience.all %} checked {% endif %}>
+      <label for="{{ audience.id }}">{{ audience.name }}</label><br>
+    {% endfor %}
+
+    <!-- Displaying selected SDGs -->
+    <label for="sdgs">SDGs:</label><br>
+    {% for sdg in form.sdg.options %}
+      <input type="checkbox" id="{{ sdg.id }}" name="sdg" value="{{ sdg.id }}"
+             {% if sdg.id in form.instance.sdg.all %} checked {% endif %}>
+      <label for="{{ sdg.id }}">{{ sdg.name }}</label><br>
+    {% endfor %}
+
+    <button type="submit">Save Changes</button>
+  </form>
+  
+{% endblock %}
