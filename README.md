@@ -28,8 +28,8 @@ All Selenium tests require that you have the matching browser with a Selenium ex
 ### Writing tests:
 All the test classes we write and use are subclasses of Django's test classes, which are based on Python's Unittest module. 
 ### Including
-`from django.test include SimpleTestCase, TransactionTestCase, LiveServerTestCase, TestCase`
-
+`from django.test include SimpleTestCase, TransactionTestCase, TestCase`
+`from django.contrib.staticfiles.testing import StaticLiveServerTestCase`
 Best practice is to not include classes you won't use.
 
 
@@ -38,4 +38,4 @@ Best practice is to not include classes you won't use.
 |SimpleTestCase|Tests that don't involve the database|
 |TransactionTestCase|Testing if database transactions are working properly (unlikely to be used)|
 |TestCase|Runs tests on a testing database that is cleaned up at the end|
-|LiveServerTestCase|Starts a live version of the server for testing, useful for Selenium tests|
+|StaticLiveServerTestCase|Starts a live version of the server for testing, useful for Selenium tests|
