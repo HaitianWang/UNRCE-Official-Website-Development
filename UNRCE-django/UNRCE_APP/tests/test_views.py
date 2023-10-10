@@ -1,9 +1,7 @@
 from django.test import TestCase, Client
-from UNRCE_APP.views import IndexView
 from UNRCE_APP.models import CustomUser
 from captcha.models import CaptchaStore
 from django.urls import reverse
-from django.http import HttpRequest
 
 class TestPages(TestCase):
 
