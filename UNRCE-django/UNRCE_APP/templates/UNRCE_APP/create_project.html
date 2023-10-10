@@ -39,7 +39,21 @@
 
         <label class = "custom-label" for="description">Description:</label><br>
         <textarea id="description" name="description" rows="4" cols="50"></textarea><br><br>
+
+        <label class = "custom-label" for="organisation">Organisation:</label>
+        <select id="organisation" name="organisation" onchange="checkOther(this.value);">
+            <option value="org1"> Organisation 1</option>
+            <option value="org2"> Organisation 2</option>
+            <option value="org3"> Organisation 3</option>
+            <!-- Add more options as required -->
+            <option value="other"> Other</option>
+        </select>
+        <div id="otherOrganisation" style="display:none;">
+            <label class="custom-label" for="otherInput">Please specify:</label>
+            <input type="text" id="otherInput" name="otherInput"><br><br>
+        </div>
         
+        <br><br>
         <label class = "custom-label" for="language">Language:</label>
         <input type="text" id="language" name="language"><br><br>
         
@@ -315,6 +329,15 @@ document.getElementById('saveButton').addEventListener('click', function() {
     document.querySelector('form').submit();
 });
 
+
+function checkOther(value) {
+        var otherInput = document.getElementById("otherOrganisation");
+        if (value === "other") {
+            otherInput.style.display = "block";
+        } else {
+            otherInput.style.display = "none";
+        }
+    }
 
 </script>
 {% endblock %}
