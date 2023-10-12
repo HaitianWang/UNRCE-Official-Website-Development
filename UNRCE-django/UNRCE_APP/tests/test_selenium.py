@@ -2,9 +2,12 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.webdriver.common.by import By
 from selenium import webdriver
 from captcha.models import CaptchaStore
+from UNRCE_APP.models import CustomUser
 #from selenium.webdriver.support.relative_locator import locate_with
 from time import sleep
+from django.test import tag
 
+@tag("selenium")
 class TestSignUp(StaticLiveServerTestCase):
     @classmethod
     def setUpClass(cls):
@@ -18,8 +21,8 @@ class TestSignUp(StaticLiveServerTestCase):
 
     @classmethod
     def tearDownClass(cls):
-        cls.selenium.quit()
         super().tearDownClass()
+        cls.selenium.quit()
     
     def test_signup_page(self):
         self.selenium.get(self.live_server_url)
@@ -39,6 +42,8 @@ class TestSignUp(StaticLiveServerTestCase):
         self.selenium.find_element(By.NAME,"captcha_0").send_keys(answer)
         self.selenium.find_element(By.CLASS_NAME,"submit-button").click()
         self.assertEquals(self.selenium.current_url, f"{self.live_server_url}/")
+
+        self.assertTrue(CustomUser.objects.filter(email="JohnDoe@gmail.com").exists())
 
         self.selenium.close()
 
