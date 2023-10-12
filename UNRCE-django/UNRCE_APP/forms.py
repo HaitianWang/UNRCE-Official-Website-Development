@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from .models import CustomUser
-from .models import Image
+from .models import Image, Project
 
 
 # We use Django's built-in ModelForm class
@@ -32,3 +32,16 @@ class CustomUserCreationForm(UserCreationForm):
         labels = {
             "email": "Email",
         }
+
+
+class ProjectForm(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = '__all__'
+
+
+
+
+
+class UserSearchForm(forms.Form):
+    search_query = forms.CharField(label='Search Users', max_length=100, required=False)

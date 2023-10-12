@@ -3,11 +3,78 @@
   align-items: start;
 }
 
-label {
-  margin-right: 20px;
-  font-size: 12px;
-  
+
+#description, #results , #lessons_learned, #key_messages, #relationship_to_rce_activities, #funding {
+  width: 800px;  /* Set the width you want */
+  height: 150px; /* Set the height you want */
+  resize: none;  /* Prevents user from resizing the textarea */
 }
+
+.custom-label {
+  background-color: #fdfdfd;
+  color: #333;
+}
+
+input[type="radio"] {
+  background-color: white;
+  border: 1px solid black !important ;
+}
+
+
+
+
+.terms-label{
+  font-size: 15px;
+  font-family: Inter;
+  font-weight: normal;
+
+}
+
+
+label {
+  font-family: Inter;
+  text-transform: capitalize;
+  word-wrap: break-word;
+  margin-right: 20px;
+  font-size: 18px;
+  color: #333;
+  font-weight: bold;
+  background-color: #fdfdfd;
+  color: #333;
+}
+
+.selection-label {
+  font-size: 15px;
+  font-family: Inter;
+  font-weight: normal;
+}
+
+
+input[type="text"], textarea {
+  background-color: white; /* White background */
+  border: 1px solid #e0e0e0;  /* Light border */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow */
+  padding: 10px; /* Some padding for better appearance */
+  transition: box-shadow 0.3s;  /* Transition for a smooth shadow change */
+}
+
+input[type="text"]:focus, textarea:focus {
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3); /* Slightly darker shadow on focus */
+  outline: none; /* Removing default browser focus styles */
+}
+textarea {
+  background-color: white !important;
+  border: 1px solid #e0e0e0 !important;  /* Light border */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1) !important; /* Light shadow */
+  padding: 10px !important; /* Some padding for better appearance */
+  transition: box-shadow 0.3s !important;  /* Transition for a smooth shadow change */
+}
+
+
+
+
+
+
 
 .tabnav {
   font-size: 20px; /* Adjust size as needed */
@@ -38,23 +105,13 @@ label {
   text-align: center; /* Centers the text */
   background-color: rgba(255, 255, 255, 0.6);
   padding: 2px 5px;
+  
 }
 
 
-.tablinks {
-  background-color: #0d47a1 !important;
-  border-radius: 20px;
-  float: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  transition: 0.3s;
-  margin-right: 30px;
-}
 
 .tablinks {
-  background-color: #0d47a1;
+  //background-color: #0d47a1;
   float: left;
   border: none;
   outline: none;
@@ -120,7 +177,11 @@ img {
 
 
 form {
-  background-color: #f0f0f0; 
+  border: 1px solid #ccc;
+  border: 1px solid #e0e0e0; /* light grey border */
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05); /* subtle shadow */
+  background-color: #fdfdfd;
+  //background-color: #f0f0f0; 
   padding: 20px;
   margin-bottom: 50px;
   padding-bottom: 50px; /* This adds white space inside the grey form area, at the bottom */
@@ -129,12 +190,14 @@ form {
 }
 
 form * {
+
     border-color: transparent !important;
 }
 
 /* Additional styling for the form fields and elements for a better appearance against the grey background */
 label, input, textarea, button {
   margin: 10px 0; /* Spacing between form elements */
+  background-color:white;
 }
 
 .navigation-buttons {
@@ -144,19 +207,26 @@ label, input, textarea, button {
 }
 
 #prevBtn, #nextBtn {
-  margin: 0 10px;   /* Provides spacing between the two buttons. Adjust if needed. */
+  margin: 0 140px;   /* Provides spacing between the two buttons. Adjust if needed. */
   display: inline-block;
+  background-color: #ffb300;  /* This is a blue color, you can adjust to your preferred shade of blue */
+  text-color: white;
 }
 
 
 
-
 .sdg-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 10px;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 0;
+  border-bottom: 1px solid #e5e5e5; /* Adds a light bottom border to separate each SDG item */
+}
+
+input[type="radio"] {
+  margin-right: 5px; /* Adds some space between the radio button and its label */
+}
+
   
   .sdg-name {
     flex: 1;
@@ -166,7 +236,16 @@ label, input, textarea, button {
   .sdg-option-label {
     display: inline-block;
     margin-right: 10px;
+    //font-family: Intern; /* Replace 'YourDesiredFontFamily' with the name of the font you want. */
+    font-size: 15px;
+    font-weight: normal;
+
   }
+
+  #sdgs-selection .sdg-name p {
+    font-weight: normal; /* Makes the SDG name bold */
+    color: black; /* A blue color for the SDG name */
+}
   
   /* Adjust styling as needed */
   .terms-container {
@@ -204,15 +283,24 @@ h3 {
 }
 
 .submit-Btn {
-    background-color: #4CAF50;
-    border: none;
-    border-radius: 4px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    display: block;
-    margin-top: 20px;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  display: block;
+  margin-top: 20px;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 150px;  /* or any desired width */
+
 }
+
+.submit-Btn:hover {
+  background-color: #45a049;
+}
+
 
 .submit-Btn:hover {
     background-color: #45a049;
@@ -221,7 +309,7 @@ h3 {
 .tab {
     overflow: hidden;
     border: 1px solid #ccc;
-    background-color: #f1f1f1;
+    //background-color: #f1f1f1;
 }
 
 
@@ -231,7 +319,7 @@ h3 {
 }
 
 .tablinks.active {
-    background-color:#0d47a1;
+    background-color:##ffc61a;
 }
 
 .tabcontent {
