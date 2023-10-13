@@ -44,6 +44,10 @@ from .models import Project, SDG, ProjectSDG, ESD, ProjectESD, ProjectPriorityAr
 # views.py
 from .models import CustomUser
 from django.db.models import Q
+import csv
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 def search_users(request):
     if request.method == 'GET':
@@ -62,7 +66,12 @@ def search_users(request):
     else:
         users = CustomUser.objects.none()  # Return an empty queryset by default
 
-    return render(request, 'UNRCE_APP/user_search.html', {'users': users})
+    context = {
+        'users': users,
+        'search_query': search_query
+    }
+
+    return render(request, 'UNRCE_APP/user_search.html', context)
 
 
 from django.contrib.auth.views import LoginView
@@ -575,3 +584,33 @@ def delete_users(request):
         user_ids = request.POST.getlist("user_ids") # "user_ids" matches the checkbox name
         CustomUser.objects.filter(id__in=user_ids).delete()
         return HttpResponseRedirect('/user-search/') # Redirect back to the search page
+    
+
+def download_users(request):
+    search_query = request.GET.get('search_query', '')
+    
+    if search_query:
+        users = User.objects.filter(user_name__icontains=search_query)  # Assuming user_name is the field you're searching
+    else:
+        users = User.objects.all()
+
+    # Create CSV response
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="users.csv"'
+
+    writer = csv.writer(response)
+    # Write header
+    writer.writerow(['User Name', 'Email', 'Organisation', 'Role', 'Interested Projects', 'Interested SDGs', 'RCE Hub'])
+    # Write user data
+    for user in users:
+        writer.writerow([
+            user.user_name,
+            user.email,
+            user.organisation.org_name if user.organisation else 'None',
+            user.role_organisation,
+            ', '.join([proj.title for proj in user.interested_projects.all()]),
+            ', '.join([sdg.sdg for sdg in user.interested_sdgs.all()]),
+            user.rce_hub.hub_name if user.rce_hub else 'None'
+        ])
+
+    return response
