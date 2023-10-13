@@ -1,21 +1,22 @@
 
 .information {
     background-color: #f1f1f1;
-    padding: 1.5rem;
+    padding: 4rem;
     width: 100vmin;
+    min-height: 60vmin;
     border-radius: 10px;
 }
 
 .image {
     width: 60%;
     object-fit: cover;
-    align-self: center;
     margin-right: 1em;
-    height: 25vmin;
+    height: min-content;
 }
 #projectTitle{
     margin-bottom: 1rem;    
     margin-top: 0%;
+    white-space: nowrap;
 }
 h5{
     margin-top: 2px;
@@ -27,15 +28,14 @@ h5{
     position: relative;
     color: black;
     display: flex;
-    align-items: stretch; /* Center items vertically */
-    justify-content: flex-start; /* Align items to the start */
-    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 .region {
     font-size: small;
     line-height: 0.1; /* Ensure the text takes up its natural space without added spacing */
     height: auto; /* Let the height be determined by content and padding */
-    width: calc(100% - 80px);
+    width: 80%;
     color: black;
     border: 1px solid lightgray;
     border-radius: 10px;
@@ -46,19 +46,15 @@ h5{
 }
 
 .region-container {
-    margin: 0.5rem;    
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* Pushes items to either end */
-    width: 100%; /* Ensures it spans the full width */
-    padding: 1rem;
+    margin: 0.5rem;
+    display: table-row;
 }
 .region-title{
-    margin: 0;
+    padding-right: 1em;
+    font-size: 1vw;
 }
 .region-title, .region{
-    display: inline-block;
-    vertical-align: top;
+    display: table-cell;
 }
 .project-details {
     flex: 1; /* Allow the details to expand and take available space */
@@ -68,7 +64,7 @@ h5{
 }
 
 .info-container {
-    font-size: small;
+    font-size: 1vw;
     border: 1px solid lightgray;
     border-radius: 10px;
     color: black;
@@ -81,15 +77,13 @@ h5{
     text-transform: capitalize;
     word-wrap: break-word;
 }
-.project-title, .project-details, .region-label, .orgs-label, .language-label, .audience-label, .sdg-label {
+.project-title, .region-label, .orgs-label, .language-label, .audience-label, .sdg-label {
     font-weight: 700;
 }
 .edit-project-details, .project-desc {
     font-weight: 500;
 }
-.project-title, .project-details {
-    font-size: 24px;
-}
+
 .edit-project-details, .region-label, .orgs-label, .language-label, .audience-label, .sdg-label {
     font-size: 20px;
 }

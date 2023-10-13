@@ -4,32 +4,34 @@
 {% block content %}
 <div class="information">
 <div class="project-container">
-    <div style="margin-bottom: 1rem; display: flex;">
+    <div style="margin-bottom: 1rem; display: flex; align-items: flex-end;">
         <img class="image" id="detailImage" src="{{ img_src }}" alt="Project Image">
         <div class="project-details">
             <h2 class=""id="projectTitle"></h2>
             <h5>Project Details</h5>
             <div class="info-container">
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt aut eos ab itaque corporis nesciunt excepturi, dolores atque nisi doloremque recusandae perspiciatis optio! Accusantium aperiam fugit rem minus omnis animi.</p>
+            <p style="margin: 0.2em;">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt aut eos ab itaque corporis nesciunt excepturi, dolores atque nisi doloremque recusandae perspiciatis optio! Accusantium aperiam fugit rem minus omnis animi.</p>
             </div>
         </div>
     </div>
-    <div class="region-container">
-        <h5 class="region-title">Region</h5>
-        <div class="region">
-            <p>Albany</p>
-        </div>
-    </div> 
-    <div class="region-container">
-        <h5 class="region-title">Contributing Organisations</h5>
-        <div class="region">
-            <p>UWA</p>
-        </div>
-    </div> 
-    <div class="region-container">
-        <h5 class="region-title">Language of Project</h5>
-        <div class="region">
-            <p>English, French</p>
+    <div style="border-spacing: 2rem; display: table; width: 100%; table-layout: fixed;">
+        <div class="region-container">
+            <h5 class="region-title">Region</h5>
+            <div class="region">
+                <p>Albany</p>
+            </div>
+        </div> 
+        <div class="region-container">
+            <h5 class="region-title">Contributing Organisations</h5>
+            <div class="region">
+                <p>UWA</p>
+            </div>
+        </div> 
+        <div class="region-container">
+            <h5 class="region-title">Language of Project</h5>
+            <div class="region">
+                <p>English, French</p>
+            </div>
         </div>
     </div>    
 </div>
