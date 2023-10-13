@@ -392,6 +392,7 @@ nav > a {
     font-weight: bold;
     color: black;
     text-align: center;
+    font-size: 24px;
 }
 
 /* All below is for the Projects page, making it 3x3 */
