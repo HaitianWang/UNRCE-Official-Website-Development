@@ -48,6 +48,7 @@ urlpatterns = [
   path('admin/fetch_projects/', views.fetch_projects, name='fetch_projects'),
   path('user-search/', views.search_users, name='search_users'),
   path('delete-users/', views.delete_users, name='delete_users'),
+  path('download-users/', views.download_users, name='download-users'),
 
 
 

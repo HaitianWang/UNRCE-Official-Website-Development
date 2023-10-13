@@ -76,6 +76,15 @@
     </form>
 </div>
 
+<!-- Download Users -->
+<form method="GET" action="/download-users/" style="text-align:right; padding: 0px; margin: 0px; background: white; outline-color: white; padding-right: 15%; border:none">
+    <input type="hidden" name="search_query" value="{{ search_query }}">
+    <button class="delete-button" type="submit" style="background-color: #ffffff; color: #003087;">
+        Download Users
+    </button>
+</form>
+
+
 <!-- Delete Users Form -->
 <form id="deleteForm" class="form-style" method="POST" action="/delete-users/" onsubmit="return confirmDelete()">
     {% csrf_token %}
