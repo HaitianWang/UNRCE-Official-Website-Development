@@ -1,22 +1,19 @@
 
 .information {
     background-color: #f1f1f1;
-    padding: 10px;
-    margin: 10px auto;
-    width: 100%;
-    max-width: 90%;
+    padding: 1.5rem;
+    width: 100vmin;
     border-radius: 10px;
-    grid-column: 1/-1;
 }
 
 .image {
-    max-width: 70%; /* Adjust this percentage as per your requirement */
-    height: 60%; 
+    width: 60%;
     object-fit: cover;
-    margin-right: 20px; /* Spacing between image and title/details */
+    margin-right: 20px;
     margin-top: 0;
     margin-bottom: 20px;
     align-self: flex-end;
+    height: 25vmin;
 }
 #projectTitle{
     margin-bottom: 5px;
@@ -69,8 +66,9 @@ h5{
     flex: 1; /* Allow the details to expand and take available space */
     display: flex;
     flex-direction: column; /* Stack child items vertically */
-    justify-content: space-between; /* Distribute the space between child items */
+    justify-content: flex-end;
 }
+
 .info-container {
     font-size: small;
     border: 1px solid lightgray;
