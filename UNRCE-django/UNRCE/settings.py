@@ -31,7 +31,7 @@ ALLOWED_HOSTS = ['3.24.216.179','.localhost', '127.0.0.1', '[::1]']
 # Application definition
 
 INSTALLED_APPS = [
-    # "UNRCE_APP",
+    "UNRCE_APP",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
