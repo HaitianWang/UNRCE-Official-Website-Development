@@ -9,14 +9,12 @@
 .image {
     width: 60%;
     object-fit: cover;
-    margin-right: 20px;
-    margin-top: 0;
-    margin-bottom: 20px;
-    align-self: flex-end;
+    align-self: center;
+    margin-right: 1em;
     height: 25vmin;
 }
 #projectTitle{
-    margin-bottom: 5px;
+    margin-bottom: 1rem;    
     margin-top: 0%;
 }
 h5{
@@ -48,12 +46,12 @@ h5{
 }
 
 .region-container {
-    margin-bottom: 20px; /* Adjust this value to your liking */
+    margin: 0.5rem;    
     display: flex;
     align-items: center;
     justify-content: space-between; /* Pushes items to either end */
     width: 100%; /* Ensures it spans the full width */
-    padding: 0 20px; /* Padding on left and right */
+    padding: 1rem;
 }
 .region-title{
     margin: 0;
@@ -75,9 +73,8 @@ h5{
     border-radius: 10px;
     color: black;
     padding: 20px;
-    max-width: 100%;  /* You can adjust this to fit your design */
-    margin: 0 auto; /* Centers the box if it has a max-width */
-    margin-bottom: 20px;
+    padding: 1em;
+    max-width: 100%;
 }
 
 .project-title, .edit-project-details, .project-details, .region-label, .orgs-label, .project-desc, .language-label, .audience-label, .sdg-label {
