@@ -15,7 +15,6 @@ html {
     max-width: 1400px;
     box-sizing: border-box;
     flex-direction: row-reverse;
-    padding-left: 20px;
 }
 
 .main-div, .sidebar, .header-photo {

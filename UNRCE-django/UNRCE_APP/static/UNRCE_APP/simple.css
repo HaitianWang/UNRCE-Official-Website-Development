@@ -67,11 +67,12 @@ body>header p {
 }
 
 main {
-        padding-top: 1.5rem;
+    padding-top: 1.5rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin: auto;
+    align-items: center;
 }
 
 body>footer {
