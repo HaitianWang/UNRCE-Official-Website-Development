@@ -385,7 +385,8 @@ def specific_project(request):
     return render(request, 'UNRCE_APP/specific_project.html', {'img_src': img_src, 'title_text': title_text})
 
 
-class CreateProject(View):
+class CreateProject(LoginRequiredMixin, View):
+    login_url = "/login/"
 
     def get(self, request):
         sdgs_options = [
