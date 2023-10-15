@@ -38,7 +38,7 @@
 <body style="background-color: #ffffff;">
 <!-- Added header.html -->
 {% include 'UNRCE_APP/header.html' %}
-<main>
+<main class="{% block main_class %}default-main{% endblock %}">
 {% block content %}
 {% endblock content %}
 </main>

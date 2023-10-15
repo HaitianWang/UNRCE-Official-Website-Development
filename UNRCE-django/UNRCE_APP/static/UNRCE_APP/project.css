@@ -142,15 +142,14 @@ h5{
 .project-sidebar {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
     margin-left: 0;     /* Ensure no left margin on the project listing */
     text-decoration: none;
     color: inherit;
 }
 
 .project-image {
-    width: 160px;
-    height: 150px;
+    width: 10vw;
+    height: 8vw;
     margin-right: 10px;
     margin-bottom: 10px;
     margin-left: 0;     /* Ensure no left margin on the image */
