@@ -13,6 +13,13 @@
                     <img src="https://www.kindpng.com/picc/m/421-4212275_transparent-default-avatar-png-avatar-img-png-download.png" alt="Profile Picture">
                 </div>
                 <div class="user-info">
+                    <form method="post">
+                        {% csrf_token %}
+                        <label for="{{ form.name.id_for_label }}"> Name:</label>
+                        {{ form.name }}<br>
+                        <!-- Other form fields to add later -->
+                        <input type="submit" value="Update User Details">
+                    </form>
                     <p style="font-size:medium;">Name: John Doe</p>
                     <p style="font-size:medium;">Email: john@example.com</p>
                 </div>

@@ -47,6 +47,9 @@ from django.db.models import Q
 import csv
 from django.contrib.auth import get_user_model
 
+# To edit profile
+from .forms import UpdateAccountForm
+
 User = get_user_model()
 
 def search_users(request):
@@ -326,10 +329,26 @@ def projects(request):
     return render(request, 'UNRCE_APP/projects.html', {'project_query': project_query})   # Dictionary Containing data to send. Includes the project_query variable passed with name "project_query"
 # My Account Page
 def myaccount(request):
-    return render(request, 'UNRCE_APP/myaccount.html')
-# My Account Page
+    user = request.user
+    context = {
+        'user': user,
+    }
+    return render(request, 'UNRCE_APP/myaccount.html', context)
+# Edit my Account Page
 def myaccount_edit(request):
-    return render(request, 'UNRCE_APP/myaccount_edit.html')
+    print("myaccount_edit page loaded")
+    if request.method == 'POST':
+        form = UpdateAccountForm(request.POST, instance = request.user)
+        if form.is_valid():
+            print("Form Saved successfully i think?")
+            form.save()
+            # return render('/myaccount')
+            return redirect('/myaccount')
+    else:
+        print("Error saving!")
+        # print(form.errors)
+        form = UpdateAccountForm(instance=request.user)
+    return render(request, 'UNRCE_APP/myaccount_edit.html', {'form': form})
 
 # This is a function to return a list of featured projects by recently added
 # def index(request):
