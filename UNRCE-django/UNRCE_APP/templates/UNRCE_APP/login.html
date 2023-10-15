@@ -14,10 +14,6 @@
 
 <div class="login-box">
 
-    <img src="{% static 'images/UNRCEWA_Logo.png' alt="UNRCE Logo" class="logo"%}" alt="UNRCE Logo" style="height: 10rem">
-
-    <div class="login-title">Log In</div>
-
     <!-- Display the success message if available -->
     {% if messages %}
     {% for message in messages %}
@@ -27,9 +23,13 @@
     
     <form method="post" class="login-form" action="{% url 'UNRCE_APP:login' %}">
         {% csrf_token %}
-        
+        <div class="round-image-container">
+            <img src="{% static 'images/UNRCEWA_Logo.png' alt="UNRCE Logo" class="logo round-image"%}" alt="UNRCE Logo" style="height: 10rem; opacity: 100%">
+        </div>
+        <div class="login-title">Log In</div>
         {% for field in form %}
         <div class="input-container">
+            
             <label for="{{ field.auto_id }}" class="input-label">{{ field.label }}</label>
             <input type="{{ field.field.widget.input_type }}" 
                     id="{{ field.auto_id }}"

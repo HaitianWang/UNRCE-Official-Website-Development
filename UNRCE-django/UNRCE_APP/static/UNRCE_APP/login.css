@@ -1,12 +1,20 @@
 .login-form {
     background-color: #f0f0f0;
-    padding: 1rem;
+    padding: 2vw;
+    margin: 1vw;
+    align-items: center;
+    border-radius: 4px;
+    color: var(--bg) !important;
+}
+
+.login-form a {
+    color: var(--bg) !important;
 }
 
 .login-box {
     width: fit-content;
     margin: auto;
-    padding: 1rem;
+    padding: 2vw;
     background: #003087;
     border-radius: 4px;
     display: flex;
@@ -22,12 +30,12 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-
 .login-title {
     text-align: center;
     font-size: 42px;
     font-weight: 400;
     margin-top: 20px;
+    color: var(--bg);
 }
 
 .input-container {
@@ -54,16 +62,13 @@
     max-width: 500px; 
 }
 
-
-
 .submit-button {
     margin: 1rem auto;
     background-color: #ffb300;
     color: black;
     font-size: 1.5rem;
     font-weight: 400;
-    width: 100%;
-    padding: 0.5rem;
+    padding: 0.5rem 2rem 0.5rem 2rem!important;
     border: none;
     border-radius: 4px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -82,6 +87,7 @@
 
 .signup-prompt a {
     text-decoration: underline;
+    color: var(--text);
 }
 .reset-prompt {
     text-align: center;  /* This centers the text */
@@ -95,4 +101,22 @@
     color: red;
     list-style-type: none;
     padding: 1rem;
+}
+
+.round-image-container {
+    width: 200px; /* Set the width and height to define the size of the circle */
+    height: 200px;
+    background-color: var(--blue-bg); /* Set the background color to blue */
+    border-radius: 50%; /* Make the container circular */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Hide any overflow of the image */
+}
+
+/* Style for the image */
+.round-image {
+    max-width: 100%; /* Ensure the image doesn't exceed the container */
+    max-height: 100%;
+    border-radius: 50%; /* Make the image circular to match the container */
 }
