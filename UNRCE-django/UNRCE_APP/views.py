@@ -467,6 +467,7 @@ class CreateProject(View):
         delivery_frequency=request.POST.get("delivery_frequency"),
         created_at=request.POST.get("start_date"),
         concluded_on=request.POST.get("end_date"),
+        owner=request.user,  # set the currently logged-in user as the owner
         #manager=user,  # to set the currently logged-in user as the manager
         #project_cover_image=request.FILES.get("project_cover_image"),
         language=request.POST.get("language"),
