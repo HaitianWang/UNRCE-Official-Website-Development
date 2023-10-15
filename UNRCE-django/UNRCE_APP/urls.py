@@ -50,6 +50,6 @@ urlpatterns = [
   path('download-users/', views.download_users, name='download-users'),
   path('project-search/', views.project_search, name='project_search'),
   path('delete_projects/', views.delete_projects, name='delete_projects'), 
-
-
+  path("pending_projects/", views.pending_projects, name="pending_projects"),
+  path('approve_project/', views.approve_project, name='approve_project'),
 ]

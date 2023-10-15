@@ -331,7 +331,7 @@ def users_info(request):
     return render(request, 'UNRCE_APP/users_info.html')
 #display projects page
 def projects(request):
-    project_query = Project.objects.all()   # Store the rows from the "Project" table, and store them in project_query
+    project_query = Project.objects.filter(approval= 'approved')   # Store the rows from the "Project" table, and store them in project_query
     return render(request, 'UNRCE_APP/projects.html', {'project_query': project_query})   # Dictionary Containing data to send. Includes the project_query variable passed with name "project_query"
 # My Account Page
 def myaccount(request):
@@ -358,8 +358,32 @@ def index(request):
 def specific_project(request):
     img_src = request.GET.get('img', '') 
     title_text = request.GET.get('title', '')
+
     return render(request, 'UNRCE_APP/specific_project.html', {'img_src': img_src, 'title_text': title_text})
 
+
+#display pending projects
+def pending_projects(request):
+        # Retrieve pending projects from the database
+    pending_projects = Project.objects.filter(approval='pending')
+
+    context = {
+        'project_query': pending_projects,  # Pass the filtered queryset to the template
+    }
+    return render(request, 'UNRCE_APP/pending_projects.html', context)
+
+def approve_project(request, project_id):
+    # Get the project by its ID
+    project = get_object_or_404(Project, pk=id)
+
+    # Check if the project is pending (you can add more validation here)
+    if project.status == 'pending':
+        # Approve the project
+        project.status = 'approved'
+        project.save()
+
+    # Redirect back to the pending projects page
+    return redirect('UNRCE_APP:pending_projects')
 
 class CreateProject(View):
 

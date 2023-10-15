@@ -1,18 +1,14 @@
+
 {% extends "UNRCE_APP/base.html" %}
 {% load static %}
 {% block content %}
 
-<p class="small-heading"> Our Projects</p>
-
-
-{% if user.is_authenticated %}
-<a href="{% url 'UNRCE_APP:create_project' %}"><button id="uploadProject"> Upload a Project</button></a>
-{% else %}
-{% endif %}
+<p class="small-heading"> Pending Projects</p>
+<!-- <button id="addNewProject"> Add Sample New Project (Testing button only, will delete later) </button> -->
 
 {% if user.is_superuser %}
-<a href="{% url 'UNRCE_APP:pending_projects' %}">
-    <button id="approvedProjects"> Go to Pending Projects</button>
+<a href="{% url 'UNRCE_APP:projects' %}">
+    <button id="approvedProjects"> Go to Approved Projects</button>
 </a>
 {% endif %}
 <div class="project-grid" id="projectGrid" data-baseurl="{% url 'UNRCE_APP:specific_project' %}">

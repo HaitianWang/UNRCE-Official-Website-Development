@@ -48,28 +48,40 @@
     }
     </style>
 <div class="information">
-<div class="project-container">
-    <img class="image" id="detailImage" src="{{ img_src }}" alt="Project Image">
-    <div class="project-details">
-        <h2 class=""id="projectTitle">{{ project.title }}</h2>
-        <div class="info-container">
-            <p>{{ project.description }}</p>
+    <div class="project-container">
+        <img class="image" id="detailImage" src="{{ img_src }}" alt="Project Image">
+        <div class="project-details">
+            <h2 class=""id="projectTitle">{{ project.title }}</h2>
+            <div class="info-container">
+                <p>{{ project.description }}</p>
+            </div>
         </div>
+        <div class="region-container">
+            <h5 class="region-title">Audience</h5>
+            <div class="region">
+                <p>{{ project.audience }}</p>
+            </div>
+        </div> 
+        <div class="region-container">
+            <h5 class="region-title">Delivery Frequency</h5>
+            <div class="region">
+                <p>{{ project.delivery_frequency }}</p>
+            </div>
+        </div>
+        
+        <!-- Add an approval button -->
+<!-- Add debugging information -->
+        {% if user.is_superuser %}
+            <p>{{ project.title }}</p>
+            <form method="post" action="{% url 'UNRCE_APP:approve_project'%}">
+                {% csrf_token %}
+                <button onclick="location.href='{% url 'UNRCE_APP:approve_project'%}'">Approve</button>
+                <p>Project ID: {{ project.id }}</p>
+            </form>
+        {% endif %}
     </div>
-    <div class="region-container">
-        <h5 class="region-title">Audience</h5>
-        <div class="region">
-            <p>{{project.audience}}</p>
-        </div>
-    </div> 
-    <div class="region-container">
-        <h5 class="region-title">Delivery Frequency</h5>
-        <div class="region">
-            <p>{{ project.delivery_frequency }}</p>
-        </div>
-    </div>    
 </div>
-</div>
+
 <div class="user-interest-table">
     <!-- Button to toggle the table visibility -->
     <button onclick="toggleTableVisibility()">Show Interested Users</button>
