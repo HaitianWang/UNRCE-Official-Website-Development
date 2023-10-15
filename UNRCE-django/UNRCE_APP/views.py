@@ -232,7 +232,8 @@ def activate_account(request, uidb64, token):
     user.email_confirmed = True
     user.save()
     messages.success(request, 'Account activated successfully.')
-    return redirect('UNRCE_APP:login')
+    login(request, user)
+    return redirect('UNRCE_APP:myaccount')
         
 
         
