@@ -15,12 +15,14 @@ html {
     max-width: 1400px;
     box-sizing: border-box;
     flex-direction: row-reverse;
+    padding-left: 20px;
 }
 
 .main-div, .sidebar, .header-photo {
     box-sizing: border-box;
     border-radius: 10px;
     color: black;
+    margin: 30px 10px 10px;
     padding-right: 25px;
     padding-left: 25px;
 }
@@ -32,6 +34,7 @@ html {
 }
 
 .sidebar {
+    background-color: lightgray;
     flex: 0 0 25%;
     order: 1;
 }
@@ -104,8 +107,7 @@ html {
     text-align: center;
     height: 164px;
     margin-right: 5px;
-    margin-left: 5px;
-    width: max-content;
+    margin-left: 0;
 }
 
 .partners-box {
@@ -348,7 +350,7 @@ h3 {
     display: flex;
     height: fit-content;
     flex-direction: column;
-    background-color: var(--blue-bg);
+    background-color: #003087;
 }
 
 /* for header bar top row content */
@@ -390,15 +392,14 @@ nav > a {
 .small-heading {
     font-weight: bold;
     color: black;
-    text-align: center;
-    font-size: 24px;
 }
 
 /* All below is for the Projects page, making it 3x3 */
 .project-grid {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+    max-width: 800px;
     padding: 20px;
 }
 
@@ -409,24 +410,16 @@ nav > a {
     padding: 20px;
     text-align: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    width: 20vmin;
-    height: 20vmin;
 }
 
 .project img {
     max-width: 100%;
-    height: 80%;
+    height: 120px;
 }
 
 .project h3 {
     margin-top: 10px;
-    font-size: large;
-    height: 20%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    font-size: 18px;
 }
 
 .project:hover {
@@ -437,13 +430,10 @@ nav > a {
 
 /* All above is for the Projects page, making it 3x3 */
 html, body {
-    height: 100vh;
+    height: 100%;
     margin: 0;
     overflow-x: hidden;
     overflow-y: auto;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    align-items: start;
 }
 
 .container {
