@@ -8,10 +8,10 @@
 }
 
 .image {
-    width: 60%;
+    max-width: 60%;
     object-fit: cover;
     margin-right: 1em;
-    height: min-content;
+    height: 100%;
 }
 #projectTitle{
     margin-bottom: 1rem;    
@@ -166,5 +166,34 @@ h5{
     color:black;
 }
 
-
+.project-details h2 {
+    font-size: 1.5vw;
+    font-weight: 700;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+}
+.project-details h3{
+    font-size: 1.2vw;
+    font-weight: 700;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+}
+.project-details h4{
+    font-size: 1vw;
+    font-weight: 700;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+}
+.project-details h5, 
+.region-title {
+    font-size: 0.8vw !important;
+    font-weight: 700;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+}
+.project-details p,
+.region p {
+    font-size: 0.8vw;
+    font-weight: 500;
+}
 
