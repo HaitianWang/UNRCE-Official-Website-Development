@@ -1,9 +1,104 @@
 {% extends "UNRCE_APP/base.html" %}
 
 {% block content %}
+{% load static %}
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f7f9fc;
+        line-height: 1.6;
+    }
+
+    .small-heading {
+        background: url('/media/RCEWA_Logo.png') no-repeat center center;
+        background-size: cover;
+        text-align: center;
+        padding: 60px 0;
+        font-size: 28px;
+        color: #fff;
+        margin-bottom: 20px;
+    }
+
+    .sections {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 20px;
+        max-width: 95%;
+        margin: 20px auto;
+    }
+
+    .map-section, .contact-details, .endorsement-section {
+        flex: 1;
+        padding: 30px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        margin: 0 10px;
+    }
+
+    .map-section h2, .contact-details h2, .endorsement-section h2 {
+        border-bottom: 2px solid #e4e4e4;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+    .map {
+        width: 100%;
+        height: 300px;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+/* ... Other styles ... */
+
+.endorsement-photo {
+    float: left;  /* Float the image to the left */
+    width: 100%;
+    max-width: 150px;
+    margin: 20px 20px 20px 0; /* Right margin added to create space between photo and text */
+}
+
+.bold-text {
+    font-weight: bold; /* Making the text bolder */
+}
+
+.endorsement-section p {
+    margin-top: 0;
+}
+
+/* Clear float after the endorsement section to ensure layout is not broken */
+.endorsement-section::after {
+    content: "";
+    display: table;
+    clear: both;
+}
 
 
-<p class="small-heading"> Here is some Contact information</p>
+</style>
 
+<p class="small-heading">Contact Us</p>
+<div class="sections">
+    <div class="map-section">
+        <h2>Location Map</h2>
+        <div class="map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3381.5345283784644!2d115.81656931515616!3d-31.980173781355417!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2a32badd5aca0235%3A0x504f0b535df4ee0!2sThe%20University%20of%20Western%20Australia%20(UWA),%20Perth!5e0!3m2!1sen!2sus!4v1632433029150!5m2!1sen!2sus" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </div>
 
-{% endblock content %}
+    <div class="contact-details">
+        <h2>Contact Details</h2>
+        <p>If you have any queries, please contact us at:</p>
+        <p class="bold-text">Email: rce@uwa.edu.au</p>
+        <p>The secretariat address is located at:</p>
+        <p class="bold-text">UWA Crawley- office of DVCE, 35 Stirling hwy Crawley</p>
+    </div>
+    
+    <div class="endorsement-section">
+        <h2>Endorsement</h2>
+        <img src="{% static 'images/davidsadler.jpg' %}" alt="David Sadler" class="endorsement-photo">
+        <p><span class="bold-text">Professor David Sadler</span>, Deputy Vice-Chancellor (Education) at UWA, endorses this program. Professor Sadler has shown exemplary dedication in the field of education, making significant contributions to the institution's academic excellence and reputation.</p>
+    </div>
+</div>
+
+{% endblock %}

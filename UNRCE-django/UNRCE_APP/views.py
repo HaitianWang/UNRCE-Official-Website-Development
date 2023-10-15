@@ -1,12 +1,33 @@
 from django.views import View
-from django.shortcuts import render, redirect
+from django.shortcuts import render, get_object_or_404, redirect
+from .forms import ProjectForm
 from django.contrib.auth import authenticate, login, views as auth_views
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
-from UNRCE_APP.models import Project 
+from UNRCE_APP.models import Project, ProjectImage, CustomUser
+from django.http import JsonResponse
+# ProjectImage
+
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
+
+
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
+
+from django.contrib.sites.shortcuts import get_current_site
+from django.shortcuts import render, redirect, HttpResponse
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str
+from .tokens import account_activation_token
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+from django.contrib.auth import get_user_model
+from django.contrib import messages
+
+from captcha.models import CaptchaStore
 
 # LoginRequiredMixin will check that user 
 # is authenticated before rendering the template.
@@ -18,11 +39,67 @@ from .forms import UploadImageForm, CustomUserCreationForm
 
 from django.contrib.auth.views import LoginView
 from django.contrib import messages
-from .models import Project
+from .models import Project, SDG, ProjectSDG, ESD, ProjectESD, ProjectPriorityArea, PriorityArea
+
+# views.py
+from .models import CustomUser
+from django.db.models import Q
+import csv
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth import REDIRECT_FIELD_NAME
+
+# Define a custom function to check if the user is a superuser
+def is_superuser(user):
+    return user.is_superuser
+
+# Apply the user_passes_test decorator to your view
+@user_passes_test(is_superuser, login_url='/')  # Replace '/home/' with your home page URL
+def search_users(request):
+    if request.method == 'GET':
+        search_query = request.GET.get('search_query', '')
+
+        # Perform the search query based on user input
+        users = CustomUser.objects.filter(
+            Q(email__icontains=search_query) |
+            Q(user_name__icontains=search_query) |
+            Q(interested_projects__title__icontains=search_query) |
+            Q(organisation__org_name__icontains=search_query) |
+            Q(role_organisation__icontains=search_query) |
+            Q(interested_sdgs__sdg__icontains=search_query) |
+            Q(rce_hub__hub_name__icontains=search_query)
+        ).distinct()
+    else:
+        users = CustomUser.objects.none()  # Return an empty queryset by default
+
+    context = {
+        'users': users,
+        'search_query': search_query
+    }
+
+    return render(request, 'UNRCE_APP/user_search.html', context)
+
+
+from django.contrib.auth.views import LoginView
+from django.shortcuts import render
+from django.contrib import messages
+#from .models import CaptchaStore  # Make sure to import CaptchaStore if not already done
 
 class CustomLoginView(LoginView):
     
     def form_valid(self, form):
+        captcha_value = self.request.POST.get('captcha_0')
+        captcha_key = self.request.POST.get('captcha_1')
+
+        # Check the captcha
+        captcha_check = CaptchaStore.objects.filter(response=captcha_value, hashkey=captcha_key)
+        if not captcha_check.exists():
+            messages.error(self.request, "Captcha is incorrect.")
+            return self.form_invalid(form)  # Changed from super().form_invalid(form)
+        
         # Add any custom logic here. 
         # For instance, log when a user successfully logs in.
         messages.success(self.request, "Logged in successfully!")
@@ -31,41 +108,76 @@ class CustomLoginView(LoginView):
     def form_invalid(self, form):
         # Add any custom logic for when the form is invalid.
         # For instance, log when a login attempt fails.
+        captcha_key = CaptchaStore.generate_key()  # Always regenerate the captcha_key
         messages.error(self.request, "Failed to log in. Please check your credentials.")
-        return super().form_invalid(form)
- 
-class IndexView(View):
-  def get(self, request):
-    images = Image.objects.order_by("uploaded_date")
-    return render(
-      request,
-      "UNRCE_APP/index.html",
-      {
-        "images": images,
-      },
-    )
+        return render(
+            self.request,
+            "UNRCE_APP/login.html",
+            {
+                "form": form,
+                "captcha_key": captcha_key
+            }
+        )
+
+    def get(self, request, *args, **kwargs):
+        captcha_key = CaptchaStore.generate_key()
+        return render(
+            request, 
+            "UNRCE_APP/login.html", 
+            {
+                "captcha_key": captcha_key, 
+                "form": self.get_form()
+            },
+        ) 
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            captcha_key = CaptchaStore.generate_key()
+            return render(
+                request,
+                "UNRCE_APP/login.html",
+                {
+                    "form": form,
+                    "captcha_key": captcha_key
+                }
+            )
 
 
 class SignUpView(View):
+
     def get(self, request):
+        captcha_key = CaptchaStore.generate_key()
         return render(
             request,
             "UNRCE_APP/signup.html",
             {
                 "form": CustomUserCreationForm(),
-            },
-        )
-    def get(self, request):
-        return render(
-            request,
-            "UNRCE_APP/signup.html",
-            {
-                "form": CustomUserCreationForm(),
+                "captcha_key": captcha_key,
             },
         )
 
     def post(self, request):
         form = CustomUserCreationForm(request.POST)
+        captcha_value = request.POST.get('captcha_0')
+        captcha_key = request.POST.get('captcha_1')
+    
+        captcha_check = CaptchaStore.objects.filter(response=captcha_value, hashkey=captcha_key)
+        
+        if not captcha_check.exists():
+            messages.error(request, "Captcha is incorrect.")
+            captcha_key = CaptchaStore.generate_key()  # Regenerate the captcha_key
+            return render(
+                request,
+                "UNRCE_APP/signup.html",
+                {
+                    "form": form,  # Use the same form instance to retain the user's input
+                    "captcha_key": captcha_key,
+                },
+            )
 
         if form.is_valid():
             form.save()
@@ -80,13 +192,28 @@ class SignUpView(View):
                 login(request, user)
             return redirect("/")
 
+        # If form is not valid, also regenerate the captcha_key
+        captcha_key = CaptchaStore.generate_key()
         return render(
             request,
             "UNRCE_APP/signup.html",
             {
                 "form": form,
+                "captcha_key": captcha_key,
             },
         )
+
+class IndexView(View):
+  def get(self, request):
+    images = Image.objects.order_by("uploaded_date")
+    return render(
+      request,
+      "UNRCE_APP/index.html",
+      {
+        "images": images,
+      },
+    )
+
 
 class UploadImageView(LoginRequiredMixin, View):
   # Not authenticated users will be redirected
@@ -137,14 +264,71 @@ class UploadImageView(LoginRequiredMixin, View):
       },
     )
 
-#display forgot password page
 def forgot_password(request):
-    return render(request, 'UNRCE_APP/forgot-password.html')
+  User = get_user_model()
+  if request.method == "POST":
+      email = request.POST['email']
+      user = User.objects.filter(email=email).first()
+      if not user:
+          print('no user found')
+          messages.error(request, 'No account with this email address exists.')
+          return render(request, 'UNRCE_APP/forgot_password.html')
+      elif user:
+          print('found user')
+          current_site = get_current_site(request)
+          mail_subject = 'Reset your password.'
+          message = render_to_string('UNRCE_APP/reset_password_email.html', {
+              'user': user,
+              'domain': current_site.domain,
+              'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+              'token': account_activation_token.make_token(user),
+          })
+          
+          # Send the email using SendGrid
+          sg = SendGridAPIClient('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')  # Make sure to replace with your SendGrid API key
+          email_msg = Mail(
+              from_email='simonqiu4@gmail.com',
+              to_emails=email,
+              subject=mail_subject,
+              html_content=message)
+          response = sg.send(email_msg)
+          print('sent message successfully')
+          messages.success(request, 'A reset password link has been sent to your email.')
+          return render(request, 'UNRCE_APP/email_sent_confirmation.html')
+
+  return render(request, 'UNRCE_APP/forgot_password.html')
+
 #display reset password page
-def reset_password(request):
-    return render(request, 'UNRCE_APP/reset-password.html')
+def reset_password(request, uidb64, token):
+  print("UID:", uidb64)
+  print("TOKEN:", token)
+  User = get_user_model()
+  try:
+      uid = force_str(urlsafe_base64_decode(uidb64))
+      user = User.objects.get(pk=uid)
+  except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+      user = None
+  if user is not None and account_activation_token.check_token(user, token):
+      if request.method == 'POST':
+          password = request.POST['new_password']
+          password2 = request.POST['retype_password']
+          if password == password2:
+              user.set_password(password)
+              user.save()
+              messages.success(request, 'Password reset successfully.')
+              return redirect('UNRCE_APP:login')
+          else:
+              messages.error(request, 'Passwords do not match.')
+      return render(request, 'UNRCE_APP/reset_password.html')
+  else:
+      return HttpResponse('Reset password link is invalid!')
+
+
+
 def contact_us(request):
     return render(request, 'UNRCE_APP/contact-us.html')
+def users_info(request):
+    return render(request, 'UNRCE_APP/users_info.html')
 #display projects page
 def projects(request):
     project_query = Project.objects.all()   # Store the rows from the "Project" table, and store them in project_query
@@ -183,9 +367,17 @@ def specific_project(request):
 
 
 class CreateProject(View):
+
+    
     
     def get(self, request):
-        sdgs_options = ['SDG1', 'SDG2', 'SDG3', 'SDG4', 'SDG5', 'SDG6', 'SDG7', 'SDG8', 'SDG9', 'SDG10','SDG11', 'SDG12', 'SDG13', 'SDG14', 'SDG15', 'SDG16', 'SDG17']  # List of SDGs
+        sdgs_options = ['SDG1 - No Poverty', 'SDG2 - Zero Hunger', 'SDG3 - Good Health and Well-being', 
+                        'SDG4 - Quality Education', 'SDG5 - Gender Equality', 'SDG6 - Clean Water and Sanitation', 
+                        'SDG7 - Affordable and Clean Energy', 'SDG8 - Decent Work and Economic Growth', 
+                        'SDG9 - Industry, Innovation and Infrastructure', 'SDG10 - Reduced Inequalities',
+                        'SDG11 - Sustainable Cities and Communities', 'SDG12 - Responsible Consumption and Production', 
+                        'SDG13 - Climate Action', 'SDG14 - Life Below Water', 'SDG15 - Life on Land', 
+                        'SDG16 - Peace, Justice and Strong Institutions', 'SDG17 - Partnerships for the Goals']  # List of SDGs
         
 
         delivery_frequency_options = [
@@ -211,58 +403,157 @@ class CreateProject(View):
 ]
 
         esd_themes = [
-    {"name": "Disaster Risk Reduction", "id": "disaster_risk_reduction"},
-    {"name": "Traditional Knowledge", "id": "traditional_knowledge"},
-    {"name": "Agriculture", "id": "agriculture"},
-    {"name": "Arts", "id": "arts"},
-    {"name": "Curriculum Development", "id": "curriculum_development"},
-    {"name": "Ecotourism", "id": "ecotourism"},
-    {"name": "Forests Trees", "id": "forests_trees"},
-    {"name": "Plants Animals", "id": "plants_animals"},
-    {"name": "Waste", "id": "waste"}
+    {"description": "Disaster Risk Reduction", "name": "disaster_risk_reduction"},
+    {"description": "Traditional Knowledge", "name": "traditional_knowledge"},
+    {"description": "Agriculture", "name": "agriculture"},
+    {"description": "Arts", "name": "arts"},
+    {"description": "Curriculum Development", "name": "curriculum_development"},
+    {"description": "Ecotourism", "name": "ecotourism"},
+    {"description": "Forests Trees", "name": "forests_trees"},
+    {"description": "Plants Animals", "name": "plants_animals"},
+    {"description": "Waste", "name": "waste"}
 ]
 
 
-        esd_options = [
-            {"name": "Priority Action Area 1", "id": "priority_area_1"},
-            {"name": "Priority Action Area 2", "id": "priority_area_2"},
-            {"name": "Priority Action Area 3", "id": "priority_area_3"},
-            {"name": "Priority Action Area 4", "id": "priority_area_4"},
-            {"name": "Priority Action Area 5", "id": "priority_area_5"},
+        pa_options = [
+            {"description": "Advancing policy Direct", "name": "priority_area_1"},
+            {"description": "Transforming learning and training environments Direct", "name": "priority_area_2"},
+            {"description": "Developing capacities of educators and trainers Direct", "name": "priority_area_3"},
+            {"description": "Mobilizing youth Direct", "name": "priority_area_4"},
+            {"description": "Accelerating sustainable solutions at local level Direct", "name": "priority_area_5"},
         ]
-        context = {'sdgs': sdgs_options, 'audience_options': audience_options, 'delivery_frequency_options': delivery_frequency_options, 'esd_options': esd_options, 'esd_themes':esd_themes}
+
+        context = {'sdgs': sdgs_options, 'audience_options': audience_options, 'delivery_frequency_options': delivery_frequency_options, 'pa_options': pa_options, 'esd_themes':esd_themes}
 
         return render(request, 'UNRCE_APP/create_project.html', context)
     
     def post(self, request):
-          print(request.POST)        
-          user = request.user
+                
+        sdgs_options = ['goal_1','goal_2','goal_3','goal_4','goal_5','goal_6','goal_7','goal_8','goal_9','goal_10','goal_11','goal_12','goal_13','goal_14','goal_15','goal_16','goal_17']  
 
-          new_project = Project(
-            title = request.POST.get("title"),
-            description = request.POST.get("description"),
-            audience = request.POST.getlist("audience-options"),
-    delivery_frequency=request.POST.get("delivery_frequency"),
-    created_at=request.POST.get("start_date"),
-    concluded_on =request.POST.get("end_date"),
-   # manager=user,  # to set the currently logged-in user as the manager
-    project_cover_image=request.FILES.get("project_cover_image"),
-    language=request.POST.get("language"),
-    format=request.POST.get("format"),
-    web_link=request.POST.get("web_link"),
-    policy_link=request.POST.get("policy_link"),
-    results=request.POST.get("results"),
-    lessons_learned=request.POST.get("lessons_learned"),
-    key_messages=request.POST.get("key_messages"),
-    relationship_to_rce_activities=request.POST.get("relationship_to_rce_activities"),
-          funding=request.POST.get("funding"),)
-        
+        pa_options = [
+            {"description": "Advancing policy Direct", "name": "priority_area_1"},
+            {"description": "Transforming learning and training environments Direct", "name": "priority_area_2"},
+            {"description": "Developing capacities of educators and trainers Direct", "name": "priority_area_3"},
+            {"description": "Mobilizing youth Direct", "name": "priority_area_4"},
+            {"description": "Accelerating sustainable solutions at local level Direct", "name": "priority_area_5"},
+        ]
+
+       
+        esd_themes = [
+    {"description": "Disaster Risk Reduction", "name": "disaster_risk_reduction"},
+    {"description": "Traditional Knowledge", "name": "traditional_knowledge"},
+    {"description": "Agriculture", "name": "agriculture"},
+    {"description": "Arts", "name": "arts"},
+    {"description": "Curriculum Development", "name": "curriculum_development"},
+    {"description": "Ecotourism", "name": "ecotourism"},
+    {"description": "Forests Trees", "name": "forests_trees"},
+    {"description": "Plants Animals", "name": "plants_animals"},
+    {"description": "Waste", "name": "waste"}
+]
+
+        print(request.POST)        
+        user = request.user
+
+        action = request.POST.get("action", "save")  # Default to 'save' if 'action' isn't present
+        status = "submitted" if action == "submit" else "draft"
+
+
+        new_project = Project(
+        title=request.POST.get("title"),
+        description=request.POST.get("description"),
+        audience=request.POST.getlist("audience-options"),
+        delivery_frequency=request.POST.get("delivery_frequency"),
+        created_at=request.POST.get("start_date"),
+        concluded_on=request.POST.get("end_date"),
+        #manager=user,  # to set the currently logged-in user as the manager
+        #project_cover_image=request.FILES.get("project_cover_image"),
+        language=request.POST.get("language"),
+        format=request.POST.get("format"),
+        web_link=request.POST.get("web_link"),
+        policy_link=request.POST.get("policy_link"),
+        results=request.POST.get("results"),
+        lessons_learned=request.POST.get("lessons_learned"),
+        key_messages=request.POST.get("key_messages"),
+        relationship_to_rce_activities=request.POST.get("relationship_to_rce_activities"),
+        funding=request.POST.get("funding"),
+        status=status
+    )
+
+    # Save the new project instance to the database
+        new_project.save()
+
+        for sdg in sdgs_options:
+            relationship_value = request.POST.get("sdg_relationship_" + "SDG" + sdg.split('_')[-1])
+            print(f"Checking SDG: {sdg}, Relationship Value: {relationship_value}")
+
+            if relationship_value:
+                try:
+                    sdg_instance = SDG.objects.get(sdg=sdg)
+                except SDG.DoesNotExist:
+                    print(f"SDG {sdg} does not exist in the database! and RV == {relationship_value}")
+                    continue
+
+                project_sdg = ProjectSDG(project=new_project, goal=sdg_instance, relationship_type=relationship_value)
+                print(sdg + " heyyyyyyyyyyyyyyyyyy")
+                project_sdg.save()
+
+
+        for esd in esd_themes:
+            relationship_value = request.POST.get(esd["name"])
+
+            if relationship_value:
+                try:
+                    esd_instance = ESD.objects.get(name=esd["name"])
+                    project_esd = ProjectESD(project=new_project, esd=esd_instance, relationship_type=relationship_value)
+                    project_esd.save()
+                except ESD.DoesNotExist:
+                    print(f"ESD {esd} does not exist in the database! and RV == {relationship_value}")
+                    continue
+
+                
+
+
+        for pa in pa_options:
+            relationship_value = request.POST.get(pa["name"])
+
+            if relationship_value:
+                try:
+            # Assuming you're fetching the ESD instance based on its name
+                    pa_instance = PriorityArea.objects.get(name=pa["name"])
+            
+            # Move the code that uses esd_instance inside the try block
+                    project_priorityarea = ProjectPriorityArea(project=new_project, priority_area=pa_instance, relationship_type=relationship_value)
+                    print(pa['name'] + " processed!")
+                    project_priorityarea.save()
+            
+                except PriorityArea.DoesNotExist:
+                    print(f"PriorityArea {pa['name']} does not exist in the database! and RV == {relationship_value}")
+                    continue
+
+
+
+
+        return render(request, 'UNRCE_APP/contact-us.html')
     
+def edit_project(request, project_id):
 
 
-        # Save the new project instance to the database
-          new_project.save()
-          return redirect("/upload/")  # Update the URL according to your project
+
+    project = get_object_or_404(Project, pk=project_id)
+
+    if request.method == 'POST':
+        form = ProjectForm(request.POST, instance=project)
+        if form.is_valid():
+            form.save()
+            # Redirect to a success page or update the current page as needed
+            return redirect('UNRCE_APP/contact-us.html')  # Change 'success_page' to your desired URL name
+
+    else:
+        form = ProjectForm(instance=project)
+
+    return render(request, 'UNRCE_APP/edit_project.html', {'form': form})
+
 """
           sdgs = ['SDG1', 'SDG2', 'SDG3', 'SDG4', 'SDG5']  # List of SDGs
           for sdg in sdgs:
@@ -293,3 +584,66 @@ class CreateProject(View):
     waste=request.POST.get("waste"),"""
 
 
+
+
+def fetch_projects(request):
+    query = request.GET.get('q', '')
+    projects = Project.objects.filter(title__icontains=query)
+    return JsonResponse([{'id': proj.id, 'text': proj.title} for proj in projects], safe=False)
+
+
+
+def delete_users(request):
+    if request.method == "POST":
+        user_ids = request.POST.getlist("user_ids") # "user_ids" matches the checkbox name
+        CustomUser.objects.filter(id__in=user_ids).delete()
+        return HttpResponseRedirect('/user-search/') # Redirect back to the search page
+
+def delete_projects(request):
+    if request.method == "POST":
+        project_ids = request.POST.getlist("project_ids") # "user_ids" matches the checkbox name
+        Project.objects.filter(id__in=project_ids).delete()
+        return HttpResponseRedirect('/project-search/')     
+
+def download_users(request):
+    search_query = request.GET.get('search_query', '')
+    
+    if search_query:
+        users = User.objects.filter(user_name__icontains=search_query)  # Assuming user_name is the field you're searching
+    else:
+        users = User.objects.all()
+
+    # Create CSV response
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="users.csv"'
+
+    writer = csv.writer(response)
+    # Write header
+    writer.writerow(['User Name', 'Email', 'Organisation', 'Role', 'Interested Projects', 'Interested SDGs', 'RCE Hub'])
+    # Write user data
+    for user in users:
+        writer.writerow([
+            user.user_name,
+            user.email,
+            user.organisation.org_name if user.organisation else 'None',
+            user.role_organisation,
+            ', '.join([proj.title for proj in user.interested_projects.all()]),
+            ', '.join([sdg.sdg for sdg in user.interested_sdgs.all()]),
+            user.rce_hub.hub_name if user.rce_hub else 'None'
+        ])
+
+    return response
+
+
+@user_passes_test(is_superuser, login_url='/')  # Replace '/home/' with your home page URL
+def project_search(request):
+    if request.method == 'GET':
+        search_query = request.GET.get('search_query')
+    if search_query:
+        # Perform a search based on the search_query
+        projects = Project.objects.filter(title__icontains=search_query)
+    else:
+        # No search query provided, so display all projects
+        projects = Project.objects.all()
+    
+    return render(request, 'UNRCE_APP/project_search.html', {'projects': projects, 'search_query': search_query, })

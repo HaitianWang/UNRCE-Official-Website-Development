@@ -1,0 +1,145 @@
+{% extends "UNRCE_APP/base.html" %}
+
+{% block content %}
+
+<style>
+    /* Remove the lines around the forms */
+    .form-style {
+        border: none;
+        outline: none;
+        box-shadow: none;
+    }
+
+    /* Center the search bar */
+    .form-style {
+        text-align: center;
+    }
+
+    /* Style the search button */
+    .search-button {
+        background-color: #003087; /* Same as delete button */
+        color: white;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+    }
+
+    /* Style the table for user search with rounded edges and shadow */
+    .user-search-table {
+        margin: 0 auto;
+        border-collapse: collapse;
+        width: 80%;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); /* Add shadow for a 3D effect */
+        border-radius: 10px; /* Add rounded corners to table */
+    }
+
+    /* Style the table header */
+    .table-header {
+        background-color: #003087;
+        color: white;
+        padding: 10px;
+    }
+
+    /* Style table rows alternately with shades of grey and white */
+    .user-search-table tr:nth-child(even) {
+        background-color: #f2f2f2; /* Light grey */
+    }
+
+    .user-search-table tr:nth-child(odd) {
+        background-color: white; /* White background */
+    }
+
+    /* Style table rows */
+    .user-search-table td {
+        background-color: inherit;
+        color: #003087;
+        padding: 10px;
+    }
+
+    /* Style delete button */
+    .delete-button {
+        background-color: #003087;
+        color: white;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+    }
+</style>
+
+<!-- User Search Form -->
+<div class="user-search-content">
+    <h2 style="text-align:center; font-family: calibri;color:black;">User Information</h2>
+
+    <form class="search-form form-style" method="GET" action="/user-search/">
+        <input class="search-input" type="text" name="search_query" placeholder="Search">
+        <button class="search-button" type="submit">Search</button>
+    </form>
+</div>
+
+<!-- Download Users -->
+<form method="GET" action="/download-users/" style="text-align:right; padding: 0px; margin: 0px; background: white; outline-color: white; padding-right: 15%; border:none">
+    <input type="hidden" name="search_query" value="{{ search_query }}">
+    <button class="delete-button" type="submit" style="background-color: #ffffff; color: #003087;">
+        Download Users
+    </button>
+</form>
+
+
+<!-- Delete Users Form -->
+<form id="deleteForm" class="form-style" method="POST" action="/delete-users/" onsubmit="return confirmDelete()">
+    {% csrf_token %}
+    <div class="user-search-content">
+        <table class="user-search-table">
+            <thead>
+                <tr>
+                    <th class="table-header">Select</th>
+                    <th class="table-header">User Name</th>
+                    <th class="table-header">Email</th>
+                    <th class="table-header">Organisation</th>
+                    <th class="table-header">Role</th>
+                    <th class="table-header">Interested Projects</th>
+                    <th class="table-header">Interested SDGs</th>
+                    <th class="table-header">RCE Hub</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>
+                        <input type="checkbox" name="user_ids" value="{{ user.id }}">
+                    </td>
+                    <td>{{ user.user_name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        {% if user.organisation %}
+                        {{ user.organisation.org_name }}
+                        {% else %}
+                        None
+                        {% endif %}
+                    </td>
+                    <td>{{ user.role_organisation }}</td>
+                    <td>
+                        {% for project in user.interested_projects.all %}
+                        {{ project.title }}<br>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for sdg in user.interested_sdgs.all %}
+                        {{ sdg.sdg }}<br>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% if user.rce_hub %}
+                        {{ user.rce_hub.hub_name }}
+                        {% else %}
+                        None
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button type="submit" class="delete-button">Delete Selected Users</button>
+    </div>
+</form>
+{% endblock %}

@@ -1,59 +1,76 @@
 {% extends "UNRCE_APP/base.html" %}
-
+{% load static %}
 {% block content %}
+
+
 
 <form method="post">
   {% csrf_token %}
-  <div class="tab">
-  
-    <button class="tablinks" onclick="openTab(event, 'Tab1')" id="defaultOpen">Tab 1</button>
+ 
+ <div class="tab">
+    <button class="tablinks" data-tabname="Tab1" id="defaultOpen">Main</button>
+    <button class="tablinks" data-tabname="Tab2">Location</button>
+    <button class="tablinks" data-tabname='Tab3'>Contents</button>
+    <button class="tablinks" data-tabname='Tab4'>SDG</button>
+    <button class="tablinks" data-tabname='Tab5'>ESD</button>
+    <button class="tablinks" data-tabname='Tab6'>Submission</button>
 
-    <button class="tablinks" onclick="openTab(event, 'Tab2')">Location</button>
-    <button class="tablinks" onclick="openTab(event, 'Tab3')">Contents</button>
-    <button class="tablinks" onclick="openTab(event, 'Tab4')">SDG</button>
-    <button class="tablinks" onclick="openTab(event, 'Tab5')">ESD</button>
-    <button class="tablinks" onclick="openTab(event, 'Tab6')">Submission</button>
-    <!-- Add more tabs as needed -->
+    <input type="hidden" name="action" value="save" id="form-action">
+
+
   </div>
-
+    
   <div id="Tab1" class="tabcontent">
-    <!-- Form fields for Tab 1 -->
+    <div class="pr-container">
+        <div class="image-section">
+            <label for="imageUpload">
+                <img class="image" id="uploadedImage" src="{% static 'images/Font_1._.png' %}" alt="Default Image">
+            </label>
+            <!--<span class="upload-text">Add Project Image</span>-->
+            <input type="file" id="imageUpload" name="imageUpload" style="display: none;" onchange="displayImage(this)">
+        </div>
+        <div class="project-details">
+            <label for="title">Project Title:</label>
+            <input type="text" id="title" name="title"><br><br>
+        </div>
+    </div>
+      
 
-        <label for="title">Title:</label>
-        <input type="text" id="title" name="title"><br><br>
 
-        <label for="description">Description:</label><br>
+        <label class = "custom-label" for="description">Description:</label><br>
         <textarea id="description" name="description" rows="4" cols="50"></textarea><br><br>
         
-        <label for="language">Language:</label>
+        <label class = "custom-label" for="language">Language:</label>
         <input type="text" id="language" name="language"><br><br>
         
-        <label for="format">Format:</label>
+        <label class = "custom-label" for="format">Format:</label>
         <input type="text" id="format" name="format"><br><br>
         
-        <label for="web_link">Web Link:</label>
+        <label class = "custom-label" for="web_link">Web Link:</label>
         <input type="text" id="web_link" name="web_link"><br><br>
         
-        <label for="policy_link">Policy Link:</label>
+        <label class = "custom-label" for="policy_link">Policy Link:</label>
         <input type="text" id="policy_link" name="policy_link"><br><br>
         
-        <!-- Add other fields for Tab 1 here -->
   </div>
 
+
   <div id="Tab2" class="tabcontent">
+
+    
     <!-- Form fields for Tab 2 -->
 
-        <label>Target Audience:</label><br>
+        <label class = "custom-label" >Target Audience:</label><br>
         
         {% for option in audience_options %}
             <input type="checkbox" id="{{ option.id }}" name="audience-options" value="{{ option.id }}">
-            <label for="{{ option.id }}">{{ option.name }}</label><br>
+            <label class="selection-label" for="{{ option.id }}">{{ option.name }}</label><br>
         {% endfor %}
 
-        <label>Delivery Frequency:</label>
+        <label class = "custom-label">Delivery Frequency:</label>
         {% for option in delivery_frequency_options %}
             <input type="radio" id="{{ option.id }}" name="delivery_frequency" value="{{ option.id }}">
-            <label for="{{ option.id }}">{{ option.name }}</label><br>
+            <label class="selection-label" for="{{ option.id }}">{{ option.name }}</label><br>
         {% endfor %}
         
 
@@ -63,28 +80,27 @@
 
 
 <div id="Tab3" class="tabcontent">
-    <!--  -->
     
-        <label for="results">Results:</label>
+        <label class = "custom-label" for="results">Results:</label>
         <textarea id="results" name="results" rows="2" cols="50"></textarea><br><br>
         
-        <label for="lessons_learned">Lessons Learned:</label>
+        <label class = "custom-label" for="lessons_learned">Lessons Learned:</label>
         <textarea id="lessons_learned" name="lessons_learned" rows="2" cols="50"></textarea><br><br>
         
-        <label for="key_messages">Key Messages:</label>
-        <input type="text" id="key_messages" name="key_messages"><br><br>
+        <label class = "custom-label" for="key_messages">Key Messages:</label>
+        <textarea id="key_messages" name="key_messages" rows="2" cols="50"></textarea><br><br>
         
-        <label for="relationship_to_rce_activities">Relationship to RCE Activities:</label>
+        <label class = "custom-label" for="relationship_to_rce_activities">Relationship to RCE Activities:</label>
         <textarea id="relationship_to_rce_activities" name="relationship_to_rce_activities" rows="2" cols="50"></textarea><br><br>
         
-        <label for="funding">Funding:</label>
+        <label class = "custom-label" for="funding">Funding:</label>
         <textarea id="funding" name="funding" rows="2" cols="50"></textarea><br><br>
     
 </div>
 
 <div id="Tab4" class="tabcontent">
     <!-- SDG -->
-              <label for="sdgs">Choose the SDGs from the following:</label>
+              <label for="sdgs">Choose the related Sustainable Development Goals from the following:</label>
               <div id="sdgs-selection">
                 {% for sdg in sdgs %}
                 <div class="sdg-item">
@@ -110,36 +126,36 @@
 <div id="Tab5" class="tabcontent">
     <!-- ESD and PAA -->
 
-    <label for="esdThemes">Choose the Activities from the following:</label>
+    <label class = "custom-label" for="esd_themes">Choose the ESD themes from the following:</label>
     <div id="sdgs-selection">
         {% for option in esd_themes %}
         <div class="sdg-item">
             <div class="sdg-name">
-                <p>{{ option.name }}</p>
+                <p>{{ option.description }}</p>
             </div>
             <div class="sdg-option">
-                <label class="sdg-option-label" for="{{ option.id }}_indirect">Indirect</label>
-                <input type="radio" id="{{ option.id }}_indirect" name="{{ option.id }}" value="indirect">
-                <label class="sdg-option-label" for="{{ option.id }}_direct">Direct</label>
-                <input type="radio" id="{{ option.id }}_direct" name="{{ option.id }}" value="direct">
+                <label class="sdg-option-label" for="{{ option.name }}_indirect">Indirect</label>
+                <input type="radio" id="{{ option.name }}_indirect" name="{{ option.name }}" value="indirect">
+                <label class="sdg-option-label" for="{{ option.name }}_direct">Direct</label>
+                <input type="radio" id="{{ option.name }}_direct" name="{{ option.name }}" value="direct">
             </div>
         </div>
         {% endfor %}
     </div>
 
 
-    <label for="esdOptions">Choose the Activities from the following:</label>
+    <label class = "custom-label" for="pa_options">Choose the Priority Access Activities from the following:</label>
     <div id="sdgs-selection">
-        {% for option in esd_options %}
+        {% for option in pa_options %}
         <div class="sdg-item">
             <div class="sdg-name">
-                <p>{{ option.name }}</p>
+                <p>{{ option.description }}</p>
             </div>
             <div class="sdg-option">
-                <label class="sdg-option-label" for="{{ option.id }}_indirect">Indirect</label>
-                <input type="radio" id="{{ option.id }}_indirect" name="{{ option.id }}" value="indirect">
-                <label class="sdg-option-label" for="{{ option.id }}_direct">Direct</label>
-                <input type="radio" id="{{ option.id }}_direct" name="{{ option.id }}" value="direct">
+                <label class="sdg-option-label" for="{{ option.name }}_indirect">Indirect</label>
+                <input type="radio" id="{{ option.name }}_indirect" name="{{ option.name }}" value="indirect">
+                <label class="sdg-option-label" for="{{ option.name }}_direct">Direct</label>
+                <input type="radio" id="{{ option.name }}_direct" name="{{ option.name }}" value="direct">
             </div>
         </div>
         {% endfor %}
@@ -153,8 +169,8 @@
     <!-- last page of the form for submission
     add functionality to the submit button -->
 
-        <p>terms and conditions</p>
-        <label for="terms_and_conditions" style = "font-size: 14px; ">
+        <p>Terms and Conditions</p>
+        <label class = "terms-label" for="terms_and_conditions" style = "font-size: 14px; ">
             Personal data provided under this form will be processed by UNU in accordance with the UNU Policy on Personal Data Protection. Your information and personal
             data will strictly be used for the purpose of payment processing and will be held in confidence. Access to your information and personal data is strictly limited to
             UNU’s authorized employees and agents on a “need-to-know” basis. UNU will retain your personal data only for the period necessary, unless UNU has an
@@ -166,59 +182,141 @@
         <!-- Add a checkbox for accepting terms and conditions -->
         <input type="checkbox" id="terms_and_conditions" name="terms_and_conditions" required>
         <label for="terms_and_conditions">I accept the terms and conditions</label>
-        
-                
+
+        <button type="submit" onclick="document.getElementById('form-action').value='save';">Save as Draft</button>
+        <button type="submit" onclick="document.getElementById('form-action').value='submit';">Submit</button>
+
+     
       </div>
-      <input type="submit" value="Submit" class="submit-button" style="color:white; " value="Add Project">
 
 
+      
+      <div class="navigation-buttons">
+        <button class="tabnav" id="prevBtn">←</button>
+<button class="tabnav" id="nextBtn">→</button>
+
+      </div>
+      
+      
 </form>
 
 
-  <!-- Add more tab content divs as needed -->
-
   <script>
-    // Function to show the content of the selected tab
-    function openTab(evt, tabName) {
-      var i, tabcontent, tablinks;
+    
+    document.addEventListener('DOMContentLoaded', function() {
+    function openTab(evt) {
+        // Hide all tab contents
+        const tabContents = document.querySelectorAll('.tabcontent');
+        tabContents.forEach(content => content.style.display = 'none');
 
-      // Hide all tab content
-      tabcontent = document.getElementsByClassName("tabcontent");
-      for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-      }
+        // Remove active class from all tab links
+        const tabLinks = document.querySelectorAll('.tablinks');
+        tabLinks.forEach(link => link.classList.remove('active'));
 
-      // Deactivate all tab buttons
-      tablinks = document.getElementsByClassName("tablinks");
-      for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-      }
-
-      // Show the selected tab content and activate the tab button
-      document.getElementById(tabName).style.display = "block";
-      evt.currentTarget.className += " active";
+        // Show the clicked tab's content and set its link as active
+        const tabName = evt.currentTarget.dataset.tabname;
+        document.getElementById(tabName).style.display = 'block';
+        evt.currentTarget.classList.add('active');
     }
 
-    // Show Tab 1 content by default
-    // Show Tab 1 content by default
+    const tabLinks = document.querySelectorAll('.tablinks');
+    
+    // Attach the openTab function to each tab link
+    tabLinks.forEach(link => link.addEventListener('click', openTab));
+    
+    // Set the first tab as default
+    document.querySelector('#defaultOpen').click();
+});
 
-    if (tabName === "Tab6") {
-      document.querySelector(".submit-button").style.display = "block";
-    } else {
-      document.querySelector(".submit-button").style.display = "none";
-    }
+
+document.addEventListener('DOMContentLoaded', function() {
+  let currentTab = 0;  // Start at the first tab
+
+  function openTab(evt) {
+      // Hide all tab contents
+      const tabContents = document.querySelectorAll('.tabcontent');
+      tabContents.forEach(content => content.style.display = 'none');
+
+      // Remove active class from all tab links
+      const tabLinks = document.querySelectorAll('.tablinks');
+      tabLinks.forEach(link => link.classList.remove('active'));
+
+      // Show the clicked tab's content and set its link as active
+      const tabName = evt.currentTarget.dataset.tabname;
+      document.getElementById(tabName).style.display = 'block';
+      evt.currentTarget.classList.add('active');
+  }
+
+  function showTab(n) {
+      const tabLinks = document.querySelectorAll('.tablinks');
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
+
+      if (n >= tabLinks.length) {
+          n = tabLinks.length - 1;  // prevent going beyond the last tab
+      } else if (n < 0) {
+          n = 0;  // prevent going before the first tab
+      }
+
+      tabLinks[n].click();
+      currentTab = n;
+
+      // Control button visibility based on current tab
+      prevBtn.style.display = (currentTab === 0) ? 'none' : 'inline-block';
+      nextBtn.style.display = (currentTab === tabLinks.length - 1) ? 'none' : 'inline-block';
+  }
+
+  const tabLinks = document.querySelectorAll('.tablinks');
   
-document.getElementById("Tab1").style.display = "block";
+  // Attach the openTab function to each tab link
+  tabLinks.forEach((link, index) => {
+      link.addEventListener('click', function(evt) {
+          openTab(evt);
+          currentTab = index;  // Update the current tab index
+          showTab(currentTab); // Update buttons based on new tab
+      });
+  });
+
+  // Set the first tab as default
+  document.querySelector('#defaultOpen').click();
+
+  document.getElementById("prevBtn").addEventListener("click", function() {
+      showTab(currentTab - 1);
+  });
+
+  document.getElementById("nextBtn").addEventListener("click", function() {
+      showTab(currentTab + 1);
+  });
+});
 
 
+function displayImage(inputElement) {
+  const file = inputElement.files[0];
+  if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+          const imageElement = document.getElementById('uploadedImage');
+          imageElement.src = e.target.result;
+      }
+      reader.readAsDataURL(file);
+  }
+}
 
-  </script>
+document.getElementById('saveButton').addEventListener('click', function() {
+    // Add logic to indicate this is a save action, not submit
+    // For example, you could add a hidden field to your form
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'action';
+    input.value = 'save';
+    document.querySelector('form').appendChild(input);
+    
+    // Submit the form
+    document.querySelector('form').submit();
+});
+
+
+</script>
 {% endblock %}
 
 
-
-<!--<label for="language">Language:</label>
-        <input type="text" id="language" name="language"><br><br>
-        
-        <label for="format">Format:</label>
-        <input type="text" id="format" name="format"><br><br>-->

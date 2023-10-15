@@ -41,10 +41,22 @@
             </div>
             {% endfor %}
 
+            
+            <div class="input-container">
+                <label for="captcha" class="input-label">Captcha</label>
+                <img src="{% url 'captcha-image' captcha_key %}" alt="Captcha" />
+                <input type="text" name="captcha_0" class="form-control" placeholder="Enter Captcha" required />
+                <input type="hidden" name="captcha_1" value="{{ captcha_key }}" />
+            </div>
+
+            <!-- For debugging: Print the captcha_key value -->
+            <div>Captcha Key: {{ captcha_key }}</div>
+
             <input type="submit" value="Login" class="submit-button" style="color:black;">
 
             <!-- Forgot Password Link -->
-            <a href="{% url 'UNRCE_APP:forgot-password' %}" class="forgot-password-link">Forgot your password?</a>
+            <a href="{% url 'UNRCE_APP:forgot_password' %}" class="forgot-password-link">Forgot your password?</a>
+            
         </form>
 
         <div class="signup-prompt">

@@ -1,9 +1,245 @@
+.pr-container {
+  display: flex;
+  align-items: start;
+}
+
+
+#description, #results , #lessons_learned, #key_messages, #relationship_to_rce_activities, #funding {
+  width: 800px;  /* Set the width you want */
+  height: 150px; /* Set the height you want */
+  resize: none;  /* Prevents user from resizing the textarea */
+}
+
+.custom-label {
+  background-color: #fdfdfd;
+  color: #333;
+}
+
+input[type="radio"] {
+  background-color: white;
+  border: 1px solid black !important ;
+}
+
+.uploadProject{
+  background-color: #ffb300;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  display: block;
+  margin-top: 20px;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 150px;  /* or any desired width */
+}
+
+
+.terms-label{
+  font-size: 15px;
+  font-family: Inter;
+  font-weight: normal;
+
+}
+
+
+label {
+  font-family: Inter;
+  text-transform: capitalize;
+  word-wrap: break-word;
+  margin-right: 20px;
+  font-size: 18px;
+  color: #333;
+  font-weight: bold;
+  background-color: #fdfdfd;
+  color: #333;
+}
+
+.selection-label {
+  font-size: 15px;
+  font-family: Inter;
+  font-weight: normal;
+}
+
+
+input[type="text"], textarea {
+  background-color: white; /* White background */
+  border: 1px solid #e0e0e0;  /* Light border */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow */
+  padding: 10px; /* Some padding for better appearance */
+  transition: box-shadow 0.3s;  /* Transition for a smooth shadow change */
+}
+
+input[type="text"]:focus, textarea:focus {
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3); /* Slightly darker shadow on focus */
+  outline: none; /* Removing default browser focus styles */
+}
+textarea {
+  background-color: white !important;
+  border: 1px solid #e0e0e0 !important;  /* Light border */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1) !important; /* Light shadow */
+  padding: 10px !important; /* Some padding for better appearance */
+  transition: box-shadow 0.3s !important;  /* Transition for a smooth shadow change */
+}
+
+
+
+
+
+
+
+.tabnav {
+  font-size: 20px; /* Adjust size as needed */
+  background-color: transparent; /* Make the button background transparent */
+  border: none; /* Remove borders */
+  cursor: pointer; /* Hand cursor for better UX */
+  padding: 5px 10px; /* Adjust padding as needed */
+  margin: 0 5px; /* Space between the arrows if they are side by side */
+}
+
+
+.image-section {
+  display: flex;
+  flex-direction: column; /* Ensures children of this div stack vertically */
+  align-items: center;    /* This will center the items if they have different widths */
+}
+
+
+#uploadedImage {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover; /* This keeps the image aspect ratio while filling the label dimensions */
+}
+
+.upload-text {
+  display: block; /* Ensures it's on a new line under the image */
+  text-align: center; /* Centers the text */
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: 2px 5px;
+  
+}
+
+
+
+.tablinks {
+  background-color: #0d47a1;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  margin-right: 5px; /* spacing between tabs */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* subtle shadow for 3D effect */
+  border-radius: 5px; /* rounded corners */
+}
+
+
+.tablinks:not(:last-child) {
+  margin-right: 10px; /* Adjust as per your requirement */
+}
+
+
+
+input[type="file"] {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.upload-container {
+  max-width: 150px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Change this to flex-end */
+  justify-content: flex-end; /* Change this to flex-end */
+  margin-left: 20px;
+}
+
+
+
+.upload-text {
+  margin-top: 10px;
+  cursor: pointer;
+  color: #020057;  /* Color of the text. Adjust as necessary. */
+  font-size: 16px;  /* Size of the text. Adjust as necessary. */
+}
+
+#uploadedImage {
+  max-width: 70%;  /* Matches the width of your project image */
+  height: 60%;  /* Matches the height of your project image */
+  object-fit: cover;
+}
+
+
+img {
+  float: left;
+  margin-left: 10px; /* Creates space between the image and the form */
+}
+
+.clear {
+  clear: both;
+}
+
+
+.tabcontent {
+  display: none;
+}
+
+
+form {
+  border: 1px solid #ccc;
+  border: 1px solid #e0e0e0; /* light grey border */
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05); /* subtle shadow */
+  background-color: #fdfdfd;
+  background-color: #f0f0f0; 
+  padding: 20px;
+  margin-bottom: 50px;
+  padding-bottom: 50px; /* This adds white space inside the grey form area, at the bottom */
+  position: relative;
+  min-height: 100%; /* Ensures form covers full height of its parent container. */
+}
+
+form * {
+
+    border-color: transparent !important;
+}
+
+/* Additional styling for the form fields and elements for a better appearance against the grey background */
+label, input, textarea, button {
+  margin: 10px 0; /* Spacing between form elements */
+  background-color:white;
+}
+
+.navigation-buttons {
+  width: 100%;
+  text-align: center;
+  margin: 20px 0;   /* Adjust the margin to your liking. */
+}
+
+#prevBtn, #nextBtn {
+  margin: 0 140px;   /* Provides spacing between the two buttons. Adjust if needed. */
+  display: inline-block;
+  background-color: #ffb300;  /* This is a blue color, you can adjust to your preferred shade of blue */
+  color: white;
+}
+
+
+
 .sdg-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 10px;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 0;
+  border-bottom: 1px solid #e5e5e5; /* Adds a light bottom border to separate each SDG item */
+}
+
+input[type="radio"] {
+  margin-right: 5px; /* Adds some space between the radio button and its label */
+}
+
   
   .sdg-name {
     flex: 1;
@@ -13,7 +249,109 @@
   .sdg-option-label {
     display: inline-block;
     margin-right: 10px;
+    font-family: Intern; /* Replace 'YourDesiredFontFamily' with the name of the font you want. */
+    font-size: 15px;
+    font-weight: normal;
+
   }
+
+  #sdgs-selection .sdg-name p {
+    font-weight: normal; /* Makes the SDG name bold */
+    color: black; /* A blue color for the SDG name */
+}
   
   /* Adjust styling as needed */
-  
+  .terms-container {
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    margin: 20px 0;
+}
+
+h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.terms-text {
+    font-size: 14px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+    color: #555;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-container input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.submit-Btn {
+  display: none;
+}
+
+.submit-Btn {
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  display: block;
+  margin-top: 20px;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 150px;  /* or any desired width */
+
+}
+
+.submit-Btn:hover {
+  background-color: #45a049;
+}
+
+
+.submit-Btn:hover {
+    background-color: #45a049;
+}
+
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+
+
+.tablinks:hover {
+    background-color: #ddd;
+}
+
+.tablinks.active {
+    background-color:##ffc61a;
+}
+
+.tabcontent {
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+    display: none;
+}
+
+.terms-container {
+    margin: 20px;
+}
+
+.terms-text {
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.checkbox-container {
+    margin: 20px 0;
+}
+
