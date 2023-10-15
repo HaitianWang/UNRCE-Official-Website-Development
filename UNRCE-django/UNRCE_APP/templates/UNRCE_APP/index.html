@@ -17,6 +17,7 @@
 <div class="header-photo"></div>
 <div class="page-wrapper">
   <div class="sidebar">
+    {% if user.is_authenticated %}
     <h2 class="sub-title">Project Highlights</h2>
     <ul class="projects-list">
       <div class="project-listing" id="projectGrid" data-baseurl="{% url 'UNRCE_APP:specific_project' %}">
@@ -68,6 +69,7 @@
         <p class="info-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam fuga, odit explicabo nostrum doloribus accusamus vero quasi suscipit dolorum, corporis repudiandae tenetur tempore? Culpa sunt omnis neque dolorem vitae temporibus?</p>
     </article>
     </div>
+    {% endif %}
   </div>
 <div class="main-div">
     <h1 class="title-box">What is UNRCE?</h1>
