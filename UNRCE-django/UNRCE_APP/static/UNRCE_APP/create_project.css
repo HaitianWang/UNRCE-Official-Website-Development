@@ -53,7 +53,7 @@ input[type="radio"] {
 
 
 input[type="text"], textarea {
-  background-color: white; /* White background */
+  background-color: var(--text); /* White background */
   border: 1px solid #e0e0e0;  /* Light border */
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow */
   padding: 10px; /* Some padding for better appearance */

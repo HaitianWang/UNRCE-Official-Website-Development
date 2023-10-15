@@ -24,9 +24,11 @@
     <form method="post" class="login-form" action="{% url 'UNRCE_APP:login' %}">
         {% csrf_token %}
         <div class="round-image-container">
-            <img src="{% static 'images/UNRCEWA_Logo.png' alt="UNRCE Logo" class="logo round-image"%}" alt="UNRCE Logo" style="height: 10rem; opacity: 100%">
+            <img src="{% static 'images/UNRCEWA_Logo.png' alt="UNRCE Logo" class="logo round-image"%}" alt="UNRCE Logo" style="    height: 13vmin;
+            max-height: 175px;
+            opacity: 100%;">
         </div>
-        <div class="login-title">Log In</div>
+        <div class="login-title">Sign In</div>
         {% for field in form %}
         <div class="input-container">
             
@@ -54,7 +56,7 @@
             <input type="hidden" id="captcha_key_input" name="captcha_1" value="{{ captcha_key }}" />
         </div>
 
-        <input type="submit" value="Login" class="submit-button" style="color:black;">
+        <input type="submit" value="Sign In" class="submit-button" style="color:black;">
 
         <!-- Forgot Password Link -->
         <a href="{% url 'UNRCE_APP:forgot_password' %}" class="forgot-password-link">Forgot your password?</a>
@@ -63,7 +65,7 @@
 
     <div class="signup-prompt">
         <span>No account yet? </span>
-        <a href="{% url 'UNRCE_APP:signup' %}">Sign up HERE</a>
+        <a href="{% url 'UNRCE_APP:signup' %}">Create an account HERE</a>
     </div>
 
 </div>

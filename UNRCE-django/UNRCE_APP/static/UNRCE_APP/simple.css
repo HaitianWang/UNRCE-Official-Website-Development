@@ -579,7 +579,15 @@ sub {
 }
 
 .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
-    grid-gap: 1rem
+    display: flex;
+    grid-gap: 1rem;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 2vh;
+}
+
+.grid img {
+    height: 10em;
+    max-height: 120px;
 }

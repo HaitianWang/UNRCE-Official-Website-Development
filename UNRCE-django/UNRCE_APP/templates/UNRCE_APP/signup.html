@@ -25,9 +25,11 @@
     <form method="post" class="login-form" action="{% url 'UNRCE_APP:signup' %}">
         {% csrf_token %}
         <div class="round-image-container">
-            <img src="{% static 'images/UNRCEWA_Logo.png' alt="UNRCE Logo" class="logo round-image"%}" alt="UNRCE Logo" style="height: 10rem; opacity: 100%">
+            <img src="{% static 'images/UNRCEWA_Logo.png' alt="UNRCE Logo" class="logo round-image"%}" alt="UNRCE Logo" style="    height: 13vmin;
+            max-height: 175px;
+            opacity: 100%;">
         </div>
-            <div class="login-title">Sign Up</div>
+            <div class="login-title">Create Account</div>
         {% for field in form %}
         <div class="input-container">
             <label for="{{ field.auto_id }}" class="input-label">{{ field.label }}</label>

@@ -312,6 +312,8 @@ html {
 .footer-logo {
     height: 100%;
     display: block;
+    padding: 2%;
+    background-color: var(--text);
 }
 
 .footer h5 {
@@ -388,7 +390,8 @@ nav > a {
     text-decoration: none;
     padding: 10px;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 2vmin;
+    font-weight: 500;
     margin: 0.2rem;
 }
 
