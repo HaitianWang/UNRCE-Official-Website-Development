@@ -28,14 +28,19 @@
             </section>
             <!-- Organisations -->
             <section>
-                <p style="font-size:medium;"><span style="font-weight: bold;"> Organisation:</span> 
-                    {{ user.org }}
+                <p style="font-size:medium;"><span style="font-weight: bold;"> Organisation:</span>
+                    {% if user.org %}
+                        {{ user.org }}
+                    {% else %}
+                        -
+                    {% endif %}
+                    <!-- {{ user.org }} -->
                 </p>
             </section>
             <!-- Emails Enabled -->
             <section>
-                <p style="font-size:medium;"><span style="font-weight: bold;"> Organisation:</span> 
-                    {{ user.emails_enabled }}
+                <p style="font-size:medium;"><span style="font-weight: bold;"> Email notifications enabled:</span> 
+                    <input type="checkbox" id="emailEnabledCheckbox" {% if user.emails_enabled %}checked{% endif %} disabled>
                 </p>
             </section>
             <!-- SDG's Interested in -->
