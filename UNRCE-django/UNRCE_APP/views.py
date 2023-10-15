@@ -159,9 +159,9 @@ class SignUpView(View):
         form = CustomUserCreationForm(request.POST)
         captcha_value = request.POST.get('captcha_0')
         captcha_key = request.POST.get('captcha_1')
-    
+
         captcha_check = CaptchaStore.objects.filter(response__iexact=captcha_value, hashkey=captcha_key)
-        
+
         if not captcha_check.exists():
             messages.error(request, "Captcha is incorrect.")
             captcha_key = CaptchaStore.generate_key()  # Regenerate the captcha_key
@@ -175,28 +175,114 @@ class SignUpView(View):
             )
 
         if form.is_valid():
-            form.save()
-            email = form.cleaned_data.get('email')  # Get the email from cleaned_data
-            password = form.cleaned_data.get('password1') 
-            user = authenticate(
-                request,
-                email=email,   # Use email to authenticate
-                password=password,
-            )
-            if user:
-                login(request, user)
-            return redirect("/")
+            email = form.cleaned_data.get('email')  # 获取邮箱地址
+            
+            # 不需要再查询数据库
+            user = form.save(commit=False)  # 创建但不保存用户对象
+            user.is_active = False  # Make user inactive until they confirm email
+            user.save()
 
-        # If form is not valid, also regenerate the captcha_key
-        captcha_key = CaptchaStore.generate_key()
-        return render(
-            request,
-            "UNRCE_APP/signup.html",
-            {
-                "form": form,
-                "captcha_key": captcha_key,
-            },
-        )
+            # Generate token and send email
+            current_site = get_current_site(request)
+            mail_subject = 'Activate your account.'
+            message = render_to_string('UNRCE_APP/account_activation_email.html', {
+                'user': user,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': account_activation_token.make_token(user),
+            })
+
+            # Send the email using SendGrid
+            sg = SendGridAPIClient('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')  # Make sure to replace with your SendGrid API key
+            email_msg = Mail(
+                from_email='Rce.uwa@gmail.com',
+                to_emails=email,
+                subject=mail_subject,
+                html_content=message)
+            response = sg.send(email_msg)
+            print('sent message successfully')
+            messages.success(request, 'A reset password link has been sent to your email.')
+
+            return render(request, 'UNRCE_APP/account_activation_sent.html')
+
+
+def activate_account(request, uidb64, token):
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = CustomUser.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, CustomUser.DoesNotExist):
+        user = None
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.email_confirmed = True
+        user.save()
+        messages.success(request, 'Account activated successfully.')
+        return redirect('UNRCE_APP:login')
+    else:
+        return HttpResponse('Activation link is invalid!')
+
+        
+def forgot_password(request):
+  User = get_user_model()
+  if request.method == "POST":
+      email = request.POST['email']
+      user = User.objects.filter(email=email).first()
+      if not user:
+          print('no user found')
+          messages.error(request, 'No account with this email address exists.')
+          return render(request, 'UNRCE_APP/forgot_password.html')
+      elif user:
+          print('found user')
+          current_site = get_current_site(request)
+          mail_subject = 'Reset your password.'
+          message = render_to_string('UNRCE_APP/reset_password_email.html', {
+              'user': user,
+              'domain': current_site.domain,
+              'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+              'token': account_activation_token.make_token(user),
+          })
+          
+          # Send the email using SendGrid
+          sg = SendGridAPIClient('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')  # Make sure to replace with your SendGrid API key
+          email_msg = Mail(
+              from_email='Rce.uwa@gmail.com',
+              to_emails=email,
+              subject=mail_subject,
+              html_content=message)
+          response = sg.send(email_msg)
+          print('sent message successfully')
+          messages.success(request, 'A reset password link has been sent to your email.')
+          return render(request, 'UNRCE_APP/email_sent_confirmation.html')
+
+  return render(request, 'UNRCE_APP/forgot_password.html')
+
+#display reset password page
+def reset_password(request, uidb64, token):
+  print("UID:", uidb64)
+  print("TOKEN:", token)
+  User = get_user_model()
+  try:
+      uid = force_str(urlsafe_base64_decode(uidb64))
+      user = User.objects.get(pk=uid)
+  except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+      user = None
+  if user is not None and account_activation_token.check_token(user, token):
+      if request.method == 'POST':
+          password = request.POST['new_password']
+          password2 = request.POST['retype_password']
+          if password == password2:
+              user.set_password(password)
+              user.save()
+              messages.success(request, 'Password reset successfully.')
+              return redirect('UNRCE_APP:login')
+          else:
+              messages.error(request, 'Passwords do not match.')
+      return render(request, 'UNRCE_APP/reset_password.html')
+  else:
+      return HttpResponse('Reset password link is invalid!')
+
+
+        
 
 class IndexView(View):
   def get(self, request):
@@ -258,65 +344,6 @@ class UploadImageView(LoginRequiredMixin, View):
         "form": form,
       },
     )
-
-def forgot_password(request):
-  User = get_user_model()
-  if request.method == "POST":
-      email = request.POST['email']
-      user = User.objects.filter(email=email).first()
-      if not user:
-          print('no user found')
-          messages.error(request, 'No account with this email address exists.')
-          return render(request, 'UNRCE_APP/forgot_password.html')
-      elif user:
-          print('found user')
-          current_site = get_current_site(request)
-          mail_subject = 'Reset your password.'
-          message = render_to_string('UNRCE_APP/reset_password_email.html', {
-              'user': user,
-              'domain': current_site.domain,
-              'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-              'token': account_activation_token.make_token(user),
-          })
-          
-          # Send the email using SendGrid
-          sg = SendGridAPIClient('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')  # Make sure to replace with your SendGrid API key
-          email_msg = Mail(
-              from_email='simonqiu4@gmail.com',
-              to_emails=email,
-              subject=mail_subject,
-              html_content=message)
-          response = sg.send(email_msg)
-          print('sent message successfully')
-          messages.success(request, 'A reset password link has been sent to your email.')
-          return render(request, 'UNRCE_APP/email_sent_confirmation.html')
-
-  return render(request, 'UNRCE_APP/forgot_password.html')
-
-#display reset password page
-def reset_password(request, uidb64, token):
-  print("UID:", uidb64)
-  print("TOKEN:", token)
-  User = get_user_model()
-  try:
-      uid = force_str(urlsafe_base64_decode(uidb64))
-      user = User.objects.get(pk=uid)
-  except(TypeError, ValueError, OverflowError, User.DoesNotExist):
-      user = None
-  if user is not None and account_activation_token.check_token(user, token):
-      if request.method == 'POST':
-          password = request.POST['new_password']
-          password2 = request.POST['retype_password']
-          if password == password2:
-              user.set_password(password)
-              user.save()
-              messages.success(request, 'Password reset successfully.')
-              return redirect('UNRCE_APP:login')
-          else:
-              messages.error(request, 'Passwords do not match.')
-      return render(request, 'UNRCE_APP/reset_password.html')
-  else:
-      return HttpResponse('Reset password link is invalid!')
 
 
 
