@@ -88,7 +88,11 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     user_name = models.CharField(max_length=150)  
 
+    # Org field that Ryan made
+    org = models.CharField(max_length=255, default="", blank=True)
 
+    # Email field that Ryan made
+    emails_enabled = models.BooleanField(default=True)
 
     interested_projects = models.ManyToManyField('Project', blank=True, related_name="users_interested")
     interested_sdgs = models.ManyToManyField(SDG, related_name='interested_users')

@@ -15,13 +15,23 @@
                 <div class="user-info">
                     <form method="post">
                         {% csrf_token %}
+
+                        <!-- Name Field -->
                         <label for="{{ form.name.id_for_label }}"> Name:</label>
                         {{ form.name }}<br>
-                        <!-- Other form fields to add later -->
+                        
+                        <!-- Organisation Field -->
+                        <label for="{{ form.org.id_for_label }}"> Organisation:</label>
+                        {{ form.org }}<br>
+
+                        <!-- Emails enabled field -->
+                        <label for="{{ form.emails_enabled.id_for_label }}">Emails enabled?</label>
+                        {{ form.emails_enabled }}<br>
+
+
+                        <!-- Submit Button -->
                         <input type="submit" value="Update User Details">
                     </form>
-                    <p style="font-size:medium;">Name: John Doe</p>
-                    <p style="font-size:medium;">Email: john@example.com</p>
                 </div>
             </section>
             <section style="padding: 0%; margin: 0%;" class="account-details">

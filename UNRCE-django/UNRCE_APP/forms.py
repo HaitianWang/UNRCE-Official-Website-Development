@@ -49,6 +49,12 @@ class UserSearchForm(forms.Form):
 
 # Update the user's details
 class UpdateAccountForm(forms.ModelForm):
+    emails_enabled = forms.BooleanField(
+        required=False,
+        widget=forms.CheckboxInput(),
+        initial=True
+    )
+
     class Meta:
         model = CustomUser
-        fields = ['name']
+        fields = ['name', 'org', 'emails_enabled']

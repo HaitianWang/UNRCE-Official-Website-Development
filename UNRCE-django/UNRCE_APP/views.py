@@ -336,17 +336,12 @@ def myaccount(request):
     return render(request, 'UNRCE_APP/myaccount.html', context)
 # Edit my Account Page
 def myaccount_edit(request):
-    print("myaccount_edit page loaded")
     if request.method == 'POST':
         form = UpdateAccountForm(request.POST, instance = request.user)
         if form.is_valid():
-            print("Form Saved successfully i think?")
             form.save()
-            # return render('/myaccount')
             return redirect('/myaccount')
     else:
-        print("Error saving!")
-        # print(form.errors)
         form = UpdateAccountForm(instance=request.user)
     return render(request, 'UNRCE_APP/myaccount_edit.html', {'form': form})
 
