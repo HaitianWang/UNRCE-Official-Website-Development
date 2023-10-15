@@ -3,7 +3,7 @@
 <html>
 
 <head>
-  <title>UNRCE WA</title>
+  <title>UNRCE</title>
   <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/simple.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/styles.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/login.css' %}">
@@ -13,7 +13,7 @@
   <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/myaccount_edit.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/index.css' %}">
   
-  <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}" >
+  
 
   
 
@@ -38,32 +38,11 @@
 <body style="background-color: #ffffff;">
 <!-- Added header.html -->
 {% include 'UNRCE_APP/header.html' %}
-<main>
+
 {% block content %}
 {% endblock content %}
-</main>
+
 {% include 'UNRCE_APP/footer.html' %}
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-      const refreshCaptchaLink = document.getElementById('refresh_captcha');
-      if (refreshCaptchaLink) {
-          const captchaImage = document.getElementById('captcha_image');
-          const captchaKeyInput = document.getElementById('captcha_key_input');
-
-          refreshCaptchaLink.addEventListener('click', function(event) {
-              event.preventDefault();
-
-              fetch('/new_captcha/')
-              .then(response => response.json())
-              .then(data => {
-                  captchaImage.src = data.captcha_image_url;
-                  captchaKeyInput.value = data.captcha_key;
-              });
-          });
-      }
-  });
-</script>
 
 </body>
 </html>

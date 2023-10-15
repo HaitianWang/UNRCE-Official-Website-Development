@@ -1,10 +1,8 @@
-/* Consolidated CSS */
-
 .pr-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  align-items: start;
 }
+
 
 #description, #results , #lessons_learned, #key_messages, #relationship_to_rce_activities, #funding {
   width: 800px;  /* Set the width you want */
@@ -76,42 +74,38 @@ textarea {
 
 
 .tabnav {
-  font-size: xx-large;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 5px 10px;
-  margin: 0 5px;
+  font-size: 20px; /* Adjust size as needed */
+  background-color: transparent; /* Make the button background transparent */
+  border: none; /* Remove borders */
+  cursor: pointer; /* Hand cursor for better UX */
+  padding: 5px 10px; /* Adjust padding as needed */
+  margin: 0 5px; /* Space between the arrows if they are side by side */
 }
+
 
 .image-section {
-  text-align: center;
+  display: flex;
+  flex-direction: column; /* Ensures children of this div stack vertically */
+  align-items: center;    /* This will center the items if they have different widths */
 }
 
-.label-section {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  width: -webkit-fill-available;
-}
 
 #uploadedImage {
   width: 100%;
   height: 100%;
   display: block;
-  max-width: fit-content;
-  object-fit: cover;
-  max-block-size: 12em;
-  margin-bottom: 20px !important;
+  object-fit: cover; /* This keeps the image aspect ratio while filling the label dimensions */
 }
 
 .upload-text {
-  display: block;
-  text-align: center;
+  display: block; /* Ensures it's on a new line under the image */
+  text-align: center; /* Centers the text */
   background-color: rgba(255, 255, 255, 0.6);
   padding: 2px 5px;
   
 }
+
+
 
 .tablinks {
   /*background-color: #0d47a1;*/
@@ -126,9 +120,12 @@ textarea {
   border-radius: 5px; /* rounded corners */
 }
 
+
 .tablinks:not(:last-child) {
-  margin-right: .2em;
+  margin-right: 10px; /* Adjust as per your requirement */
 }
+
+
 
 input[type="file"] {
   margin-top: 15px;
@@ -140,41 +137,53 @@ input[type="file"] {
   height: auto;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  justify-content: flex-end;
+  align-items: flex-end; /* Change this to flex-end */
+  justify-content: flex-end; /* Change this to flex-end */
   margin-left: 20px;
 }
 
+
+
+.upload-text {
+  margin-top: 10px;
+  cursor: pointer;
+  color: #020057;  /* Color of the text. Adjust as necessary. */
+  font-size: 16px;  /* Size of the text. Adjust as necessary. */
+}
+
+#uploadedImage {
+  max-width: 70%;  /* Matches the width of your project image */
+  height: 60%;  /* Matches the height of your project image */
+  object-fit: cover;
+}
+
+
 img {
   float: left;
-  margin-left: 10px;
+  margin-left: 10px; /* Creates space between the image and the form */
 }
 
 .clear {
   clear: both;
 }
 
+
 .tabcontent {
-  padding: 2vh 4vw 0 4vw;
-  border: 1px solid #ccc;
-  border-top: none;
-  display: flex;
-  flex-direction: column;
+  display: none;
 }
+
 
 form {
   border: 1px solid #ccc;
   border: 1px solid #e0e0e0; /* light grey border */
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05); /* subtle shadow */ 
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05); /* subtle shadow */
+  background-color: #fdfdfd;
+  /*background-color: #f0f0f0;*/ 
   padding: 20px;
   margin-bottom: 50px;
   padding-bottom: 50px; /* This adds white space inside the grey form area, at the bottom */
-  background-color: var(--blue-bg);
   position: relative;
-  margin: 0 4vw 0 4vw;
-  width: 600px;
-  display: flex;
-  flex-direction: column;
+  min-height: 100%; /* Ensures form covers full height of its parent container. */
 }
 
 form * {
@@ -185,21 +194,12 @@ form * {
 label, input, textarea, button {
   margin: 10px 0; /* Spacing between form elements */
   background-color:white;
-  border-color: transparent !important;
-}
-
-button {
-  margin: .4em .2em 0 0;
-  color: var(--text);
-}
-
-button:last-child {
-  margin: .4em 0 0 0 !important;
 }
 
 .navigation-buttons {
   width: 100%;
   text-align: center;
+  margin: 20px 0;   /* Adjust the margin to your liking. */
 }
 
 #prevBtn, #nextBtn {
@@ -208,6 +208,8 @@ button:last-child {
   background-color: #ffb300;  /* This is a blue color, you can adjust to your preferred shade of blue */
   color: white;
 }
+
+
 
 .sdg-item {
   display: flex;
@@ -251,28 +253,30 @@ input[type="radio"] {
 }
 
 h3 {
-  font-size: 2rem;
-  margin-bottom: 30px;
-  font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: bold;
 }
 
 .terms-text {
-  font-size: 14px;
-  margin-bottom: 20px;
-  line-height: 1.5;
-  color: #555;
+    font-size: 14px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+    color: #555;
 }
 
 .checkbox-container {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .checkbox-container input[type="checkbox"] {
-  margin-right: 10px;
+    margin-right: 10px;
 }
 
-/* Merged .submit-Btn rules */
+.submit-Btn {
+  display: none;
+}
 
 .submit-Btn {
   background-color: #4CAF50;
@@ -283,62 +287,52 @@ h3 {
   cursor: pointer;
   display: block;
   margin-top: 20px;
+  margin-left: auto !important;
+  margin-right: auto !important;
   width: 150px;  /* or any desired width */
+
 }
 
 .submit-Btn:hover {
   background-color: #45a049;
 }
 
+
+.submit-Btn:hover {
+    background-color: #45a049;
+}
+
 .tab {
-  overflow: hidden;
-  background-color: #FFFFFF;
-  display: flex;
-  justify-content: space-evenly;
-  flex-direction: row;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    /*background-color: #f1f1f1;*/
 }
 
 .tablinks:hover {
-  background-color: #ddd;
+    background-color: #ddd;
 }
 
 .tablinks.active {
   background-color: #ffc61a;
 }
 
-/* Merged .terms-container and .terms-text rules */
+.tabcontent {
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+    display: none;
+}
 
 .terms-container {
-  margin: 20px;
-  font-size: 14px;
-  margin-bottom: 20px;
+    margin: 20px;
+}
+
+.terms-text {
+    font-size: 14px;
+    margin-bottom: 20px;
 }
 
 .checkbox-container {
-  margin: 20px 0;
+    margin: 20px 0;
 }
 
-.form_header {
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  font-size: medium;
-  font-weight: bold;
-}
-
-input[type="text"],
-textarea {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  color: var(--bg);
-}
-
-.project-details-edit {
-  flex: 1;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-}

@@ -83,6 +83,7 @@ h5{
 }
 
 .project-title, .edit-project-details, .project-details, .region-label, .orgs-label, .project-desc, .language-label, .audience-label, .sdg-label {
+    font-family: Inter;
     text-transform: capitalize;
     word-wrap: break-word;
 }

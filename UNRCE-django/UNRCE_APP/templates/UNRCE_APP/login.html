@@ -3,61 +3,68 @@
 
 {% block content %}
 
-<div class="login-box">
+<div class="login-container">
 
-    <img src="{% static 'images/UNRCEWA_Logo.png' alt="UNRCE Logo" class="logo"%}" alt="UNRCE Logo" style="height: 10rem">
+    <div class="login-box">
 
-    <div class="login-title">Log In</div>
-
-    <!-- Display the success message if available -->
-    {% if messages %}
-    {% for message in messages %}
-    <div class="success-message">{{ message }}</div>
-    {% endfor %}
-    {% endif %}
-    
-    <form method="post" class="login-form" action="{% url 'UNRCE_APP:login' %}">
-        {% csrf_token %}
-        
-        {% for field in form %}
-        <div class="input-container">
-            <label for="{{ field.auto_id }}" class="input-label">{{ field.label }}</label>
-            <input type="{{ field.field.widget.input_type }}" 
-                    id="{{ field.auto_id }}"
-                    name="{{ field.name }}" 
-                    {% if field.field.required %} required {% endif %}
-                    value="{{ field.value|default:'' }}" />
-            
-            {% if field.errors %}
-            <div class="alert alert-danger">
-                {{ field.errors }}
-            </div>
-            {% endif %}
+        <div class="avatar-container">
+            <div class="avatar-background"></div>
+            <img class="avatar-image" src="{% static 'images/Font_1._.png' %}" alt="Avatar Image">
         </div>
+
+        <div class="login-title">Log In</div>
+
+        <!-- Display the success message if available -->
+        {% if messages %}
+        {% for message in messages %}
+        <div class="success-message">{{ message }}</div>
         {% endfor %}
-
+        {% endif %}
         
-        <div class="input-container">
-            <label for="captcha" class="input-label">Captcha</label>
-            <img id="captcha_image" src="{% url 'captcha-image' captcha_key %}" alt="Captcha" />
-            <a href="#" id="refresh_captcha">Refresh Captcha</a>
-            <input type="text" name="captcha_0" class="form-control" placeholder="Enter Captcha" required />
-            <input type="hidden" id="captcha_key_input" name="captcha_1" value="{{ captcha_key }}" />
+        <form method="post" class="login-form" action="{% url 'UNRCE_APP:login' %}">
+            {% csrf_token %}
+            
+            {% for field in form %}
+            <div class="input-container">
+                <label for="{{ field.auto_id }}" class="input-label">{{ field.label }}</label>
+                <input type="{{ field.field.widget.input_type }}" 
+                       id="{{ field.auto_id }}"
+                       name="{{ field.name }}" 
+                       {% if field.field.required %} required {% endif %}
+                       value="{{ field.value|default:'' }}" />
+                
+                {% if field.errors %}
+                <div class="alert alert-danger">
+                    {{ field.errors }}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            
+            <div class="input-container">
+                <label for="captcha" class="input-label">Captcha</label>
+                <img src="{% url 'captcha-image' captcha_key %}" alt="Captcha" />
+                <input type="text" name="captcha_0" class="form-control" placeholder="Enter Captcha" required />
+                <input type="hidden" name="captcha_1" value="{{ captcha_key }}" />
+            </div>
+
+            <!-- For debugging: Print the captcha_key value -->
+            <div>Captcha Key: {{ captcha_key }}</div>
+
+            <input type="submit" value="Login" class="submit-button" style="color:black;">
+
+            <!-- Forgot Password Link -->
+            <a href="{% url 'UNRCE_APP:forgot_password' %}" class="forgot-password-link">Forgot your password?</a>
+            
+        </form>
+
+        <div class="signup-prompt">
+            <span>No account yet? </span>
+            <a href="{% url 'UNRCE_APP:signup' %}">Sign up HERE</a>
         </div>
 
-        <input type="submit" value="Login" class="submit-button" style="color:black;">
-
-        <!-- Forgot Password Link -->
-        <a href="{% url 'UNRCE_APP:forgot_password' %}" class="forgot-password-link">Forgot your password?</a>
-        
-    </form>
-
-    <div class="signup-prompt">
-        <span>No account yet? </span>
-        <a href="{% url 'UNRCE_APP:signup' %}">Sign up HERE</a>
     </div>
-
 </div>
-
 
 {% endblock content %}
