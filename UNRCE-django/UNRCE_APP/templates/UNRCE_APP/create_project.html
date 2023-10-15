@@ -8,12 +8,16 @@
   {% csrf_token %}
  
  <div class="tab">
+<<<<<<< HEAD
     <button class="tablinks" data-tabname="Tab1" id="defaultOpen">Main</button>
+=======
+    <button class="tablinks" data-tabname="Tab1" id="defaultOpen">General</button>
+>>>>>>> permission
     <button class="tablinks" data-tabname="Tab2">Location</button>
     <button class="tablinks" data-tabname='Tab3'>Contents</button>
     <button class="tablinks" data-tabname='Tab4'>SDG</button>
     <button class="tablinks" data-tabname='Tab5'>ESD</button>
-    <button class="tablinks" data-tabname='Tab6'>Submission</button>
+    <button class="tablinks" data-tabname='Tab6'>Submit</button>
 
     <input type="hidden" name="action" value="save" id="form-action">
 
@@ -22,21 +26,24 @@
     
   <div id="Tab1" class="tabcontent">
     <div class="pr-container">
-        <div class="image-section">
-            <label for="imageUpload">
-                <img class="image" id="uploadedImage" src="{% static 'images/Font_1._.png' %}" alt="Default Image">
-            </label>
-            <!--<span class="upload-text">Add Project Image</span>-->
-            <input type="file" id="imageUpload" name="imageUpload" style="display: none;" onchange="displayImage(this)">
-        </div>
-        <div class="project-details">
-            <label for="title">Project Title:</label>
-            <input type="text" id="title" name="title"><br><br>
+        <div class="project-details-edit">
+            <div class="label-section">
+                <label for="title">Project Title:</label>
+                <input type="text" id="title" name="title">
+            </div>
+            <div class="image-section">
+                <label for="imageUpload">
+                    <img class="image" id="uploadedImage" src="{% static 'images/Font_1._.png' %}" alt="Default Image">
+                </label>
+                <!--<span class="upload-text">Add Project Image</span>-->
+                <input type="file" id="imageUpload" name="imageUpload" style="display: none;" onchange="displayImage(this)">
+            </div>
         </div>
     </div>
       
 
 
+<<<<<<< HEAD
         <label class = "custom-label" for="description">Description:</label><br>
         <textarea id="description" name="description" rows="4" cols="50"></textarea><br><br>
         
@@ -51,6 +58,19 @@
         
         <label class = "custom-label" for="policy_link">Policy Link:</label>
         <input type="text" id="policy_link" name="policy_link"><br><br>
+=======
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" rows="4" cols="50"></textarea>
+        
+        <label for="language">Language:</label>
+        <input type="text" id="language" name="language">
+        
+        <label for="web_link">Web Link:</label>
+        <input type="text" id="web_link" name="web_link">
+        
+        <label for="policy_link">Policy Link:</label>
+        <input type="text" id="policy_link" name="policy_link">
+>>>>>>> permission
         
   </div>
 
@@ -60,14 +80,22 @@
     
     <!-- Form fields for Tab 2 -->
 
+<<<<<<< HEAD
         <label class = "custom-label" >Target Audience:</label><br>
+=======
+        <label class="form_header">Target Audience:</label>
+>>>>>>> permission
         
         {% for option in audience_options %}
             <input type="checkbox" id="{{ option.id }}" name="audience-options" value="{{ option.id }}">
             <label class="selection-label" for="{{ option.id }}">{{ option.name }}</label><br>
         {% endfor %}
 
+<<<<<<< HEAD
         <label class = "custom-label">Delivery Frequency:</label>
+=======
+        <label class="form_header">Delivery Frequency:</label>
+>>>>>>> permission
         {% for option in delivery_frequency_options %}
             <input type="radio" id="{{ option.id }}" name="delivery_frequency" value="{{ option.id }}">
             <label class="selection-label" for="{{ option.id }}">{{ option.name }}</label><br>
@@ -81,6 +109,7 @@
 
 <div id="Tab3" class="tabcontent">
     
+<<<<<<< HEAD
         <label class = "custom-label" for="results">Results:</label>
         <textarea id="results" name="results" rows="2" cols="50"></textarea><br><br>
         
@@ -95,6 +124,22 @@
         
         <label class = "custom-label" for="funding">Funding:</label>
         <textarea id="funding" name="funding" rows="2" cols="50"></textarea><br><br>
+=======
+        <label for="results">Results:</label>
+        <textarea id="results" name="results" rows="2" cols="50"></textarea>
+        
+        <label for="lessons_learned">Lessons Learned:</label>
+        <textarea id="lessons_learned" name="lessons_learned" rows="2" cols="50"></textarea>
+        
+        <label for="key_messages">Key Messages:</label>
+        <input type="text" id="key_messages" name="key_messages">
+        
+        <label for="relationship_to_rce_activities">Relationship to RCE Activities:</label>
+        <textarea id="relationship_to_rce_activities" name="relationship_to_rce_activities" rows="2" cols="50"></textarea>
+        
+        <label for="funding">Funding:</label>
+        <textarea id="funding" name="funding" rows="2" cols="50"></textarea>
+>>>>>>> permission
     
 </div>
 
