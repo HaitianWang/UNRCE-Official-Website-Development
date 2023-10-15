@@ -584,7 +584,8 @@ sub {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding-bottom: 2vh;
+    padding-top: 2vh;
+    padding-bottom: 4vh;
 }
 
 .grid img {
