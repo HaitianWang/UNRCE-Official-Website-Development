@@ -17,12 +17,15 @@ class TestSignUp(StaticLiveServerTestCase):
         #options.KEY
         cls.selenium = webdriver.Chrome()
         cls.selenium.set_page_load_timeout(30)
-        cls.selenium.implicitly_wait(30)
+        cls.selenium.implicitly_wait(5)
 
     @classmethod
     def tearDownClass(cls):
         super().tearDownClass()
         cls.selenium.quit()
+
+    def tearDown(self):
+        self.selenium.delete_all_cookies()
     
     def test_signup_page(self):
         self.selenium.get(self.live_server_url)
@@ -45,5 +48,27 @@ class TestSignUp(StaticLiveServerTestCase):
 
         self.assertTrue(CustomUser.objects.filter(email="JohnDoe@gmail.com").exists())
 
-        self.selenium.close()
+    def test_login_page(self):
+        john = CustomUser.objects.create(email="JohnDoe@gmail.com")
+        john.set_password("Is this a good password?")
+        self.selenium.get(self.live_server_url)
+        self.selenium.find_element(By.PARTIAL_LINK_TEXT, "Log").click()
+        self.assertEqual(self.selenium.current_url, f"{self.live_server_url}/login/")
+        self.selenium.find_element(By.ID,"id_username").send_keys("JohnDoe@gmail.com")
+        self.selenium.find_element(By.ID, "id_password").send_keys("Is this a good password?")
+        
+        captchaID = self.selenium.find_element(By.NAME, "captcha_1").get_attribute("value")
+        captchaQuery = CaptchaStore.objects.filter(hashkey=captchaID)
+        self.assertTrue(captchaQuery.exists())
+        self.assertEqual(captchaQuery.count(), 1)
+        answer = captchaQuery.first().response
+
+        self.selenium.find_element(By.NAME,"captcha_0").send_keys(answer)
+        sleep(3)
+        self.selenium.find_element(By.CLASS_NAME,"submit-button").click()
+        sleep(3)
+        self.assertEquals(self.selenium.current_url, f"{self.live_server_url}/")
+
+        account_links = self.selenium.find_elements(By.PARTIAL_LINK_TEXT,"Account").count()
+        self.assertGreater(account_links,0)
 
