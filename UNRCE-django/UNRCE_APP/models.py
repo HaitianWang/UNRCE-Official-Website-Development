@@ -128,13 +128,12 @@ class Project(models.Model):
     # choices for fields
     AUDIENCE_CHOICES = [
         ('general', 'General public (any age)'),
-        ('target', 'Particular target Audience (Please specify)'),
         ('adults', 'Adults'),
         ('tertiary', 'Tertiary students'),
         ('high_school', 'High school age'),
         ('primary_school', 'Primary School age'),
         ('early_years', 'Early years'),
-        ('adults_60', 'Adults >60 please'),
+        ('adults_60', 'Adults >60'),
         ('other', 'Other'),
     ]
     FREQUENCY_CHOICES = [

@@ -409,13 +409,12 @@ class CreateProject(View):
 
         audience_options = [
     {"name": "General", "id": "general"},
-    {"name": "Particular target Audience (Please specify)", "id": "target"},
     {"name": "Adults", "id": "adults"},
     {"name": "Tertiary students", "id": "tertiary"},
     {"name": "High school age", "id": "high_school"},
     {"name": "Primary School age", "id": "primary_school"},
     {"name": "Early years", "id": "early_years"},
-    {"name": "Adults >60 please", "id": "adults_60"}
+    {"name": "Adults >60", "id": "adults_60"}
 ]
 
         esd_themes = [
