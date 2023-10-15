@@ -51,28 +51,33 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 def search_users(request):
-    if request.method == 'GET':
-        search_query = request.GET.get('search_query', '')
+    if request.method != 'GET':
+        # Return an empty queryset by default
+        return render(
+            request, {
+                'users': CustomUser.objects.none(),
+                "search_query": request.GET.get('search_query', ''),
+            }
+        )
+    
+    search_query = request.GET.get('search_query', '')
 
-        # Perform the search query based on user input
-        users = CustomUser.objects.filter(
-            Q(email__icontains=search_query) |
-            Q(user_name__icontains=search_query) |
-            Q(interested_projects__title__icontains=search_query) |
-            Q(organisation__org_name__icontains=search_query) |
-            Q(role_organisation__icontains=search_query) |
-            Q(interested_sdgs__sdg__icontains=search_query) |
-            Q(rce_hub__hub_name__icontains=search_query)
-        ).distinct()
-    else:
-        users = CustomUser.objects.none()  # Return an empty queryset by default
+    # Perform the search query based on user input
+    users = CustomUser.objects.filter(
+        Q(email__icontains=search_query) |
+        Q(user_name__icontains=search_query) |
+        Q(interested_projects__title__icontains=search_query) |
+        Q(organisation__org_name__icontains=search_query) |
+        Q(role_organisation__icontains=search_query) |
+        Q(interested_sdgs__sdg__icontains=search_query) |
+        Q(rce_hub__hub_name__icontains=search_query)
+    ).distinct()
 
-    context = {
-        'users': users,
-        'search_query': search_query
-    }
-
-    return render(request, 'UNRCE_APP/user_search.html', context)
+    return render(
+        request, 
+        'UNRCE_APP/user_search.html', 
+        { 'users': users, 'search_query': search_query }
+    )
 
 
 from django.contrib.auth.views import LoginView
@@ -102,13 +107,11 @@ class CustomLoginView(LoginView):
         return super().form_valid(form)
 
     def form_invalid(self, form):
-
         captcha_key = CaptchaStore.generate_key()  # Always regenerate the captcha_key
         messages.error(self.request, "Failed to log in. Please check your credentials.")
         return render(
             self.request,
-            "UNRCE_APP/login.html",
-            {
+            "UNRCE_APP/login.html",{
                 "form": form,
                 "captcha_key": captcha_key
             }
@@ -118,8 +121,7 @@ class CustomLoginView(LoginView):
         captcha_key = CaptchaStore.generate_key()
         return render(
             request, 
-            "UNRCE_APP/login.html", 
-            {
+            "UNRCE_APP/login.html", {
                 "captcha_key": captcha_key, 
                 "form": self.get_form()
             },
@@ -130,16 +132,16 @@ class CustomLoginView(LoginView):
         
         if form.is_valid():
             return self.form_valid(form)
-        else:
-            captcha_key = CaptchaStore.generate_key()
-            return render(
-                request,
-                "UNRCE_APP/login.html",
-                {
-                    "form": form,
-                    "captcha_key": captcha_key
-                }
-            )
+        
+        captcha_key = CaptchaStore.generate_key()
+        return render(
+            request,
+            "UNRCE_APP/login.html",
+            {
+                "form": form,
+                "captcha_key": captcha_key
+            }
+        )
 
 
 class SignUpView(View):
@@ -148,8 +150,7 @@ class SignUpView(View):
         captcha_key = CaptchaStore.generate_key()
         return render(
             request,
-            "UNRCE_APP/signup.html",
-            {
+            "UNRCE_APP/signup.html",{
                 "form": CustomUserCreationForm(),
                 "captcha_key": captcha_key,
             },
@@ -173,37 +174,48 @@ class SignUpView(View):
                 },
             )
 
-        if form.is_valid():
-            email = form.cleaned_data.get('email')  # Get email address
-            
-            # No need to query the database anymore
-            user = form.save(commit=False)  # Create but do not save user object
-            user.is_active = False  # Make user inactive until they confirm email
-            user.save()
-
-            # Generate token and send email
-            current_site = get_current_site(request)
-            mail_subject = 'Activate your account.'
-            message = render_to_string(
-                'UNRCE_APP/account_activation_email.html', {
-                    'user': user,
-                    'domain': current_site.domain,
-                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                    'token': account_activation_token.make_token(user),
-                }
+        if not form.is_valid():
+            messages.error(request, "Form invalid!")
+            captcha_key = CaptchaStore.generate_key()  # Regenerate the captcha_key
+            return render(
+                request,
+                "UNRCE_APP/signup.html",
+                {
+                    "form": form,  # Use the same form instance to retain the user's input
+                    "captcha_key": captcha_key,
+                },
             )
 
-            # Send the email using SendGrid
-            sg = SendGridAPIClient('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')  # Make sure to replace with your SendGrid API key
-            email_msg = Mail(
-                from_email='Rce.uwa@gmail.com',
-                to_emails=email,
-                subject=mail_subject,
-                html_content=message)
-            response = sg.send(email_msg)
-            messages.success(request, 'A reset password link has been sent to your email.')
+        email = form.cleaned_data.get('email')  # Get email address
+        
+        # No need to query the database anymore
+        user = form.save(commit=False)  # Create but do not save user object
+        user.is_active = False  # Make user inactive until they confirm email
+        user.save()
 
-            return render(request, 'UNRCE_APP/account_activation_sent.html')
+        # Generate token and send email
+        current_site = get_current_site(request)
+        mail_subject = 'Activate your account.'
+        message = render_to_string(
+            'UNRCE_APP/account_activation_email.html', {
+                'user': user,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': account_activation_token.make_token(user),
+            }
+        )
+
+        # Send the email using SendGrid
+        sg = SendGridAPIClient('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')  # Make sure to replace with your SendGrid API key
+        email_msg = Mail(
+            from_email='Rce.uwa@gmail.com',
+            to_emails=email,
+            subject=mail_subject,
+            html_content=message)
+        response = sg.send(email_msg)
+        messages.success(request, 'A reset password link has been sent to your email.')
+
+        return render(request, 'UNRCE_APP/account_activation_sent.html')
 
 
 def activate_account(request, uidb64, token):
@@ -211,15 +223,17 @@ def activate_account(request, uidb64, token):
         uid = force_str(urlsafe_base64_decode(uidb64))
         user = CustomUser.objects.get(pk=uid)
     except(TypeError, ValueError, OverflowError, CustomUser.DoesNotExist):
-        user = None
-    if user is not None and account_activation_token.check_token(user, token):
-        user.is_active = True
-        user.email_confirmed = True
-        user.save()
-        messages.success(request, 'Account activated successfully.')
-        return redirect('UNRCE_APP:login')
-    else:
         return HttpResponse('Activation link is invalid!')
+    
+    if not account_activation_token.check_token(user, token):
+        return HttpResponse('Activation link is invalid!')
+    
+    user.is_active = True
+    user.email_confirmed = True
+    user.save()
+    messages.success(request, 'Account activated successfully.')
+    return redirect('UNRCE_APP:login')
+        
 
         
 def forgot_password(request):
@@ -286,64 +300,58 @@ def reset_password(request, uidb64, token):
      
 
 class IndexView(View):
-  def get(self, request):
-    images = Image.objects.order_by("uploaded_date")
-    return render(
-      request,
-      "UNRCE_APP/index.html",
-      {"images": images},
-    )
+    def get(self, request):
+        images = Image.objects.order_by("uploaded_date")
+        return render(
+            request,
+            "UNRCE_APP/index.html",
+            {"images": images},
+        )
 
 
 class UploadImageView(LoginRequiredMixin, View):
-  # Not authenticated users will be redirected
-  # to /login page if they try to access this view
-  login_url = "/login/"
+    # Not authenticated users will be redirected
+    # to /login page if they try to access this view
+    login_url = "/login/"
 
-  def get(self, request):
-    return render(
-      request,
-      "UNRCE_APP/upload.html",
-      {
-        "form": UploadImageForm(),
-      },
-    )
+    def get(self, request):
+        return render(
+            request,
+            "UNRCE_APP/upload.html",
+            {"form": UploadImageForm()},
+        )
 
-  def post(self, request):
-    user = request.user
-    if not user.is_authenticated:
-      # Double check that user is authenticated
-      raise Exception("User is not authenticated")
+    def post(self, request):
+        user = request.user
+        if not user.is_authenticated:
+            raise Exception("User is not authenticated")
 
-    # File, uploaded by user, will be available at request.FILES
-    form = UploadImageForm(request.POST, request.FILES)
+        # File, uploaded by user, will be available at request.FILES
+        form = UploadImageForm(request.POST, request.FILES)
 
-    if form.is_valid():
-      # Creating a new image model instance
-      img = Image(
+        if not form.is_valid():
+            # re-render form, show validation errors 
+            return render(
+                request,
+                "UNRCE_APP/upload.html",
+                {"form": form},
+            )
+        
+        # Creating a new image model instance
+        img = Image(
         # get title from form.data
         title=form.data["title"],
         # get image from form.files
         image=form.files["image"],
         uploaded_date=datetime.now(),
         uploaded_by=user,
-      )
+        )
 
-      # save image to database
-      img.save()
+        # save image to database
+        img.save()
 
-      # redirect to index page upon successful upload
-      return redirect("/")
-
-    # re-render form, show validation errors 
-    return render(
-      request,
-      "UNRCE_APP/upload.html",
-      {
-        "form": form,
-      },
-    )
-
+        # redirect to index page upon successful upload
+        return redirect("/")
 
 
 def contact_us(request):
@@ -374,11 +382,10 @@ def myaccount_edit(request):
 #         'featured_projects': featured_projects
 #     })
 
-#return index page
+
 def index(request):
     return render(request, 'UNRCE_APP/index.html')
-#display information from the chosen project page
-# hello 
+
 def specific_project(request):
     img_src = request.GET.get('img', '') 
     title_text = request.GET.get('title', '')
@@ -474,13 +481,10 @@ class CreateProject(LoginRequiredMixin, View):
             {"description": "Plants Animals", "name": "plants_animals"},
             {"description": "Waste", "name": "waste"}
         ]
-
-        print(request.POST)        
+     
         user = request.user
-
         action = request.POST.get("action", "save")  # Default to 'save' if 'action' isn't present
         status = "submitted" if action == "submit" else "draft"
-
 
         new_project = Project(
             title=request.POST.get("title"),
@@ -508,69 +512,67 @@ class CreateProject(LoginRequiredMixin, View):
 
         for sdg in sdgs_options:
             relationship_value = request.POST.get("sdg_relationship_" + "SDG" + sdg.split('_')[-1])
-            print(f"Checking SDG: {sdg}, Relationship Value: {relationship_value}")
 
-            if relationship_value:
-                try:
-                    sdg_instance = SDG.objects.get(sdg=sdg)
-                except SDG.DoesNotExist:
-                    print(f"SDG {sdg} does not exist in the database! and RV == {relationship_value}")
-                    continue
+            if not relationship_value:
+                continue
 
-                project_sdg = ProjectSDG(project=new_project, goal=sdg_instance, relationship_type=relationship_value)
-                project_sdg.save()
+            try:
+                sdg_instance = SDG.objects.get(sdg=sdg)
+            except SDG.DoesNotExist:
+                continue
 
+            project_sdg = ProjectSDG(project=new_project, goal=sdg_instance, relationship_type=relationship_value)
+            project_sdg.save()
 
         for esd in esd_themes:
             relationship_value = request.POST.get(esd["name"])
 
-            if relationship_value:
-                try:
-                    esd_instance = ESD.objects.get(name=esd["name"])
-                    project_esd = ProjectESD(project=new_project, esd=esd_instance, relationship_type=relationship_value)
-                    project_esd.save()
-                except ESD.DoesNotExist:
-                    print(f"ESD {esd} does not exist in the database! and RV == {relationship_value}")
-                    continue
+            if not relationship_value:
+                continue
 
-                
+            try:
+                esd_instance = ESD.objects.get(name=esd["name"])
+            except ESD.DoesNotExist:
+                continue
 
+            project_esd = ProjectESD(project=new_project, esd=esd_instance, relationship_type=relationship_value)
+            project_esd.save()
 
         for pa in pa_options:
             relationship_value = request.POST.get(pa["name"])
 
-            if relationship_value:
-                try:
-                    # Assuming you're fetching the ESD instance based on its name
-                    pa_instance = PriorityArea.objects.get(name=pa["name"])
-
-                    # Move the code that uses esd_instance inside the try block
-                    project_priorityarea = ProjectPriorityArea(project=new_project, priority_area=pa_instance, relationship_type=relationship_value)
-                    project_priorityarea.save()
+            if not relationship_value:
+                continue
             
-                except PriorityArea.DoesNotExist:
-                    print(f"PriorityArea {pa['name']} does not exist in the database! and RV == {relationship_value}")
-                    continue
+            try:
+                # Assuming you're fetching the ESD instance based on its name
+                pa_instance = PriorityArea.objects.get(name=pa["name"])
+            except PriorityArea.DoesNotExist:
+                continue
+            
+            project_priorityarea = ProjectPriorityArea(project=new_project, priority_area=pa_instance, relationship_type=relationship_value)
+            project_priorityarea.save()
 
         return render(request, 'UNRCE_APP/contact-us.html')
     
 def edit_project(request, project_id):
 
-
-
     project = get_object_or_404(Project, pk=project_id)
 
-    if request.method == 'POST':
-        form = ProjectForm(request.POST, instance=project)
-        if form.is_valid():
-            form.save()
-            # Redirect to a success page or update the current page as needed
-            return redirect('UNRCE_APP/contact-us.html')  # Change 'success_page' to your desired URL name
+    if request.method != 'POST':
+        return render(request, 'UNRCE_APP/edit_project.html', {'form': ProjectForm(instance=project)})
+    
+    form = ProjectForm(request.POST, instance=project)
 
-    else:
-        form = ProjectForm(instance=project)
+    if not form.is_valid():
+        return render(request, 'UNRCE_APP/edit_project.html', {'form': form})
+    
+    form.save()
 
-    return render(request, 'UNRCE_APP/edit_project.html', {'form': form})
+    # Redirect to a success page or update the current page as needed
+    return redirect('/myaccount/')  
+
+    
 
 """
           sdgs = ['SDG1', 'SDG2', 'SDG3', 'SDG4', 'SDG5']  # List of SDGs
