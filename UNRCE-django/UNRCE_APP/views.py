@@ -174,22 +174,24 @@ class SignUpView(View):
             )
 
         if form.is_valid():
-            email = form.cleaned_data.get('email')  # 获取邮箱地址
+            email = form.cleaned_data.get('email')  # Get email address
             
-            # 不需要再查询数据库
-            user = form.save(commit=False)  # 创建但不保存用户对象
+            # No need to query the database anymore
+            user = form.save(commit=False)  # Create but do not save user object
             user.is_active = False  # Make user inactive until they confirm email
             user.save()
 
             # Generate token and send email
             current_site = get_current_site(request)
             mail_subject = 'Activate your account.'
-            message = render_to_string('UNRCE_APP/account_activation_email.html', {
-                'user': user,
-                'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': account_activation_token.make_token(user),
-            })
+            message = render_to_string(
+                'UNRCE_APP/account_activation_email.html', {
+                    'user': user,
+                    'domain': current_site.domain,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token': account_activation_token.make_token(user),
+                }
+            )
 
             # Send the email using SendGrid
             sg = SendGridAPIClient('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')  # Make sure to replace with your SendGrid API key
@@ -199,7 +201,6 @@ class SignUpView(View):
                 subject=mail_subject,
                 html_content=message)
             response = sg.send(email_msg)
-            print('sent message successfully')
             messages.success(request, 'A reset password link has been sent to your email.')
 
             return render(request, 'UNRCE_APP/account_activation_sent.html')
@@ -222,66 +223,67 @@ def activate_account(request, uidb64, token):
 
         
 def forgot_password(request):
-  User = get_user_model()
-  if request.method == "POST":
-      email = request.POST['email']
-      user = User.objects.filter(email=email).first()
-      if not user:
-          print('no user found')
-          messages.error(request, 'No account with this email address exists.')
-          return render(request, 'UNRCE_APP/forgot_password.html')
-      elif user:
-          print('found user')
-          current_site = get_current_site(request)
-          mail_subject = 'Reset your password.'
-          message = render_to_string('UNRCE_APP/reset_password_email.html', {
-              'user': user,
-              'domain': current_site.domain,
-              'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-              'token': account_activation_token.make_token(user),
-          })
-          
-          # Send the email using SendGrid
-          sg = SendGridAPIClient('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')  # Make sure to replace with your SendGrid API key
-          email_msg = Mail(
-              from_email='Rce.uwa@gmail.com',
-              to_emails=email,
-              subject=mail_subject,
-              html_content=message)
-          response = sg.send(email_msg)
-          print('sent message successfully')
-          messages.success(request, 'A reset password link has been sent to your email.')
-          return render(request, 'UNRCE_APP/email_sent_confirmation.html')
+    User = get_user_model()
+    if request.method != "POST":
+        return render(request, 'UNRCE_APP/forgot_password.html')
+    
+    email = request.POST['email']
+    user = User.objects.filter(email=email).first()
 
-  return render(request, 'UNRCE_APP/forgot_password.html')
+    if not user:
+        messages.error(request, 'No account with this email address exists.')
+        return render(request, 'UNRCE_APP/forgot_password.html')
+    
+    current_site = get_current_site(request)
+    mail_subject = 'Reset your password.'
+    message = render_to_string(
+        'UNRCE_APP/reset_password_email.html', {
+            'user': user,
+            'domain': current_site.domain,
+            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+            'token': account_activation_token.make_token(user),
+        }
+    )
+    
+    # Send the email using SendGrid, TODO: Include the API Key in the settings file
+    sg = SendGridAPIClient('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') 
+    email_msg = Mail(
+        from_email='Rce.uwa@gmail.com',
+        to_emails=email,
+        subject=mail_subject,
+        html_content=message,
+    )
+    response = sg.send(email_msg)
+    messages.success(request, 'A reset password link has been sent to your email.')
+    return render(request, 'UNRCE_APP/email_sent_confirmation.html')
 
 #display reset password page
 def reset_password(request, uidb64, token):
-  print("UID:", uidb64)
-  print("TOKEN:", token)
-  User = get_user_model()
-  try:
-      uid = force_str(urlsafe_base64_decode(uidb64))
-      user = User.objects.get(pk=uid)
-  except(TypeError, ValueError, OverflowError, User.DoesNotExist):
-      user = None
-  if user is not None and account_activation_token.check_token(user, token):
-      if request.method == 'POST':
-          password = request.POST['new_password']
-          password2 = request.POST['retype_password']
-          if password == password2:
-              user.set_password(password)
-              user.save()
-              messages.success(request, 'Password reset successfully.')
-              return redirect('UNRCE_APP:login')
-          else:
-              messages.error(request, 'Passwords do not match.')
-      return render(request, 'UNRCE_APP/reset_password.html')
-  else:
-      return HttpResponse('Reset password link is invalid!')
-
-
-        
+    User = get_user_model()
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    
+    if user is None or not account_activation_token.check_token(user, token):
+        return HttpResponse('Reset password link is invalid!')
+    
+    if request.method != 'POST':
+        return render(request, 'UNRCE_APP/reset_password.html')    
+    
+    password = request.POST['new_password']
+    password2 = request.POST['retype_password']
+    
+    if password != password2:
+        messages.error(request, 'Passwords do not match.')
+        return render(request, 'UNRCE_APP/reset_password.html')
+    
+    user.set_password(password)
+    user.save()
+    messages.success(request, 'Password reset successfully.')
+    return redirect('UNRCE_APP:login')
+     
 
 class IndexView(View):
   def get(self, request):
@@ -289,9 +291,7 @@ class IndexView(View):
     return render(
       request,
       "UNRCE_APP/index.html",
-      {
-        "images": images,
-      },
+      {"images": images},
     )
 
 
@@ -350,14 +350,17 @@ def contact_us(request):
     return render(request, 'UNRCE_APP/contact-us.html')
 def users_info(request):
     return render(request, 'UNRCE_APP/users_info.html')
-#display projects page
+
 def projects(request):
-    project_query = Project.objects.all()   # Store the rows from the "Project" table, and store them in project_query
-    return render(request, 'UNRCE_APP/projects.html', {'project_query': project_query})   # Dictionary Containing data to send. Includes the project_query variable passed with name "project_query"
-# My Account Page
+    # Store the rows from the "Project" table, and store them in project_query
+    project_query = Project.objects.all()   
+    
+    # Dictionary Containing data to send. Includes the project_query variable passed with name "project_query"
+    return render(request, 'UNRCE_APP/projects.html', {'project_query': project_query})   
+
 def myaccount(request):
     return render(request, 'UNRCE_APP/myaccount.html')
-# My Account Page
+
 def myaccount_edit(request):
     return render(request, 'UNRCE_APP/myaccount_edit.html')
 
@@ -384,51 +387,49 @@ def specific_project(request):
 
 class CreateProject(View):
 
-    
-    
     def get(self, request):
-        sdgs_options = ['SDG1 - No Poverty', 'SDG2 - Zero Hunger', 'SDG3 - Good Health and Well-being', 
-                        'SDG4 - Quality Education', 'SDG5 - Gender Equality', 'SDG6 - Clean Water and Sanitation', 
-                        'SDG7 - Affordable and Clean Energy', 'SDG8 - Decent Work and Economic Growth', 
-                        'SDG9 - Industry, Innovation and Infrastructure', 'SDG10 - Reduced Inequalities',
-                        'SDG11 - Sustainable Cities and Communities', 'SDG12 - Responsible Consumption and Production', 
-                        'SDG13 - Climate Action', 'SDG14 - Life Below Water', 'SDG15 - Life on Land', 
-                        'SDG16 - Peace, Justice and Strong Institutions', 'SDG17 - Partnerships for the Goals']  # List of SDGs
-        
+        sdgs_options = [
+            'SDG1 - No Poverty', 'SDG2 - Zero Hunger', 'SDG3 - Good Health and Well-being', 
+            'SDG4 - Quality Education', 'SDG5 - Gender Equality', 'SDG6 - Clean Water and Sanitation', 
+            'SDG7 - Affordable and Clean Energy', 'SDG8 - Decent Work and Economic Growth', 
+            'SDG9 - Industry, Innovation and Infrastructure', 'SDG10 - Reduced Inequalities',
+            'SDG11 - Sustainable Cities and Communities', 'SDG12 - Responsible Consumption and Production', 
+            'SDG13 - Climate Action', 'SDG14 - Life Below Water', 'SDG15 - Life on Land', 
+            'SDG16 - Peace, Justice and Strong Institutions', 'SDG17 - Partnerships for the Goals'
+        ]  
 
         delivery_frequency_options = [
-        {"name": "Monthly", "id": "monthly"},
-        {"name": "Quarterly", "id": "quarterly"},
-        {"name": "Biannually", "id": "biannually"},
-        {"name": "Annually", "id": "annually"},
-        {"name": "Ongoing", "id": "ongoing"},
-        {"name": "Once", "id": "once"},
-        {"name": "Opportunistic/Irregularly", "id": "irregular"},
-        {"name": "Permanent/On demand", "id": "on_demand"}]
-
+            {"name": "Monthly", "id": "monthly"},
+            {"name": "Quarterly", "id": "quarterly"},
+            {"name": "Biannually", "id": "biannually"},
+            {"name": "Annually", "id": "annually"},
+            {"name": "Ongoing", "id": "ongoing"},
+            {"name": "Once", "id": "once"},
+            {"name": "Opportunistic/Irregularly", "id": "irregular"},
+            {"name": "Permanent/On demand", "id": "on_demand"}
+        ]
 
         audience_options = [
-    {"name": "General", "id": "general"},
-    {"name": "Adults", "id": "adults"},
-    {"name": "Tertiary students", "id": "tertiary"},
-    {"name": "High school age", "id": "high_school"},
-    {"name": "Primary School age", "id": "primary_school"},
-    {"name": "Early years", "id": "early_years"},
-    {"name": "Adults >60", "id": "adults_60"}
-]
+            {"name": "General", "id": "general"},
+            {"name": "Adults", "id": "adults"},
+            {"name": "Tertiary students", "id": "tertiary"},
+            {"name": "High school age", "id": "high_school"},
+            {"name": "Primary School age", "id": "primary_school"},
+            {"name": "Early years", "id": "early_years"},
+            {"name": "Adults >60", "id": "adults_60"}
+        ]
 
         esd_themes = [
-    {"description": "Disaster Risk Reduction", "name": "disaster_risk_reduction"},
-    {"description": "Traditional Knowledge", "name": "traditional_knowledge"},
-    {"description": "Agriculture", "name": "agriculture"},
-    {"description": "Arts", "name": "arts"},
-    {"description": "Curriculum Development", "name": "curriculum_development"},
-    {"description": "Ecotourism", "name": "ecotourism"},
-    {"description": "Forests Trees", "name": "forests_trees"},
-    {"description": "Plants Animals", "name": "plants_animals"},
-    {"description": "Waste", "name": "waste"}
-]
-
+            {"description": "Disaster Risk Reduction", "name": "disaster_risk_reduction"},
+            {"description": "Traditional Knowledge", "name": "traditional_knowledge"},
+            {"description": "Agriculture", "name": "agriculture"},
+            {"description": "Arts", "name": "arts"},
+            {"description": "Curriculum Development", "name": "curriculum_development"},
+            {"description": "Ecotourism", "name": "ecotourism"},
+            {"description": "Forests Trees", "name": "forests_trees"},
+            {"description": "Plants Animals", "name": "plants_animals"},
+            {"description": "Waste", "name": "waste"}
+        ]
 
         pa_options = [
             {"description": "Advancing policy Direct", "name": "priority_area_1"},
@@ -438,7 +439,13 @@ class CreateProject(View):
             {"description": "Accelerating sustainable solutions at local level Direct", "name": "priority_area_5"},
         ]
 
-        context = {'sdgs': sdgs_options, 'audience_options': audience_options, 'delivery_frequency_options': delivery_frequency_options, 'pa_options': pa_options, 'esd_themes':esd_themes}
+        context = {
+            'sdgs': sdgs_options, 
+            'audience_options': audience_options, 
+            'delivery_frequency_options': delivery_frequency_options, 
+            'pa_options': pa_options, 
+            'esd_themes':esd_themes
+        }
 
         return render(request, 'UNRCE_APP/create_project.html', context)
     
@@ -456,16 +463,16 @@ class CreateProject(View):
 
        
         esd_themes = [
-    {"description": "Disaster Risk Reduction", "name": "disaster_risk_reduction"},
-    {"description": "Traditional Knowledge", "name": "traditional_knowledge"},
-    {"description": "Agriculture", "name": "agriculture"},
-    {"description": "Arts", "name": "arts"},
-    {"description": "Curriculum Development", "name": "curriculum_development"},
-    {"description": "Ecotourism", "name": "ecotourism"},
-    {"description": "Forests Trees", "name": "forests_trees"},
-    {"description": "Plants Animals", "name": "plants_animals"},
-    {"description": "Waste", "name": "waste"}
-]
+            {"description": "Disaster Risk Reduction", "name": "disaster_risk_reduction"},
+            {"description": "Traditional Knowledge", "name": "traditional_knowledge"},
+            {"description": "Agriculture", "name": "agriculture"},
+            {"description": "Arts", "name": "arts"},
+            {"description": "Curriculum Development", "name": "curriculum_development"},
+            {"description": "Ecotourism", "name": "ecotourism"},
+            {"description": "Forests Trees", "name": "forests_trees"},
+            {"description": "Plants Animals", "name": "plants_animals"},
+            {"description": "Waste", "name": "waste"}
+        ]
 
         print(request.POST)        
         user = request.user
@@ -475,27 +482,27 @@ class CreateProject(View):
 
 
         new_project = Project(
-        title=request.POST.get("title"),
-        description=request.POST.get("description"),
-        audience=request.POST.getlist("audience-options"),
-        delivery_frequency=request.POST.get("delivery_frequency"),
-        created_at=request.POST.get("start_date"),
-        concluded_on=request.POST.get("end_date"),
-        #manager=user,  # to set the currently logged-in user as the manager
-        #project_cover_image=request.FILES.get("project_cover_image"),
-        language=request.POST.get("language"),
-        format=request.POST.get("format"),
-        web_link=request.POST.get("web_link"),
-        policy_link=request.POST.get("policy_link"),
-        results=request.POST.get("results"),
-        lessons_learned=request.POST.get("lessons_learned"),
-        key_messages=request.POST.get("key_messages"),
-        relationship_to_rce_activities=request.POST.get("relationship_to_rce_activities"),
-        funding=request.POST.get("funding"),
-        status=status
-    )
+            title=request.POST.get("title"),
+            description=request.POST.get("description"),
+            audience=request.POST.getlist("audience-options"),
+            delivery_frequency=request.POST.get("delivery_frequency"),
+            created_at=request.POST.get("start_date"),
+            concluded_on=request.POST.get("end_date"),
+            #manager=user,  # to set the currently logged-in user as the manager
+            #project_cover_image=request.FILES.get("project_cover_image"),
+            language=request.POST.get("language"),
+            format=request.POST.get("format"),
+            web_link=request.POST.get("web_link"),
+            policy_link=request.POST.get("policy_link"),
+            results=request.POST.get("results"),
+            lessons_learned=request.POST.get("lessons_learned"),
+            key_messages=request.POST.get("key_messages"),
+            relationship_to_rce_activities=request.POST.get("relationship_to_rce_activities"),
+            funding=request.POST.get("funding"),
+            status=status
+        )
 
-    # Save the new project instance to the database
+        # Save the new project instance to the database
         new_project.save()
 
         for sdg in sdgs_options:
@@ -510,7 +517,6 @@ class CreateProject(View):
                     continue
 
                 project_sdg = ProjectSDG(project=new_project, goal=sdg_instance, relationship_type=relationship_value)
-                print(sdg + " heyyyyyyyyyyyyyyyyyy")
                 project_sdg.save()
 
 
@@ -534,20 +540,16 @@ class CreateProject(View):
 
             if relationship_value:
                 try:
-            # Assuming you're fetching the ESD instance based on its name
+                    # Assuming you're fetching the ESD instance based on its name
                     pa_instance = PriorityArea.objects.get(name=pa["name"])
-            
-            # Move the code that uses esd_instance inside the try block
+
+                    # Move the code that uses esd_instance inside the try block
                     project_priorityarea = ProjectPriorityArea(project=new_project, priority_area=pa_instance, relationship_type=relationship_value)
-                    print(pa['name'] + " processed!")
                     project_priorityarea.save()
             
                 except PriorityArea.DoesNotExist:
                     print(f"PriorityArea {pa['name']} does not exist in the database! and RV == {relationship_value}")
                     continue
-
-
-
 
         return render(request, 'UNRCE_APP/contact-us.html')
     
