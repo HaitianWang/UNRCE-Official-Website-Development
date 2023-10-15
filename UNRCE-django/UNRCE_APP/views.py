@@ -146,6 +146,7 @@ class SignUpView(View):
                 login(request, user)
             return redirect("/")
 
+
         # If form is not valid, also regenerate the captcha_key
         captcha_key = CaptchaStore.generate_key()
         return render(
