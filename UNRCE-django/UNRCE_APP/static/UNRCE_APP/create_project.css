@@ -108,7 +108,7 @@ textarea {
 
 
 .tablinks {
-  /* background-color: #0d47a1; */
+  /*background-color: #0d47a1;*/
   float: left;
   border: none;
   outline: none;
@@ -178,7 +178,7 @@ form {
   border: 1px solid #e0e0e0; /* light grey border */
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05); /* subtle shadow */
   background-color: #fdfdfd;
-  /* background-color: #f0f0f0;  */
+  /*background-color: #f0f0f0;*/ 
   padding: 20px;
   margin-bottom: 50px;
   padding-bottom: 50px; /* This adds white space inside the grey form area, at the bottom */
@@ -187,7 +187,6 @@ form {
 }
 
 form * {
-
     border-color: transparent !important;
 }
 
@@ -306,17 +305,15 @@ h3 {
 .tab {
     overflow: hidden;
     border: 1px solid #ccc;
-    /* background-color: #f1f1f1; */
+    /*background-color: #f1f1f1;*/
 }
-
-
 
 .tablinks:hover {
     background-color: #ddd;
 }
 
 .tablinks.active {
-    background-color:#ffc61a;
+  background-color: #ffc61a;
 }
 
 .tabcontent {
