@@ -3,16 +3,24 @@
 {% block content %}
 
 
+
 <form method="post">
   {% csrf_token %}
  
  <div class="tab">
+<<<<<<< HEAD
+    <button class="tablinks" data-tabname="Tab1" id="defaultOpen">Main</button>
+=======
     <button class="tablinks" data-tabname="Tab1" id="defaultOpen">General</button>
+>>>>>>> permission
     <button class="tablinks" data-tabname="Tab2">Location</button>
     <button class="tablinks" data-tabname='Tab3'>Contents</button>
     <button class="tablinks" data-tabname='Tab4'>SDG</button>
     <button class="tablinks" data-tabname='Tab5'>ESD</button>
     <button class="tablinks" data-tabname='Tab6'>Submit</button>
+
+    <input type="hidden" name="action" value="save" id="form-action">
+
 
   </div>
     
@@ -35,6 +43,22 @@
       
 
 
+<<<<<<< HEAD
+        <label class = "custom-label" for="description">Description:</label><br>
+        <textarea id="description" name="description" rows="4" cols="50"></textarea><br><br>
+        
+        <label class = "custom-label" for="language">Language:</label>
+        <input type="text" id="language" name="language"><br><br>
+        
+        <label class = "custom-label" for="format">Format:</label>
+        <input type="text" id="format" name="format"><br><br>
+        
+        <label class = "custom-label" for="web_link">Web Link:</label>
+        <input type="text" id="web_link" name="web_link"><br><br>
+        
+        <label class = "custom-label" for="policy_link">Policy Link:</label>
+        <input type="text" id="policy_link" name="policy_link"><br><br>
+=======
         <label for="description">Description:</label>
         <textarea id="description" name="description" rows="4" cols="50"></textarea>
         
@@ -46,6 +70,7 @@
         
         <label for="policy_link">Policy Link:</label>
         <input type="text" id="policy_link" name="policy_link">
+>>>>>>> permission
         
   </div>
 
@@ -55,17 +80,25 @@
     
     <!-- Form fields for Tab 2 -->
 
+<<<<<<< HEAD
+        <label class = "custom-label" >Target Audience:</label><br>
+=======
         <label class="form_header">Target Audience:</label>
+>>>>>>> permission
         
         {% for option in audience_options %}
             <input type="checkbox" id="{{ option.id }}" name="audience-options" value="{{ option.id }}">
-            <label for="{{ option.id }}">{{ option.name }}</label><br>
+            <label class="selection-label" for="{{ option.id }}">{{ option.name }}</label><br>
         {% endfor %}
 
+<<<<<<< HEAD
+        <label class = "custom-label">Delivery Frequency:</label>
+=======
         <label class="form_header">Delivery Frequency:</label>
+>>>>>>> permission
         {% for option in delivery_frequency_options %}
             <input type="radio" id="{{ option.id }}" name="delivery_frequency" value="{{ option.id }}">
-            <label for="{{ option.id }}">{{ option.name }}</label><br>
+            <label class="selection-label" for="{{ option.id }}">{{ option.name }}</label><br>
         {% endfor %}
         
 
@@ -76,6 +109,22 @@
 
 <div id="Tab3" class="tabcontent">
     
+<<<<<<< HEAD
+        <label class = "custom-label" for="results">Results:</label>
+        <textarea id="results" name="results" rows="2" cols="50"></textarea><br><br>
+        
+        <label class = "custom-label" for="lessons_learned">Lessons Learned:</label>
+        <textarea id="lessons_learned" name="lessons_learned" rows="2" cols="50"></textarea><br><br>
+        
+        <label class = "custom-label" for="key_messages">Key Messages:</label>
+        <textarea id="key_messages" name="key_messages" rows="2" cols="50"></textarea><br><br>
+        
+        <label class = "custom-label" for="relationship_to_rce_activities">Relationship to RCE Activities:</label>
+        <textarea id="relationship_to_rce_activities" name="relationship_to_rce_activities" rows="2" cols="50"></textarea><br><br>
+        
+        <label class = "custom-label" for="funding">Funding:</label>
+        <textarea id="funding" name="funding" rows="2" cols="50"></textarea><br><br>
+=======
         <label for="results">Results:</label>
         <textarea id="results" name="results" rows="2" cols="50"></textarea>
         
@@ -90,6 +139,7 @@
         
         <label for="funding">Funding:</label>
         <textarea id="funding" name="funding" rows="2" cols="50"></textarea>
+>>>>>>> permission
     
 </div>
 
@@ -121,36 +171,36 @@
 <div id="Tab5" class="tabcontent">
     <!-- ESD and PAA -->
 
-    <label for="esdThemes">Choose the Activities from the following:</label>
+    <label class = "custom-label" for="esd_themes">Choose the ESD themes from the following:</label>
     <div id="sdgs-selection">
         {% for option in esd_themes %}
         <div class="sdg-item">
             <div class="sdg-name">
-                <p>{{ option.name }}</p>
+                <p>{{ option.description }}</p>
             </div>
             <div class="sdg-option">
-                <label class="sdg-option-label" for="{{ option.id }}_indirect">Indirect</label>
-                <input type="radio" id="{{ option.id }}_indirect" name="{{ option.id }}" value="indirect">
-                <label class="sdg-option-label" for="{{ option.id }}_direct">Direct</label>
-                <input type="radio" id="{{ option.id }}_direct" name="{{ option.id }}" value="direct">
+                <label class="sdg-option-label" for="{{ option.name }}_indirect">Indirect</label>
+                <input type="radio" id="{{ option.name }}_indirect" name="{{ option.name }}" value="indirect">
+                <label class="sdg-option-label" for="{{ option.name }}_direct">Direct</label>
+                <input type="radio" id="{{ option.name }}_direct" name="{{ option.name }}" value="direct">
             </div>
         </div>
         {% endfor %}
     </div>
 
 
-    <label for="esdOptions">Choose the Activities from the following:</label>
+    <label class = "custom-label" for="pa_options">Choose the Priority Access Activities from the following:</label>
     <div id="sdgs-selection">
-        {% for option in esd_options %}
+        {% for option in pa_options %}
         <div class="sdg-item">
             <div class="sdg-name">
-                <p>{{ option.name }}</p>
+                <p>{{ option.description }}</p>
             </div>
             <div class="sdg-option">
-                <label class="sdg-option-label" for="{{ option.id }}_indirect">Indirect</label>
-                <input type="radio" id="{{ option.id }}_indirect" name="{{ option.id }}" value="indirect">
-                <label class="sdg-option-label" for="{{ option.id }}_direct">Direct</label>
-                <input type="radio" id="{{ option.id }}_direct" name="{{ option.id }}" value="direct">
+                <label class="sdg-option-label" for="{{ option.name }}_indirect">Indirect</label>
+                <input type="radio" id="{{ option.name }}_indirect" name="{{ option.name }}" value="indirect">
+                <label class="sdg-option-label" for="{{ option.name }}_direct">Direct</label>
+                <input type="radio" id="{{ option.name }}_direct" name="{{ option.name }}" value="direct">
             </div>
         </div>
         {% endfor %}
@@ -165,7 +215,7 @@
     add functionality to the submit button -->
 
         <p>Terms and Conditions</p>
-        <label for="terms_and_conditions" style = "font-size: 14px; ">
+        <label class = "terms-label" for="terms_and_conditions" style = "font-size: 14px; ">
             Personal data provided under this form will be processed by UNU in accordance with the UNU Policy on Personal Data Protection. Your information and personal
             data will strictly be used for the purpose of payment processing and will be held in confidence. Access to your information and personal data is strictly limited to
             UNU’s authorized employees and agents on a “need-to-know” basis. UNU will retain your personal data only for the period necessary, unless UNU has an
@@ -177,8 +227,10 @@
         <!-- Add a checkbox for accepting terms and conditions -->
         <input type="checkbox" id="terms_and_conditions" name="terms_and_conditions" required>
         <label for="terms_and_conditions">I accept the terms and conditions</label>
-        
-        <input type="submit" value="Submit" class="submit-button" style="color:white; " value="Add Project">
+
+        <button type="submit" onclick="document.getElementById('form-action').value='save';">Save as Draft</button>
+        <button type="submit" onclick="document.getElementById('form-action').value='submit';">Submit</button>
+
      
       </div>
 
@@ -282,19 +334,6 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-function displayImage(inputElement) {
-  const file = inputElement.files[0];
-  if (file) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-          const imageElement = document.getElementById('uploadedImage');
-          imageElement.src = e.target.result;
-      }
-      reader.readAsDataURL(file);
-  }
-}
-
-
 
 function displayImage(inputElement) {
   const file = inputElement.files[0];
@@ -307,6 +346,19 @@ function displayImage(inputElement) {
       reader.readAsDataURL(file);
   }
 }
+
+document.getElementById('saveButton').addEventListener('click', function() {
+    // Add logic to indicate this is a save action, not submit
+    // For example, you could add a hidden field to your form
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'action';
+    input.value = 'save';
+    document.querySelector('form').appendChild(input);
+    
+    // Submit the form
+    document.querySelector('form').submit();
+});
 
 
 </script>
