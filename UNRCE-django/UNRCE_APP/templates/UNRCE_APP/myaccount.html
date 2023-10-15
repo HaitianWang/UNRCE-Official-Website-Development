@@ -75,7 +75,12 @@
     </div>
     <div class="projects_container">
         <h2 class="h2_account"> My Projects</h2>
+        {% for project in request.user.owned_projects.all %}
+            <!-- <ul>-{{ project.title }}</ul> -->
+            <li> <a href="{% url 'UNRCE_APP:specific_project' %}">{{ project.title }}</a></li>
+        {% endfor %}
         
+        <h2 class="h2_account"> tom's code</h2>
         <!-- Tom's Sidebar Projects Code -->
         <div class="sidebar">
             <ul class="projects-list">
