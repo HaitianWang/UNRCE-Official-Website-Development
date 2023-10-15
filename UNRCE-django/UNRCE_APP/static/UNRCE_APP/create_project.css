@@ -20,7 +20,20 @@ input[type="radio"] {
   border: 1px solid black !important ;
 }
 
-
+.uploadProject{
+  background-color: #ffb300;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  display: block;
+  margin-top: 20px;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 150px;  /* or any desired width */
+}
 
 
 .terms-label{
@@ -111,7 +124,7 @@ textarea {
 
 
 .tablinks {
-  //background-color: #0d47a1;
+  background-color: #0d47a1;
   float: left;
   border: none;
   outline: none;
@@ -181,7 +194,7 @@ form {
   border: 1px solid #e0e0e0; /* light grey border */
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05); /* subtle shadow */
   background-color: #fdfdfd;
-  //background-color: #f0f0f0; 
+  background-color: #f0f0f0; 
   padding: 20px;
   margin-bottom: 50px;
   padding-bottom: 50px; /* This adds white space inside the grey form area, at the bottom */
@@ -210,7 +223,7 @@ label, input, textarea, button {
   margin: 0 140px;   /* Provides spacing between the two buttons. Adjust if needed. */
   display: inline-block;
   background-color: #ffb300;  /* This is a blue color, you can adjust to your preferred shade of blue */
-  text-color: white;
+  color: white;
 }
 
 
@@ -236,7 +249,7 @@ input[type="radio"] {
   .sdg-option-label {
     display: inline-block;
     margin-right: 10px;
-    //font-family: Intern; /* Replace 'YourDesiredFontFamily' with the name of the font you want. */
+    font-family: Intern; /* Replace 'YourDesiredFontFamily' with the name of the font you want. */
     font-size: 15px;
     font-weight: normal;
 
@@ -309,7 +322,7 @@ h3 {
 .tab {
     overflow: hidden;
     border: 1px solid #ccc;
-    //background-color: #f1f1f1;
+    background-color: #f1f1f1;
 }
 
 

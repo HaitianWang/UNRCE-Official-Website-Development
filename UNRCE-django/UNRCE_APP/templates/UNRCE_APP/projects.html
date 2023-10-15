@@ -3,16 +3,12 @@
 {% block content %}
 
 <p class="small-heading"> Our Projects</p>
-<!-- <p> {{ project_query.0.title }} </p> -->
 
 
-<!-- {% for project in project_query %}
-<p>{{ project.title }}</p>
-{% endfor %} -->
-
-
-
-<!-- <button id="addNewProject"> Add Sample New Project (Testing button only, will delete later) </button> -->
+{% if user.is_authenticated %}
+<a href="{% url 'UNRCE_APP:create_project' %}"><button id="uploadProject"> Upload a Project</button></a>
+{% else %}
+{% endif %}
 
 <!-- Project Listings -->
 <div class="project-grid" id="projectGrid" data-baseurl="{% url 'UNRCE_APP:specific_project' %}">
