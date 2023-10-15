@@ -48,7 +48,8 @@ urlpatterns = [
   path('user-search/', views.search_users, name='search_users'),
   path('delete-users/', views.delete_users, name='delete_users'),
   path('download-users/', views.download_users, name='download-users'),
-
+  path('project-search/', views.project_search, name='project_search'),
+  path('delete_projects/', views.delete_projects, name='delete_projects'), 
 
 
 ]

@@ -1,0 +1,109 @@
+<!-- your_app/templates/your_app/project_search.html -->
+{% extends "UNRCE_APP/base.html" %}
+
+{% block content %}
+
+<style>
+    /* Remove the lines around the forms */
+    .form-style {
+        border: none;
+        outline: none;
+        box-shadow: none;
+    }
+
+    /* Center the search bar */
+    .form-style {
+        text-align: center;
+    }
+
+    /* Style the search button */
+    .search-button {
+        background-color: #003087; /* Same as delete button */
+        color: white;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+    }
+
+    /* Style the table for project search with rounded edges and shadow */
+    .project-table {
+        margin: 0 auto;
+        border-collapse: collapse;
+        width: 80%;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); /* Add shadow for a 3D effect */
+        border-radius: 10px; /* Add rounded corners to table */
+    }
+
+    /* Style the table header */
+    .table-header {
+        background-color: #003087;
+        color: white;
+        padding: 10px;
+    }
+
+    /* Style table rows alternately with shades of grey and white */
+    .project-table tr:nth-child(even) {
+        background-color: #f2f2f2; /* Light grey */
+    }
+
+    .project-table tr:nth-child(odd) {
+        background-color: white; /* White background */
+    }
+
+    /* Style table rows */
+    .project-table td {
+        background-color: inherit;
+        color: #003087;
+        padding: 10px;
+    }
+        /* Style delete button */
+    .delete-button {
+        background-color: #003087;
+        color: white;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+    }
+
+</style>
+
+<!-- Project Search Form -->
+<div class="user-search-content">
+    <h2 style="text-align:center; font-family: Century Gothic;color:black;">Project Information</h2>
+    <form class="search-form form-style" method="GET" action="/user-search/">
+        <input class="search-input" type="text" name="search_query" placeholder="Search">
+        <button class="search-button" type="submit">Search</button>
+    </form>
+</div>
+
+<!-- Display Projects -->
+<form id="deleteForm" class="form-style" method="POST" action="/delete_projects/" onsubmit="return confirmDelete()">
+    {% csrf_token %}
+<div class="project-list">
+    <table class="project-table">
+        <thead>
+            <tr>
+                <th class="table-header">Select</th>
+                <th class="table-header">Project Title</th>
+                <th class="table-header">Language</th>
+                <th class="table-header">RCE Hub ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for project in projects %}
+                <tr>
+                    <td>
+                        <input type="checkbox" name="project_ids" value="{{ project.id }}">
+                    </td>
+                    <td>{{ project.title }}</td>
+                    <td>{{ project.language }}</td>
+                    <td>{{ project.rce_hub_id }}</td>
+                </tr>
+            </a>
+            {% endfor %}
+        </tbody>  
+    </table>
+    <button type="submit" class="delete-button">Delete Selected Projects</button>  
+</div>
+</form>
+{% endblock %}

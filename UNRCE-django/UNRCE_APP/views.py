@@ -49,6 +49,15 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
+from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth import REDIRECT_FIELD_NAME
+
+# Define a custom function to check if the user is a superuser
+def is_superuser(user):
+    return user.is_superuser
+
+# Apply the user_passes_test decorator to your view
+@user_passes_test(is_superuser, login_url='/')  # Replace '/home/' with your home page URL
 def search_users(request):
     if request.method == 'GET':
         search_query = request.GET.get('search_query', '')
@@ -584,7 +593,12 @@ def delete_users(request):
         user_ids = request.POST.getlist("user_ids") # "user_ids" matches the checkbox name
         CustomUser.objects.filter(id__in=user_ids).delete()
         return HttpResponseRedirect('/user-search/') # Redirect back to the search page
-    
+
+def delete_projects(request):
+    if request.method == "POST":
+        project_ids = request.POST.getlist("project_ids") # "user_ids" matches the checkbox name
+        Project.objects.filter(id__in=project_ids).delete()
+        return HttpResponseRedirect('/project-search/')     
 
 def download_users(request):
     search_query = request.GET.get('search_query', '')
@@ -614,3 +628,17 @@ def download_users(request):
         ])
 
     return response
+
+
+@user_passes_test(is_superuser, login_url='/')  # Replace '/home/' with your home page URL
+def project_search(request):
+    if request.method == 'GET':
+        search_query = request.GET.get('search_query')
+    if search_query:
+        # Perform a search based on the search_query
+        projects = Project.objects.filter(title__icontains=search_query)
+    else:
+        # No search query provided, so display all projects
+        projects = Project.objects.all()
+    
+    return render(request, 'UNRCE_APP/project_search.html', {'projects': projects, 'search_query': search_query, })
