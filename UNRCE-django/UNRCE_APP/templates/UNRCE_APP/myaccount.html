@@ -38,6 +38,17 @@
                 </p>
             </section>
 
+            <!-- Role -->
+            <section>
+                <p style="font-size:medium;"><span style="font-weight: bold;"> Organisation Role:</span> 
+                    {% if user.role_organisation %}
+                        {{ user.role_organisation }}
+                    {% else %}
+                        -
+                    {% endif %}
+                </p>
+            </section>
+
             <!-- RCE Hub -->
             <section>
                 <p style="font-size:medium;"><span style="font-weight: bold;"> RCE Hub:</span> 
