@@ -6,17 +6,10 @@
   align-items: center;
 }
 
-<<<<<<< HEAD
-
 #description, #results , #lessons_learned, #key_messages, #relationship_to_rce_activities, #funding {
   width: 800px;  /* Set the width you want */
   height: 150px; /* Set the height you want */
   resize: none;  /* Prevents user from resizing the textarea */
-=======
-label {
-  font-weight: bold;
-  padding-bottom: 10px;
->>>>>>> permission
 }
 
 .custom-label {
@@ -28,9 +21,6 @@ input[type="radio"] {
   background-color: white;
   border: 1px solid black !important ;
 }
-
-
-
 
 .terms-label{
   font-size: 15px;
@@ -123,11 +113,8 @@ textarea {
   
 }
 
-<<<<<<< HEAD
-
-
 .tablinks {
-  //background-color: #0d47a1;
+  /*background-color: #0d47a1;*/
   float: left;
   border: none;
   outline: none;
@@ -139,22 +126,6 @@ textarea {
   border-radius: 5px; /* rounded corners */
 }
 
-
-=======
-.tablinks {
-  background-color: #003087 !important;
-  float: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: .5em .5em;
-  transition: 0.3s;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 5px 5px 0 0;
-  width: -webkit-fill-available;
-}
-
->>>>>>> permission
 .tablinks:not(:last-child) {
   margin-right: .2em;
 }
@@ -192,18 +163,13 @@ img {
 }
 
 form {
-<<<<<<< HEAD
   border: 1px solid #ccc;
   border: 1px solid #e0e0e0; /* light grey border */
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05); /* subtle shadow */
-  background-color: #fdfdfd;
-  //background-color: #f0f0f0; 
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05); /* subtle shadow */ 
   padding: 20px;
   margin-bottom: 50px;
   padding-bottom: 50px; /* This adds white space inside the grey form area, at the bottom */
-=======
   background-color: var(--blue-bg);
->>>>>>> permission
   position: relative;
   margin: 0 4vw 0 4vw;
   width: 600px;
@@ -212,8 +178,6 @@ form {
 }
 
 form * {
-<<<<<<< HEAD
-
     border-color: transparent !important;
 }
 
@@ -221,7 +185,6 @@ form * {
 label, input, textarea, button {
   margin: 10px 0; /* Spacing between form elements */
   background-color:white;
-=======
   border-color: transparent !important;
 }
 
@@ -232,7 +195,6 @@ button {
 
 button:last-child {
   margin: .4em 0 0 0 !important;
->>>>>>> permission
 }
 
 .navigation-buttons {
@@ -240,29 +202,17 @@ button:last-child {
   text-align: center;
 }
 
-<<<<<<< HEAD
 #prevBtn, #nextBtn {
   margin: 0 140px;   /* Provides spacing between the two buttons. Adjust if needed. */
-=======
-#prevBtn,
-#nextBtn {
-  margin: 0 .2em !important;
->>>>>>> permission
   display: inline-block;
   background-color: #ffb300;  /* This is a blue color, you can adjust to your preferred shade of blue */
-  text-color: white;
+  color: white;
 }
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> permission
 .sdg-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-<<<<<<< HEAD
   padding: 5px 0;
   border-bottom: 1px solid #e5e5e5; /* Adds a light bottom border to separate each SDG item */
 }
@@ -280,7 +230,7 @@ input[type="radio"] {
   .sdg-option-label {
     display: inline-block;
     margin-right: 10px;
-    //font-family: Intern; /* Replace 'YourDesiredFontFamily' with the name of the font you want. */
+    /* font-family: Intern; Replace 'YourDesiredFontFamily' with the name of the font you want. */
     font-size: 15px;
     font-weight: normal;
 
@@ -298,29 +248,6 @@ input[type="radio"] {
     border-radius: 5px;
     background-color: #f9f9f9;
     margin: 20px 0;
-=======
-  margin-bottom: 10px;
-}
-
-.sdg-name {
-  flex: 1;
-  padding-right: 10px;
-}
-
-.sdg-option-label {
-  display: inline-block;
-  margin-right: 10px;
-}
-
-/* Adjust styling as needed */
-
-.terms-container {
-  border: 1px solid #e0e0e0;
-  padding: 20px;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-  margin: 20px 0;
->>>>>>> permission
 }
 
 h3 {
@@ -356,30 +283,11 @@ h3 {
   cursor: pointer;
   display: block;
   margin-top: 20px;
-<<<<<<< HEAD
-  margin-left: auto !important;
-  margin-right: auto !important;
   width: 150px;  /* or any desired width */
-
-=======
->>>>>>> permission
 }
 
 .submit-Btn:hover {
   background-color: #45a049;
-<<<<<<< HEAD
-}
-
-
-.submit-Btn:hover {
-    background-color: #45a049;
-}
-
-.tab {
-    overflow: hidden;
-    border: 1px solid #ccc;
-    //background-color: #f1f1f1;
-=======
 }
 
 .tab {
@@ -388,7 +296,6 @@ h3 {
   display: flex;
   justify-content: space-evenly;
   flex-direction: row;
->>>>>>> permission
 }
 
 .tablinks:hover {
@@ -396,11 +303,7 @@ h3 {
 }
 
 .tablinks.active {
-<<<<<<< HEAD
-    background-color:##ffc61a;
-=======
-  background-color: var(--blue-accent) !important;
->>>>>>> permission
+  background-color: #ffc61a;
 }
 
 /* Merged .terms-container and .terms-text rules */
