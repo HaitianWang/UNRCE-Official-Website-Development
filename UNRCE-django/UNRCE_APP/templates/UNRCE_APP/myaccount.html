@@ -1,6 +1,19 @@
 
 {% extends "UNRCE_APP/base.html" %}
 {% block content %}
+
+<style>
+    .h2_account {
+        font-size: larger;
+    }
+
+    .account_section {
+        padding: 10px;
+        margin: 10px;
+    }
+</style>
+
+
 <!-- {% load static %} -->
 <div class="container_outer">
     <div class="container_account">
@@ -10,7 +23,7 @@
                 <h2 class="h2_account"> Edit Profile Details</h2>
             </a>
         </header>
-        <main style="padding:0%; margin: 0%;">
+        <main style="padding:0%; margin: 0%; background-color: white; padding-top: 10px;">
             <section style="padding: 0%; margin: 0%; display:flex;">
                 <div class="profile-picture">
                     <img src="https://www.kindpng.com/picc/m/421-4212275_transparent-default-avatar-png-avatar-img-png-download.png" alt="Profile Picture">
@@ -27,7 +40,7 @@
                 </div>
             </section>
             <!-- Organisations -->
-            <section>
+            <section class="account_section">
                 <p style="font-size:medium;"><span style="font-weight: bold;"> Organisation:</span>
                     {% if user.org %}
                         {{ user.org }}
@@ -39,7 +52,7 @@
             </section>
 
             <!-- Role -->
-            <section>
+            <section class="account_section">
                 <p style="font-size:medium;"><span style="font-weight: bold;"> Organisation Role:</span> 
                     {% if user.role_organisation %}
                         {{ user.role_organisation }}
@@ -50,7 +63,7 @@
             </section>
 
             <!-- RCE Hub -->
-            <section>
+            <section class="account_section">
                 <p style="font-size:medium;"><span style="font-weight: bold;"> RCE Hub:</span> 
                     {% if user.rce_hub2 %}
                         {{ user.rce_hub2 }}
@@ -61,40 +74,23 @@
             </section>
 
             <!-- Emails Enabled -->
-            <section>
+            <section class="account_section">
                 <p style="font-size:medium;"><span style="font-weight: bold;"> Email notifications enabled:</span> 
                     <input type="checkbox" id="emailEnabledCheckbox" {% if user.emails_enabled %}checked{% endif %} disabled>
                 </p>
             </section>
-
-            <!-- SDG's Interested in -->
-            <section style="padding: 0%; margin: 0%;" class="account-details">
-                <p> SDG's I'm interested in</p>
-                <img class="sdgs" src="{% static 'images/sdgs/1_no_poverty.png' %}">
-                <img class="sdgs" src="{% static 'images/sdgs/2_zero_hunger.png' %}">
-                <img class="sdgs" src="{% static 'images/sdgs/13_climate_action.jpg' %}">
-                <img class="sdgs" src="{% static 'images/sdgs/14_life_below_water.jpg' %}">
-            </section>
-            <section style="padding: 0%; margin: 0%;" class="notification">
-                <p> Emails notifications enabled?</p>
-                    <!-- Emails are enabled -->
-                <input type="checkbox" id="myCheckbox" name="myCheckbox" value="yes" checked disabled>
-                    <!-- Emails are not enabled -->
-                <!-- <input type="checkbox" id="myCheckbox" name="myCheckbox" value="yes" disabled> -->
-            </section>
         </main>
     </div>
-    <div class="projects_container">
-        <h2 class="h2_account"> My Projects</h2>
-        {% for project in request.user.owned_projects.all %}
-            <!-- <ul>-{{ project.title }}</ul> -->
-            <li> <a href="{% url 'UNRCE_APP:specific_project' %}">{{ project.title }}</a></li>
-        {% endfor %}
+    <div class="projects_container" style="background-color: rgb(224, 224, 224);">
+        <h2 style="text-decoration: underline;" class="h2_account"> My Projects</h2>   
+        <!-- <div class="sidebar"> -->
+            <div style="background-color: white;">
+                {% for project in request.user.owned_projects.all %}
+                    <li> <a style="color: rgb(71, 71, 71);" href="{% url 'UNRCE_APP:specific_project' %}">➤{{ project.title }}</a></li>
+                {% endfor %}
+            </div>
         
-        <h2 class="h2_account"> tom's code</h2>
-        <!-- Tom's Sidebar Projects Code -->
-        <div class="sidebar">
-            <ul class="projects-list">
+            <!-- <ul class="projects-list">
               <div class="project-listing" id="projectGrid" data-baseurl="{% url 'UNRCE_APP:specific_project' %}">
               <div class="project-box">
                 <a href="{% url 'UNRCE_APP:specific_project' %}">
@@ -112,8 +108,8 @@
                     </div>
                 </a>
               </div>
-              </div>
-          </div>
+              </div> -->
+        <!-- </div> -->
     </div>
 </div>
 
