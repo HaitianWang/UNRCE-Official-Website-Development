@@ -328,6 +328,7 @@ def projects(request):
     project_query = Project.objects.all()   # Store the rows from the "Project" table, and store them in project_query
     return render(request, 'UNRCE_APP/projects.html', {'project_query': project_query})   # Dictionary Containing data to send. Includes the project_query variable passed with name "project_query"
 # My Account Page
+
 def myaccount(request):
     user = request.user
     context = {

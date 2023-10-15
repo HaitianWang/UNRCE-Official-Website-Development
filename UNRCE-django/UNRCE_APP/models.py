@@ -98,7 +98,12 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     interested_sdgs = models.ManyToManyField(SDG, related_name='interested_users')
     organisation = models.ForeignKey('Organisation', on_delete=models.SET_NULL, null=True, blank=True)
     role_organisation = models.CharField(max_length=150)
-    rce_hub = models.ForeignKey(RCEHub, on_delete=models.SET_NULL, null=True, blank=True)  
+    rce_hub = models.ForeignKey(RCEHub, on_delete=models.SET_NULL, null=True, blank=True)   # Not using this one, idk how to use it
+    RCE_HUB_CHOICES = [
+        ('Great Southern', 'Great Southern'),
+        ('Perth Metro', 'Perth Metro')
+    ]    
+    rce_hub2 = models.CharField(max_length=255, choices=RCE_HUB_CHOICES, default="", blank=True)
     
     
     objects = CustomUserManager()

@@ -37,12 +37,25 @@
                     <!-- {{ user.org }} -->
                 </p>
             </section>
+
+            <!-- RCE Hub -->
+            <section>
+                <p style="font-size:medium;"><span style="font-weight: bold;"> RCE Hub:</span> 
+                    {% if user.rce_hub2 %}
+                        {{ user.rce_hub2 }}
+                    {% else %}
+                        -
+                    {% endif %}
+                </p>
+            </section>
+
             <!-- Emails Enabled -->
             <section>
                 <p style="font-size:medium;"><span style="font-weight: bold;"> Email notifications enabled:</span> 
                     <input type="checkbox" id="emailEnabledCheckbox" {% if user.emails_enabled %}checked{% endif %} disabled>
                 </p>
             </section>
+
             <!-- SDG's Interested in -->
             <section style="padding: 0%; margin: 0%;" class="account-details">
                 <p> SDG's I'm interested in</p>

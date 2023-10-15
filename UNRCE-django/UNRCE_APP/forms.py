@@ -57,4 +57,4 @@ class UpdateAccountForm(forms.ModelForm):
 
     class Meta:
         model = CustomUser
-        fields = ['name', 'org', 'emails_enabled']
+        fields = ['name', 'org', 'emails_enabled', 'rce_hub2']
