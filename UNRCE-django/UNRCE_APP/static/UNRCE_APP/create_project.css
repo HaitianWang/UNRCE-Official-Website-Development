@@ -6,9 +6,70 @@
   align-items: center;
 }
 
-label {
+.tabcontent label {
   font-weight: bold;
   padding-bottom: 10px;
+}
+#description, #results , #lessons_learned, #key_messages, #relationship_to_rce_activities, #funding {
+  width: 800px;  /* Set the width you want */
+  height: 150px; /* Set the height you want */
+  resize: none;  /* Prevents user from resizing the textarea */
+}
+
+.custom-label {
+  background-color: #fdfdfd;
+  color: #333;
+}
+
+input[type="radio"] {
+  background-color: white;
+  border: 1px solid black !important ;
+}
+
+.terms-label{
+  font-size: 15px;
+  font-family: Inter;
+  font-weight: normal;
+}
+
+
+.tabcontent label {
+  font-family: Inter;
+  text-transform: capitalize;
+  word-wrap: break-word;
+  margin-right: 20px;
+  font-size: 18px;
+  color: #333;
+  font-weight: bold;
+  background-color: #fdfdfd;
+  color: #333;
+}
+
+.selection-label {
+  font-size: 15px;
+  font-family: Inter;
+  font-weight: normal;
+}
+
+
+input[type="text"], textarea {
+  background-color: white; /* White background */
+  border: 1px solid #e0e0e0;  /* Light border */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow */
+  padding: 10px; /* Some padding for better appearance */
+  transition: box-shadow 0.3s;  /* Transition for a smooth shadow change */
+}
+
+input[type="text"]:focus, textarea:focus {
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3); /* Slightly darker shadow on focus */
+  outline: none; /* Removing default browser focus styles */
+}
+textarea {
+  background-color: white !important;
+  border: 1px solid #e0e0e0 !important;  /* Light border */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1) !important; /* Light shadow */
+  padding: 10px !important; /* Some padding for better appearance */
+  transition: box-shadow 0.3s !important;  /* Transition for a smooth shadow change */
 }
 
 .tabnav {
@@ -128,6 +189,8 @@ button:last-child {
 #nextBtn {
   margin: 0 .2em !important;
   display: inline-block;
+  background-color: #ffb300;  /* This is a blue color, you can adjust to your preferred shade of blue */
+  color: white;
 }
 
 .sdg-item {
@@ -135,6 +198,40 @@ button:last-child {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 10px;
+  padding: 5px 0;
+  border-bottom: 1px solid #e5e5e5; /* Adds a light bottom border to separate each SDG item */
+}
+
+input[type="radio"] {
+  margin-right: 5px; /* Adds some space between the radio button and its label */
+}
+
+  
+.sdg-name {
+  flex: 1;
+  padding-right: 10px;
+}
+  
+.sdg-option-label {
+  display: inline-block;
+  margin-right: 10px;
+  font-family: Intern; /* Replace 'YourDesiredFontFamily' with the name of the font you want. */
+  font-size: 15px;
+  font-weight: normal;
+}
+
+#sdgs-selection .sdg-name p {
+  font-weight: normal; /* Makes the SDG name bold */
+  color: black; /* A blue color for the SDG name */
+}
+  
+  /* Adjust styling as needed */
+.terms-container {
+  border: 1px solid #e0e0e0;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  margin: 20px 0;
 }
 
 .sdg-name {
