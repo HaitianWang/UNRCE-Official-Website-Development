@@ -159,7 +159,6 @@ class SignUpView(View):
         form = CustomUserCreationForm(request.POST)
         captcha_value = request.POST.get('captcha_0')
         captcha_key = request.POST.get('captcha_1')
-
         captcha_check = CaptchaStore.objects.filter(response__iexact=captcha_value, hashkey=captcha_key)
 
         if not captcha_check.exists():
