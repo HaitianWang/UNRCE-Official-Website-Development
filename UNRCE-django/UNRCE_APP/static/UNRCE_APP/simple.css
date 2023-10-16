@@ -591,3 +591,12 @@ sub {
     height: 10em;
     max-height: 120px;
 }
+
+.partner-list li {
+    display: inline-block;
+    margin: 0 1rem;
+    color: var(--bg)!important;
+}
+.partner-list li a {
+    color: var(--bg)!important;
+}
