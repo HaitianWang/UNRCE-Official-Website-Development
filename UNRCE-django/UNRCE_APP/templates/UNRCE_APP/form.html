@@ -1,5 +1,13 @@
 {% extends "UNRCE_APP/base.html" %}
 
+{% block main_class %}
+    {% if request.path == '/' %}
+        landing-main
+    {% else %}
+        default-main
+    {% endif %}
+{% endblock %}
+
 {% block content %}
 
 {% endblock content %}

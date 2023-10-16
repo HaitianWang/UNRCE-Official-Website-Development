@@ -1,10 +1,18 @@
 {% extends "UNRCE_APP/base.html" %}
 
+{% block main_class %}
+    {% if request.path == '/' %}
+        landing-main
+    {% else %}
+        default-main
+    {% endif %}
+{% endblock %}
+
 {% block content %}
 {% load static %}
 <style>
   .header-photo {
-    width: 100%;
+    width: 120%;
     height: 170px;
     background-image: url('{% static 'images/header.webp' %}');
     background-repeat: no-repeat;
