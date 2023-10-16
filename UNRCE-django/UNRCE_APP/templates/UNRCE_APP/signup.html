@@ -4,7 +4,7 @@
 {% block content %}
 
 <div class="login-box">
-    <img src="{% static 'images/UNRCEWA_Logo.png' alt="UNRCE Logo" class="logo"%}" alt="UNRCE Logo" style="height: 10rem">
+    <img src="{% static 'images/UNRCEWA_Logo.png' %}" alt="UNRCE Logo" class="logo" style="height: 10rem">
     <div class="login-title">Sign Up</div>
 
     <!-- Display any form errors (like password mismatch) -->
@@ -20,19 +20,11 @@
         {% for field in form %}
         <div class="input-container">
             <label for="{{ field.auto_id }}" class="input-label">{{ field.label }}</label>
-
-            {% if field.field.widget.input_type == "password" %}
-            <input type="password" 
-                    id="{{ field.auto_id }}"
-                    name="{{ field.name }}" 
-                    {% if field.field.required %} required {% endif %} />
-            {% else %}
             <input type="{{ field.field.widget.input_type }}" 
                     id="{{ field.auto_id }}"
                     name="{{ field.name }}" 
                     {% if field.field.required %} required {% endif %}
                     value="{{ field.value|default:'' }}" />
-            {% endif %}
 
             {% if field.errors %}
             <div class="alert alert-danger">
