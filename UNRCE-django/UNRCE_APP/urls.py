@@ -37,6 +37,7 @@ urlpatterns = [
   path('forgot_password/', views.forgot_password, name='forgot_password'),
   re_path(r'^reset_password/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>.+)/$', views.reset_password, name='reset_password_confirm'),
   path('contact-us/', views.contact_us, name='contact-us'),
+  path('new_captcha/', views.new_captcha, name='new_captcha'),
   path('projects/', views.projects, name='projects'),
   path('specific_project/', views.specific_project, name='specific_project'),
   path("create_project/", CreateProject.as_view(), name="create_project"),
@@ -48,7 +49,5 @@ urlpatterns = [
   path('user-search/', views.search_users, name='search_users'),
   path('delete-users/', views.delete_users, name='delete_users'),
   path('download-users/', views.download_users, name='download-users'),
-
-
-
+  path('activate/<str:uidb64>/<str:token>/', views.activate_account, name='activate_account'),
 ]
