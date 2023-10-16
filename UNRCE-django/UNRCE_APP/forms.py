@@ -3,6 +3,8 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from .models import CustomUser
 from .models import Image, Project
 
+from django.core.exceptions import ValidationError
+import re
 
 # We use Django's built-in ModelForm class
 class UploadImageForm(forms.ModelForm):
@@ -25,6 +27,8 @@ class UploadImageForm(forms.ModelForm):
 #Create a form that will use email for authentication 
 class CustomAuthenticationForm(AuthenticationForm):
     username = forms.EmailField(label="Email")
+
+
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = CustomUser
@@ -33,14 +37,17 @@ class CustomUserCreationForm(UserCreationForm):
             "email": "Email",
         }
 
+    # def clean_email(self):
+    #     email = self.cleaned_data.get("email")
+    #     if re.search(r'[0-9!@#$%^&*(),.?":{}|<>]', email):
+    #         raise ValidationError("Name should not contain numbers or special characters.")
+    #     return email
+
 
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = '__all__'
-
-
-
 
 
 class UserSearchForm(forms.Form):
