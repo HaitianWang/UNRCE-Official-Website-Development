@@ -37,11 +37,14 @@ default-main
                         <input type="text" id="title" name="title">
                     </div>
                     <div class="image-section">
+                        
                         <label for="imageUpload">
-                            <img class="imagecp" id="uploadedImage" src="{% static 'images/Font_1._.png' %}"
+                            <img class="imagecp" id="uploadedImage" src="{% static 'images/add_photo.svg' %}"
                                 alt="Default Image">
+                            
+                            <p class="upload-text">Add Project Image</p>
                         </label>
-                        <!--<span class="upload-text">Add Project Image</span>-->
+                        
                         <input type="file" id="imageUpload" name="imageUpload" style="display: none;"
                             onchange="displayImage(this)">
                     </div>

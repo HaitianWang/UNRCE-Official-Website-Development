@@ -191,8 +191,8 @@ class Project(models.Model):
 
     files = models.ManyToManyField('ProjectFile', related_name='projects')
 
-    audience = models.CharField(max_length=50, choices=AUDIENCE_CHOICES)
-    delivery_frequency = models.CharField(max_length=20, choices=FREQUENCY_CHOICES)
+    audience = models.CharField(max_length=50, choices=AUDIENCE_CHOICES, default=FREQUENCY_CHOICES[0])
+    delivery_frequency = models.CharField(max_length=20, choices=FREQUENCY_CHOICES, default=FREQUENCY_CHOICES[0])
     language = models.TextField()
     format = models.TextField()
     web_link = models.URLField()
