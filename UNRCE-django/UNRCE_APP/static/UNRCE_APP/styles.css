@@ -367,6 +367,8 @@ h3 {
     align-items: center;
     width: 100%;
     height: min-content;
+    background-color: var(--blue-accent);
+    padding: 1vh;
 }
 
 /* for horizontal button menus */
@@ -380,13 +382,13 @@ h3 {
 
 /* For the base header navigation bar */
 .header-nav {
-    background-color: #003087;
+    background-color: var(--blue-bg);
     height: 70px;
 }
 
 /* for button in nav bar */
 nav > a {
-    background-color: #5775ac;
+    background-color: var(--blue-bg);
     text-decoration: none;
     padding: 10px;
     border-radius: 5px;
