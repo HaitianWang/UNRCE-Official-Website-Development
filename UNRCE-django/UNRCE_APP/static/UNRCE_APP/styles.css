@@ -23,6 +23,8 @@ html {
     max-width: 1400px;
     box-sizing: border-box;
     flex-direction: row-reverse;
+    width: 80vmin;
+    justify-content: center;
 }
 
 .main-div, .sidebar, .header-photo {
