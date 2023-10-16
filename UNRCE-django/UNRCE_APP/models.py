@@ -167,7 +167,12 @@ class Project(models.Model):
     title = models.TextField(default="Default Title")
 
 
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='owned_projects', null=True)
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL, 
+        on_delete=models.CASCADE, 
+        related_name='owned_projects', 
+        null=True
+    )
     #manager = models.ForeignKey(	
        # settings.AUTH_USER_MODEL,	
       #  on_delete=models.CASCADE,	
