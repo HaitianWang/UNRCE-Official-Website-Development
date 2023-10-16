@@ -9,8 +9,11 @@
         <header style="display: flex; justify-content: space-between; padding: 0%; margin: 0%;">
             <h2 style="font-size: larger;" class="h2_account"> Edit Account Details</h2>
         </header>
-        <main style="padding:0%; margin: 0%;">
-                
+        <div style="padding:0%; margin: 0%;">
+            <section style="padding: 0%; margin: 0%; display:flex;" class="profile">
+                <div class="profile-picture">
+                    <img src="https://www.kindpng.com/picc/m/421-4212275_transparent-default-avatar-png-avatar-img-png-download.png" alt="Profile Picture">
+                </div>
                 <div class="user-info">
                     <form method="post">
                         {% csrf_token %}
@@ -48,7 +51,21 @@
                         <input type="submit" value="Update User Details">
                     </form>
                 </div>
-        </main>
+
+                {% comment %}
+                Should not be included while we are not requesting SDGs
+
+                <p style="font-size:smaller;"> Click <a href="https://sdgs.un.org/goals">here</a> for more information on the Sustainable Development Goals by the UN</p> 
+                {% endcomment %}
+    
+    
+            </section>
+            <section style="padding: 0%; margin: 0%;" class="notification">
+                <p> Emails enabled?</p>
+                <input type="checkbox" id="myCheckbox" name="myCheckbox" value="yes">
+            </section>
+            <input type="button" value="Update User Details">
+        </div>
     </div>
     <div class="projects_container">
         

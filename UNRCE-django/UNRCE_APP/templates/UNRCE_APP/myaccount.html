@@ -1,4 +1,3 @@
-
 {% extends "UNRCE_APP/base.html" %}
 {% block content %}
 
@@ -23,10 +22,10 @@
                 <h2 class="h2_account"> Edit Profile Details</h2>
             </a>
         </header>
-        <main style="padding:0%; margin: 0%; background-color: white; padding-top: 10px;">
+        <div style="padding:0%; margin: 0%; background-color: white; padding-top: 10px;">
             <section style="padding: 0%; margin: 0%; display:flex;">
                 <div class="profile-picture">
-                    <img src="https://www.kindpng.com/picc/m/421-4212275_transparent-default-avatar-png-avatar-img-png-download.png" alt="Profile Picture">
+                    <img src="{% static 'images/avatar.png' %}" alt="Profile Picture">
                 </div>
                 <div>
                     <p style="font-size:medium;"><span style="font-weight: bold;"> Name:</span> 
@@ -79,37 +78,17 @@
                     <input type="checkbox" id="emailEnabledCheckbox" {% if user.emails_enabled %}checked{% endif %} disabled>
                 </p>
             </section>
-        </main>
+        </div>
     </div>
     <div class="projects_container" style="background-color: rgb(224, 224, 224);">
         <h2 style="text-decoration: underline;" class="h2_account"> My Projects</h2>   
         <!-- <div class="sidebar"> -->
-            <div style="background-color: white;">
-                {% for project in request.user.owned_projects.all %}
-                    <li> <a style="color: rgb(71, 71, 71);" href="{% url 'UNRCE_APP:specific_project' %}">➤{{ project.title }}</a></li>
-                {% endfor %}
-            </div>
+        <div style="background-color: white;">
+            {% for project in request.user.owned_projects.all %}
+                <li> <a style="color: rgb(71, 71, 71);" href="{% url 'UNRCE_APP:specific_project' %}">➤{{ project.title }}</a></li>
+            {% endfor %}
+        </div>
         
-            <!-- <ul class="projects-list">
-              <div class="project-listing" id="projectGrid" data-baseurl="{% url 'UNRCE_APP:specific_project' %}">
-              <div class="project-box">
-                <a href="{% url 'UNRCE_APP:specific_project' %}">
-                    <div class="project-sidebar" onclick="goToDetails(event, this.children[0].src, this.children[1].textContent)" style="cursor:pointer;">
-                        <img src="http://www.thewowstyle.com/wp-content/uploads/2015/01/nature-images..jpg" alt="Project 1" class="project-image">
-                        <h4 class="project-title-sidebar"> Your Project 1 1</h4>
-                    </div>
-                </a>
-              </div>
-              <div class="project-box">
-                <a href="{% url 'UNRCE_APP:specific_project' %}">
-                    <div class="project-sidebar" onclick="goToDetails(event, this.children[0].src, this.children[1].textContent)" style="cursor:pointer;">
-                        <img src="https://www.bwallpaperhd.com/wp-content/uploads/2021/01/NashPoint.jpg" alt="Project 2" class="project-image">
-                        <h4 class="project-title-sidebar"> Your Project 2</h4>
-                    </div>
-                </a>
-              </div>
-              </div> -->
-        <!-- </div> -->
     </div>
 </div>
 

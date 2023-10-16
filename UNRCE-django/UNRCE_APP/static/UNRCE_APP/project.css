@@ -1,26 +1,22 @@
 
 .information {
     background-color: #f1f1f1;
-    padding: 10px;
-    margin: 10px auto;
-    width: 100%;
-    max-width: 90%;
+    padding: 4rem;
+    width: 100vmin;
+    min-height: 60vmin;
     border-radius: 10px;
-    grid-column: 1/-1;
 }
 
 .image {
-    max-width: 70%; /* Adjust this percentage as per your requirement */
-    height: 60%; 
+    width: 60%;
     object-fit: cover;
-    margin-right: 20px; /* Spacing between image and title/details */
-    margin-top: 0;
-    margin-bottom: 20px;
-    align-self: flex-end;
+    margin-right: 1em;
+    height: min-content;
 }
 #projectTitle{
-    margin-bottom: 5px;
+    margin-bottom: 1rem;    
     margin-top: 0%;
+    white-space: nowrap;
 }
 h5{
     margin-top: 2px;
@@ -32,15 +28,14 @@ h5{
     position: relative;
     color: black;
     display: flex;
-    align-items: stretch; /* Center items vertically */
-    justify-content: flex-start; /* Align items to the start */
-    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 .region {
     font-size: small;
     line-height: 0.1; /* Ensure the text takes up its natural space without added spacing */
     height: auto; /* Let the height be determined by content and padding */
-    width: calc(100% - 80px);
+    width: 80%;
     color: black;
     border: 1px solid lightgray;
     border-radius: 10px;
@@ -51,51 +46,44 @@ h5{
 }
 
 .region-container {
-    margin-bottom: 20px; /* Adjust this value to your liking */
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* Pushes items to either end */
-    width: 100%; /* Ensures it spans the full width */
-    padding: 0 20px; /* Padding on left and right */
+    margin: 0.5rem;
+    display: table-row;
 }
 .region-title{
-    margin: 0;
+    padding-right: 1em;
+    font-size: 1vw;
 }
 .region-title, .region{
-    display: inline-block;
-    vertical-align: top;
+    display: table-cell;
 }
 .project-details {
     flex: 1; /* Allow the details to expand and take available space */
     display: flex;
     flex-direction: column; /* Stack child items vertically */
-    justify-content: space-between; /* Distribute the space between child items */
+    justify-content: flex-end;
 }
+
 .info-container {
-    font-size: small;
+    font-size: 1vw;
     border: 1px solid lightgray;
     border-radius: 10px;
     color: black;
     padding: 20px;
-    max-width: 100%;  /* You can adjust this to fit your design */
-    margin: 0 auto; /* Centers the box if it has a max-width */
-    margin-bottom: 20px;
+    padding: 1em;
+    max-width: 100%;
 }
 
 .project-title, .edit-project-details, .project-details, .region-label, .orgs-label, .project-desc, .language-label, .audience-label, .sdg-label {
-    font-family: Inter;
     text-transform: capitalize;
     word-wrap: break-word;
 }
-.project-title, .project-details, .region-label, .orgs-label, .language-label, .audience-label, .sdg-label {
+.project-title, .region-label, .orgs-label, .language-label, .audience-label, .sdg-label {
     font-weight: 700;
 }
 .edit-project-details, .project-desc {
     font-weight: 500;
 }
-.project-title, .project-details {
-    font-size: 24px;
-}
+
 .edit-project-details, .region-label, .orgs-label, .language-label, .audience-label, .sdg-label {
     font-size: 20px;
 }
