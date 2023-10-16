@@ -45,3 +45,16 @@ class ProjectForm(forms.ModelForm):
 
 class UserSearchForm(forms.Form):
     search_query = forms.CharField(label='Search Users', max_length=100, required=False)
+
+
+# Update the user's details
+class UpdateAccountForm(forms.ModelForm):
+    emails_enabled = forms.BooleanField(
+        required=False,
+        widget=forms.CheckboxInput(),
+        initial=True
+    )
+
+    class Meta:
+        model = CustomUser
+        fields = ['name', 'org', 'emails_enabled', 'rce_hub2', 'role_organisation']
