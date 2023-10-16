@@ -3,11 +3,13 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .forms import ProjectForm
 from django.contrib.auth import authenticate, login, views as auth_views
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.decorators import login_required, staff_member_required
+from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView
 from UNRCE_APP.models import Project, ProjectImage, CustomUser
 from django.http import JsonResponse
+from django.core.exceptions import PermissionDenied
 # ProjectImage
 
 from django.http import HttpResponseRedirect
@@ -363,6 +365,7 @@ class UploadImageView(LoginRequiredMixin, View):
 def contact_us(request):
     return render(request, 'UNRCE_APP/contact-us.html')
 
+@staff_member_required(login_url="UNRCE_APP:login")
 def users_info(request):
     return render(request, 'UNRCE_APP/users_info.html')
 
@@ -574,6 +577,10 @@ def edit_project(request, project_id):
 
     project = get_object_or_404(Project, pk=project_id)
 
+    user = request.user
+    if user != project.owner and not (user.is_staff() and user.is_active()):
+        raise PermissionDenied
+
     if request.method != 'POST':
         return render(request, 'UNRCE_APP/edit_project.html', {'form': ProjectForm(instance=project)})
     
@@ -627,14 +634,14 @@ def fetch_projects(request):
     return JsonResponse([{'id': proj.id, 'text': proj.title} for proj in projects], safe=False)
 
 
-
+@staff_member_required(login_url="UNRCE_APP:login")
 def delete_users(request):
     if request.method == "POST":
         user_ids = request.POST.getlist("user_ids") # "user_ids" matches the checkbox name
         CustomUser.objects.filter(id__in=user_ids).delete()
         return HttpResponseRedirect('/user-search/') # Redirect back to the search page
     
-
+@staff_member_required(login_url="UNRCE_APP:login")
 def download_users(request):
     search_query = request.GET.get('search_query', '')
     
