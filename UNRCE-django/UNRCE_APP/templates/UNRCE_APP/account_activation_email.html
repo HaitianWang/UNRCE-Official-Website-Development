@@ -1,0 +1,10 @@
+Dear {{ user.email }},
+
+Thank you for registering. Please click on the link below to activate your account:
+
+http://{{ domain }}{% url 'UNRCE_APP:activate_account' uidb64=uid token=token %}
+
+If you didn't register, please ignore this email.
+
+Best regards,
+Your Website Team
