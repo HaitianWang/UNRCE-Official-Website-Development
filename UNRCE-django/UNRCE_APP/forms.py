@@ -4,7 +4,6 @@ from .models import CustomUser
 from .models import Image, Project
 
 from django.core.exceptions import ValidationError
-import re
 
 # We use Django's built-in ModelForm class
 class UploadImageForm(forms.ModelForm):
