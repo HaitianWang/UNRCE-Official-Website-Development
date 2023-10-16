@@ -48,6 +48,9 @@ from django.db.models import Q
 import csv
 from django.contrib.auth import get_user_model
 
+# To edit profile
+from .forms import UpdateAccountForm
+
 User = get_user_model()
 
 def search_users(request):
@@ -357,21 +360,28 @@ class UploadImageView(LoginRequiredMixin, View):
 
 def contact_us(request):
     return render(request, 'UNRCE_APP/contact-us.html')
+
 def users_info(request):
     return render(request, 'UNRCE_APP/users_info.html')
 
 def projects(request):
-    # Store the rows from the "Project" table, and store them in project_query
-    project_query = Project.objects.all()   
-    
-    # Dictionary Containing data to send. Includes the project_query variable passed with name "project_query"
-    return render(request, 'UNRCE_APP/projects.html', {'project_query': project_query})   
+    # Dictionary Containing data to send. Includes rows from the "Project" table sent as "project_query"
+    return render(request, 'UNRCE_APP/projects.html', {'project_query': Project.objects.all()})   
 
+#My Account Page
 def myaccount(request):
-    return render(request, 'UNRCE_APP/myaccount.html')
+    return render(request, 'UNRCE_APP/myaccount.html', {'user': request.user})
 
+#Edit my Account Page
 def myaccount_edit(request):
-    return render(request, 'UNRCE_APP/myaccount_edit.html')
+    if request.method == 'POST':
+        form = UpdateAccountForm(request.POST, instance = request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('/myaccount')
+    else:
+        form = UpdateAccountForm(instance=request.user)
+    return render(request, 'UNRCE_APP/myaccount_edit.html', {'form': form})
 
 # This is a function to return a list of featured projects by recently added
 # def index(request):

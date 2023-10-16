@@ -2,52 +2,11 @@
 {% load static %}
 
 {% block content %}
-<style>/* Table Styles */
-    .user-interest-table {
-        width: 100%; /* Ensures the container takes up the full width */
-        text-align: left; /* Left-aligns the content of the container (including the table) */
-    }
-    
-    .user-interest-table table {
-        width: auto; /* Let the table take only as much width as required for the content */
-        border-collapse: collapse; /* Removes double borders */
-        color: #000;  /* Black text color for the whole table */
-    }
-    
-    /* Table Headers */
-    .user-interest-table th {
-        background-color: #5775ac;  /* Dark background */
-        color: #fff;  /* White text */
-        padding: 10px;
-        text-align: center;  /* Center-aligned text */
-    }
-    
-    /* Table Cells */
-    .user-interest-table td {
-        padding: 10px;  /* Adds some spacing around the content in cells */
-        border: 1px solid #ddd;  /* Light border around cells */
-        text-align: left;  /* Left-aligned text in cells */
-    }
-    
-    /* Even Rows (for zebra-striping) */
-    .user-interest-table tr:nth-child(even) {
-        background-color: #f2f2f2;  /* Light gray background */
-    }
-    
-    /* Hover effect */
-    .user-interest-table tr:hover {
-        background-color: #e9e9e9;  /* Slightly darker background when hovering over a row */
-    }
-    
-    /* Button Styles */
-    button {
-        margin: 10px 0; /* Some margin around the button */
-        padding: 8px 12px; /* Some padding */
-        cursor: pointer; /* Hand cursor on hover */
-        color: #000; /* Black text color for buttons */
-    }
-    </style>
+
+
 <div class="information">
+
+<!-- The rest of the specific project -->
 <div class="project-container">
     <div style="margin-bottom: 1rem; display: flex; align-items: flex-end;">
         <img class="image" id="detailImage" src="{{ img_src }}" alt="Project Image">
@@ -137,6 +96,8 @@
             table.style.display = "none";
         }
     }
+
+
 </script>
 
 {% endblock content %}
