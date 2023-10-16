@@ -50,6 +50,9 @@ from django.contrib.auth import get_user_model
 # To edit profile
 from .forms import UpdateAccountForm
 
+from django.contrib.auth.decorators import login_required
+
+
 User = get_user_model()
 
 def search_users(request):
@@ -329,13 +332,16 @@ def projects(request):
     return render(request, 'UNRCE_APP/projects.html', {'project_query': project_query})   # Dictionary Containing data to send. Includes the project_query variable passed with name "project_query"
 # My Account Page
 
+@login_required(login_url='/login/')
 def myaccount(request):
     user = request.user
     context = {
         'user': user,
     }
     return render(request, 'UNRCE_APP/myaccount.html', context)
+
 # Edit my Account Page
+@login_required(login_url='/login/')
 def myaccount_edit(request):
     if request.method == 'POST':
         form = UpdateAccountForm(request.POST, instance = request.user)

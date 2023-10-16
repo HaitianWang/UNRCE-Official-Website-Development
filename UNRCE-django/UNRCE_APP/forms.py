@@ -65,3 +65,9 @@ class UpdateAccountForm(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = ['name', 'org', 'emails_enabled', 'rce_hub2', 'role_organisation']
+
+    def clean_name(self):
+        name = self.cleaned_data.get('name')
+        if any(char.isdigit() for char in name) or not name.isalpha():
+            raise ValidationError("Name should only contain letters and should not include any numbers or special characters.")
+        return name

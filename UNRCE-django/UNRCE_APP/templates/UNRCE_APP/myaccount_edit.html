@@ -4,9 +4,6 @@
 <!-- {% load static %} -->
 
 
-
-
-
 <div class="container_outer">
     <div class="container_account">
         <header style="display: flex; justify-content: space-between; padding: 0%; margin: 0%;">
@@ -23,7 +20,11 @@
                         
                         <!-- Name Field -->
                         <label for="{{ form.name.id_for_label }}"> Your name:</label>
-                        {{ form.name }}<br>
+                        {{ form.name }}
+                        {% if form.name.errors %}
+                            <div class="error-message">{{ form.name.errors.as_text }}</div>
+                        {% endif %}
+                        <br>
                         
                         <!-- Organisation Field -->
                         <label for="{{ form.org.id_for_label }}"> Your organisation:</label>
