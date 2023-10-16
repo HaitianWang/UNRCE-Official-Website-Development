@@ -4,12 +4,12 @@
 <!-- {% load static %} -->
 
 
+
 <style>
     .editAccountLabel {
         color: black;
     }
 </style>
-
 
 <div class="container_outer">
     <div class="container_account">
@@ -30,8 +30,12 @@
                         
                         <!-- Name Field -->
                         <label class="editAccountLabel" for="{{ form.name.id_for_label }}"> Your name:</label>
-                        {{ form.name }}<br>
-                        
+                        {{ form.name }}
+                        {% if form.name.errors %}
+                            <div class="error-message">{{ form.name.errors.as_text }}</div>
+                        {% endif %}
+                        <br>
+
                         <!-- Organisation Field -->
                         <label class="editAccountLabel" for="{{ form.org.id_for_label }}"> Your organisation:</label>
                         {{ form.org }}<br>
