@@ -90,7 +90,7 @@ h5{
     font-size: 20px;
 }
 .project-desc, .audience-item, .frequency-item, .sdg-item {
-    font-size: 16px;
+    font-size: 1em;
     font-weight: 600;
 }
 /* Positioning and colors */

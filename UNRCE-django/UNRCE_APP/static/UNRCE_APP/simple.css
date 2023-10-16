@@ -377,7 +377,7 @@ input[type=checkbox],input[type=radio] {
 }
 
 input[type=checkbox]+label,input[type=radio]+label {
-    display: inline-block
+    width: 100%;
 }
 
 input[type=radio] {
