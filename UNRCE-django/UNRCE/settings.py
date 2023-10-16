@@ -143,7 +143,8 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "UNRCE_APP/static"),]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT = BASE_DIR / "images"
 MEDIA_URL = "/media/"
-LOGIN_REDIRECT_URL = 'UNRCE_APP:index'
+LOGIN_URL = "UNRCE_APP:login"
+LOGIN_REDIRECT_URL = 'UNRCE_APP:myaccount'
 
 #Point django to new user model 
 AUTH_USER_MODEL = 'UNRCE_APP.CustomUser'
