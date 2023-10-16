@@ -1,58 +1,33 @@
-from django.views import View
-from django.shortcuts import render, get_object_or_404, redirect
-from .forms import ProjectForm
-from django.contrib.auth import authenticate, login, views as auth_views
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.decorators import login_required
+from django.db.models import Q
+from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
-from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView
-from UNRCE_APP.models import Project, ProjectImage, CustomUser
-from django.http import JsonResponse
-from django.core.exceptions import PermissionDenied
-# ProjectImage
-
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
-
-
-from django.urls import reverse_lazy
-from django.views.generic import CreateView
-
+from django.contrib.auth import login, get_user_model
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView
 from django.contrib.sites.shortcuts import get_current_site
-from django.shortcuts import render, redirect, HttpResponse
-from django.template.loader import render_to_string
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.core.exceptions import PermissionDenied
+from django.http import JsonResponse, HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
+from django.urls import reverse
 from django.utils.encoding import force_bytes, force_str
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.template.loader import render_to_string
+from django.views import View
+
+from .forms import ProjectForm, UploadImageForm, CustomUserCreationForm, UpdateAccountForm
+from .models import Project, CustomUser, Project, SDG, ProjectSDG, ESD, ProjectESD, ProjectPriorityArea, PriorityArea, Image
 from .tokens import account_activation_token
+
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
-from django.contrib.auth import get_user_model
-from django.contrib import messages
 
 from captcha.models import CaptchaStore
-from django.http import JsonResponse
-
-# LoginRequiredMixin will check that user 
-# is authenticated before rendering the template.
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 from datetime import datetime
-from .models import Image, CustomUser
-from .forms import UploadImageForm, CustomUserCreationForm
 
-from django.contrib.auth.views import LoginView
-from django.contrib import messages
-from .models import Project, SDG, ProjectSDG, ESD, ProjectESD, ProjectPriorityArea, PriorityArea
-
-# views.py
-from .models import CustomUser
-from django.db.models import Q
 import csv
-from django.contrib.auth import get_user_model
 
-# To edit profile
-from .forms import UpdateAccountForm
 
 
 User = get_user_model()
@@ -86,11 +61,6 @@ def search_users(request):
         { 'users': users, 'search_query': search_query }
     )
 
-
-from django.contrib.auth.views import LoginView
-from django.shortcuts import render
-from django.contrib import messages 
-#from .models import CaptchaStore  # Make sure to import CaptchaStore if not already done
 
 def new_captcha(request):
     """Return new captcha image and key."""
