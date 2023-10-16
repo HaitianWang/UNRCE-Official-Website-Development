@@ -2,12 +2,14 @@
 .information {
     background-color: #f1f1f1;
     padding: 4rem;
-    width: 100vmin;
+    width: 80vmin;
     min-height: 60vmin;
+    min-width: 50vw;
     border-radius: 10px;
 }
 
 .image {
+    width: 60vmin;
     max-width: 60%;
     object-fit: cover;
     margin-right: 1em;
