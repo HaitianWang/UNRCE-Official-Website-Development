@@ -4,46 +4,53 @@
 <!-- {% load static %} -->
 
 
+
+<style>
+    .editAccountLabel {
+        color: black;
+    }
+</style>
+
 <div class="container_outer">
     <div class="container_account">
         <header style="display: flex; justify-content: space-between; padding: 0%; margin: 0%;">
             <h2 style="font-size: larger;" class="h2_account"> Edit Account Details</h2>
         </header>
         <div style="padding:0%; margin: 0%;">
-            <section style="padding: 0%; margin: 0%; display:flex;" class="profile">
-                <div class="profile-picture">
+            <!-- <section style="padding: 0%; margin: 0%; display:flex;" class="profile"> -->
+                <!-- <div class="profile-picture">
                     <img src="https://www.kindpng.com/picc/m/421-4212275_transparent-default-avatar-png-avatar-img-png-download.png" alt="Profile Picture">
-                </div>
+                </div> -->
                 <div class="user-info">
-                    <form method="post">
+                    <form method="post" style="margin: 10px; background-color: transparent;">
                         {% csrf_token %}
                         <div class="profile-picture">
                             <img src="https://www.kindpng.com/picc/m/421-4212275_transparent-default-avatar-png-avatar-img-png-download.png" alt="Profile Picture">
                         </div>
                         
                         <!-- Name Field -->
-                        <label for="{{ form.name.id_for_label }}"> Your name:</label>
+                        <label class="editAccountLabel" for="{{ form.name.id_for_label }}"> Your name:</label>
                         {{ form.name }}
                         {% if form.name.errors %}
                             <div class="error-message">{{ form.name.errors.as_text }}</div>
                         {% endif %}
                         <br>
-                        
+
                         <!-- Organisation Field -->
-                        <label for="{{ form.org.id_for_label }}"> Your organisation:</label>
+                        <label class="editAccountLabel" for="{{ form.org.id_for_label }}"> Your organisation:</label>
                         {{ form.org }}<br>
 
                         <!-- Role Organisation Field -->
-                        <label for="{{ form.role_organisation.id_for_label }}"> Your organisation role:</label>
+                        <label class="editAccountLabel" for="{{ form.role_organisation.id_for_label }}"> Your organisation role:</label>
                         {{ form.role_organisation }}<br>
 
                         <!-- RCE Hub Field -->
-                        <label for="{{ form.rce_hub2.id_for_label }}"> Your RCE Hub:</label>
+                        <label class="editAccountLabel" for="{{ form.rce_hub2.id_for_label }}"> Your RCE Hub:</label>
                         {{ form.rce_hub2 }}<br>
 
 
                         <!-- Emails enabled field -->
-                        <label for="{{ form.emails_enabled.id_for_label }}"> Would you like to enable email notifications?</label>
+                        <label class="editAccountLabel" for="{{ form.emails_enabled.id_for_label }}"> Would you like to enable email notifications?</label>
                         {{ form.emails_enabled }}<br>
 
 
@@ -58,13 +65,7 @@
                 <p style="font-size:smaller;"> Click <a href="https://sdgs.un.org/goals">here</a> for more information on the Sustainable Development Goals by the UN</p> 
                 {% endcomment %}
     
-    
-            </section>
-            <section style="padding: 0%; margin: 0%;" class="notification">
-                <p> Emails enabled?</p>
-                <input type="checkbox" id="myCheckbox" name="myCheckbox" value="yes">
-            </section>
-            <input type="button" value="Update User Details">
+
         </div>
     </div>
     <div class="projects_container">
