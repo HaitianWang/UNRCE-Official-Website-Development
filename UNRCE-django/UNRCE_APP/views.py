@@ -3,7 +3,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .forms import ProjectForm
 from django.contrib.auth import authenticate, login, views as auth_views
 from django.contrib.auth.forms import UserCreationForm
-from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required, staff_member_required
+from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView
 from UNRCE_APP.models import Project, ProjectImage, CustomUser
 from django.http import JsonResponse
@@ -49,8 +50,6 @@ from django.contrib.auth import get_user_model
 
 # To edit profile
 from .forms import UpdateAccountForm
-
-from django.contrib.auth.decorators import login_required
 
 
 User = get_user_model()
@@ -332,16 +331,12 @@ def projects(request):
     return render(request, 'UNRCE_APP/projects.html', {'project_query': project_query})   # Dictionary Containing data to send. Includes the project_query variable passed with name "project_query"
 # My Account Page
 
-@login_required(login_url='/login/')
+@login_required
 def myaccount(request):
-    user = request.user
-    context = {
-        'user': user,
-    }
-    return render(request, 'UNRCE_APP/myaccount.html', context)
+    return render(request, 'UNRCE_APP/myaccount.html', {'user': request.user})
 
 # Edit my Account Page
-@login_required(login_url='/login/')
+@login_required
 def myaccount_edit(request):
     if request.method == 'POST':
         form = UpdateAccountForm(request.POST, instance = request.user)
@@ -544,6 +539,7 @@ class CreateProject(View):
 
         return render(request, 'UNRCE_APP/contact-us.html')
     
+@login_required
 def edit_project(request, project_id):
 
 
