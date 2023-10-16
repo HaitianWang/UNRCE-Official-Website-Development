@@ -477,11 +477,10 @@ class CreateProject(LoginRequiredMixin, View):
             title=request.POST.get("title"),
             description=request.POST.get("description"),
             audience=request.POST.getlist("audience-options"),
-            delivery_frequency=request.POST.get("delivery_frequency"),
             created_at=request.POST.get("start_date"),
             concluded_on=request.POST.get("end_date"),
             owner=user,  # to set the currently logged-in user as the manager
-            #project_cover_image=request.FILES.get("project_cover_image"),
+            #project_cover_image=request.FILES.get("imageUpload"),
             language=request.POST.get("language"),
             format=request.POST.get("format"),
             web_link=request.POST.get("web_link"),
@@ -493,6 +492,12 @@ class CreateProject(LoginRequiredMixin, View):
             funding=request.POST.get("funding"),
             status=status
         )
+        
+
+
+        delivery_frequency=request.POST.get("delivery_frequency"),
+        if delivery_frequency is not None:
+            new_project.delivery_frequency = delivery_frequency
 
         # Save the new project instance to the database
         new_project.save()
