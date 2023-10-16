@@ -1,5 +1,13 @@
 {% extends "UNRCE_APP/base.html" %}
 
+{% block main_class %}
+    {% if request.path == '/' %}
+        landing-main
+    {% else %}
+        default-main
+    {% endif %}
+{% endblock %}
+
 {% block content %}
 {% load static %}
 <style>
@@ -10,12 +18,10 @@
     }
 
     .small-heading {
-        background: url('/media/RCEWA_Logo.png') no-repeat center center;
-        background-size: cover;
         text-align: center;
-        padding: 60px 0;
-        font-size: 28px;
-        color: #fff;
+        padding: 5vh;
+        font-size: 2em;
+        color: var(--accent-bg);
         margin-bottom: 20px;
     }
 
@@ -26,6 +32,10 @@
         padding: 20px;
         max-width: 95%;
         margin: 20px auto;
+    }
+
+    .sections h2 {
+        color: var(--accent-bg);
     }
 
     .map-section, .contact-details, .endorsement-section {
@@ -50,31 +60,29 @@
         overflow: hidden;
     }
 
-/* ... Other styles ... */
+    /* ... Other styles ... */
 
-.endorsement-photo {
-    float: left;  /* Float the image to the left */
-    width: 100%;
-    max-width: 150px;
-    margin: 20px 20px 20px 0; /* Right margin added to create space between photo and text */
-}
+    .endorsement-photo {
+        float: left;  /* Float the image to the left */
+        width: 100%;
+        max-width: 150px;
+        margin: 20px 20px 20px 0; /* Right margin added to create space between photo and text */
+    }
 
-.bold-text {
-    font-weight: bold; /* Making the text bolder */
-}
+    .bold-text {
+        font-weight: bold; /* Making the text bolder */
+    }
 
-.endorsement-section p {
-    margin-top: 0;
-}
+    .endorsement-section p {
+        margin-top: 0;
+    }
 
-/* Clear float after the endorsement section to ensure layout is not broken */
-.endorsement-section::after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-
+    /* Clear float after the endorsement section to ensure layout is not broken */
+    .endorsement-section::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
 </style>
 
 <p class="small-heading">Contact Us</p>
@@ -95,9 +103,9 @@
     </div>
     
     <div class="endorsement-section">
-        <h2>Endorsement</h2>
+        <h2>Executive Sponsor</h2>
         <img src="{% static 'images/davidsadler.jpg' %}" alt="David Sadler" class="endorsement-photo">
-        <p><span class="bold-text">Professor David Sadler</span>, Deputy Vice-Chancellor (Education) at UWA, endorses this program. Professor Sadler has shown exemplary dedication in the field of education, making significant contributions to the institution's academic excellence and reputation.</p>
+        <p><span class="bold-text">Professor David Sadler</span>, Deputy Vice-Chancellor (Education) at UWA, is the executive sponsor of this program. Professor Sadler has shown exemplary dedication in the field of education, making significant contributions to the universities academic excellence and reputation.</p>
     </div>
 </div>
 

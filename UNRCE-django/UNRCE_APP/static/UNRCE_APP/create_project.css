@@ -27,33 +27,29 @@ input[type="radio"] {
 }
 
 .terms-label{
-  font-size: 15px;
-  font-family: Inter;
-  font-weight: normal;
+  font-size: .8em !important;
+  font-weight: normal !important;
 }
 
 
 .tabcontent label {
-  font-family: Inter;
   text-transform: capitalize;
   word-wrap: break-word;
   margin-right: 20px;
-  font-size: 18px;
-  color: #333;
-  font-weight: bold;
-  background-color: #fdfdfd;
-  color: #333;
+  font-size: 1em;
+  color: var(--text);
+  font-weight: 500;
+  background-color: transparent;
 }
 
 .selection-label {
-  font-size: 15px;
-  font-family: Inter;
-  font-weight: normal;
+  font-size: 1em;
+  font-weight: 200;
 }
 
 
 input[type="text"], textarea {
-  background-color: white; /* White background */
+  background-color: var(--text); /* White background */
   border: 1px solid #e0e0e0;  /* Light border */
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow */
   padding: 10px; /* Some padding for better appearance */
@@ -151,20 +147,23 @@ input[type="file"] {
 }
 
 .tabcontent {
-  padding: 2vh 4vw 0 4vw;
+  padding: 2vh 4vw 2vh 4vw;
   border: 1px solid #ccc;
   border-top: none;
   display: flex;
   flex-direction: column;
+  background-color: var(--blue-bg);
+  width: 100%;
+  flex-wrap: wrap;
 }
 
 form {
-  background-color: var(--blue-bg);
   position: relative;
-  margin: 0 4vw 0 4vw;
-  width: 600px;
+  width: 100%;
+  max-width: min(60vw, 1000px);
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 form * {
@@ -183,6 +182,7 @@ button:last-child {
 .navigation-buttons {
   width: 100%;
   text-align: center;
+  padding: 5%;
 }
 
 #prevBtn,
@@ -191,19 +191,20 @@ button:last-child {
   display: inline-block;
   background-color: #ffb300;  /* This is a blue color, you can adjust to your preferred shade of blue */
   color: white;
+  padding: 2% 5% 2% 5%;
+  align-items: center;
 }
 
 .sdg-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
   padding: 5px 0;
   border-bottom: 1px solid #e5e5e5; /* Adds a light bottom border to separate each SDG item */
 }
 
 input[type="radio"] {
-  margin-right: 5px; /* Adds some space between the radio button and its label */
+  margin-right: 10%; /* Adds some space between the radio button and its label */
 }
 
   
@@ -215,14 +216,14 @@ input[type="radio"] {
 .sdg-option-label {
   display: inline-block;
   margin-right: 10px;
-  font-family: Intern; /* Replace 'YourDesiredFontFamily' with the name of the font you want. */
-  font-size: 15px;
+  font-size: 1em;
   font-weight: normal;
 }
 
 #sdgs-selection .sdg-name p {
   font-weight: normal; /* Makes the SDG name bold */
-  color: black; /* A blue color for the SDG name */
+  color: var(--text); /* A blue color for the SDG name */
+  margin: .5rem;
 }
   
   /* Adjust styling as needed */
@@ -241,7 +242,7 @@ input[type="radio"] {
 
 .sdg-option-label {
   display: inline-block;
-  margin-right: 10px;
+  margin-right: 10px !important;
 }
 
 /* Adjust styling as needed */
@@ -255,7 +256,7 @@ input[type="radio"] {
 }
 
 .terms-text {
-  font-size: 14px;
+  font-size: .8em;
   margin-bottom: 20px;
   line-height: 1.5;
   color: #555;
@@ -277,7 +278,7 @@ input[type="radio"] {
   border: none;
   border-radius: 4px;
   padding: 10px 20px;
-  font-size: 16px;
+  font-size: 1.2em;
   cursor: pointer;
   display: block;
   margin-top: 20px;
@@ -293,6 +294,8 @@ input[type="radio"] {
   display: flex;
   justify-content: space-evenly;
   flex-direction: row;
+  padding-top: 2em;
+  width: 100%;
 }
 
 .tablinks:hover {
@@ -307,7 +310,7 @@ input[type="radio"] {
 
 .terms-container {
   margin: 20px;
-  font-size: 14px;
+  font-size: 1em;
   margin-bottom: 20px;
 }
 
@@ -338,4 +341,69 @@ textarea {
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-between;
+}
+
+/* Default styles for option columns */
+.option-column {
+  display: flex;
+  justify-items: start;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.option-column input[type="checkbox"],
+.option-column input[type="radio"] {
+  margin-right: 10px; /* Add margin for spacing between the checkbox/radio and text */
+}
+
+.form-section {
+  margin-bottom: 6%; /* Add margin between form sections */
+  width: -webkit-fill-available;
+  margin-top: 6%;
+}
+
+.checkbox-options, .radio-options {
+  width: 100%; /* Make sure the options span the full width of their container */
+  columns: 2;
+}
+
+/* Clear floats for the .form-section to avoid issues */
+.form-section::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.checkbox-options .option-column,
+.radio-options .option-column {
+  margin-bottom: 10px;
+  column-gap: 10px;
+}
+
+.form_header {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding-bottom: 1em !important;
+  font-size: 1.1em !important;
+}
+
+.option-column label {
+  font-weight: normal;
+}
+
+.sdg-options {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-evenly;
+}
+.sdg-option {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-evenly;
 }

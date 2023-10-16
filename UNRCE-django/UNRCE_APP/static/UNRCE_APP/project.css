@@ -2,16 +2,18 @@
 .information {
     background-color: #f1f1f1;
     padding: 4rem;
-    width: 100vmin;
+    width: 80vmin;
     min-height: 60vmin;
+    min-width: 50vw;
     border-radius: 10px;
 }
 
 .image {
-    width: 60%;
+    width: 60vmin;
+    max-width: 60%;
     object-fit: cover;
     margin-right: 1em;
-    height: min-content;
+    height: 100%;
 }
 #projectTitle{
     margin-bottom: 1rem;    
@@ -88,7 +90,7 @@ h5{
     font-size: 20px;
 }
 .project-desc, .audience-item, .frequency-item, .sdg-item {
-    font-size: 16px;
+    font-size: 1em;
     font-weight: 600;
 }
 /* Positioning and colors */
@@ -142,15 +144,14 @@ h5{
 .project-sidebar {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
     margin-left: 0;     /* Ensure no left margin on the project listing */
     text-decoration: none;
     color: inherit;
 }
 
 .project-image {
-    width: 160px;
-    height: 150px;
+    width: 10vw;
+    height: 8vw;
     margin-right: 10px;
     margin-bottom: 10px;
     margin-left: 0;     /* Ensure no left margin on the image */
@@ -166,5 +167,34 @@ h5{
     color:black;
 }
 
-
+.project-details h2 {
+    font-size: 1.5vw;
+    font-weight: 700;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+}
+.project-details h3{
+    font-size: 1.2vw;
+    font-weight: 700;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+}
+.project-details h4{
+    font-size: 1vw;
+    font-weight: 700;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+}
+.project-details h5, 
+.region-title {
+    font-size: 0.8vw !important;
+    font-weight: 700;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+}
+.project-details p,
+.region p {
+    font-size: 0.8vw;
+    font-weight: 500;
+}
 

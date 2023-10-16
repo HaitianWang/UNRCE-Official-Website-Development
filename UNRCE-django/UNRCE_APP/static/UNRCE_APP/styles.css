@@ -5,6 +5,14 @@
     box-sizing: border-box;
 }
 
+.default-main {
+    padding-top: 4em;
+}
+
+.landing-main {
+    padding-top: 0;
+}
+
 html {
     font-size: 16px;
 }
@@ -12,9 +20,12 @@ html {
 .page-wrapper {
     display: flex;
     align-items: flex-start;
-    max-width: 1400px;
+    max-width: min(90vw, 1400px);
+    min-width: 50vw;
     box-sizing: border-box;
     flex-direction: row-reverse;
+    width: 110vmin;
+    justify-content: center;
 }
 
 .main-div, .sidebar, .header-photo {
@@ -46,12 +57,12 @@ html {
 
 .sub-title {
     font-size: 20px;
-    padding-left: 45px;
+    padding-left: 5px;
 }
 
 /* Info Background & Text Settings */
 .info-background {
-    background: #F1F1F1;
+    background: var(--text);
     border-radius: 20px;
     padding: 20px;
     margin: 20px 0;
@@ -95,14 +106,12 @@ html {
 }
 
 .project-box {
-    border: 2px solid black;
     border-radius: 10px;
     padding: 5px;
     padding-bottom: 0;
     margin: 10px 0;
     background: white;
     text-align: center;
-    height: 164px;
     margin-right: 5px;
     margin-left: 5px;
     width: max-content;
@@ -266,14 +275,13 @@ html {
 .overlay-text {
     font-size: 18px;
     color: white;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: var(--blue-bg);
     padding: 5px 10px;
     border-radius: 5px;
     position: absolute;
     bottom: 100px;
     left: 50%;
     transform: translateX(-50%);
-    font-family: "Century Gothic", sans-serif;
 }
 
 .flip-card:hover .flip-card-overlay {
@@ -306,6 +314,8 @@ html {
 .footer-logo {
     height: 100%;
     display: block;
+    padding: 2%;
+    background-color: var(--text);
 }
 
 .footer h5 {
@@ -349,6 +359,7 @@ h3 {
     height: fit-content;
     flex-direction: column;
     background-color: var(--blue-bg);
+    width: 100vw;
 }
 
 /* for header bar top row content */
@@ -359,6 +370,8 @@ h3 {
     align-items: center;
     width: 100%;
     height: min-content;
+    background-color: var(--blue-accent);
+    padding: 1vh;
 }
 
 /* for horizontal button menus */
@@ -372,17 +385,18 @@ h3 {
 
 /* For the base header navigation bar */
 .header-nav {
-    background-color: #003087;
+    background-color: var(--blue-bg);
     height: 70px;
 }
 
 /* for button in nav bar */
 nav > a {
-    background-color: #5775ac;
+    background-color: var(--blue-bg);
     text-decoration: none;
     padding: 10px;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 2vmin;
+    font-weight: 400;
     margin: 0.2rem;
 }
 
@@ -460,4 +474,11 @@ html, body {
     .container {
         transform: scale(calc(100vw / 1400px));
     }
+}
+
+.project-listing {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    padding: 0 1vw 0 1vw;
+    justify-items: center;
 }
