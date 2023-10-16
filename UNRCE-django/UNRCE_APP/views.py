@@ -1,55 +1,34 @@
-from django.views import View
-from django.shortcuts import render, get_object_or_404, redirect
-from .forms import ProjectForm
-from django.contrib.auth import authenticate, login, views as auth_views
-from django.contrib.auth.forms import UserCreationForm
-from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView
-from UNRCE_APP.models import Project, ProjectImage, CustomUser
-from django.http import JsonResponse
-# ProjectImage
-
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
-
-
-from django.urls import reverse_lazy
-from django.views.generic import CreateView
-
+from django.db.models import Q
+from django.contrib import messages
+from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth import login, get_user_model
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView
 from django.contrib.sites.shortcuts import get_current_site
-from django.shortcuts import render, redirect, HttpResponse
-from django.template.loader import render_to_string
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.core.exceptions import PermissionDenied
+from django.http import JsonResponse, HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
+from django.urls import reverse
 from django.utils.encoding import force_bytes, force_str
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.template.loader import render_to_string
+from django.views import View
+
+from .forms import ProjectForm, UploadImageForm, CustomUserCreationForm, UpdateAccountForm
+from .models import Project, CustomUser, Project, SDG, ProjectSDG, ESD, ProjectESD, ProjectPriorityArea, PriorityArea, Image
 from .tokens import account_activation_token
+
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
-from django.contrib.auth import get_user_model
-from django.contrib import messages
 
 from captcha.models import CaptchaStore
-from django.http import JsonResponse
-
-# LoginRequiredMixin will check that user 
-# is authenticated before rendering the template.
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 from datetime import datetime
-from .models import Image, CustomUser
-from .forms import UploadImageForm, CustomUserCreationForm
 
-from django.contrib.auth.views import LoginView
-from django.contrib import messages
-from .models import Project, SDG, ProjectSDG, ESD, ProjectESD, ProjectPriorityArea, PriorityArea
-
-# views.py
-from .models import CustomUser
-from django.db.models import Q
 import csv
-from django.contrib.auth import get_user_model
 
-# To edit profile
-from .forms import UpdateAccountForm
+
 
 User = get_user_model()
 
@@ -82,11 +61,6 @@ def search_users(request):
         { 'users': users, 'search_query': search_query }
     )
 
-
-from django.contrib.auth.views import LoginView
-from django.shortcuts import render
-from django.contrib import messages 
-#from .models import CaptchaStore  # Make sure to import CaptchaStore if not already done
 
 def new_captcha(request):
     """Return new captcha image and key."""
@@ -361,6 +335,7 @@ class UploadImageView(LoginRequiredMixin, View):
 def contact_us(request):
     return render(request, 'UNRCE_APP/contact-us.html')
 
+@staff_member_required(login_url="UNRCE_APP:login")
 def users_info(request):
     return render(request, 'UNRCE_APP/users_info.html')
 
@@ -368,11 +343,12 @@ def projects(request):
     # Dictionary Containing data to send. Includes rows from the "Project" table sent as "project_query"
     return render(request, 'UNRCE_APP/projects.html', {'project_query': Project.objects.all()})   
 
-#My Account Page
+@login_required
 def myaccount(request):
     return render(request, 'UNRCE_APP/myaccount.html', {'user': request.user})
 
-#Edit my Account Page
+# Edit my Account Page
+@login_required
 def myaccount_edit(request):
     if request.method == 'POST':
         form = UpdateAccountForm(request.POST, instance = request.user)
@@ -566,9 +542,14 @@ class CreateProject(LoginRequiredMixin, View):
 
         return render(request, 'UNRCE_APP/contact-us.html')
     
+@login_required
 def edit_project(request, project_id):
 
     project = get_object_or_404(Project, pk=project_id)
+
+    user = request.user
+    if user != project.owner and not (user.is_staff() and user.is_active()):
+        raise PermissionDenied
 
     if request.method != 'POST':
         return render(request, 'UNRCE_APP/edit_project.html', {'form': ProjectForm(instance=project)})
@@ -623,14 +604,14 @@ def fetch_projects(request):
     return JsonResponse([{'id': proj.id, 'text': proj.title} for proj in projects], safe=False)
 
 
-
+@staff_member_required(login_url="UNRCE_APP:login")
 def delete_users(request):
     if request.method == "POST":
         user_ids = request.POST.getlist("user_ids") # "user_ids" matches the checkbox name
         CustomUser.objects.filter(id__in=user_ids).delete()
         return HttpResponseRedirect('/user-search/') # Redirect back to the search page
     
-
+@staff_member_required(login_url="UNRCE_APP:login")
 def download_users(request):
     search_query = request.GET.get('search_query', '')
     
