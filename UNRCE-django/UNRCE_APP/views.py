@@ -645,3 +645,7 @@ def download_users(request):
         ])
 
     return response
+
+# FAQ Page
+def faq(request):
+    return render(request, 'UNRCE_APP/faq.html')
