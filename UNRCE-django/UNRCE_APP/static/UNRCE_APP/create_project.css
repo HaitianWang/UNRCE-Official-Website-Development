@@ -35,7 +35,6 @@ input[type="radio"] {
 .tabcontent label {
   text-transform: capitalize;
   word-wrap: break-word;
-  margin-right: 20px;
   font-size: 1em;
   color: var(--text);
   font-weight: 500;
@@ -79,12 +78,12 @@ textarea {
 
 .image-section {
   text-align: center;
+  margin-left: 20px;
 }
 
 .label-section {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   width: -webkit-fill-available;
 }
 
@@ -95,7 +94,6 @@ textarea {
   max-width: fit-content;
   object-fit: cover;
   max-block-size: 12em;
-  margin-bottom: 20px !important;
 }
 
 .upload-text {
@@ -139,7 +137,9 @@ input[type="file"] {
 
 .imagecp {
   float: left;
-  margin-left: 10px;
+  object-fit: cover;
+  min-height: 100%;
+  border-radius: 0;
 }
 
 .clear {

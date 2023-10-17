@@ -106,6 +106,7 @@
 <div class="user-interest-table">
     <!-- Button to toggle the table visibility -->
     <button onclick="toggleTableVisibility()">Show Interested Users</button>
+    <button id="interested-btn">I'm Interested</button>
     
     <!-- Hidden table that can be toggled via button click -->
     <div id="interestTable" style="display: none;">
@@ -162,5 +163,44 @@
 
 
 </script>
+
+<script>
+    document.getElementById('interested-btn').addEventListener('click', function() {
+        let projectId = '{{ project.id }}';  // Ensure this variable is being populated correctly
+        if (!projectId) {
+            alert('Project ID is missing!');
+            return;
+        }
+    
+        fetch('/path_to_add_to_interested_view', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({
+                'project_id': projectId
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.status === 'success') {
+                alert(data.message);
+            } else {
+                alert('Error: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.log('Fetch error: ', error);
+            alert('There was a problem with the fetch operation.');
+        });
+    });    
+</script>
+
 
 {% endblock content %}

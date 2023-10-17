@@ -39,6 +39,7 @@ urlpatterns = [
   path('contact-us/', views.contact_us, name='contact-us'),
   path('new_captcha/', views.new_captcha, name='new_captcha'),
   path('projects/', views.projects, name='projects'),
+  #path('specific_project/<int:project_id>/', views.specific_project, name='specific_project'),
   path('specific_project/', views.specific_project, name='specific_project'),
   path("create_project/", CreateProject.as_view(), name="create_project"),
   path("myaccount/", views.myaccount, name="myaccount"),

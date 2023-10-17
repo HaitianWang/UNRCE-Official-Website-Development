@@ -374,9 +374,23 @@ def index(request):
     return render(request, 'UNRCE_APP/index.html')
 
 def specific_project(request):
-    img_src = request.GET.get('img', '') 
-    title_text = request.GET.get('title', '')
-    return render(request, 'UNRCE_APP/specific_project.html', {'img_src': img_src, 'title_text': title_text})
+    project_id = request.GET.get('project_id', None)
+    project = Project.objects.get(id=project_id)
+    interested_users = project.users_interested.all()
+
+    return render(request, 'UNRCE_APP/specific_project.html', {'project': project, 'interested_users': interested_users})
+
+def add_to_interested(request):
+    user = request.user
+    project_id = request.POST.get('project_id', None)
+    
+    if project_id:
+        project = Project.objects.get(id=project_id)
+        user.interested_projects.add(project)
+        user.save()
+        return JsonResponse({'status': 'success', 'message': 'Added to interested projects.'})
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Invalid project ID.'})
 
 
 class CreateProject(LoginRequiredMixin, View):
@@ -477,11 +491,10 @@ class CreateProject(LoginRequiredMixin, View):
             title=request.POST.get("title"),
             description=request.POST.get("description"),
             audience=request.POST.getlist("audience-options"),
-            delivery_frequency=request.POST.get("delivery_frequency"),
             created_at=request.POST.get("start_date"),
             concluded_on=request.POST.get("end_date"),
-            #manager=user,  # to set the currently logged-in user as the manager
-            #project_cover_image=request.FILES.get("project_cover_image"),
+            owner=user,  # to set the currently logged-in user as the manager
+            #project_cover_image=request.FILES.get("imageUpload"),
             language=request.POST.get("language"),
             format=request.POST.get("format"),
             web_link=request.POST.get("web_link"),
@@ -493,6 +506,12 @@ class CreateProject(LoginRequiredMixin, View):
             funding=request.POST.get("funding"),
             status=status
         )
+        
+
+
+        delivery_frequency=request.POST.get("delivery_frequency"),
+        if delivery_frequency is not None:
+            new_project.delivery_frequency = delivery_frequency
 
         # Save the new project instance to the database
         new_project.save()

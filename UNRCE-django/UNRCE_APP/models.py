@@ -183,16 +183,15 @@ class Project(models.Model):
     project_cover_image = models.FileField(upload_to='project_images/', null=True, blank=True)
     description = models.TextField()
 
-
-
+    interested_users = models.ManyToManyField(CustomUser, related_name='interested_in_projects')
 
     created_at = models.DateTimeField(auto_now_add=True)  # Set to 'now' when the record is created
     concluded_on = models.DateTimeField(null=True, blank=True)  # Null by default
 
     files = models.ManyToManyField('ProjectFile', related_name='projects')
 
-    audience = models.CharField(max_length=50, choices=AUDIENCE_CHOICES)
-    delivery_frequency = models.CharField(max_length=20, choices=FREQUENCY_CHOICES)
+    audience = models.CharField(max_length=50, choices=AUDIENCE_CHOICES, default=FREQUENCY_CHOICES[0])
+    delivery_frequency = models.CharField(max_length=20, choices=FREQUENCY_CHOICES, default=FREQUENCY_CHOICES[0])
     language = models.TextField()
     format = models.TextField()
     web_link = models.URLField()
