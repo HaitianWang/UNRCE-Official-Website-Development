@@ -1,13 +1,4 @@
 {% extends "UNRCE_APP/base.html" %}
-
-{% block main_class %}
-{% if request.path == '/' or request.path == '/create_project/' %}
-landing-main
-{% else %}
-default-main
-{% endif %}
-{% endblock %}
-
 {% load static %}
 {% block content %}
 
@@ -194,8 +185,7 @@ default-main
         flex-direction: column;
         justify-content: space-around;
         align-items: stretch;">
-            <!-- last page of the form for submission
-    add functionality to the submit button -->
+            <!-- last page of the form for submission-->
 
             <p style="color: var(--text); font-weight: 500;">Terms and Conditions</p>
             <label class="terms-label" for="terms_and_conditions">

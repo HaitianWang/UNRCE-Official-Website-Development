@@ -3,66 +3,62 @@
 <html>
 
 <head>
-  <title>UNRCE WA</title>
-  <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/simple.css' %}">
-  <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/styles.css' %}">
-  <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/login.css' %}">
-  <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/create_project.css' %}">
-  <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/project.css' %}">
-  <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/myaccount.css' %}">
-  <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/myaccount_edit.css' %}">
-  <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/index.css' %}">
-  
-  <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}" >
-
-  
-
+    <title>UNRCE WA</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/simple.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/login.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/create_project.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/project.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/myaccount.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/myaccount_edit.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/index.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}" >
 </head>
 <style>
-  /* Autofill styles */
-  input:-webkit-autofill,
-  input:-webkit-autofill:hover, 
-  input:-webkit-autofill:focus,
-  textarea:-webkit-autofill,
-  textarea:-webkit-autofill:hover,
-  textarea:-webkit-autofill:focus,
-  select:-webkit-autofill,
-  select:-webkit-autofill:hover,
-  select:-webkit-autofill:focus {
-      border: 1px solid gray;
-      -webkit-text-fill-color: black !important;
-      -webkit-box-shadow: 0 0 0px 1000px white inset !important;
-      transition: background-color 5000s ease-in-out 0s;
-  }
+    /* Autofill styles */
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover, 
+    input:-webkit-autofill:focus,
+    textarea:-webkit-autofill,
+    textarea:-webkit-autofill:hover,
+    textarea:-webkit-autofill:focus,
+    select:-webkit-autofill,
+    select:-webkit-autofill:hover,
+    select:-webkit-autofill:focus {
+        border: 1px solid gray;
+        -webkit-text-fill-color: black !important;
+        -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+        transition: background-color 5000s ease-in-out 0s;
+    }
 </style>
 <body style="background-color: #ffffff;">
 <!-- Added header.html -->
 {% include 'UNRCE_APP/header.html' %}
-<main class="{% block main_class %}default-main{% endblock %}">
+<main style="padding-top: {% if request.path == "/" %}0{% else %}4em{%endif%};">
 {% block content %}
 {% endblock content %}
 </main>
 {% include 'UNRCE_APP/footer.html' %}
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-      const refreshCaptchaLink = document.getElementById('refresh_captcha');
-      if (refreshCaptchaLink) {
-          const captchaImage = document.getElementById('captcha_image');
-          const captchaKeyInput = document.getElementById('captcha_key_input');
+    document.addEventListener('DOMContentLoaded', function() {
+        const refreshCaptchaLink = document.getElementById('refresh_captcha');
+        if (refreshCaptchaLink) {
+            const captchaImage = document.getElementById('captcha_image');
+            const captchaKeyInput = document.getElementById('captcha_key_input');
 
-          refreshCaptchaLink.addEventListener('click', function(event) {
-              event.preventDefault();
+            refreshCaptchaLink.addEventListener('click', function(event) {
+                event.preventDefault();
 
-              fetch('/new_captcha/')
-              .then(response => response.json())
-              .then(data => {
-                  captchaImage.src = data.captcha_image_url;
-                  captchaKeyInput.value = data.captcha_key;
-              });
-          });
-      }
-  });
+                fetch('/new_captcha/')
+                .then(response => response.json())
+                .then(data => {
+                    captchaImage.src = data.captcha_image_url;
+                    captchaKeyInput.value = data.captcha_key;
+                });
+            });
+        }
+    });
 </script>
 
 </body>
