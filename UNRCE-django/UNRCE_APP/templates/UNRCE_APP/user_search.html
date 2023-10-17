@@ -1,13 +1,5 @@
 {% extends "UNRCE_APP/base.html" %}
 
-{% block main_class %}
-    {% if request.path == '/' %}
-        landing-main
-    {% else %}
-        default-main
-    {% endif %}
-{% endblock %}
-
 {% block content %}
 
 <style>
@@ -76,7 +68,7 @@
 
 <!-- User Search Form -->
 <div class="user-search-content">
-    <h2 style="text-align:center; font-family: calibri;color:black;">User Information</h2>
+    <h2 style="text-align:center; font-family: calibri; color: #003087;">User Information</h2>
 
     <form class="search-form form-style" method="GET" action="/user-search/">
         <input class="search-input" type="text" name="search_query" placeholder="Search">
@@ -93,8 +85,8 @@
 </form>
 
 
-<!-- Delete Users Form -->
-<form id="deleteForm" class="form-style" method="POST" action="/delete-users/" onsubmit="return confirmDelete()">
+<!-- Single Form -->
+<form id="userForm" class="form-style" method="POST" onsubmit="return confirmAction()">
     {% csrf_token %}
     <div class="user-search-content">
         <table class="user-search-table">
@@ -113,9 +105,7 @@
             <tbody>
                 {% for user in users %}
                 <tr>
-                    <td>
-                        <input type="checkbox" name="user_ids" value="{{ user.id }}">
-                    </td>
+                    <td><input type="checkbox" name="user_ids" value="{{ user.id }}"></td>
                     <td>{{ user.user_name }}</td>
                     <td>{{ user.email }}</td>
                     <td>
@@ -133,8 +123,9 @@
                     </td>
                     <td>
                         {% for sdg in user.interested_sdgs.all %}
-                        {{ sdg.sdg }}<br>
+                        {{ sdg.get_sdg_display }}<br>
                         {% endfor %}
+
                     </td>
                     <td>
                         {% if user.rce_hub %}
@@ -147,7 +138,48 @@
                 {% endfor %}
             </tbody>
         </table>
-        <button type="submit" class="delete-button">Delete Selected Users</button>
+        
+        <!-- Delete Selected Users button -->
+<button type="button" class="delete-button" onclick="showModal('/delete-users/', 'Delete selected users?')">Delete Selected Users</button>
+
+<!-- Make Admin button -->
+<button type="button" class="delete-button" onclick="showModal('/make-admin/', 'Make selected users admin?')">Make Admin</button>
+
+<!-- Custom Modal -->
+<div id="confirmModal" style="display:none;">
+  <p id="confirmText"></p>
+  <button id="confirmYes" style="background-color: #003087; color: white;">Yes</button>
+  <button id="confirmNo" style="background-color: #ccc; color: black;">No</button>
+</div>
+
+
     </div>
 </form>
+
+<script>
+    function setFormAction(actionUrl) {
+        // Change form action
+        document.getElementById('userForm').action = actionUrl;
+    }
+    
+    function showModal(actionUrl, confirmMessage) {
+        // Show the modal and set the message
+        document.getElementById("confirmText").innerText = confirmMessage;
+        document.getElementById("confirmModal").style.display = 'block';
+      
+        // Set the actions for the buttons
+        document.getElementById("confirmYes").onclick = function() {
+            setFormAction(actionUrl);
+            document.getElementById('userForm').submit();
+            document.getElementById("confirmModal").style.display = 'none';
+        };
+    
+        document.getElementById("confirmNo").onclick = function() {
+            document.getElementById("confirmModal").style.display = 'none';
+        };
+    }
+    
+</script>
+
+
 {% endblock %}

@@ -76,6 +76,14 @@ def search_users(request):
         { 'users': users, 'search_query': search_query }
     )
 
+@user_passes_test(is_superuser, login_url='/') 
+def make_admin_view(request):
+    if request.method == 'POST':
+        selected_user_ids = request.POST.getlist('user_ids')
+        CustomUser.objects.filter(id__in=selected_user_ids).update(is_staff=True)
+    return HttpResponseRedirect('/user-search/')
+
+
 
 def new_captcha(request):
     """Return new captcha image and key."""

@@ -47,6 +47,11 @@ urlpatterns = [
   path('projects/<int:project_id>/pending/', views.make_pending_project, name='make_pending_project'),       # Used to make project pending
   path('change_approval/<int:project_id>/', views.change_approval, name='change_approval'),
 
+  path('user-search/', views.search_users, name='search_users'),
+  path('delete-users/', views.delete_users, name='delete_users'),
+  path('download-users/', views.download_users, name='download-users'),
+  path('make-admin/', views.make_admin_view, name='make-admin'),
+
 
 
 #   path('specific_project/<int:project_id>/', views.specific_project, name='specific_project'),
@@ -59,9 +64,6 @@ urlpatterns = [
   path('edit_project/<int:project_id>/', views.edit_project, name='edit_project'),
   path('users/', views.users_info, name='users'),
   path('admin/fetch_projects/', views.fetch_projects, name='fetch_projects'),
-  path('user-search/', views.search_users, name='search_users'),
-  path('delete-users/', views.delete_users, name='delete_users'),
-  path('download-users/', views.download_users, name='download-users'),
   path('project-search/', views.project_search, name='project_search'),
   path('delete_projects/', views.delete_projects, name='delete_projects'), 
   path("pending_projects/", views.pending_projects, name="pending_projects"),   # Shows all pending projects
