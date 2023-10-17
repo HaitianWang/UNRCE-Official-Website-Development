@@ -72,16 +72,7 @@
             </div>
         </div>
         
-        <!-- Add an approval button -->
-<!-- Add debugging information -->
-        {% if user.is_superuser %}
-            <p>{{ project.title }}</p>
-            <form method="post" action="{% url 'UNRCE_APP:approve_project'%}">
-                {% csrf_token %}
-                <!-- <button onclick="location.href='{% url 'UNRCE_APP:approve_project'%}'">Approve</button> -->
-                <p>Project ID: {{ project.id }}</p>
-            </form>
-        {% endif %}
+
     </div>
 </div>
 
@@ -129,6 +120,20 @@
             </tbody>
         </table>
     </div>
+
+    {% if user.is_superuser %}
+    <!-- Approve a project button -->
+    <form method="post" action="{% url 'UNRCE_APP:approve_project' project.id %}">
+        {% csrf_token %}
+        <button type="submit">Approve</button>
+    </form>
+    <form method="post" action="{% url 'UNRCE_APP:reject_project' project.id %}">
+        {% csrf_token %}
+        <button type="submit">Reject</button>
+    </form>
+
+    {% endif %}
+
 </div>
 
 <script src="{% static 'UNRCE_APP/projects.js' %}"></script>

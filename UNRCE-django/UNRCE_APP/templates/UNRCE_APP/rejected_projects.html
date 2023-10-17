@@ -1,34 +1,24 @@
+
 {% extends "UNRCE_APP/base.html" %}
 {% load static %}
 {% block content %}
 
-<p class="small-heading"> Our Projects</p>
+<p class="small-heading"> Rejected Projects</p>
+<!-- <button id="addNewProject"> Add Sample New Project (Testing button only, will delete later) </button> -->
 
-
-{% if user.is_authenticated %}
-<a href="{% url 'UNRCE_APP:create_project' %}"><button id="uploadProject"> Upload a Project</button></a>
-{% else %}
-{% endif %}
-
-{% if user.is_superuser %}
-<a href="{% url 'UNRCE_APP:pending_projects' %}">
-    <button id="approvedProjects"> Go to Pending Projects</button>
-</a>
-{% endif %}
-
-{% if user.is_superuser %}
-<a href="{% url 'UNRCE_APP:rejected_projects' %}">
-    <button id="rejectedProjects"> Go to Rejected Projects</button>
-</a>
-{% endif %}
-
-<p>List of project id's that're approved:</p>
+<p>Ryan:</p>
 {% for project in project_query %}
     <p> {{ project.id }} </p>
     <a href="{% url 'UNRCE_APP:project_specific' project.id %}">{{ project.name }} project link</a>
 {% endfor %}
 </ul>
 
+
+{% if user.is_superuser %}
+<a href="{% url 'UNRCE_APP:projects' %}">
+    <button id="approvedProjects"> Go to Approved Projects</button>
+</a>
+{% endif %}
 <div class="project-grid" id="projectGrid" data-baseurl="{% url 'UNRCE_APP:specific_project' %}">
     {% for project in project_query %}
         <a href="{ url 'UNRCE_APP:specific_project' %}">
@@ -39,6 +29,8 @@
         </a>
     {% endfor %}
 </div>
+
+
 
 <script src="{% static 'UNRCE_APP/projects.js' %}"></script>
 {% endblock content %}

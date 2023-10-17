@@ -38,10 +38,14 @@ urlpatterns = [
   re_path(r'^reset_password/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>.+)/$', views.reset_password, name='reset_password_confirm'),
   path('contact-us/', views.contact_us, name='contact-us'),
 
-  path('projects/', views.projects, name='projects'),
-  path('projects/<int:project_id>/', views.project_specific, name='project_specific'),  # This is what i'm using 
+  path('projects/', views.projects, name='projects'),   # List of (approved) projects
+  path('projects/<int:project_id>/', views.project_specific, name='project_specific'),  # The page for a specific project
 
-  path('specific_project/', views.specific_project, name='specific_project'),   # This is tim's old code, not using anymore for now
+  path('specific_project/', views.specific_project, name='specific_project'),   # TOM'S OLD CODE, NOT USING
+  path('projects/<int:project_id>/approve/', views.approve_project, name='approve_project'),    # Used to approve project
+  path('projects/<int:project_id>/reject/', views.reject_project, name='reject_project'),       # Used to reject project
+  
+
 
 #   path('specific_project/<int:project_id>/', views.specific_project, name='specific_project'),
   path("create_project/", CreateProject.as_view(), name="create_project"),
@@ -55,6 +59,8 @@ urlpatterns = [
   path('download-users/', views.download_users, name='download-users'),
   path('project-search/', views.project_search, name='project_search'),
   path('delete_projects/', views.delete_projects, name='delete_projects'), 
-  path("pending_projects/", views.pending_projects, name="pending_projects"),
-  path('approve_project/', views.approve_project, name='approve_project'),
+  path("pending_projects/", views.pending_projects, name="pending_projects"),   # Shows all pending projects
+
+  path("rejected_projects/", views.rejected_projects, name="rejected_projects"),    # Shows all rejected projects
+#   path('approve_project/', views.approve_project, name='approve_project'),
 ]

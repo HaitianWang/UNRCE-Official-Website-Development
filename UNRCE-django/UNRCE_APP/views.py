@@ -52,6 +52,9 @@ User = get_user_model()
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth import REDIRECT_FIELD_NAME
 
+
+from django.views.decorators.http import require_POST
+
 # Define a custom function to check if the user is a superuser
 def is_superuser(user):
     return user.is_superuser
@@ -385,6 +388,15 @@ def approve_project(request, project_id):
     # Redirect back to the pending projects page
     return redirect('UNRCE_APP:pending_projects')
 
+def rejected_projects(request):
+        # Retrieve pending projects from the database
+    rejected_projects = Project.objects.filter(approval='rejected')
+
+    context = {
+        'project_query': rejected_projects,  # Pass the filtered queryset to the template
+    }
+    return render(request, 'UNRCE_APP/rejected_projects.html', context)
+
 class CreateProject(View):
 
     
@@ -673,3 +685,22 @@ def project_specific(request, project_id):
     project = get_object_or_404(Project, id=project_id)
     # return render(request, 'project_specific.html', {'project': project})
     return render(request, 'UNRCE_APP/project_specific.html', {'project': project})
+
+
+# Function needed to approve a project
+@require_POST
+def approve_project(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    project.approval = "approved"
+    project.save()
+    messages.success(request, "Project has been approved!")
+    return redirect('UNRCE_APP:project_specific', project_id=project.id)
+
+# Function needed to reject a project
+@require_POST
+def reject_project(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    project.approval = "rejected"
+    project.save()
+    messages.success(request, "Project has been rejected!")
+    return redirect('UNRCE_APP:project_specific', project_id=project.id)
