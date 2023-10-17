@@ -2,6 +2,11 @@
 
 {% load static %}
 
+{% block linking%}
+<script src="{% static 'UNRCE_APP/refresh.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/login.css' %}">
+{%endblock linking%}
+
 {% block content %}
 
 <div class="login-box">

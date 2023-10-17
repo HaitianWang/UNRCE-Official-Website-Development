@@ -1,18 +1,18 @@
 
 {% extends "UNRCE_APP/base.html" %}
+{% load static %}
 
-
-{% block content %}
-{%comment%} {% load static %} {%endcomment%}
-
-
-
+{%block linking%}
+<link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/myaccount.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/myaccount_edit.css' %}">
 <style>
     .editAccountLabel {
         color: black;
     }
 </style>
+{%endblock linking%}
 
+{% block content %}
 <div class="container_outer">
     <div class="container_account">
         <header style="display: flex; justify-content: space-between; padding: 0%; margin: 0%;">

@@ -1,8 +1,11 @@
 {% extends "UNRCE_APP/base.html" %}
 {% load static %}
+
+{% block linking%}
+<link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/create_project.css' %}">
+{%endblock linking%}
+
 {% block content %}
-
-
 <div class="page-wrapper">
     <form method="post">
         {% csrf_token %}
@@ -348,4 +351,4 @@
         document.querySelector('form').submit();
     });
 </script>
-{% endblock %}
+{% endblock content %}

@@ -330,6 +330,13 @@ textarea {
   color: var(--bg);
 }
 
+.project-details {
+  flex: 1; /* Allow the details to expand and take available space */
+  display: flex;
+  flex-direction: column; /* Stack child items vertically */
+  justify-content: flex-end;
+}
+
 .project-details-edit {
   flex: 1;
   display: flex;
@@ -362,7 +369,8 @@ textarea {
 
 .checkbox-options, .radio-options {
   width: 100%; /* Make sure the options span the full width of their container */
-  columns: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 /* Clear floats for the .form-section to avoid issues */

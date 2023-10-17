@@ -1,146 +1,152 @@
 {% extends "UNRCE_APP/base.html" %}
 
-{% block content %}
 {% load static %}
+
+{%block linking%}
+<link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/project.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/index.css' %}">
 <style>
-  .header-photo {
-    width: 120%;
-    height: 170px;
-    background-image: url('{% static 'images/header.webp' %}');
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover; /* This will cover the entire div without stretching */
-    grid-column: 1/-1;
-    border-radius: 0;
-}
+	.header-photo {
+	    width: 120%;
+        height: 170px;
+        background-image: url('{% static 'images/header.webp' %}');
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover; /* This will cover the entire div without stretching */
+        grid-column: 1/-1;
+        border-radius: 0;
+    }
 </style>
+{%endblock linking%}
+
+{% block content %}
 <div class="header-photo"></div>
 <div class="page-wrapper">
-  <div class="sidebar">
-    <h2 class="sub-title">Project Highlights</h2>
-    <ul class="projects-list">
-      <div class="project-listing" id="projectGrid" data-baseurl="{% url 'UNRCE_APP:specific_project' %}">
-      <div class="project-box">
-        <a href="{% url 'UNRCE_APP:specific_project' %}">
-            <div class="project-sidebar" onclick="goToDetails(event, this.children[0].src, this.children[1].textContent)" style="cursor:pointer;">
-                <img src="http://www.thewowstyle.com/wp-content/uploads/2015/01/nature-images..jpg" alt="Project 1" class="project-image">
-                <h4 class="project-title-sidebar">Project 1</h4>
+    <div class="sidebar">
+        <h2 class="sub-title">Project Highlights</h2>
+        <ul class="projects-list">
+            <div class="project-listing" id="projectGrid" data-baseurl="{% url 'UNRCE_APP:specific_project' %}">
+            <div class="project-box">
+                <a href="{% url 'UNRCE_APP:specific_project' %}">
+                        <div class="project-sidebar" onclick="goToDetails(event, this.children[0].src, this.children[1].textContent)" style="cursor:pointer;">
+                                <img src="http://www.thewowstyle.com/wp-content/uploads/2015/01/nature-images..jpg" alt="Project 1" class="project-image">
+                                <h4 class="project-title-sidebar">Project 1</h4>
+                        </div>
+                </a>
             </div>
-        </a>
-      </div>
-      <div class="project-box">
-        <a href="{% url 'UNRCE_APP:specific_project' %}">
-            <div class="project-sidebar" onclick="goToDetails(event, this.children[0].src, this.children[1].textContent)" style="cursor:pointer;">
-                <img src="https://www.bwallpaperhd.com/wp-content/uploads/2021/01/NashPoint.jpg" alt="Project 2" class="project-image">
-                <h4 class="project-title-sidebar">Project 2</h4>
+            <div class="project-box">
+                <a href="{% url 'UNRCE_APP:specific_project' %}">
+                        <div class="project-sidebar" onclick="goToDetails(event, this.children[0].src, this.children[1].textContent)" style="cursor:pointer;">
+                                <img src="https://www.bwallpaperhd.com/wp-content/uploads/2021/01/NashPoint.jpg" alt="Project 2" class="project-image">
+                                <h4 class="project-title-sidebar">Project 2</h4>
+                        </div>
+                </a>
             </div>
-        </a>
-      </div>
-      <div class="project-box">
-        <a href="{% url 'UNRCE_APP:specific_project' %}">
-            <div class="project-sidebar" onclick="goToDetails(event, this.children[0].src, this.children[1].textContent)" style="cursor:pointer;">
-                <img src="https://wallsdesk.com/wp-content/uploads/2016/05/Waterfalls-Photos.jpg" alt="Project 3" class="project-image">
-                <h4 class="project-title-sidebar">Project 3</h4>
+            <div class="project-box">
+                <a href="{% url 'UNRCE_APP:specific_project' %}">
+                        <div class="project-sidebar" onclick="goToDetails(event, this.children[0].src, this.children[1].textContent)" style="cursor:pointer;">
+                                <img src="https://wallsdesk.com/wp-content/uploads/2016/05/Waterfalls-Photos.jpg" alt="Project 3" class="project-image">
+                                <h4 class="project-title-sidebar">Project 3</h4>
+                        </div>
+                </a>
             </div>
-        </a>
-      </div>
-      <div class="project-box">
-        <a href="{% url 'UNRCE_APP:specific_project' %}">
-            <div class="project-sidebar" onclick="goToDetails(event, this.children[0].src, this.children[1].textContent)" style="cursor:pointer;">
-                <img src="https://wallsdesk.com/wp-content/uploads/2016/05/Waterfalls-Photos.jpg" alt="Project 3" class="project-image">
-                <h4 class="project-title-sidebar">Project 4</h4>
+            <div class="project-box">
+                <a href="{% url 'UNRCE_APP:specific_project' %}">
+                        <div class="project-sidebar" onclick="goToDetails(event, this.children[0].src, this.children[1].textContent)" style="cursor:pointer;">
+                                <img src="https://wallsdesk.com/wp-content/uploads/2016/05/Waterfalls-Photos.jpg" alt="Project 3" class="project-image">
+                                <h4 class="project-title-sidebar">Project 4</h4>
+                        </div>
+                </a>
             </div>
-        </a>
-      </div>
-      <div class="project-box">
-        <a href="{% url 'UNRCE_APP:specific_project' %}">
-            <div class="project-sidebar" onclick="goToDetails(event, this.children[0].src, this.children[1].textContent)" style="cursor:pointer;">
-                <img src="https://wallsdesk.com/wp-content/uploads/2016/05/Waterfalls-Photos.jpg" alt="Project 3" class="project-image">
-                <h4 class="project-title-sidebar">Project 5</h4>
+            <div class="project-box">
+                <a href="{% url 'UNRCE_APP:specific_project' %}">
+                        <div class="project-sidebar" onclick="goToDetails(event, this.children[0].src, this.children[1].textContent)" style="cursor:pointer;">
+                                <img src="https://wallsdesk.com/wp-content/uploads/2016/05/Waterfalls-Photos.jpg" alt="Project 3" class="project-image">
+                                <h4 class="project-title-sidebar">Project 5</h4>
+                        </div>
+                </a>
             </div>
-        </a>
-      </div>
-      </div>
-   
-      <h2 class="partner-title">Our Partners</h2>
-      <div class="partners-box">
-          <article class="text-content">
-              <ul class="partner-list">
-                  <li><a href="https://www.un.org/" target="_blank">United Nations</a></li>
-                  <li><a href="https://www.undp.org/" target="_blank">United Nations Development Programme (UNDP)</a></li>
-                  <li><a href="https://www.unesco.org/" target="_blank">United Nations Educational, Scientific and Cultural Organization (UNESCO)</a></li>
-                  <li><a href="https://www.uwa.edu.au/" target="_blank">The University of Western Australia (UWA)</a></li>
-                  <li><a href="https://www.wwf.org/" target="_blank">World Wildlife Fund (WWF)</a></li>
-                  <li><a href="https://www.greenpeace.org/" target="_blank">Greenpeace</a></li>
-                  <li><a href="https://www.conservation.org/" target="_blank">Conservation International</a></li>
-                  <li><a href="https://www.sierraclub.org/" target="_blank">Sierra Club</a></li>
-              </ul>
-          </article>
-      </div>      
-  </div>
-<div class="main-div">
-    <h1 class="title-box">What is UNRCE?</h1>
-    <article class="info-background">
-        <p class="info-text">The United Nations Regional Centre of Expertise (UNRCE) is an international initiative spearheaded by the United Nations. It aims to foster collaborative partnerships at regional levels to address the pressing challenges of sustainable development. Through education and research, RCEs promote and advance local sustainable development strategies tailored to the specific needs and challenges of their respective regions. </p>
-    </article>
-    <h1 class="title-box">Our History</h1>
-    <article class="info-background lower">
-        <p class="info-text lower">The journey of UNRCE began with the global call from the United Nations to address sustainability issues in an integrative manner. Recognizing the importance of collective efforts, the UN established the Regional Centres of Expertise as platforms to collaborate, learn, and adapt. Over the years, these centres have grown in number, strength, and impact, contributing significantly to regional sustainable development narratives and practices. </p>
-    </article>
-    <h1 class="title-box">What is UNRCE WA?</h1>
-    <article class="info-background">
-        <p class="info-text">The UNRCE for Western Australia (UNRCE WA) functions as the secretariat for the region, with UWA holding a pivotal role in its operations. UNRCE WA consists of two main hubs: Perth and the Great Southern, the latter being based at the UWA Albany Campus. As part of this dynamic network, UNRCE WA dedicates its efforts to foster partnerships, drive research, and promote educational initiatives that resonate with the unique sustainability challenges and opportunities found in Western Australia.</p>
-    </article>
-    
-      <h1 class="title-box">Our Initiatives</h1>
-      <div class="initiatives-wrapper">
-      <div class="flip-container">
-      <label class="flip-card">
-        <input type="checkbox" class="flip-checkbox">
-          <div class="flip-card-inner">
-              <div class="flip-card-front" style="background-image: url('{% static 'images/valley.jpeg' %}');">
-                  <div class="flip-card-overlay">
-                    <span class="overlay-text">More Information</span>
-                  </div>
-                </div>
-              <div class="flip-card-back">
-                  <h2 class="initiative-h2">Initiative 1</h2>
-                  <p class="initiative-text" >Just some basic information about an initiative</p>
-                </div>
-          </div>
-        </label>
-      <label class="flip-card">
-        <input type="checkbox" class="flip-checkbox">
-        <div class="flip-card-inner">
-            <div class="flip-card-front" style="background-image: url('{% static 'images/meelup.jpeg' %}');">
-                <div class="flip-card-overlay">
-                  <span class="overlay-text">More Information</span>
-                </div>
-              </div>
-            <div class="flip-card-back">
-                <h2 class="initiative-h2">Initiative 2</h2>
-                <p class="initiative-text">Just some basic information about an initiative</p>
             </div>
-        </div>
-      </label>
-      <label class="flip-card">
-        <input type="checkbox" class="flip-checkbox">
-        <div class="flip-card-inner">
-              <div class="flip-card-front" style="background-image: url('{% static 'images/ESD_for_2030.png' %}');">
-                <div class="flip-card-overlay">
-                  <span class="overlay-text">More Information</span>
-                </div>
-              </div>
-            <div class="flip-card-back" style="background-color: white;">
-                <h2 class="initiative-h2">Initiative 3</h2>
-                <p class="initiative-text">Just some basic information about an initiative</p>
-            </div>
-        </div>
-      </label>
+     
+            <h2 class="partner-title">Our Partners</h2>
+            <div class="partners-box">
+                    <article class="text-content">
+                            <ul class="partner-list">
+                                    <li><a href="https://www.un.org/" target="_blank">United Nations</a></li>
+                                    <li><a href="https://www.undp.org/" target="_blank">United Nations Development Programme (UNDP)</a></li>
+                                    <li><a href="https://www.unesco.org/" target="_blank">United Nations Educational, Scientific and Cultural Organization (UNESCO)</a></li>
+                                    <li><a href="https://www.uwa.edu.au/" target="_blank">The University of Western Australia (UWA)</a></li>
+                                    <li><a href="https://www.wwf.org/" target="_blank">World Wildlife Fund (WWF)</a></li>
+                                    <li><a href="https://www.greenpeace.org/" target="_blank">Greenpeace</a></li>
+                                    <li><a href="https://www.conservation.org/" target="_blank">Conservation International</a></li>
+                                    <li><a href="https://www.sierraclub.org/" target="_blank">Sierra Club</a></li>
+                            </ul>
+                    </article>
+            </div>      
     </div>
-  </div>
-  </div>
-  <div style="clear: both;"></div>
+<div class="main-div">
+        <h1 class="title-box">What is UNRCE?</h1>
+        <article class="info-background">
+                <p class="info-text">The United Nations Regional Centre of Expertise (UNRCE) is an international initiative spearheaded by the United Nations. It aims to foster collaborative partnerships at regional levels to address the pressing challenges of sustainable development. Through education and research, RCEs promote and advance local sustainable development strategies tailored to the specific needs and challenges of their respective regions. </p>
+        </article>
+        <h1 class="title-box">Our History</h1>
+        <article class="info-background lower">
+                <p class="info-text lower">The journey of UNRCE began with the global call from the United Nations to address sustainability issues in an integrative manner. Recognizing the importance of collective efforts, the UN established the Regional Centres of Expertise as platforms to collaborate, learn, and adapt. Over the years, these centres have grown in number, strength, and impact, contributing significantly to regional sustainable development narratives and practices. </p>
+        </article>
+        <h1 class="title-box">What is UNRCE WA?</h1>
+        <article class="info-background">
+                <p class="info-text">The UNRCE for Western Australia (UNRCE WA) functions as the secretariat for the region, with UWA holding a pivotal role in its operations. UNRCE WA consists of two main hubs: Perth and the Great Southern, the latter being based at the UWA Albany Campus. As part of this dynamic network, UNRCE WA dedicates its efforts to foster partnerships, drive research, and promote educational initiatives that resonate with the unique sustainability challenges and opportunities found in Western Australia.</p>
+        </article>
+        
+            <h1 class="title-box">Our Initiatives</h1>
+            <div class="initiatives-wrapper">
+            <div class="flip-container">
+            <label class="flip-card">
+                <input type="checkbox" class="flip-checkbox">
+                    <div class="flip-card-inner">
+                            <div class="flip-card-front" style="background-image: url('{% static 'images/valley.jpeg' %}');">
+                                    <div class="flip-card-overlay">
+                                        <span class="overlay-text">More Information</span>
+                                    </div>
+                                </div>
+                            <div class="flip-card-back">
+                                    <h2 class="initiative-h2">Initiative 1</h2>
+                                    <p class="initiative-text" >Just some basic information about an initiative</p>
+                                </div>
+                    </div>
+                </label>
+            <label class="flip-card">
+                <input type="checkbox" class="flip-checkbox">
+                <div class="flip-card-inner">
+                        <div class="flip-card-front" style="background-image: url('{% static 'images/meelup.jpeg' %}');">
+                                <div class="flip-card-overlay">
+                                    <span class="overlay-text">More Information</span>
+                                </div>
+                            </div>
+                        <div class="flip-card-back">
+                                <h2 class="initiative-h2">Initiative 2</h2>
+                                <p class="initiative-text">Just some basic information about an initiative</p>
+                        </div>
+                </div>
+            </label>
+            <label class="flip-card">
+                <input type="checkbox" class="flip-checkbox">
+                <div class="flip-card-inner">
+                            <div class="flip-card-front" style="background-image: url('{% static 'images/ESD_for_2030.png' %}');">
+                                <div class="flip-card-overlay">
+                                    <span class="overlay-text">More Information</span>
+                                </div>
+                            </div>
+                        <div class="flip-card-back" style="background-color: white;">
+                                <h2 class="initiative-h2">Initiative 3</h2>
+                                <p class="initiative-text">Just some basic information about an initiative</p>
+                        </div>
+                </div>
+            </label>
+        </div>
+    </div>
+    </div>
+    <div style="clear: both;"></div>
 </div>
 <script src="{% static 'UNRCE_APP/projects.js' %}"></script>
 {% endblock content %}

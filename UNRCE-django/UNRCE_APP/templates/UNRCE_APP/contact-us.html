@@ -1,7 +1,7 @@
 {% extends "UNRCE_APP/base.html" %}
-
-{% block content %}
 {% load static %}
+
+{%block linking%}
 <style>
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -37,6 +37,7 @@
         border-radius: 8px;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         margin: 0 10px;
+        color: black;
     }
 
     .map-section h2, .contact-details h2, .endorsement-section h2 {
@@ -76,7 +77,10 @@
         clear: both;
     }
 </style>
+{%endblock linking%}
 
+
+{% block content %}
 <p class="small-heading">Contact Us</p>
 <div class="sections">
     <div class="map-section">
@@ -97,7 +101,7 @@
     <div class="endorsement-section">
         <h2>Executive Sponsor</h2>
         <img src="{% static 'images/davidsadler.jpg' %}" alt="David Sadler" class="endorsement-photo">
-        <p><span class="bold-text">Professor David Sadler</span>, Deputy Vice-Chancellor (Education) at UWA, is the executive sponsor of this program. Professor Sadler has shown exemplary dedication in the field of education, making significant contributions to the universities academic excellence and reputation.</p>
+        <p><div class="bold-text">Professor David Sadler,</div>Deputy Vice-Chancellor (Education) at UWA, is the executive sponsor of this program. Professor Sadler has shown exemplary dedication in the field of education, making significant contributions to the universities academic excellence and reputation.</p>
     </div>
 </div>
 

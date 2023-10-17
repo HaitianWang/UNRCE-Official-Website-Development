@@ -4,33 +4,29 @@
 
 <head>
     <title>UNRCE WA</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}" >
     <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/simple.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/styles.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/login.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/create_project.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/project.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/myaccount.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/myaccount_edit.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/index.css' %}">
-    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}" >
+    <style>
+        /* Autofill styles */
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover, 
+        input:-webkit-autofill:focus,
+        textarea:-webkit-autofill,
+        textarea:-webkit-autofill:hover,
+        textarea:-webkit-autofill:focus,
+        select:-webkit-autofill,
+        select:-webkit-autofill:hover,
+        select:-webkit-autofill:focus {
+            border: 1px solid gray;
+            -webkit-text-fill-color: black !important;
+            -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+    </style>
+    {% block linking%}
+    {% endblock linking%}
 </head>
-<style>
-    /* Autofill styles */
-    input:-webkit-autofill,
-    input:-webkit-autofill:hover, 
-    input:-webkit-autofill:focus,
-    textarea:-webkit-autofill,
-    textarea:-webkit-autofill:hover,
-    textarea:-webkit-autofill:focus,
-    select:-webkit-autofill,
-    select:-webkit-autofill:hover,
-    select:-webkit-autofill:focus {
-        border: 1px solid gray;
-        -webkit-text-fill-color: black !important;
-        -webkit-box-shadow: 0 0 0px 1000px white inset !important;
-        transition: background-color 5000s ease-in-out 0s;
-    }
-</style>
 <body style="background-color: #ffffff;">
 {% include 'UNRCE_APP/header.html' %}
 <main style="padding-top: {% if request.path == "/" %}0{% else %}4em{%endif%};">
