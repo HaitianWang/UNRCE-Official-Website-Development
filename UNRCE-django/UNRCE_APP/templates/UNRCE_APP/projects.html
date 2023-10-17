@@ -4,17 +4,11 @@
 {% block content %}
 
 <h1 class="small-heading"> Our Projects</h1>
-<!-- <p> {{ project_query.0.title }} </p> -->
-
-
+{%comment%}
 <!-- {% for project in project_query %}
 <p>{{ project.title }}</p>
 {% endfor %} -->
-
-
-
-<!-- <button id="addNewProject"> Add Sample New Project (Testing button only, will delete later) </button> -->
-
+{%endcomment%}
 <!-- Project Listings -->
 <div class="project-grid" id="projectGrid" data-baseurl="{% url 'UNRCE_APP:specific_project' %}">
     <a href="{% url 'UNRCE_APP:specific_project' %}">
