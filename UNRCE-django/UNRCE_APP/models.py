@@ -180,7 +180,7 @@ class Project(models.Model):
     #)
 
 
-    project_cover_image = models.FileField(upload_to='project_images/', null=True, blank=True)
+    project_cover_image = models.ImageField(upload_to='project_images/', null=True, blank=True)
     description = models.TextField()
 
 

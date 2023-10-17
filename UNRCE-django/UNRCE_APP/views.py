@@ -521,7 +521,6 @@ class CreateProject(LoginRequiredMixin, View):
         user = request.user
         action = request.POST.get("action", "save")  # Default to 'save' if 'action' isn't present
         status = "submitted" if action == "submit" else "draft"
-
         new_project = Project(
             title=request.POST.get("title"),
             description=request.POST.get("description"),
@@ -529,7 +528,7 @@ class CreateProject(LoginRequiredMixin, View):
             #created_at=request.POST.get("start_date"),
             #concluded_on=request.POST.get("end_date"),
             owner=user,  # to set the currently logged-in user as the manager
-            #project_cover_image=request.FILES.get("imageUpload"),
+            project_cover_image=request.FILES.get("imageUpload"),
             language=request.POST.get("language"),
             format=request.POST.get("format"),
             web_link=request.POST.get("web_link"),
