@@ -1,5 +1,3 @@
-<p>Dear {{ user.email }},
-
-Thank you for registering. Please click <a href="http://{{ domain }}{% url 'UNRCE_APP:activate_account' uidb64=uid token=token %}">HERE</a> to activate your account:
-
-If you do not wish to activate your account, or didn't register, this email can be safely ignored.</p>
+<p>Dear {{ user.email }},</p>
+<p>Thank you for registering. Please click to activate your account: <a href="http://{{ domain }}{% url 'UNRCE_APP:activate_account' uidb64=uid token=token %}">Activate Account</a></p>
+<p>If you do not wish to activate your account, or didn't register, this email can be safely ignored.</p>
