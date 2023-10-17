@@ -69,4 +69,5 @@ urlpatterns = [
   path("rejected_projects/", views.rejected_projects, name="rejected_projects"),    # Shows all rejected projects
 #   path('approve_project/', views.approve_project, name='approve_project'),
   path('activate/<str:uidb64>/<str:token>/', views.activate_account, name='activate_account'),
+  path('faq/', views.faq, name='faq'),
 ]

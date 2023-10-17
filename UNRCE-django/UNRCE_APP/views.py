@@ -750,3 +750,6 @@ def make_pending_project(request, project_id):
     project.save()
     messages.success(request, "Project has been made pending!")
     return redirect('UNRCE_APP:project_specific', project_id=project.id)
+# FAQ Page
+def faq(request):
+    return render(request, 'UNRCE_APP/faq.html')
