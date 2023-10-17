@@ -5,14 +5,6 @@
     box-sizing: border-box;
 }
 
-.default-main {
-    padding-top: 4em;
-}
-
-.landing-main {
-    padding-top: 0;
-}
-
 html {
     font-size: 16px;
 }
@@ -20,18 +12,17 @@ html {
 .page-wrapper {
     display: flex;
     align-items: flex-start;
-    max-width: min(90vw, 1400px);
-    min-width: 50vw;
+    max-width: 1400px;
     box-sizing: border-box;
     flex-direction: row-reverse;
-    width: 110vmin;
-    justify-content: center;
+    padding-left: 20px;
 }
 
 .main-div, .sidebar, .header-photo {
     box-sizing: border-box;
     border-radius: 10px;
     color: black;
+    margin: 30px 10px 10px;
     padding-right: 25px;
     padding-left: 25px;
 }
@@ -43,6 +34,7 @@ html {
 }
 
 .sidebar {
+    background-color: lightgray;
     flex: 0 0 25%;
     order: 1;
 }
@@ -57,12 +49,12 @@ html {
 
 .sub-title {
     font-size: 20px;
-    padding-left: 5px;
+    padding-left: 45px;
 }
 
 /* Info Background & Text Settings */
 .info-background {
-    background: var(--text);
+    background: #F1F1F1;
     border-radius: 20px;
     padding: 20px;
     margin: 20px 0;
@@ -106,15 +98,16 @@ html {
 }
 
 .project-box {
+    border: 2px solid black;
     border-radius: 10px;
     padding: 5px;
     padding-bottom: 0;
     margin: 10px 0;
     background: white;
     text-align: center;
+    height: 164px;
     margin-right: 5px;
-    margin-left: 5px;
-    width: max-content;
+    margin-left: 0;
 }
 
 .partners-box {
@@ -275,13 +268,14 @@ html {
 .overlay-text {
     font-size: 18px;
     color: white;
-    background-color: var(--blue-bg);
+    background-color: rgba(0, 0, 0, 0.7);
     padding: 5px 10px;
     border-radius: 5px;
     position: absolute;
     bottom: 100px;
     left: 50%;
     transform: translateX(-50%);
+    font-family: "Century Gothic", sans-serif;
 }
 
 .flip-card:hover .flip-card-overlay {
@@ -314,8 +308,6 @@ html {
 .footer-logo {
     height: 100%;
     display: block;
-    padding: 2%;
-    background-color: var(--text);
 }
 
 .footer h5 {
@@ -358,8 +350,7 @@ h3 {
     display: flex;
     height: fit-content;
     flex-direction: column;
-    background-color: var(--blue-bg);
-    width: 100vw;
+    background-color: #003087;
 }
 
 /* for header bar top row content */
@@ -370,8 +361,6 @@ h3 {
     align-items: center;
     width: 100%;
     height: min-content;
-    background-color: var(--blue-accent);
-    padding: 1vh;
 }
 
 /* for horizontal button menus */
@@ -385,18 +374,17 @@ h3 {
 
 /* For the base header navigation bar */
 .header-nav {
-    background-color: var(--blue-bg);
+    background-color: #003087;
     height: 70px;
 }
 
 /* for button in nav bar */
 nav > a {
-    background-color: var(--blue-bg);
+    background-color: #5775ac;
     text-decoration: none;
     padding: 10px;
     border-radius: 5px;
-    font-size: 2vmin;
-    font-weight: 400;
+    font-size: 16px;
     margin: 0.2rem;
 }
 
@@ -404,15 +392,14 @@ nav > a {
 .small-heading {
     font-weight: bold;
     color: black;
-    text-align: center;
-    font-size: 24px;
 }
 
 /* All below is for the Projects page, making it 3x3 */
 .project-grid {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+    max-width: 800px;
     padding: 20px;
 }
 
@@ -423,24 +410,16 @@ nav > a {
     padding: 20px;
     text-align: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    width: 20vmin;
-    height: 20vmin;
 }
 
 .project img {
     max-width: 100%;
-    height: 80%;
+    height: 120px;
 }
 
 .project h3 {
     margin-top: 10px;
-    font-size: large;
-    height: 20%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    font-size: 18px;
 }
 
 .project:hover {
@@ -451,13 +430,10 @@ nav > a {
 
 /* All above is for the Projects page, making it 3x3 */
 html, body {
-    height: 100vh;
+    height: 100%;
     margin: 0;
     overflow-x: hidden;
     overflow-y: auto;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    align-items: start;
 }
 
 .container {
@@ -474,11 +450,4 @@ html, body {
     .container {
         transform: scale(calc(100vw / 1400px));
     }
-}
-
-.project-listing {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    padding: 0 1vw 0 1vw;
-    justify-items: center;
 }

@@ -50,6 +50,9 @@ urlpatterns = [
 
 
 #   path('specific_project/<int:project_id>/', views.specific_project, name='specific_project'),
+  path('new_captcha/', views.new_captcha, name='new_captcha'),
+  path('projects/', views.projects, name='projects'),
+  path('specific_project/', views.specific_project, name='specific_project'),
   path("create_project/", CreateProject.as_view(), name="create_project"),
   path("myaccount/", views.myaccount, name="myaccount"),
   path("myaccount_edit/", views.myaccount_edit, name="myaccount_edit"),
@@ -65,4 +68,5 @@ urlpatterns = [
 
   path("rejected_projects/", views.rejected_projects, name="rejected_projects"),    # Shows all rejected projects
 #   path('approve_project/', views.approve_project, name='approve_project'),
+  path('activate/<str:uidb64>/<str:token>/', views.activate_account, name='activate_account'),
 ]

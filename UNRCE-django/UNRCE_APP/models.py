@@ -82,18 +82,29 @@ class CustomUserManager(BaseUserManager):
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
+    name = models.CharField(max_length=255, default="", blank=True)
+    email_confirmed = models.BooleanField(default=False)
     date_joined = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     user_name = models.CharField(max_length=150)  
 
+    # Org field that Ryan made
+    org = models.CharField(max_length=255, default="", blank=True)
 
+    # Email field that Ryan made
+    emails_enabled = models.BooleanField(default=True)
 
     interested_projects = models.ManyToManyField('Project', blank=True, related_name="users_interested")
     interested_sdgs = models.ManyToManyField(SDG, related_name='interested_users')
     organisation = models.ForeignKey('Organisation', on_delete=models.SET_NULL, null=True, blank=True)
-    role_organisation = models.CharField(max_length=150)
-    rce_hub = models.ForeignKey(RCEHub, on_delete=models.SET_NULL, null=True, blank=True)  
+    role_organisation = models.CharField(max_length=150, default="", blank=True)
+    rce_hub = models.ForeignKey(RCEHub, on_delete=models.SET_NULL, null=True, blank=True)   # Not using this one, idk how to use it
+    RCE_HUB_CHOICES = [
+        ('Great Southern', 'Great Southern'),
+        ('Perth Metro', 'Perth Metro')
+    ]    
+    rce_hub2 = models.CharField(max_length=255, choices=RCE_HUB_CHOICES, default="", blank=True)
     
     
     objects = CustomUserManager()
@@ -127,13 +138,12 @@ class Project(models.Model):
     # choices for fields
     AUDIENCE_CHOICES = [
         ('general', 'General public (any age)'),
-        ('target', 'Particular target Audience (Please specify)'),
         ('adults', 'Adults'),
         ('tertiary', 'Tertiary students'),
         ('high_school', 'High school age'),
         ('primary_school', 'Primary School age'),
         ('early_years', 'Early years'),
-        ('adults_60', 'Adults >60 please'),
+        ('adults_60', 'Adults >60'),
         ('other', 'Other'),
     ]
     FREQUENCY_CHOICES = [
@@ -157,6 +167,12 @@ class Project(models.Model):
     title = models.TextField(default="Default Title")
 
 
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL, 
+        on_delete=models.CASCADE, 
+        related_name='owned_projects', 
+        null=True
+    )
     #manager = models.ForeignKey(	
        # settings.AUTH_USER_MODEL,	
       #  on_delete=models.CASCADE,	
@@ -175,8 +191,8 @@ class Project(models.Model):
 
     files = models.ManyToManyField('ProjectFile', related_name='projects')
 
-    audience = models.CharField(max_length=50, choices=AUDIENCE_CHOICES)
-    delivery_frequency = models.CharField(max_length=20, choices=FREQUENCY_CHOICES)
+    audience = models.CharField(max_length=50, choices=AUDIENCE_CHOICES, default=FREQUENCY_CHOICES[0])
+    delivery_frequency = models.CharField(max_length=20, choices=FREQUENCY_CHOICES, default=FREQUENCY_CHOICES[0])
     language = models.TextField()
     format = models.TextField()
     web_link = models.URLField()

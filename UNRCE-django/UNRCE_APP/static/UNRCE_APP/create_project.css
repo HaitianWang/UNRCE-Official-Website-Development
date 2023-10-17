@@ -1,9 +1,15 @@
+/* Consolidated CSS */
+
 .pr-container {
   display: flex;
-  align-items: start;
+  justify-content: space-between;
+  align-items: center;
 }
 
-
+.tabcontent label {
+  font-weight: bold;
+  padding-bottom: 10px;
+}
 #description, #results , #lessons_learned, #key_messages, #relationship_to_rce_activities, #funding {
   width: 800px;  /* Set the width you want */
   height: 150px; /* Set the height you want */
@@ -37,34 +43,28 @@ input[type="radio"] {
 
 
 .terms-label{
-  font-size: 15px;
-  font-family: Inter;
-  font-weight: normal;
-
+  font-size: .8em !important;
+  font-weight: normal !important;
 }
 
 
-label {
-  font-family: Inter;
+.tabcontent label {
   text-transform: capitalize;
   word-wrap: break-word;
-  margin-right: 20px;
-  font-size: 18px;
-  color: #333;
-  font-weight: bold;
-  background-color: #fdfdfd;
-  color: #333;
+  font-size: 1em;
+  color: var(--text);
+  font-weight: 500;
+  background-color: transparent;
 }
 
 .selection-label {
-  font-size: 15px;
-  font-family: Inter;
-  font-weight: normal;
+  font-size: 1em;
+  font-weight: 200;
 }
 
 
 input[type="text"], textarea {
-  background-color: white; /* White background */
+  background-color: var(--text); /* White background */
   border: 1px solid #e0e0e0;  /* Light border */
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow */
   padding: 10px; /* Some padding for better appearance */
@@ -83,65 +83,58 @@ textarea {
   transition: box-shadow 0.3s !important;  /* Transition for a smooth shadow change */
 }
 
-
-
-
-
-
-
 .tabnav {
-  font-size: 20px; /* Adjust size as needed */
-  background-color: transparent; /* Make the button background transparent */
-  border: none; /* Remove borders */
-  cursor: pointer; /* Hand cursor for better UX */
-  padding: 5px 10px; /* Adjust padding as needed */
-  margin: 0 5px; /* Space between the arrows if they are side by side */
+  font-size: xx-large;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  margin: 0 5px;
 }
-
 
 .image-section {
-  display: flex;
-  flex-direction: column; /* Ensures children of this div stack vertically */
-  align-items: center;    /* This will center the items if they have different widths */
+  text-align: center;
+  margin-left: 20px;
 }
 
+.label-section {
+  display: flex;
+  flex-direction: column;
+  width: -webkit-fill-available;
+}
 
 #uploadedImage {
   width: 100%;
   height: 100%;
   display: block;
-  object-fit: cover; /* This keeps the image aspect ratio while filling the label dimensions */
+  max-width: fit-content;
+  object-fit: cover;
+  max-block-size: 12em;
 }
 
 .upload-text {
-  display: block; /* Ensures it's on a new line under the image */
-  text-align: center; /* Centers the text */
+  display: block;
+  text-align: center;
   background-color: rgba(255, 255, 255, 0.6);
   padding: 2px 5px;
-  
 }
 
-
-
 .tablinks {
-  background-color: #0d47a1;
+  background-color: #003087 !important;
   float: left;
   border: none;
   outline: none;
   cursor: pointer;
-  padding: 14px 16px;
+  padding: .5em .5em;
   transition: 0.3s;
-  margin-right: 5px; /* spacing between tabs */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* subtle shadow for 3D effect */
-  border-radius: 5px; /* rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 5px 5px 0 0;
+  width: -webkit-fill-available;
 }
-
 
 .tablinks:not(:last-child) {
-  margin-right: 10px; /* Adjust as per your requirement */
+  margin-right: .2em;
 }
-
-
 
 input[type="file"] {
   margin-top: 15px;
@@ -153,80 +146,70 @@ input[type="file"] {
   height: auto;
   display: flex;
   flex-direction: column;
-  align-items: flex-end; /* Change this to flex-end */
-  justify-content: flex-end; /* Change this to flex-end */
+  align-items: flex-end;
+  justify-content: flex-end;
   margin-left: 20px;
 }
 
-
-
-.upload-text {
-  margin-top: 10px;
-  cursor: pointer;
-  color: #020057;  /* Color of the text. Adjust as necessary. */
-  font-size: 16px;  /* Size of the text. Adjust as necessary. */
-}
-
-#uploadedImage {
-  max-width: 70%;  /* Matches the width of your project image */
-  height: 60%;  /* Matches the height of your project image */
-  object-fit: cover;
-}
-
-
-img {
+.imagecp {
   float: left;
-  margin-left: 10px; /* Creates space between the image and the form */
+  object-fit: cover;
+  min-height: 100%;
+  border-radius: 0;
 }
 
 .clear {
   clear: both;
 }
 
-
 .tabcontent {
-  display: none;
-}
-
-
-.form {
+  padding: 2vh 4vw 2vh 4vw;
   border: 1px solid #ccc;
-  border: 1px solid #e0e0e0; /* light grey border */
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05); /* subtle shadow */
-  background-color: #fdfdfd;
-  background-color: #f0f0f0; 
-  padding: 20px;
-  margin-bottom: 50px;
-  padding-bottom: 50px; /* This adds white space inside the grey form area, at the bottom */
+  border-top: none;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--blue-bg);
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+form {
   position: relative;
-  min-height: 100%; /* Ensures form covers full height of its parent container. */
+  width: 100%;
+  max-width: min(60vw, 1000px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.form * {
-
-    border-color: transparent !important;
+form * {
+  border-color: transparent !important;
 }
 
-/* Additional styling for the form fields and elements for a better appearance against the grey background */
-label, input, textarea, button {
-  margin: 10px 0; /* Spacing between form elements */
-  background-color:white;
+button {
+  margin: .4em .2em 0 0;
+  color: var(--text);
+}
+
+button:last-child {
+  margin: .4em 0 0 0 !important;
 }
 
 .navigation-buttons {
   width: 100%;
   text-align: center;
-  margin: 20px 0;   /* Adjust the margin to your liking. */
+  padding: 5%;
 }
 
-#prevBtn, #nextBtn {
-  margin: 0 140px;   /* Provides spacing between the two buttons. Adjust if needed. */
+#prevBtn,
+#nextBtn {
+  margin: 0 .2em !important;
   display: inline-block;
   background-color: #ffb300;  /* This is a blue color, you can adjust to your preferred shade of blue */
   color: white;
+  padding: 2% 5% 2% 5%;
+  align-items: center;
 }
-
-
 
 .sdg-item {
   display: flex;
@@ -237,121 +220,206 @@ label, input, textarea, button {
 }
 
 input[type="radio"] {
-  margin-right: 5px; /* Adds some space between the radio button and its label */
+  margin-right: 10%; /* Adds some space between the radio button and its label */
 }
 
   
-  .sdg-name {
-    flex: 1;
-    padding-right: 10px;
-  }
+.sdg-name {
+  flex: 1;
+  padding-right: 10px;
+}
   
-  .sdg-option-label {
-    display: inline-block;
-    margin-right: 10px;
-    font-family: Intern; /* Replace 'YourDesiredFontFamily' with the name of the font you want. */
-    font-size: 15px;
-    font-weight: normal;
+.sdg-option-label {
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 1em;
+  font-weight: normal;
+}
 
-  }
-
-  #sdgs-selection .sdg-name p {
-    font-weight: normal; /* Makes the SDG name bold */
-    color: black; /* A blue color for the SDG name */
+#sdgs-selection .sdg-name p {
+  font-weight: normal; /* Makes the SDG name bold */
+  color: var(--text); /* A blue color for the SDG name */
+  margin: .5rem;
 }
   
   /* Adjust styling as needed */
-  .terms-container {
-    border: 1px solid #e0e0e0;
-    padding: 20px;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    margin: 20px 0;
+.terms-container {
+  border: 1px solid #e0e0e0;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  margin: 20px 0;
 }
 
-h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
-    font-weight: bold;
+.sdg-name {
+  flex: 1;
+  padding-right: 10px;
+}
+
+.sdg-option-label {
+  display: inline-block;
+  margin-right: 10px !important;
+}
+
+/* Adjust styling as needed */
+
+.terms-container {
+  border: 1px solid #e0e0e0;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  margin: 20px 0;
 }
 
 .terms-text {
-    font-size: 14px;
-    margin-bottom: 20px;
-    line-height: 1.5;
-    color: #555;
+  font-size: .8em;
+  margin-bottom: 20px;
+  line-height: 1.5;
+  color: #555;
 }
 
 .checkbox-container {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .checkbox-container input[type="checkbox"] {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
-.submit-Btn {
-  display: none;
-}
+/* Merged .submit-Btn rules */
 
 .submit-Btn {
   background-color: #4CAF50;
   border: none;
   border-radius: 4px;
   padding: 10px 20px;
-  font-size: 16px;
+  font-size: 1.2em;
   cursor: pointer;
   display: block;
   margin-top: 20px;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  width: 150px;  /* or any desired width */
-
 }
 
 .submit-Btn:hover {
   background-color: #45a049;
 }
 
-
-.submit-Btn:hover {
-    background-color: #45a049;
-}
-
 .tab {
-    overflow: hidden;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
+  overflow: hidden;
+  background-color: #FFFFFF;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+  padding-top: 2em;
+  width: 100%;
 }
-
-
 
 .tablinks:hover {
-    background-color: #ddd;
+  background-color: #ddd;
 }
 
 .tablinks.active {
-    background-color:#ffc61a;
+  background-color: var(--blue-accent) !important;
 }
 
-.tabcontent {
-    padding: 6px 12px;
-    border: 1px solid #ccc;
-    border-top: none;
-    display: none;
-}
+/* Merged .terms-container and .terms-text rules */
 
 .terms-container {
-    margin: 20px;
-}
-
-.terms-text {
-    font-size: 14px;
-    margin-bottom: 20px;
+  margin: 20px;
+  font-size: 1em;
+  margin-bottom: 20px;
 }
 
 .checkbox-container {
-    margin: 20px 0;
+  margin: 20px 0;
 }
 
+.form_header {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  font-size: medium;
+  font-weight: bold;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: var(--bg);
+}
+
+.project-details-edit {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+/* Default styles for option columns */
+.option-column {
+  display: flex;
+  justify-items: start;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.option-column input[type="checkbox"],
+.option-column input[type="radio"] {
+  margin-right: 10px; /* Add margin for spacing between the checkbox/radio and text */
+}
+
+.form-section {
+  margin-bottom: 6%; /* Add margin between form sections */
+  width: -webkit-fill-available;
+  margin-top: 6%;
+}
+
+.checkbox-options, .radio-options {
+  width: 100%; /* Make sure the options span the full width of their container */
+  columns: 2;
+}
+
+/* Clear floats for the .form-section to avoid issues */
+.form-section::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.checkbox-options .option-column,
+.radio-options .option-column {
+  margin-bottom: 10px;
+  column-gap: 10px;
+}
+
+.form_header {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding-bottom: 1em !important;
+  font-size: 1.1em !important;
+}
+
+.option-column label {
+  font-weight: normal;
+}
+
+.sdg-options {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-evenly;
+}
+.sdg-option {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-evenly;
+}

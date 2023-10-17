@@ -1,10 +1,17 @@
 {% extends "UNRCE_APP/base.html" %}
+
+{% block main_class %}
+    {% if request.path == '/' %}
+        landing-main
+    {% else %}
+        default-main
+    {% endif %}
+{% endblock %}
+
 {% load static %}
 {% block content %}
 
-<p class="small-heading"> Our Projects</p>
-
-
+<h1 class="small-heading"> Our Projects</h1>
 {% if user.is_authenticated %}
 <a href="{% url 'UNRCE_APP:create_project' %}"><button id="uploadProject"> Upload a Project</button></a>
 {% else %}
