@@ -340,10 +340,9 @@ def users_info(request):
     return render(request, 'UNRCE_APP/users_info.html')
 
 def projects(request):
-    # Dictionary Containing data to send. Includes rows from the "Project" table sent as "project_query"
-    return render(request, 'UNRCE_APP/projects.html', {'project_query': Project.objects.all()})   
-
-@login_required
+    project_query = Project.objects.filter(approval= 'approved')   # Store the rows from the "Project" table, and store them in project_query
+    return render(request, 'UNRCE_APP/projects.html', {'project_query': project_query})   # Dictionary Containing data to send. Includes the project_query variable passed with name "project_query"
+# My Account Page
 def myaccount(request):
     return render(request, 'UNRCE_APP/myaccount.html', {'user': request.user})
 
@@ -390,14 +389,12 @@ def specific_project(request):
     project_id = request.GET.get('project_id', None)
 
     if not project_id:
-        # 如果没有project_id，直接渲染页面，但不包含关于项目的任何信息。
         return render(request, 'UNRCE_APP/specific_project.html', {'img_src': img_src, 'title_text': title_text})
 
     try:
         project = Project.objects.get(id=project_id)
         interested_users = project.users_interested.all()
     except Project.DoesNotExist:
-        # 如果项目不存在，也直接渲染页面，但不包含关于项目的任何信息。
         return render(request, 'UNRCE_APP/specific_project.html', {'img_src': img_src, 'title_text': title_text})
 
     return render(request, 'UNRCE_APP/specific_project.html', {
