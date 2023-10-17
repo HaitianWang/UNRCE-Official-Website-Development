@@ -6,10 +6,6 @@
   align-items: center;
 }
 
-.tabcontent label {
-  font-weight: bold;
-  padding-bottom: 10px;
-}
 #description, #results , #lessons_learned, #key_messages, #relationship_to_rce_activities, #funding {
   width: 800px;  /* Set the width you want */
   height: 150px; /* Set the height you want */
@@ -19,6 +15,14 @@
 .custom-label {
   background-color: #fdfdfd;
   color: #333;
+  font-weight: bold;
+  padding-bottom: 10px;
+  text-transform: capitalize;
+  word-wrap: break-word;
+  font-size: 1em;
+  color: var(--text);
+  font-weight: 500;
+  background-color: transparent;
 }
 
 input[type="radio"] {
@@ -26,19 +30,10 @@ input[type="radio"] {
   border: 1px solid black !important ;
 }
 
-.terms-label{
-  font-size: .8em !important;
-  font-weight: normal !important;
-}
-
-
-.tabcontent label {
-  text-transform: capitalize;
-  word-wrap: break-word;
-  font-size: 1em;
-  color: var(--text);
-  font-weight: 500;
-  background-color: transparent;
+  .terms-label{
+  font-size: .8em;
+  font-weight: normal;
+  text-transform: none;
 }
 
 .selection-label {
