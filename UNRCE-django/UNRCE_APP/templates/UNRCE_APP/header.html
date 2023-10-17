@@ -2,6 +2,7 @@
 <header id="navbar" class="main-header">
   <div class="grid">
     <!--<img src = "{% static 'images/UNRCEWA_Logo.png' alt="UNRCE Logo" class="logo"%}">-->
+    <img src="{% static 'images/UNRCEWA_Logo.png' alt="UNRCE Logo" class="logo round-image"%}" alt="UNRCE Logo">
     <h2 style="margin-bottom: 1rem;"> United Nations Regional Centre of Expertise, Western Australia</h2>
   </div>
 
@@ -26,8 +27,8 @@
       {% else %}
       <!-- show log in and sign up links otherwise   -->
       <nav style="display: flex;">
-        <a class="topright" href="{% url 'UNRCE_APP:login' %}">Login</a>
-        <a class="topright" href="{% url 'UNRCE_APP:signup' %}">Signup</a>
+        <a class="topright" href="{% url 'UNRCE_APP:login' %}">Sign In</a>
+        <a class="topright" href="{% url 'UNRCE_APP:signup' %}">Sign Up</a>
       </nav>
       {% endif %}
       <!-- Login/Signup/Logout -->

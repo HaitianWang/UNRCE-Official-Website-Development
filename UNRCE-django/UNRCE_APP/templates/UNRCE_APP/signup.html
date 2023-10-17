@@ -1,11 +1,18 @@
 {% extends "UNRCE_APP/base.html" %}
+
+{% block main_class %}
+    {% if request.path == '/' %}
+        landing-main
+    {% else %}
+        default-main
+    {% endif %}
+{% endblock %}
+
 {% load static %}
 
 {% block content %}
 
 <div class="login-box">
-    <img src="{% static 'images/UNRCEWA_Logo.png' alt="UNRCE Logo" class="logo"%}" alt="UNRCE Logo" style="height: 10rem">
-    <div class="login-title">Sign Up</div>
 
     <!-- Display any form errors (like password mismatch) -->
     {% if form.non_field_errors %}
@@ -16,23 +23,20 @@
 
     <form method="post" class="login-form" action="{% url 'UNRCE_APP:signup' %}">
         {% csrf_token %}
-
+        <div class="round-image-container">
+            <img src="{% static 'images/UNRCEWA_Logo.png' alt="UNRCE Logo" class="logo round-image"%}" alt="UNRCE Logo" style="    height: 13vmin;
+            max-height: 175px;
+            opacity: 100%;">
+        </div>
+            <div class="login-title">Create Account</div>
         {% for field in form %}
         <div class="input-container">
             <label for="{{ field.auto_id }}" class="input-label">{{ field.label }}</label>
-
-            {% if field.field.widget.input_type == "password" %}
-            <input type="password" 
-                    id="{{ field.auto_id }}"
-                    name="{{ field.name }}" 
-                    {% if field.field.required %} required {% endif %} />
-            {% else %}
             <input type="{{ field.field.widget.input_type }}" 
                     id="{{ field.auto_id }}"
                     name="{{ field.name }}" 
                     {% if field.field.required %} required {% endif %}
                     value="{{ field.value|default:'' }}" />
-            {% endif %}
 
             {% if field.errors %}
             <div class="alert alert-danger">

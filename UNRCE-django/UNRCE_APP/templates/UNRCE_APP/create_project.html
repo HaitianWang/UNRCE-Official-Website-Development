@@ -1,324 +1,360 @@
 {% extends "UNRCE_APP/base.html" %}
+
+{% block main_class %}
+{% if request.path == '/' or request.path == '/create_project/' %}
+landing-main
+{% else %}
+default-main
+{% endif %}
+{% endblock %}
+
 {% load static %}
 {% block content %}
 
 
+<div class="page-wrapper">
+    <form method="post">
+        {% csrf_token %}
 
-<form method="post">
-  {% csrf_token %}
- 
- <div class="tab">
-    <button class="tablinks" data-tabname="Tab1" id="defaultOpen">General</button>
-    <button class="tablinks" data-tabname="Tab2">Location</button>
-    <button class="tablinks" data-tabname='Tab3'>Contents</button>
-    <button class="tablinks" data-tabname='Tab4'>SDG</button>
-    <button class="tablinks" data-tabname='Tab5'>ESD</button>
-    <button class="tablinks" data-tabname='Tab6'>Submit</button>
+        <div class="tab">
+            <button class="tablinks" data-tabname="Tab1" id="defaultOpen">General</button>
+            <button class="tablinks" data-tabname="Tab2">Location</button>
+            <button class="tablinks" data-tabname='Tab3'>Contents</button>
+            <button class="tablinks" data-tabname='Tab4'>SDG</button>
+            <button class="tablinks" data-tabname='Tab5'>ESD</button>
+            <button class="tablinks" data-tabname='Tab6' style="margin-right: 0;">Submit</button>
 
-    <input type="hidden" name="action" value="save" id="form-action">
+            <input type="hidden" name="action" value="save" id="form-action">
 
 
-  </div>
-    
-  <div id="Tab1" class="tabcontent">
-    <div class="pr-container">
-        <div class="project-details-edit">
-            <div class="label-section">
-                <label for="title">Project Title:</label>
-                <input type="text" id="title" name="title">
+        </div>
+
+        <div id="Tab1" class="tabcontent">
+            <div class="pr-container">
+                <div class="project-details-edit">
+                    <div class="label-section">
+                        <label for="title">Project Title:</label>
+                        <input type="text" id="title" name="title">
+                    </div>
+                    <div class="image-section">
+                        
+                        <label for="imageUpload">
+                            <img class="imagecp" id="uploadedImage" src="{% static 'images/add_photo.svg' %}"
+                                alt="Default Image">
+                            
+                            <p class="upload-text">Add Project Image</p>
+                        </label>
+                        
+                        <input type="file" id="imageUpload" name="imageUpload" style="display: none;"
+                            onchange="displayImage(this)">
+                    </div>
+                </div>
             </div>
-            <div class="image-section">
-                <label for="imageUpload">
-                    <img class="imagecp" id="uploadedImage" src="{% static 'images/Font_1._.png' %}" alt="Default Image">
-                </label>
-                <!--<span class="upload-text">Add Project Image</span>-->
-                <input type="file" id="imageUpload" name="imageUpload" style="display: none;" onchange="displayImage(this)">
+
+
+
+            <label class="custom-label" for="description">Description:</label><br>
+            <textarea id="description" name="description" rows="4" cols="50"></textarea><br><br>
+
+            <label class="custom-label" for="language">Language:</label>
+            <input type="text" id="language" name="language"><br><br>
+
+            <label class="custom-label" for="format">Format:</label>
+            <input type="text" id="format" name="format"><br><br>
+
+            <label class="custom-label" for="web_link">Web Link:</label>
+            <input type="text" id="web_link" name="web_link"><br><br>
+
+            <label class="custom-label" for="policy_link">Policy Link:</label>
+            <input type="text" id="policy_link" name="policy_link"><br><br>
+
+        </div>
+
+
+        <div id="Tab2" class="tabcontent">
+            <div class="form-section">
+                <label class="form_header">Target Audience:</label>
+                <div class="checkbox-options">
+                    {% for option in audience_options %}
+                    <div class="option-column">
+                        <input type="checkbox" id="{{ option.id }}" name="audience-options" value="{{ option.id }}">
+                        <label for="{{ option.id }}">{{ option.name }}</label>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        
+            <div class="form-section">
+                <label class="form_header">Delivery Frequency:</label>
+                <div class="radio-options">
+                    {% for option in delivery_frequency_options %}
+                    <div class="option-column">
+                        <input type="radio" id="{{ option.id }}" name="delivery_frequency" value="{{ option.id }}">
+                        <label for="{{ option.id }}">{{ option.name }}</label>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
-    </div>
-      
+        
+                 
 
 
-        <label class = "custom-label" for="description">Description:</label><br>
-        <textarea id="description" name="description" rows="4" cols="50"></textarea><br><br>
-        
-        <label class = "custom-label" for="language">Language:</label>
-        <input type="text" id="language" name="language"><br><br>
-        
-        <label class = "custom-label" for="format">Format:</label>
-        <input type="text" id="format" name="format"><br><br>
-        
-        <label class = "custom-label" for="web_link">Web Link:</label>
-        <input type="text" id="web_link" name="web_link"><br><br>
-        
-        <label class = "custom-label" for="policy_link">Policy Link:</label>
-        <input type="text" id="policy_link" name="policy_link"><br><br>
-        
-  </div>
+        <div id="Tab3" class="tabcontent">
 
+            <label class="custom-label" for="results">Results:</label>
+            <textarea id="results" name="results" rows="2" cols="50"></textarea><br><br>
 
-  <div id="Tab2" class="tabcontent">
+            <label class="custom-label" for="lessons_learned">Lessons Learned:</label>
+            <textarea id="lessons_learned" name="lessons_learned" rows="2" cols="50"></textarea><br><br>
 
-    
-    <!-- Form fields for Tab 2 -->
+            <label class="custom-label" for="key_messages">Key Messages:</label>
+            <textarea id="key_messages" name="key_messages" rows="2" cols="50"></textarea><br><br>
 
-        <label class="form_header">Target Audience:</label>
-        
-        {% for option in audience_options %}
-            <input type="checkbox" id="{{ option.id }}" name="audience-options" value="{{ option.id }}">
-            <label class="selection-label" for="{{ option.id }}">{{ option.name }}</label><br>
-        {% endfor %}
+            <label class="custom-label" for="relationship_to_rce_activities">Relationship to RCE Activities:</label>
+            <textarea id="relationship_to_rce_activities" name="relationship_to_rce_activities" rows="2"
+                cols="50"></textarea><br><br>
 
-        <label class="form_header">Delivery Frequency:</label>
-        {% for option in delivery_frequency_options %}
-            <input type="radio" id="{{ option.id }}" name="delivery_frequency" value="{{ option.id }}">
-            <label class="selection-label" for="{{ option.id }}">{{ option.name }}</label><br>
-        {% endfor %}
-        
+            <label class="custom-label" for="funding">Funding:</label>
+            <textarea id="funding" name="funding" rows="2" cols="50"></textarea><br><br>
 
+        </div>
 
-        
-</div>
-
-
-<div id="Tab3" class="tabcontent">
-    
-        <label class = "custom-label" for="results">Results:</label>
-        <textarea id="results" name="results" rows="2" cols="50"></textarea><br><br>
-        
-        <label class = "custom-label" for="lessons_learned">Lessons Learned:</label>
-        <textarea id="lessons_learned" name="lessons_learned" rows="2" cols="50"></textarea><br><br>
-        
-        <label class = "custom-label" for="key_messages">Key Messages:</label>
-        <textarea id="key_messages" name="key_messages" rows="2" cols="50"></textarea><br><br>
-        
-        <label class = "custom-label" for="relationship_to_rce_activities">Relationship to RCE Activities:</label>
-        <textarea id="relationship_to_rce_activities" name="relationship_to_rce_activities" rows="2" cols="50"></textarea><br><br>
-        
-        <label class = "custom-label" for="funding">Funding:</label>
-        <textarea id="funding" name="funding" rows="2" cols="50"></textarea><br><br>
-    
-</div>
-
-<div id="Tab4" class="tabcontent">
-    <!-- SDG -->
-              <label for="sdgs">Choose the related Sustainable Development Goals from the following:</label>
-              <div id="sdgs-selection">
+        <div id="Tab4" class="tabcontent">
+            <!-- SDG -->
+            <label for="sdgs">Choose the related Sustainable Development Goals from the following:</label>
+            <div id="sdgs-selection">
                 {% for sdg in sdgs %}
                 <div class="sdg-item">
-                  <div class="sdg-name">
-                    <p>{{ sdg }}</p>
-                  </div>
-                  <div class="sdg-options">
-                    <label class="sdg-option-label" for="sdg_relationship_{{ sdg }}_indirect">Indirect</label>
-                    <input type="radio" id="sdg_relationship_{{ sdg }}_indirect" name="sdg_relationship_{{ sdg }}" value="indirect">
-                    <label class="sdg-option-label" for="sdg_relationship_{{ sdg }}_direct">Direct</label>
-                    <input type="radio" id="sdg_relationship_{{ sdg }}_direct" name="sdg_relationship_{{ sdg }}" value="direct">
-                  </div>
+                    <div class="sdg-name">
+                        <p>{{ sdg }}</p>
+                    </div>
+                    <div class="sdg-options">
+                        <label class="sdg-option-label" for="sdg_relationship_{{ sdg }}_indirect">Indirect</label>
+                        <input type="radio" id="sdg_relationship_{{ sdg }}_indirect" name="sdg_relationship_{{ sdg }}"
+                            value="indirect">
+                        <label class="sdg-option-label" for="sdg_relationship_{{ sdg }}_direct">Direct</label>
+                        <input type="radio" id="sdg_relationship_{{ sdg }}_direct" name="sdg_relationship_{{ sdg }}"
+                            value="direct">
+                    </div>
                 </div>
                 {% endfor %}
-              </div>
-          </div>
-
-
-          
-
-
-
-<div id="Tab5" class="tabcontent">
-    <!-- ESD and PAA -->
-
-    <label class = "custom-label" for="esd_themes">Choose the ESD themes from the following:</label>
-    <div id="sdgs-selection">
-        {% for option in esd_themes %}
-        <div class="sdg-item">
-            <div class="sdg-name">
-                <p>{{ option.description }}</p>
-            </div>
-            <div class="sdg-option">
-                <label class="sdg-option-label" for="{{ option.name }}_indirect">Indirect</label>
-                <input type="radio" id="{{ option.name }}_indirect" name="{{ option.name }}" value="indirect">
-                <label class="sdg-option-label" for="{{ option.name }}_direct">Direct</label>
-                <input type="radio" id="{{ option.name }}_direct" name="{{ option.name }}" value="direct">
             </div>
         </div>
-        {% endfor %}
-    </div>
 
 
-    <label class = "custom-label" for="pa_options">Choose the Priority Access Activities from the following:</label>
-    <div id="sdgs-selection">
-        {% for option in pa_options %}
-        <div class="sdg-item">
-            <div class="sdg-name">
-                <p>{{ option.description }}</p>
+
+
+
+
+        <div id="Tab5" class="tabcontent">
+            <!-- ESD and PAA -->
+
+            <label class="custom-label" for="esd_themes">Choose the ESD themes from the following:</label>
+            <div id="sdgs-selection">
+                {% for option in esd_themes %}
+                <div class="sdg-item">
+                    <div class="sdg-name">
+                        <p>{{ option.description }}</p>
+                    </div>
+                    <div class="sdg-option">
+                        <input type="radio" id="{{ option.name }}_indirect" name="{{ option.name }}" value="indirect">
+                        <label class="sdg-option-label" for="{{ option.name }}_indirect">Indirect</label>
+                        <input type="radio" id="{{ option.name }}_direct" name="{{ option.name }}" value="direct">
+                        <label class="sdg-option-label" for="{{ option.name }}_direct">Direct</label>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
-            <div class="sdg-option">
-                <label class="sdg-option-label" for="{{ option.name }}_indirect">Indirect</label>
-                <input type="radio" id="{{ option.name }}_indirect" name="{{ option.name }}" value="indirect">
-                <label class="sdg-option-label" for="{{ option.name }}_direct">Direct</label>
-                <input type="radio" id="{{ option.name }}_direct" name="{{ option.name }}" value="direct">
+
+
+            <label class="custom-label" for="pa_options">Choose the Priority Access Activities from the
+                following:</label>
+            <div id="sdgs-selection">
+                {% for option in pa_options %}
+                <div class="sdg-item">
+                    <div class="sdg-name">
+                        <p>{{ option.description }}</p>
+                    </div>
+                    <div class="sdg-option">
+                        <input type="radio" id="{{ option.name }}_indirect" name="{{ option.name }}" value="indirect">
+                        <label class="sdg-option-label" for="{{ option.name }}_indirect">Indirect</label>
+                        <input type="radio" id="{{ option.name }}_direct" name="{{ option.name }}" value="direct">
+                        <label class="sdg-option-label" for="{{ option.name }}_direct">Direct</label>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
+
+
         </div>
-        {% endfor %}
-    </div>
 
 
-</div>
-
-
-<div id="Tab6" class="tabcontent">
-    <!-- last page of the form for submission
+        <div id="Tab6" class="tabcontent" style="display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: stretch;">
+            <!-- last page of the form for submission
     add functionality to the submit button -->
 
-        <p>Terms and Conditions</p>
-        <label class = "terms-label" for="terms_and_conditions" style = "font-size: 14px; ">
-            Personal data provided under this form will be processed by UNU in accordance with the UNU Policy on Personal Data Protection. Your information and personal
-            data will strictly be used for the purpose of payment processing and will be held in confidence. Access to your information and personal data is strictly limited to
-            UNU’s authorized employees and agents on a “need-to-know” basis. UNU will retain your personal data only for the period necessary, unless UNU has an
-            obligation to preserve your personal data for administrative, fiscal, legal, scientific, historical or informational value, or otherwise in accordance with UNU’s
-            retention policies. Further details are available here. Any information about the processing of personal data and how to request access, verification, rectification
-            and/or deletion of personal data may be addressed to: Aya Yokoi, Data Protection Focal Point at UNU-IAS, at yokoi@unu.edu
-        </label>
-        
-        <!-- Add a checkbox for accepting terms and conditions -->
-        <input type="checkbox" id="terms_and_conditions" name="terms_and_conditions" required>
-        <label for="terms_and_conditions">I accept the terms and conditions</label>
+            <p style="color: var(--text); font-weight: 500;">Terms and Conditions</p>
+            <label class="terms-label" for="terms_and_conditions">
+                Personal data provided under this form will be processed by UNU in accordance with the UNU Policy on
+                Personal Data Protection. Your information and personal
+                data will strictly be used for the purpose of payment processing and will be held in confidence. Access
+                to your information and personal data is strictly limited to
+                UNU’s authorized employees and agents on a “need-to-know” basis. UNU will retain your personal data only
+                for the period necessary, unless UNU has an
+                obligation to preserve your personal data for administrative, fiscal, legal, scientific, historical or
+                informational value, or otherwise in accordance with UNU’s
+                retention policies. Further details are available here. Any information about the processing of personal
+                data and how to request access, verification, rectification
+                and/or deletion of personal data may be addressed to: Aya Yokoi, Data Protection Focal Point at UNU-IAS,
+                at yokoi@unu.edu
+            </label>
 
-        <button type="submit" onclick="document.getElementById('form-action').value='save';">Save as Draft</button>
-        <button type="submit" onclick="document.getElementById('form-action').value='submit';">Submit</button>
+            <!-- Add a checkbox for accepting terms and conditions -->
+            <input type="checkbox" id="terms_and_conditions" name="terms_and_conditions" required>
+            <label for="terms_and_conditions">I accept the terms and conditions</label>
 
-     
-      </div>
+            <div style="    display: flex;
+            flex-direction: row;
+            width: 100%;
+            justify-content: center;">
+                <button type="submit" onclick="document.getElementById('form-action').value='save';" style="    width: 25%;
+                padding: 2%;">Save as Draft</button>
+                <button type="submit" onclick="document.getElementById('form-action').value='submit';" style="    width: 25%;
+                padding: 2%;">Submit</button>
+            </div>
 
-
-      
-      <div class="navigation-buttons">
-        <button class="tabnav" id="prevBtn">←</button>
-<button class="tabnav" id="nextBtn">→</button>
-
-      </div>
-      
-      
-</form>
-
-
-  <script>
-    
-    document.addEventListener('DOMContentLoaded', function() {
-    function openTab(evt) {
-        // Hide all tab contents
-        const tabContents = document.querySelectorAll('.tabcontent');
-        tabContents.forEach(content => content.style.display = 'none');
-
-        // Remove active class from all tab links
-        const tabLinks = document.querySelectorAll('.tablinks');
-        tabLinks.forEach(link => link.classList.remove('active'));
-
-        // Show the clicked tab's content and set its link as active
-        const tabName = evt.currentTarget.dataset.tabname;
-        document.getElementById(tabName).style.display = 'block';
-        evt.currentTarget.classList.add('active');
-    }
-
-    const tabLinks = document.querySelectorAll('.tablinks');
-    
-    // Attach the openTab function to each tab link
-    tabLinks.forEach(link => link.addEventListener('click', openTab));
-    
-    // Set the first tab as default
-    document.querySelector('#defaultOpen').click();
-});
+        </div>
 
 
-document.addEventListener('DOMContentLoaded', function() {
-  let currentTab = 0;  // Start at the first tab
 
-  function openTab(evt) {
-      // Hide all tab contents
-      const tabContents = document.querySelectorAll('.tabcontent');
-      tabContents.forEach(content => content.style.display = 'none');
+        <div class="navigation-buttons">
+            <button class="tabnav" id="prevBtn">←</button>
+            <button class="tabnav" id="nextBtn">→</button>
 
-      // Remove active class from all tab links
-      const tabLinks = document.querySelectorAll('.tablinks');
-      tabLinks.forEach(link => link.classList.remove('active'));
-
-      // Show the clicked tab's content and set its link as active
-      const tabName = evt.currentTarget.dataset.tabname;
-      document.getElementById(tabName).style.display = 'block';
-      evt.currentTarget.classList.add('active');
-  }
-
-  function showTab(n) {
-      const tabLinks = document.querySelectorAll('.tablinks');
-      const prevBtn = document.getElementById("prevBtn");
-      const nextBtn = document.getElementById("nextBtn");
-
-      if (n >= tabLinks.length) {
-          n = tabLinks.length - 1;  // prevent going beyond the last tab
-      } else if (n < 0) {
-          n = 0;  // prevent going before the first tab
-      }
-
-      tabLinks[n].click();
-      currentTab = n;
-
-      // Control button visibility based on current tab
-      prevBtn.style.display = (currentTab === 0) ? 'none' : 'inline-block';
-      nextBtn.style.display = (currentTab === tabLinks.length - 1) ? 'none' : 'inline-block';
-  }
-
-  const tabLinks = document.querySelectorAll('.tablinks');
-  
-  // Attach the openTab function to each tab link
-  tabLinks.forEach((link, index) => {
-      link.addEventListener('click', function(evt) {
-          openTab(evt);
-          currentTab = index;  // Update the current tab index
-          showTab(currentTab); // Update buttons based on new tab
-      });
-  });
-
-  // Set the first tab as default
-  document.querySelector('#defaultOpen').click();
-
-  document.getElementById("prevBtn").addEventListener("click", function() {
-      showTab(currentTab - 1);
-  });
-
-  document.getElementById("nextBtn").addEventListener("click", function() {
-      showTab(currentTab + 1);
-  });
-});
+        </div>
 
 
-function displayImage(inputElement) {
-  const file = inputElement.files[0];
-  if (file) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-          const imageElement = document.getElementById('uploadedImage');
-          imageElement.src = e.target.result;
-      }
-      reader.readAsDataURL(file);
-  }
-}
+    </form>
+</div>
 
-document.getElementById('saveButton').addEventListener('click', function() {
-    // Add logic to indicate this is a save action, not submit
-    // For example, you could add a hidden field to your form
-    const input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = 'action';
-    input.value = 'save';
-    document.querySelector('form').appendChild(input);
-    
-    // Submit the form
-    document.querySelector('form').submit();
-});
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            function openTab(evt) {
+                // Hide all tab contents
+                const tabContents = document.querySelectorAll('.tabcontent');
+                tabContents.forEach(content => content.style.display = 'none');
+
+                // Remove active class from all tab links
+                const tabLinks = document.querySelectorAll('.tablinks');
+                tabLinks.forEach(link => link.classList.remove('active'));
+
+                // Show the clicked tab's content and set its link as active
+                const tabName = evt.currentTarget.dataset.tabname;
+                document.getElementById(tabName).style.display = 'flex';
+                evt.currentTarget.classList.add('active');
+            }
+
+            const tabLinks = document.querySelectorAll('.tablinks');
+
+            // Attach the openTab function to each tab link
+            tabLinks.forEach(link => link.addEventListener('click', openTab));
+
+            // Set the first tab as default
+            document.querySelector('#defaultOpen').click();
+        });
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            let currentTab = 0;  // Start at the first tab
+
+            function openTab(evt) {
+                // Hide all tab contents
+                const tabContents = document.querySelectorAll('.tabcontent');
+                tabContents.forEach(content => content.style.display = 'none');
+
+                // Remove active class from all tab links
+                const tabLinks = document.querySelectorAll('.tablinks');
+                tabLinks.forEach(link => link.classList.remove('active'));
+
+                // Show the clicked tab's content and set its link as active
+                const tabName = evt.currentTarget.dataset.tabname;
+                document.getElementById(tabName).style.display = 'flex';
+                evt.currentTarget.classList.add('active');
+            }
+
+            function showTab(n) {
+                const tabLinks = document.querySelectorAll('.tablinks');
+                const prevBtn = document.getElementById("prevBtn");
+                const nextBtn = document.getElementById("nextBtn");
+
+                if (n >= tabLinks.length) {
+                    n = tabLinks.length - 1;  // prevent going beyond the last tab
+                } else if (n < 0) {
+                    n = 0;  // prevent going before the first tab
+                }
+
+                tabLinks[n].click();
+                currentTab = n;
+
+                // Control button visibility based on current tab
+                prevBtn.style.display = (currentTab === 0) ? 'none' : 'inline-block';
+                nextBtn.style.display = (currentTab === tabLinks.length - 1) ? 'none' : 'inline-block';
+            }
+
+            const tabLinks = document.querySelectorAll('.tablinks');
+
+            // Attach the openTab function to each tab link
+            tabLinks.forEach((link, index) => {
+                link.addEventListener('click', function (evt) {
+                    openTab(evt);
+                    currentTab = index;  // Update the current tab index
+                    showTab(currentTab); // Update buttons based on new tab
+                });
+            });
+
+            // Set the first tab as default
+            document.querySelector('#defaultOpen').click();
+
+            document.getElementById("prevBtn").addEventListener("click", function () {
+                showTab(currentTab - 1);
+            });
+
+            document.getElementById("nextBtn").addEventListener("click", function () {
+                showTab(currentTab + 1);
+            });
+        });
+
+
+        function displayImage(inputElement) {
+            const file = inputElement.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const imageElement = document.getElementById('uploadedImage');
+                    imageElement.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        document.getElementById('saveButton').addEventListener('click', function () {
+            // Add logic to indicate this is a save action, not submit
+            // For example, you could add a hidden field to your form
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'action';
+            input.value = 'save';
+            document.querySelector('form').appendChild(input);
+
+            // Submit the form
+            document.querySelector('form').submit();
+        });
 
 
 </script>
 {% endblock %}
-
-

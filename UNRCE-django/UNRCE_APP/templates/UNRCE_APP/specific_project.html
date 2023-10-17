@@ -1,4 +1,13 @@
 {% extends "UNRCE_APP/base.html" %}
+
+{% block main_class %}
+    {% if request.path == '/' %}
+        landing-main
+    {% else %}
+        default-main
+    {% endif %}
+{% endblock %}
+
 {% load static %}
 
 {% block content %}
@@ -6,6 +15,17 @@
     .user-interest-table {
         width: 100%; /* Ensures the container takes up the full width */
         text-align: left; /* Left-aligns the content of the container (including the table) */
+        display: flex;
+        padding: 2vh;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .user-interest-table h5 {
+        color: black;
+        margin-top: 1vh;
+        margin-bottom: 1vh;
     }
     
     .user-interest-table table {
@@ -48,6 +68,8 @@
     }
     </style>
 <div class="information">
+
+<!-- The rest of the specific project -->
 <div class="project-container">
     <div style="margin-bottom: 1rem; display: flex; align-items: flex-end;">
         <img class="image" id="detailImage" src="{{ img_src }}" alt="Project Image">
@@ -137,6 +159,8 @@
             table.style.display = "none";
         }
     }
+
+
 </script>
 
 {% endblock content %}
