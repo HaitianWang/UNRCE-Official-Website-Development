@@ -32,6 +32,21 @@ import csv
 
 User = get_user_model()
 
+from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth import REDIRECT_FIELD_NAME
+
+
+from django.views.decorators.http import require_POST
+
+# Define a custom function to check if the user is a superuser
+def is_superuser(user):
+    return user.is_superuser
+
+def is_staff(user):
+    return user.is_staff
+
+# Apply the user_passes_test decorator to your view
+@user_passes_test(is_superuser, login_url='/')  # Replace '/home/' with your home page URL
 def search_users(request):
     if request.method != 'GET':
         # Return an empty queryset by default
@@ -340,8 +355,8 @@ def users_info(request):
     return render(request, 'UNRCE_APP/users_info.html')
 
 def projects(request):
-    # Dictionary Containing data to send. Includes rows from the "Project" table sent as "project_query"
-    return render(request, 'UNRCE_APP/projects.html', {'project_query': Project.objects.all()})   
+    # Dictionary Containing data to send. Includes approved rows from the "Project" sent as "project_query"
+    return render(request, 'UNRCE_APP/projects.html', {'project_query': Project.objects.filter(approval= 'approved')})   
 
 @login_required
 def myaccount(request):
@@ -376,8 +391,42 @@ def index(request):
 def specific_project(request):
     img_src = request.GET.get('img', '') 
     title_text = request.GET.get('title', '')
+
     return render(request, 'UNRCE_APP/specific_project.html', {'img_src': img_src, 'title_text': title_text})
 
+
+#display pending projects
+def pending_projects(request):
+        # Retrieve pending projects from the database
+    pending_projects = Project.objects.filter(approval='pending')
+
+    context = {
+        'project_query': pending_projects,  # Pass the filtered queryset to the template
+    }
+    return render(request, 'UNRCE_APP/pending_projects.html', context)
+
+
+
+from django.http import JsonResponse
+
+def change_approval(request, project_id):
+    if request.method == 'POST':
+        new_approval = request.POST.get('new_approval')
+        project = get_object_or_404(Project, pk=project_id)
+        project.approval = new_approval
+        project.save()
+        return JsonResponse({'message': 'Approval changed successfully'})
+
+    return JsonResponse({'error': 'Invalid request'})
+
+def rejected_projects(request):
+        # Retrieve pending projects from the database
+    rejected_projects = Project.objects.filter(approval='rejected')
+
+    context = {
+        'project_query': rejected_projects,  # Pass the filtered queryset to the template
+    }
+    return render(request, 'UNRCE_APP/rejected_projects.html', context)
 
 class CreateProject(LoginRequiredMixin, View):
     login_url = "/login/"
@@ -477,8 +526,8 @@ class CreateProject(LoginRequiredMixin, View):
             title=request.POST.get("title"),
             description=request.POST.get("description"),
             audience=request.POST.getlist("audience-options"),
-            created_at=request.POST.get("start_date"),
-            concluded_on=request.POST.get("end_date"),
+            #created_at=request.POST.get("start_date"),
+            #concluded_on=request.POST.get("end_date"),
             owner=user,  # to set the currently logged-in user as the manager
             #project_cover_image=request.FILES.get("imageUpload"),
             language=request.POST.get("language"),
@@ -615,6 +664,13 @@ def delete_users(request):
         user_ids = request.POST.getlist("user_ids") # "user_ids" matches the checkbox name
         CustomUser.objects.filter(id__in=user_ids).delete()
         return HttpResponseRedirect('/user-search/') # Redirect back to the search page
+
+def delete_projects(request):
+    if request.method == "POST":
+        project_ids = request.POST.getlist("project_ids") # "user_ids" matches the checkbox name
+        Project.objects.filter(id__in=project_ids).delete()
+        return HttpResponseRedirect('/project-search/')     
+
     
 @staff_member_required(login_url="UNRCE_APP:login")
 def download_users(request):
@@ -646,6 +702,54 @@ def download_users(request):
 
     return response
 
+
+@user_passes_test(is_staff, login_url='/')  # Replace '/home/' with your home page URL
+def project_search(request):
+    if request.method == 'GET':
+        search_query = request.GET.get('search_query')
+    if search_query:
+        # Perform a search based on the search_query
+        projects = Project.objects.filter(title__icontains=search_query)
+    else:
+        # No search query provided, so display all projects
+        projects = Project.objects.all()
+    
+    return render(request, 'UNRCE_APP/project_search.html', {'projects': projects, 'search_query': search_query, })
+
+
+
+def project_specific(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    # return render(request, 'project_specific.html', {'project': project})
+    return render(request, 'UNRCE_APP/project_specific.html', {'project': project})
+
+
+# Function needed to approve a project
+@require_POST
+def approve_project(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    project.approval = "approved"
+    project.save()
+    messages.success(request, "Project has been approved!")
+    return redirect('UNRCE_APP:project_specific', project_id=project.id)
+
+# Function needed to reject a project
+@require_POST
+def reject_project(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    project.approval = "rejected"
+    project.save()
+    messages.success(request, "Project has been rejected!")
+    return redirect('UNRCE_APP:project_specific', project_id=project.id)
+
+# Function needed to make a project pending
+@require_POST
+def make_pending_project(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    project.approval = "pending"
+    project.save()
+    messages.success(request, "Project has been made pending!")
+    return redirect('UNRCE_APP:project_specific', project_id=project.id)
 # FAQ Page
 def faq(request):
     return render(request, 'UNRCE_APP/faq.html')

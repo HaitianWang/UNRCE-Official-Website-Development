@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
-
+from django.utils import timezone
 
 
 class SDGEnum(models.TextChoices):   # Using TextChoices to create Enum
@@ -186,7 +186,7 @@ class Project(models.Model):
 
 
 
-    created_at = models.DateTimeField(auto_now_add=True)  # Set to 'now' when the record is created
+    created_at = models.DateTimeField(default=timezone.now)  # Set to 'now' when the record is created
     concluded_on = models.DateTimeField(null=True, blank=True)  # Null by default
 
     files = models.ManyToManyField('ProjectFile', related_name='projects')
@@ -331,3 +331,9 @@ class Organisation(models.Model):
     def __str__(self):
         return self.org_name
 
+# INSERT INTO UNRCE_APP_project (title, description, audience, delivery_frequency, language, format, web_link, policy_link, results, lessons_learned, key_messages, relationship_to_rce_activities, funding, approval, status)
+# VALUES 
+#    ('Project 1', 'Description of Project 1', 'general', 'monthly', 'English', 'PDF', 'https://example.com/project1', 'https://example.com/policy1', 'Results for Project 1', 'Lessons learned for Project 1', 'Key messages for Project 1', 'Relationship for Project 1', 'Funding for Project 1', 'pending', 'draft'),
+#    ('Project 2', 'Description of Project 2', 'target', 'quarterly', 'Spanish', 'Video', 'https://example.com/project2', 'https://example.com/policy2', 'Results for Project 2', 'Lessons learned for Project 2', 'Key messages for Project 2', 'Relationship for Project 2', 'Funding for Project 2', 'accepted', 'submitted'),
+#    ('Project 3', 'Description of Project 3', 'adults', 'annually', 'French', 'Webinar', 'https://example.com/project3', 'https://example.com/policy3', 'Results for Project 3', 'Lessons learned for Project 3', 'Key messages for Project 3', 'Relationship for Project 3', 'Funding for Project 3', 'rejected', 'draft'),
+#    ('Project 4', 'Description of Project 4', 'high_school', 'biannually', 'German', 'Report', 'https://example.com/project4', 'https://example.com/policy4', 'Results for Project 4', 'Lessons learned for Project 4', 'Key messages for Project 4', 'Relationship for Project 4', 'Funding for Project 4', 'pending', 'submitted');

@@ -89,7 +89,7 @@ default-main
                 <div class="radio-options">
                     {% for option in delivery_frequency_options %}
                     <div class="option-column">
-                        <input type="radio" id="{{ option.id }}" name="delivery_frequency" value="{{ option.id }}">
+                        <input type="radio" id="{{ option.id }}" name="delivery_frequency" value="{{ option.id }}" required>
                         <label for="{{ option.id }}">{{ option.name }}</label>
                     </div>
                     {% endfor %}

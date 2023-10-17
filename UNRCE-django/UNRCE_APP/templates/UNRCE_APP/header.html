@@ -18,21 +18,34 @@
 
     <div class="horizontal-menu">
       <!-- Login/Signup/Logout -->
-      {% if user.is_authenticated %}
+      {% if not user.is_authenticated %}
+      <nav style="display: flex;">
+        <a class="topright" href="{% url 'UNRCE_APP:login' %}">Sign In</a>
+        <a class="topright" href="{% url 'UNRCE_APP:signup' %}">Sign Up</a>
+      </nav>
+      {%elif user.is_superuser%}
       <!-- show log out link if user is already logged in -->
       <nav style="display: flex;">
         <a class="topright" href="{% url 'UNRCE_APP:myaccount' %}">My Account</a>
         <a href="{% url 'UNRCE_APP:create_project' %}" class="upload-btn"> Upload</a>
         <a class="topright" href="{% url 'UNRCE_APP:logout' %}">Logout</a>
+        <a class="topright" href="{% url 'UNRCE_APP:search_users'%}">Users</a>
+        <a class="topright" href="{% url 'UNRCE_APP:project_search'%}">Project Search</a>
+      </nav>
+      {%elif user.is_staff%}
+      <nav style="display: flex;">
+        <a class="topright" href="{% url 'UNRCE_APP:myaccount' %}">My Account</a>
+        <a href="{% url 'UNRCE_APP:create_project' %}" class="upload-btn"> Upload</a>
+        <a class="topright" href="{% url 'UNRCE_APP:logout' %}">Logout</a>
+        <a class="topright" href="{% url 'UNRCE_APP:project_search'%}">Project Search</a>
       </nav>
       {% else %}
-      <!-- show log in and sign up links otherwise   -->
       <nav style="display: flex;">
-        <a class="topright" href="{% url 'UNRCE_APP:login' %}">Sign In</a>
-        <a class="topright" href="{% url 'UNRCE_APP:signup' %}">Sign Up</a>
+        <a class="topright" href="{% url 'UNRCE_APP:myaccount' %}">My Account</a>
+        <a href="{% url 'UNRCE_APP:create_project' %}" class="upload-btn"> Upload</a>
+        <a class="topright" href="{% url 'UNRCE_APP:logout' %}">Logout</a>
       </nav>
       {% endif %}
-      <!-- Login/Signup/Logout -->
     </div>
   </div>
 </header>

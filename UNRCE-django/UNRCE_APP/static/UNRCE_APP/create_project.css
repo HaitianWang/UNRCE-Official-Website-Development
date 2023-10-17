@@ -26,6 +26,22 @@ input[type="radio"] {
   border: 1px solid black !important ;
 }
 
+.uploadProject{
+  background-color: #ffb300;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  display: block;
+  margin-top: 20px;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 150px;  /* or any desired width */
+}
+
+
 .terms-label{
   font-size: .8em !important;
   font-weight: normal !important;
