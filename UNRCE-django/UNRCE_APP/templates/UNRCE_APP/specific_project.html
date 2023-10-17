@@ -1,16 +1,9 @@
 {% extends "UNRCE_APP/base.html" %}
 
-{% block main_class %}
-    {% if request.path == '/' %}
-        landing-main
-    {% else %}
-        default-main
-    {% endif %}
-{% endblock %}
-
 {% load static %}
 
-{% block content %}
+{%block linking%}
+<link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/project.css' %}">
 <style>/* Table Styles */
     .user-interest-table {
         width: 100%; /* Ensures the container takes up the full width */
@@ -66,7 +59,12 @@
         cursor: pointer; /* Hand cursor on hover */
         color: #000; /* Black text color for buttons */
     }
-    </style>
+</style>
+{%endblock linking%}
+
+
+{% block content %}
+
 <div class="information">
 
 <!-- The rest of the specific project -->

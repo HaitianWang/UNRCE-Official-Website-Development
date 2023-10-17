@@ -4,6 +4,8 @@
     align-items: center;
     border-radius: 4px;
     color: var(--text) !important;
+    display: flex;
+    flex-direction: column;
 }
 
 .login-form a {

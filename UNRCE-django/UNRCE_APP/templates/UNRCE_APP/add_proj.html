@@ -1,16 +1,8 @@
 {% extends "UNRCE_APP/base.html" %}
 
-{% block main_class %}
-    {% if request.path == '/' %}
-        landing-main
-    {% else %}
-        default-main
-    {% endif %}
-{% endblock %}
-
 {% block content %}
-  <h2>Add New Project</h2>
-  <form method="post">
+<h2>Add New Project</h2>
+<form method="post">
     {% csrf_token %}
     <label for="title">Title:</label>
     <input type="text" id="title" name="title"><br><br>
@@ -20,25 +12,25 @@
     
     <label for="audience">Audience:</label>
     <select id="audience" name="audience">
-      <option value="general">General</option>
-      <option value="adults">Adults</option>
-      <option value="tertiary">Tertiary students</option>
-      <option value="high_school">High school age</option>
-      <option value="primary_school">Primary School age</option>
-      <option value="early_years">Early years</option>
-      <option value="adults_60">Adults >60</option>
+        <option value="general">General</option>
+        <option value="adults">Adults</option>
+        <option value="tertiary">Tertiary students</option>
+        <option value="high_school">High school age</option>
+        <option value="primary_school">Primary School age</option>
+        <option value="early_years">Early years</option>
+        <option value="adults_60">Adults >60</option>
     </select><br><br>
     
     <label for="delivery_frequency">Delivery Frequency:</label>
     <select id="delivery_frequency" name="delivery_frequency">
-      <option value="monthly">Monthly</option>
-      <option value="quarterly">Quarterly</option>
-      <option value="biannually">Biannually</option>
-      <option value="annually">Annually</option>
-      <option value="ongoing">Ongoing</option>
-      <option value="once">Once</option>
-      <option value="irregular">Opportunistic/Irregularly</option>
-      <option value="on_demand">Permanent/On demand</option>
+        <option value="monthly">Monthly</option>
+        <option value="quarterly">Quarterly</option>
+        <option value="biannually">Biannually</option>
+        <option value="annually">Annually</option>
+        <option value="ongoing">Ongoing</option>
+        <option value="once">Once</option>
+        <option value="irregular">Opportunistic/Irregularly</option>
+        <option value="on_demand">Permanent/On demand</option>
     </select><br><br>
     
     <label for="language">Language:</label>
@@ -71,5 +63,5 @@
     <!-- Other fields -->
     
     <input type="submit" value="Add Project">
-  </form>
+</form>
 {% endblock %}

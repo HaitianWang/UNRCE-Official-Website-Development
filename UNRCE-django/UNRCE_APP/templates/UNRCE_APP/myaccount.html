@@ -1,15 +1,8 @@
 {% extends "UNRCE_APP/base.html" %}
+{% load static %}
 
-{% block main_class %}
-    {% if request.path == '/' %}
-        landing-main
-    {% else %}
-        default-main
-    {% endif %}
-{% endblock %}
-
-{% block content %}
-
+{%block linking%}
+<link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/myaccount.css' %}">
 <style>
     .h2_account {
         font-size: larger;
@@ -20,9 +13,10 @@
         margin: 10px;
     }
 </style>
+{%endblock linking%}
 
 
-<!-- {% load static %} -->
+{% block content %}
 <div class="container_outer">
     <div class="container_account">
         <header style="display: flex; justify-content: space-between;">

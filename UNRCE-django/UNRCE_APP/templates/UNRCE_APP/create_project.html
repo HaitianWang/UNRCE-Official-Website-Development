@@ -1,17 +1,11 @@
 {% extends "UNRCE_APP/base.html" %}
-
-{% block main_class %}
-{% if request.path == '/' or request.path == '/create_project/' %}
-landing-main
-{% else %}
-default-main
-{% endif %}
-{% endblock %}
-
 {% load static %}
+
+{% block linking%}
+<link rel="stylesheet" type="text/css" href="{% static 'UNRCE_APP/create_project.css' %}">
+{%endblock linking%}
+
 {% block content %}
-
-
 <div class="page-wrapper">
     <form method="post">
         {% csrf_token %}
@@ -194,11 +188,11 @@ default-main
         flex-direction: column;
         justify-content: space-around;
         align-items: stretch;">
-            <!-- last page of the form for submission
-    add functionality to the submit button -->
+            <!-- last page of the form for submission-->
 
             <p style="color: var(--text); font-weight: 500;">Terms and Conditions</p>
             <label class="terms-label" for="terms_and_conditions">
+                {%comment%}
                 Personal data provided under this form will be processed by UNU in accordance with the UNU Policy on
                 Personal Data Protection. Your information and personal
                 data will strictly be used for the purpose of payment processing and will be held in confidence. Access
@@ -211,6 +205,8 @@ default-main
                 data and how to request access, verification, rectification
                 and/or deletion of personal data may be addressed to: Aya Yokoi, Data Protection Focal Point at UNU-IAS,
                 at yokoi@unu.edu
+                {%endcomment%}
+                PLACEHOLDER TERMS AND CONDITIONS
             </label>
 
             <!-- Add a checkbox for accepting terms and conditions -->
@@ -241,120 +237,118 @@ default-main
     </form>
 </div>
 
-    <script>
+<script>
 
-        document.addEventListener('DOMContentLoaded', function () {
-            function openTab(evt) {
-                // Hide all tab contents
-                const tabContents = document.querySelectorAll('.tabcontent');
-                tabContents.forEach(content => content.style.display = 'none');
+    document.addEventListener('DOMContentLoaded', function () {
+        function openTab(evt) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tabcontent');
+            tabContents.forEach(content => content.style.display = 'none');
 
-                // Remove active class from all tab links
-                const tabLinks = document.querySelectorAll('.tablinks');
-                tabLinks.forEach(link => link.classList.remove('active'));
-
-                // Show the clicked tab's content and set its link as active
-                const tabName = evt.currentTarget.dataset.tabname;
-                document.getElementById(tabName).style.display = 'flex';
-                evt.currentTarget.classList.add('active');
-            }
-
+            // Remove active class from all tab links
             const tabLinks = document.querySelectorAll('.tablinks');
+            tabLinks.forEach(link => link.classList.remove('active'));
 
-            // Attach the openTab function to each tab link
-            tabLinks.forEach(link => link.addEventListener('click', openTab));
-
-            // Set the first tab as default
-            document.querySelector('#defaultOpen').click();
-        });
-
-
-        document.addEventListener('DOMContentLoaded', function () {
-            let currentTab = 0;  // Start at the first tab
-
-            function openTab(evt) {
-                // Hide all tab contents
-                const tabContents = document.querySelectorAll('.tabcontent');
-                tabContents.forEach(content => content.style.display = 'none');
-
-                // Remove active class from all tab links
-                const tabLinks = document.querySelectorAll('.tablinks');
-                tabLinks.forEach(link => link.classList.remove('active'));
-
-                // Show the clicked tab's content and set its link as active
-                const tabName = evt.currentTarget.dataset.tabname;
-                document.getElementById(tabName).style.display = 'flex';
-                evt.currentTarget.classList.add('active');
-            }
-
-            function showTab(n) {
-                const tabLinks = document.querySelectorAll('.tablinks');
-                const prevBtn = document.getElementById("prevBtn");
-                const nextBtn = document.getElementById("nextBtn");
-
-                if (n >= tabLinks.length) {
-                    n = tabLinks.length - 1;  // prevent going beyond the last tab
-                } else if (n < 0) {
-                    n = 0;  // prevent going before the first tab
-                }
-
-                tabLinks[n].click();
-                currentTab = n;
-
-                // Control button visibility based on current tab
-                prevBtn.style.display = (currentTab === 0) ? 'none' : 'inline-block';
-                nextBtn.style.display = (currentTab === tabLinks.length - 1) ? 'none' : 'inline-block';
-            }
-
-            const tabLinks = document.querySelectorAll('.tablinks');
-
-            // Attach the openTab function to each tab link
-            tabLinks.forEach((link, index) => {
-                link.addEventListener('click', function (evt) {
-                    openTab(evt);
-                    currentTab = index;  // Update the current tab index
-                    showTab(currentTab); // Update buttons based on new tab
-                });
-            });
-
-            // Set the first tab as default
-            document.querySelector('#defaultOpen').click();
-
-            document.getElementById("prevBtn").addEventListener("click", function () {
-                showTab(currentTab - 1);
-            });
-
-            document.getElementById("nextBtn").addEventListener("click", function () {
-                showTab(currentTab + 1);
-            });
-        });
-
-
-        function displayImage(inputElement) {
-            const file = inputElement.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    const imageElement = document.getElementById('uploadedImage');
-                    imageElement.src = e.target.result;
-                }
-                reader.readAsDataURL(file);
-            }
+            // Show the clicked tab's content and set its link as active
+            const tabName = evt.currentTarget.dataset.tabname;
+            document.getElementById(tabName).style.display = 'flex';
+            evt.currentTarget.classList.add('active');
         }
 
-        document.getElementById('saveButton').addEventListener('click', function () {
-            // Add logic to indicate this is a save action, not submit
-            // For example, you could add a hidden field to your form
-            const input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = 'action';
-            input.value = 'save';
-            document.querySelector('form').appendChild(input);
+        const tabLinks = document.querySelectorAll('.tablinks');
 
-            // Submit the form
-            document.querySelector('form').submit();
+        // Attach the openTab function to each tab link
+        tabLinks.forEach(link => link.addEventListener('click', openTab));
+
+        // Set the first tab as default
+        document.querySelector('#defaultOpen').click();
+    });
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        let currentTab = 0;  // Start at the first tab
+
+        function openTab(evt) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tabcontent');
+            tabContents.forEach(content => content.style.display = 'none');
+
+            // Remove active class from all tab links
+            const tabLinks = document.querySelectorAll('.tablinks');
+            tabLinks.forEach(link => link.classList.remove('active'));
+
+            // Show the clicked tab's content and set its link as active
+            const tabName = evt.currentTarget.dataset.tabname;
+            document.getElementById(tabName).style.display = 'flex';
+            evt.currentTarget.classList.add('active');
+        }
+
+        function showTab(n) {
+            const tabLinks = document.querySelectorAll('.tablinks');
+            const prevBtn = document.getElementById("prevBtn");
+            const nextBtn = document.getElementById("nextBtn");
+
+            if (n >= tabLinks.length) {
+                n = tabLinks.length - 1;  // prevent going beyond the last tab
+            } else if (n < 0) {
+                n = 0;  // prevent going before the first tab
+            }
+
+            tabLinks[n].click();
+            currentTab = n;
+
+            // Control button visibility based on current tab
+            prevBtn.style.display = (currentTab === 0) ? 'none' : 'inline-block';
+            nextBtn.style.display = (currentTab === tabLinks.length - 1) ? 'none' : 'inline-block';
+        }
+
+        const tabLinks = document.querySelectorAll('.tablinks');
+
+        // Attach the openTab function to each tab link
+        tabLinks.forEach((link, index) => {
+            link.addEventListener('click', function (evt) {
+                openTab(evt);
+                currentTab = index;  // Update the current tab index
+                showTab(currentTab); // Update buttons based on new tab
+            });
         });
 
+        // Set the first tab as default
+        document.querySelector('#defaultOpen').click();
 
+        document.getElementById("prevBtn").addEventListener("click", function () {
+            showTab(currentTab - 1);
+        });
+
+        document.getElementById("nextBtn").addEventListener("click", function () {
+            showTab(currentTab + 1);
+        });
+    });
+
+
+    function displayImage(inputElement) {
+        const file = inputElement.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const imageElement = document.getElementById('uploadedImage');
+                imageElement.src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+
+    document.getElementById('saveButton').addEventListener('click', function () {
+        // Add logic to indicate this is a save action, not submit
+        // For example, you could add a hidden field to your form
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'action';
+        input.value = 'save';
+        document.querySelector('form').appendChild(input);
+
+        // Submit the form
+        document.querySelector('form').submit();
+    });
 </script>
-{% endblock %}
+{% endblock content %}

@@ -1,14 +1,12 @@
 <article class="centered" style="background-color: black;">
-    <!--
+    {%comment%}
       Remember the { for image in images } from the index.html?
       image is basically the Image model from the UNRCE_APP/models.py
-    -->
-    <h3>{{ image.title }}</h3>
-    <!--
+    {%endcomment%}
+    <h3>{{ image.title }}</h3>{%comment%}
       Django generates image url for us. Since the image here is
       just an instance of the Image model from the UNRCE_APP/models.py
-      we can access the underlying file by calling image.image
-    -->
+      we can access the underlying file by calling image.image{%endcomment%}
     <img src="{{ image.image.url }}"/>
     <p>Uploaded by {{ image.uploaded_by }}</p>
   </article>
