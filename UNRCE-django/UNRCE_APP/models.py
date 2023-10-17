@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
-
+from django.utils import timezone
 
 
 class SDGEnum(models.TextChoices):   # Using TextChoices to create Enum
@@ -170,7 +170,7 @@ class Project(models.Model):
 
 
 
-    created_at = models.DateTimeField(auto_now_add=True)  # Set to 'now' when the record is created
+    created_at = models.DateTimeField(default=timezone.now)  # Set to 'now' when the record is created
     concluded_on = models.DateTimeField(null=True, blank=True)  # Null by default
 
     files = models.ManyToManyField('ProjectFile', related_name='projects')

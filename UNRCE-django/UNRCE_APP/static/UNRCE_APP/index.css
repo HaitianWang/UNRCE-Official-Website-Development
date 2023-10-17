@@ -33,6 +33,7 @@
     background-color: lightgray;
     flex: 0 0 25%;
     order: 1;
+    margin-bottom:100px;
 }
 
 
@@ -276,14 +277,34 @@
     align-items: center; /* Centers items vertically */
     justify-content: space-between; /* Spreads out the items */
     padding: 10px; /* Padding around the footer content */
-    height: 100px; /* Adjust as needed */
+    height: 80px; /* Adjust as needed */
     background-color: #003087;
     color: white;
     grid-column: 1/-1;
     font-weight: 300;
     padding-right: 60px;
+    position:fixed;
+    left:0;
+    bottom:0;
+    width:100%
 }
 
+
+/* .footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #003087;
+    color: white;
+    font-weight: 300;
+    padding-right: 60px;
+  } */
+  
 .footer-image {
     height: 100%; /* Ensures the container takes the full height of the footer */
     flex-shrink: 0; /* Prevents the image container from shrinking */

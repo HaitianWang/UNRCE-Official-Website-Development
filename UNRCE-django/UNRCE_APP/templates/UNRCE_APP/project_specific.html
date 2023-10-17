@@ -40,17 +40,40 @@
     }
     
     /* Button Styles */
-    button {
-        margin: 10px 0; /* Some margin around the button */
-        padding: 8px 12px; /* Some padding */
-        cursor: pointer; /* Hand cursor on hover */
-        color: #000; /* Black text color for buttons */
+
+    .button-container {
+        display: flex; /* Make the container a flex container */
+        justify-content: space-between; /* Distribute buttons horizontally */
+        }
+
+    .button-container form {
+        margin: 0; /* Remove margin around the forms */
+        }
+
+    .button-container button {
+        padding: 10px 20px; /* Add padding to the buttons for spacing */
+        background-color: #003087;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: 300;
+        }
+
+    .button-container button:hover {
+        background-color: #0050b3;
+        }
+    .project-button-container{
+        border: 1px solid #ccc;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05); /* subtle shadow */
+        background-color: #fdfdfd;
+        position: relative;
     }
     </style>
 <div class="information">
 
     <h1> {{ project.id }} </h1>
-    <div class="project-container">
+    <div class="project-container" data-project-id="{{ project.id }}">
         <img class="image" id="detailImage" src="{{ img_src }}" alt="Project Image">
         <div class="project-details">
             <h2 class=""id="projectTitle">{{ project.title }}</h2>
@@ -120,37 +143,45 @@
             </tbody>
         </table>
     </div>
-
-    {% if user.is_superuser %}
-    <!-- Approve a project button -->
-    <form method="post" action="{% url 'UNRCE_APP:approve_project' project.id %}">
-        {% csrf_token %}
-        <button type="submit">Approve</button>
-    </form>
-    <form method="post" action="{% url 'UNRCE_APP:reject_project' project.id %}">
-        {% csrf_token %}
-        <button type="submit">Reject</button>
-    </form>
-    <form method="post" action="{% url 'UNRCE_APP:make_pending_project' project.id %}">
-        {% csrf_token %}
-        <button type="submit">Make pending</button>
-    </form>
-    
-
-    {% endif %}
-
 </div>
-
+{% if user.is_superuser %}
+<!-- Approve a project button -->
+<div class="button-container" >
+    <form class="project-button-container" id="change-approval-form" method="post">
+        {% csrf_token %}
+        <select name="new_approval">
+            <option value="approved">Approved</option>
+            <option value="rejected">Rejected</option>
+            <option value="pending">Pending</option>
+        </select>
+        <button class="projectButton" type="button" id="change-approval-button">Change Approval</button>
+    </form>
+</div>
+{% endif %}
 <script src="{% static 'UNRCE_APP/projects.js' %}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    function toggleTableVisibility() {
-        var table = document.getElementById('interestTable');
-        if (table.style.display === "none") {
-            table.style.display = "block";
-        } else {
-            table.style.display = "none";
-        }
-    }
+$(document).ready(function () {
+    $('#change-approval-button').click(function () {
+        var newApproval = $('#change-approval-form select[name="new_approval"]').val();
+        var projectID = $('.project-container').data('project-id');
+        $.ajax({
+            type: 'POST',
+            url: '/change_approval/' + projectID + '/',
+            data: {
+                'new_approval': newApproval,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            success: function () {
+                // Handle success, e.g., update the UI to reflect the change
+                location.reload(); // Refresh the page (or update UI via JavaScript)
+            }
+        });
+    });
+});
+
 </script>
+
+
 
 {% endblock content %}

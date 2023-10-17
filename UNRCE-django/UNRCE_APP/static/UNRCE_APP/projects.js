@@ -56,3 +56,17 @@ window.onload = function() {
         titleElement.textContent = decodeURIComponent(titleText);
     }
 }
+
+
+function toggleTableVisibility() {
+    var table = document.getElementById('interestTable');
+    if (table.style.display === "none") {
+        table.style.display = "block";
+    } else {
+        table.style.display = "none";
+    }
+}
+
+
+
+  

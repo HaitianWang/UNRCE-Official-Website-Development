@@ -14,25 +14,17 @@
 <a href="{% url 'UNRCE_APP:pending_projects' %}">
     <button id="approvedProjects"> Go to Pending Projects</button>
 </a>
-{% endif %}
 
-{% if user.is_superuser %}
 <a href="{% url 'UNRCE_APP:rejected_projects' %}">
     <button id="rejectedProjects"> Go to Rejected Projects</button>
 </a>
 {% endif %}
 
-<p>List of project id's that're approved:</p>
-{% for project in project_query %}
-    <p> {{ project.id }} </p>
-    <a href="{% url 'UNRCE_APP:project_specific' project.id %}">{{ project.name }} project link</a>
-{% endfor %}
-</ul>
 
 <div class="project-grid" id="projectGrid" data-baseurl="{% url 'UNRCE_APP:specific_project' %}">
     {% for project in project_query %}
-        <a href="{ url 'UNRCE_APP:specific_project' %}">
-            <div class="project" onclick="goToDetails(event, this.children[0].src, this.children[1].textContent)" style="cursor:pointer;">
+    <a href="{% url 'UNRCE_APP:project_specific' project.id %}">
+            <div class="project">
                 <img src="https://wallsdesk.com/wp-content/uploads/2016/05/Waterfalls-Photos.jpg" alt="Project 3">
                 <h3 class="projectTitle"> {{ project.title }} </h3>
             </div>

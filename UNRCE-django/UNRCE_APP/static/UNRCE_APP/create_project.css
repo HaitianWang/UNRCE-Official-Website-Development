@@ -189,7 +189,7 @@ img {
 }
 
 
-form {
+.form {
   border: 1px solid #ccc;
   border: 1px solid #e0e0e0; /* light grey border */
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05); /* subtle shadow */
@@ -202,7 +202,7 @@ form {
   min-height: 100%; /* Ensures form covers full height of its parent container. */
 }
 
-form * {
+.form * {
 
     border-color: transparent !important;
 }
@@ -332,7 +332,7 @@ h3 {
 }
 
 .tablinks.active {
-    background-color:##ffc61a;
+    background-color:#ffc61a;
 }
 
 .tabcontent {

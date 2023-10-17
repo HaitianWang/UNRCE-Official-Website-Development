@@ -40,8 +40,6 @@ class ProjectForm(forms.ModelForm):
         fields = '__all__'
 
 
-
-
-
 class UserSearchForm(forms.Form):
     search_query = forms.CharField(label='Search Users', max_length=100, required=False)
+

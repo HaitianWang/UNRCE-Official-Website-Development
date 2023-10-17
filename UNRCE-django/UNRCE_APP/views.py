@@ -375,18 +375,19 @@ def pending_projects(request):
     }
     return render(request, 'UNRCE_APP/pending_projects.html', context)
 
-def approve_project(request, project_id):
-    # Get the project by its ID
-    project = get_object_or_404(Project, pk=id)
 
-    # Check if the project is pending (you can add more validation here)
-    if project.status == 'pending':
-        # Approve the project
-        project.status = 'approved'
+
+from django.http import JsonResponse
+
+def change_approval(request, project_id):
+    if request.method == 'POST':
+        new_approval = request.POST.get('new_approval')
+        project = get_object_or_404(Project, pk=project_id)
+        project.approval = new_approval
         project.save()
+        return JsonResponse({'message': 'Approval changed successfully'})
 
-    # Redirect back to the pending projects page
-    return redirect('UNRCE_APP:pending_projects')
+    return JsonResponse({'error': 'Invalid request'})
 
 def rejected_projects(request):
         # Retrieve pending projects from the database
