@@ -666,3 +666,10 @@ def project_search(request):
         projects = Project.objects.all()
     
     return render(request, 'UNRCE_APP/project_search.html', {'projects': projects, 'search_query': search_query, })
+
+
+
+def project_specific(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    # return render(request, 'project_specific.html', {'project': project})
+    return render(request, 'UNRCE_APP/project_specific.html', {'project': project})

@@ -6,6 +6,14 @@
 <p class="small-heading"> Pending Projects</p>
 <!-- <button id="addNewProject"> Add Sample New Project (Testing button only, will delete later) </button> -->
 
+<p>Ryan:</p>
+{% for project in project_query %}
+    <p> {{ project.id }} </p>
+    <a href="{% url 'UNRCE_APP:project_specific' project.id %}">{{ project.name }} project link</a>
+{% endfor %}
+</ul>
+
+
 {% if user.is_superuser %}
 <a href="{% url 'UNRCE_APP:projects' %}">
     <button id="approvedProjects"> Go to Approved Projects</button>

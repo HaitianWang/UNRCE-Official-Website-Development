@@ -37,8 +37,13 @@ urlpatterns = [
   path('forgot_password/', views.forgot_password, name='forgot_password'),
   re_path(r'^reset_password/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>.+)/$', views.reset_password, name='reset_password_confirm'),
   path('contact-us/', views.contact_us, name='contact-us'),
+
   path('projects/', views.projects, name='projects'),
-  path('specific_project/', views.specific_project, name='specific_project'),
+  path('projects/<int:project_id>/', views.project_specific, name='project_specific'),  # This is what i'm using 
+
+  path('specific_project/', views.specific_project, name='specific_project'),   # This is tim's old code, not using anymore for now
+
+#   path('specific_project/<int:project_id>/', views.specific_project, name='specific_project'),
   path("create_project/", CreateProject.as_view(), name="create_project"),
   path("myaccount/", views.myaccount, name="myaccount"),
   path("myaccount_edit/", views.myaccount_edit, name="myaccount_edit"),

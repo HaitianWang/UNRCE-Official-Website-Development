@@ -15,6 +15,7 @@
     <button id="approvedProjects"> Go to Pending Projects</button>
 </a>
 {% endif %}
+
 <div class="project-grid" id="projectGrid" data-baseurl="{% url 'UNRCE_APP:specific_project' %}">
     {% for project in project_query %}
         <a href="{ url 'UNRCE_APP:specific_project' %}">
