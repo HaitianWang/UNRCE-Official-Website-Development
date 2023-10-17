@@ -373,12 +373,39 @@ def myaccount_edit(request):
 def index(request):
     return render(request, 'UNRCE_APP/index.html')
 
-def specific_project(request):
-    project_id = request.GET.get('project_id', None)
-    project = Project.objects.get(id=project_id)
-    interested_users = project.users_interested.all()
+# def specific_project(request):
+#     project_id = request.GET.get('project_id', None)
+#     project = Project.objects.get(id=project_id)
+#     interested_users = project.users_interested.all()
+#     return render(request, 'UNRCE_APP/specific_project.html', {'project': project, 'interested_users': interested_users})
 
-    return render(request, 'UNRCE_APP/specific_project.html', {'project': project, 'interested_users': interested_users})
+def specific_project(request):
+    img_src = request.GET.get('img', '') 
+    title_text = request.GET.get('title', '')
+    return render(request, 'UNRCE_APP/specific_project.html', {'img_src': img_src, 'title_text': title_text})
+
+# def specific_project(request):
+#     img_src = request.GET.get('img', '') 
+#     title_text = request.GET.get('title', '')
+#     project_id = request.GET.get('project_id', None)
+
+#     # Ensure that a project ID is provided
+#     if not project_id:
+#         return JsonResponse({'status': 'error', 'message': 'Invalid project ID.'})
+
+#     try:
+#         project = Project.objects.get(id=project_id)
+#         interested_users = project.users_interested.all()
+#     except Project.DoesNotExist:
+#         return JsonResponse({'status': 'error', 'message': 'Project not found.'})
+
+#     return render(request, 'UNRCE_APP/specific_project.html', {
+#         'img_src': img_src, 
+#         'title_text': title_text,
+#         'interested_users': interested_users,
+#         'project': project
+#     })
+
 
 def add_to_interested(request):
     user = request.user
