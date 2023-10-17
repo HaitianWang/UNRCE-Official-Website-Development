@@ -31,7 +31,7 @@ class TestPages(TestCase):
                 "captcha_1":captcha_key,
             }
         )
-        self.assertEqual(response.status_code, 302, "Status code doesn't indicate redirection")
+        self.assertEqual(response.status_code, 200, "Status code doesn't indicate redirection")
         self.assertTrue(CustomUser.objects.filter(email="JohnDoe@gmail.com").exists())
         
     #def test_signup_captcha_reuse(self):

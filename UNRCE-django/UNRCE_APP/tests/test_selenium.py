@@ -1,6 +1,7 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.webdriver.common.by import By
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from captcha.models import CaptchaStore
 from UNRCE_APP.models import CustomUser
 #from selenium.webdriver.support.relative_locator import locate_with
@@ -12,17 +13,18 @@ class TestSignUp(StaticLiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        #options = webdriver.ChromeOptions()
-        #options.accept_insecure_certs = True
-        #options.KEY
-        cls.selenium = webdriver.Chrome()
+        options = webdriver.ChromeOptions()
+        options.accept_insecure_certs = True
+        cls.selenium = webdriver.Chrome(options=options)
         cls.selenium.set_page_load_timeout(30)
         cls.selenium.implicitly_wait(5)
 
     @classmethod
     def tearDownClass(cls):
-        super().tearDownClass()
+        cls.selenium.find_element(By.CLASS_NAME, "footer-image")
         cls.selenium.quit()
+        super().tearDownClass()
+        
 
     def tearDown(self):
         self.selenium.delete_all_cookies()
