@@ -44,6 +44,7 @@ urlpatterns = [
   path('specific_project/', views.specific_project, name='specific_project'),   # TOM'S OLD CODE, NOT USING
   path('projects/<int:project_id>/approve/', views.approve_project, name='approve_project'),    # Used to approve project
   path('projects/<int:project_id>/reject/', views.reject_project, name='reject_project'),       # Used to reject project
+  path('projects/<int:project_id>/pending/', views.make_pending_project, name='make_pending_project'),       # Used to make project pending
   
 
 

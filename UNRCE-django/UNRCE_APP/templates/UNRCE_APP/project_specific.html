@@ -131,6 +131,11 @@
         {% csrf_token %}
         <button type="submit">Reject</button>
     </form>
+    <form method="post" action="{% url 'UNRCE_APP:make_pending_project' project.id %}">
+        {% csrf_token %}
+        <button type="submit">Make pending</button>
+    </form>
+    
 
     {% endif %}
 

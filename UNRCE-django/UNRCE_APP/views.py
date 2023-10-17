@@ -704,3 +704,12 @@ def reject_project(request, project_id):
     project.save()
     messages.success(request, "Project has been rejected!")
     return redirect('UNRCE_APP:project_specific', project_id=project.id)
+
+# Function needed to make a project pending
+@require_POST
+def make_pending_project(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    project.approval = "pending"
+    project.save()
+    messages.success(request, "Project has been made pending!")
+    return redirect('UNRCE_APP:project_specific', project_id=project.id)
