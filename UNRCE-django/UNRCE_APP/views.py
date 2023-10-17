@@ -379,32 +379,33 @@ def index(request):
 #     interested_users = project.users_interested.all()
 #     return render(request, 'UNRCE_APP/specific_project.html', {'project': project, 'interested_users': interested_users})
 
-def specific_project(request):
-    img_src = request.GET.get('img', '') 
-    title_text = request.GET.get('title', '')
-    return render(request, 'UNRCE_APP/specific_project.html', {'img_src': img_src, 'title_text': title_text})
-
 # def specific_project(request):
 #     img_src = request.GET.get('img', '') 
 #     title_text = request.GET.get('title', '')
-#     project_id = request.GET.get('project_id', None)
+#     return render(request, 'UNRCE_APP/specific_project.html', {'img_src': img_src, 'title_text': title_text})
 
-#     # Ensure that a project ID is provided
-#     if not project_id:
-#         return JsonResponse({'status': 'error', 'message': 'Invalid project ID.'})
+def specific_project(request):
+    img_src = request.GET.get('img', '') 
+    title_text = request.GET.get('title', '')
+    project_id = request.GET.get('project_id', None)
 
-#     try:
-#         project = Project.objects.get(id=project_id)
-#         interested_users = project.users_interested.all()
-#     except Project.DoesNotExist:
-#         return JsonResponse({'status': 'error', 'message': 'Project not found.'})
+    if not project_id:
+        # 如果没有project_id，直接渲染页面，但不包含关于项目的任何信息。
+        return render(request, 'UNRCE_APP/specific_project.html', {'img_src': img_src, 'title_text': title_text})
 
-#     return render(request, 'UNRCE_APP/specific_project.html', {
-#         'img_src': img_src, 
-#         'title_text': title_text,
-#         'interested_users': interested_users,
-#         'project': project
-#     })
+    try:
+        project = Project.objects.get(id=project_id)
+        interested_users = project.users_interested.all()
+    except Project.DoesNotExist:
+        # 如果项目不存在，也直接渲染页面，但不包含关于项目的任何信息。
+        return render(request, 'UNRCE_APP/specific_project.html', {'img_src': img_src, 'title_text': title_text})
+
+    return render(request, 'UNRCE_APP/specific_project.html', {
+        'img_src': img_src, 
+        'title_text': title_text,
+        'interested_users': interested_users,
+        'project': project
+    })
 
 
 def add_to_interested(request):
