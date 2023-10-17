@@ -42,6 +42,9 @@ from django.views.decorators.http import require_POST
 def is_superuser(user):
     return user.is_superuser
 
+def is_staff(user):
+    return user.is_staff
+
 # Apply the user_passes_test decorator to your view
 @user_passes_test(is_superuser, login_url='/')  # Replace '/home/' with your home page URL
 def search_users(request):
@@ -523,8 +526,8 @@ class CreateProject(LoginRequiredMixin, View):
             title=request.POST.get("title"),
             description=request.POST.get("description"),
             audience=request.POST.getlist("audience-options"),
-            created_at=request.POST.get("start_date"),
-            concluded_on=request.POST.get("end_date"),
+            #created_at=request.POST.get("start_date"),
+            #concluded_on=request.POST.get("end_date"),
             owner=user,  # to set the currently logged-in user as the manager
             #project_cover_image=request.FILES.get("imageUpload"),
             language=request.POST.get("language"),
@@ -700,7 +703,7 @@ def download_users(request):
     return response
 
 
-@user_passes_test(is_superuser, login_url='/')  # Replace '/home/' with your home page URL
+@user_passes_test(is_staff, login_url='/')  # Replace '/home/' with your home page URL
 def project_search(request):
     if request.method == 'GET':
         search_query = request.GET.get('search_query')

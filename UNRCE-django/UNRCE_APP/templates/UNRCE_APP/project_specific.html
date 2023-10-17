@@ -74,7 +74,7 @@
 
     <h1> {{ project.id }} </h1>
     <div class="project-container" data-project-id="{{ project.id }}">
-        <img class="image" id="detailImage" src="{{ img_src }}" alt="Project Image">
+        <img class="image" id="detailImage" src="../../media/project_images/{{ project.project_cover_image|default:"broken_image.svg" }}" alt="Project Image" style="align-self: center;">
         <div class="project-details">
             <h2 class=""id="projectTitle">{{ project.title }}</h2>
             <h2> {{ project.id }} </h2>
@@ -149,7 +149,7 @@
 <div class="button-container" >
     <form class="project-button-container" id="change-approval-form" method="post">
         {% csrf_token %}
-        <select name="new_approval">
+        <select name="new_approval" style="background-color:field">
             <option value="approved">Approved</option>
             <option value="rejected">Rejected</option>
             <option value="pending">Pending</option>
