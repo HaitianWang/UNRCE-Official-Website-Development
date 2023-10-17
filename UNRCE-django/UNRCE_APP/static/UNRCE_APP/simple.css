@@ -7,7 +7,7 @@
     --accent-bg: #2b2b2b;
     --blue-bg: #003087;
     --blue-accent: #5775ac;
-    --text: #dcdcdc;
+    --text: #f5f5f5;
     --text-light: #ababab;
     --accent: #ffb300;
     --code: #f06292;
@@ -52,7 +52,6 @@ body>header {
     background-color: var(--accent-bg);
     border-bottom: 1px solid var(--border);
     text-align: center;
-    padding: .5rem .5rem .5rem .5rem;
     grid-column: 1/-1
 }
 
@@ -378,7 +377,7 @@ input[type=checkbox],input[type=radio] {
 }
 
 input[type=checkbox]+label,input[type=radio]+label {
-    display: inline-block
+    width: 100%;
 }
 
 input[type=radio] {
@@ -579,7 +578,25 @@ sub {
 }
 
 .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
-    grid-gap: 1rem
+    display: flex;
+    grid-gap: 1rem;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding-top: 2vh;
+    padding-bottom: 4vh;
+}
+
+.grid img {
+    height: 10em;
+    max-height: 120px;
+}
+
+.partner-list li {
+    display: inline-block;
+    margin: 0 1rem;
+    color: var(--bg)!important;
+}
+.partner-list li a {
+    color: var(--bg)!important;
 }
