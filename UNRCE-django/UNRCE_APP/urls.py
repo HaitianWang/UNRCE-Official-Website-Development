@@ -66,4 +66,5 @@ urlpatterns = [
 #   path('approve_project/', views.approve_project, name='approve_project'),
   path('activate/<str:uidb64>/<str:token>/', views.activate_account, name='activate_account'),
   path('faq/', views.faq, name='faq'),
+  path('download_projects_csv/', views.download_projects_csv, name='download_projects_csv'),    # To download projects
 ]

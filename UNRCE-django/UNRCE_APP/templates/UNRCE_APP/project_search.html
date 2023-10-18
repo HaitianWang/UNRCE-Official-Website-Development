@@ -76,6 +76,8 @@
     </form>
 </div>
 
+<a style="color: black;" href="/download_projects_csv" class="btn btn-primary">Download Projects</a>
+
 <!-- Display Projects -->
 <form id="deleteForm" class="form-style" method="POST" action="/delete_projects/" onsubmit="return confirmDelete()">
     {% csrf_token %}
