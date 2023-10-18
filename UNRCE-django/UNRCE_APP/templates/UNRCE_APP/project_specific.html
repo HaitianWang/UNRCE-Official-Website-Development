@@ -71,13 +71,10 @@
     }
     </style>
 <div class="information">
-
-    <h1> {{ project.id }} </h1>
     <div class="project-container" data-project-id="{{ project.id }}">
         <img class="image" id="detailImage" src="/media/{{ project.project_cover_image|default:"project_images/broken_image.svg" }}" alt="Project Image" style="align-self: center;">
         <div class="project-details">
             <h2 class=""id="projectTitle">{{ project.title }}</h2>
-            <h2> {{ project.id }} </h2>
             <div class="info-container">
                 <p>{{ project.description }}</p>
             </div>
@@ -85,15 +82,17 @@
         <div class="region-container">
             <h5 class="region-title">Audience</h5>
             <div class="region">
-                <p>{{ project.audience }}</p>
+                <p>{{ project.audience|slice:"2:-2"|title }}</p>
             </div>
         </div> 
+        
         <div class="region-container">
             <h5 class="region-title">Delivery Frequency</h5>
             <div class="region">
-                <p>{{ project.delivery_frequency }}</p>
+                <p>{{ project.delivery_frequency|slice:"2:-3"|title }}</p>
             </div>
         </div>
+        
         
 
     </div>
