@@ -346,7 +346,7 @@ table caption {
 }
 
 input,select,textarea {
-    color: var(--text);
+    color: black;
     background-color: var(--text);
     border: 1px solid var(--border)
 }

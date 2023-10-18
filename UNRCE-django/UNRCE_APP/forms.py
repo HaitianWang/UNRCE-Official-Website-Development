@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from .models import CustomUser
 from .models import Project #, Image
+from .models import SDG
 
 from django.core.exceptions import ValidationError
 
@@ -61,9 +62,15 @@ class UpdateAccountForm(forms.ModelForm):
         initial=True
     )
 
+    interested_sdgs = forms.ModelMultipleChoiceField(
+        queryset=SDG.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        label="Select your SDGs of interest",
+    )
+
     class Meta:
         model = CustomUser
-        fields = ['name', 'org', 'emails_enabled', 'rce_hub2', 'role_organisation']
+        fields = ['name', 'org', 'emails_enabled', 'rce_hub2', 'role_organisation', 'interested_sdgs']
 
     def clean_name(self):
         name = self.cleaned_data.get('name')

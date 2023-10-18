@@ -368,7 +368,8 @@ def projects(request):
 
 @login_required
 def myaccount(request):
-    return render(request, 'UNRCE_APP/myaccount.html', {'user': request.user})
+    interested_sdgs = request.user.interested_sdgs.all()
+    return render(request, 'UNRCE_APP/myaccount.html', {'user': request.user, 'interested_sdgs': interested_sdgs})
 
 # Edit my Account Page
 @login_required
@@ -376,8 +377,11 @@ def myaccount_edit(request):
     if request.method == 'POST':
         form = UpdateAccountForm(request.POST, instance = request.user)
         if form.is_valid():
-            form.save()
+            user = form.save(commit=False)  # Don't immediately save
+            user.save()  # Save the user instance
+            form.save_m2m()  # Now save many-to-many data for form
             return redirect('/myaccount')
+
     else:
         form = UpdateAccountForm(instance=request.user)
     return render(request, 'UNRCE_APP/myaccount_edit.html', {'form': form})
@@ -760,3 +764,5 @@ def make_pending_project(request, project_id):
 # FAQ Page
 def faq(request):
     return render(request, 'UNRCE_APP/faq.html')
+
+

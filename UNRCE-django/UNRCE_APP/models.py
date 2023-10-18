@@ -28,7 +28,7 @@ class SDG(models.Model):
     sdg = models.CharField(max_length=10, choices=SDGEnum.choices)
     description = models.TextField(null=True)
     def __str__(self):
-        return self.title
+        return self.description
     
 
 
@@ -248,11 +248,11 @@ class Project(models.Model):
 #     created_at = models.DateTimeField(auto_now_add=True)
 
 class PriorityAccessEnum(models.TextChoices):
-    PAA1 = 'priority_area_1', "Priority Action Area 1 - Advancing policy Direct"    
-    PAA2 = 'priority_area_2', "Priority Action Area 2 - Transforming learning and training environments Direct"    
-    PAA3 = 'priority_area_3', "Priority Action Area 3 - Developing capacities of educators and trainers Direct"
-    PAA4 = 'priority_area_4', "Priority Action Area 4 - Mobilizing youth Direct"    
-    PAA5 = 'priority_area_5', "Priority Action Area 5 - Accelerating sustainable solutions at local level Direct"
+    PAA1 = 'priority_area_1', "Priority Action Area 1 - Advancing policy"    
+    PAA2 = 'priority_area_2', "Priority Action Area 2 - Transforming learning and training environments"    
+    PAA3 = 'priority_area_3', "Priority Action Area 3 - Developing capacities of educators and trainers"
+    PAA4 = 'priority_area_4', "Priority Action Area 4 - Mobilizing youth"
+    PAA5 = 'priority_area_5', "Priority Action Area 5 - Accelerating sustainable solutions at local level"
 
 class ESDEnum(models.TextChoices):
     ESD_1 = 'disaster_risk_reduction', "Disaster Risk Reduction"

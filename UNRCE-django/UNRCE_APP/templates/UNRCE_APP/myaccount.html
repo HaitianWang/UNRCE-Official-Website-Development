@@ -81,6 +81,15 @@
                 </p>
             </section>
 
+            <!-- SDGs interested in -->
+            <h3 style="color: black;">Your Interested SDGs:</h3>
+            <ul style="color:black">
+                {% for sdg in interested_sdgs %}
+                    <li>{{ sdg.description }}</li>
+                {% endfor %}
+            </ul>
+
+
             <!-- Emails Enabled -->
             <section class="account_section">
                 <p style="font-size:medium;"><span style="font-weight: bold;"> Email notifications enabled:</span> 

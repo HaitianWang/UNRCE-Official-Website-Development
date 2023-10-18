@@ -55,9 +55,13 @@
 
                         <!-- RCE Hub Field -->
                         <label class="editAccountLabel" for="{{ form.rce_hub2.id_for_label }}"> Your RCE Hub:</label>
-                        {{ form.rce_hub2 }}<br>
+                        <span style="color: black;">{{ form.rce_hub2 }}</span><br>
 
+                        <!-- SDGs Field -->
+                        <label class="editAccountLabel" for="{{ form.interested_sdgs.id_for_label }}"> Which Sustainable Development Goals are you most passionate towards?:</label>
+                        {{ form.interested_sdgs }}<br>
 
+                        
                         <!-- Emails enabled field -->
                         <label class="editAccountLabel" for="{{ form.emails_enabled.id_for_label }}"> Would you like to enable email notifications?</label>
                         {{ form.emails_enabled }}<br>
