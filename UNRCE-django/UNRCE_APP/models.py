@@ -42,28 +42,28 @@ class RCEHub(models.Model):
     
     
     
-class Image(models.Model):
-  # image title, not blank string with maximum of 60 characters
-  title = models.CharField(max_length=60, blank=False)
+# class Image(models.Model):
+#   # image title, not blank string with maximum of 60 characters
+#   title = models.CharField(max_length=60, blank=False)
 
-  # the uploaded image. It is important to understand that
-  # django will not store the image in the database.
-  # The image field in the database table will contain the
-  # image name (with max_length = 36) whereas the actual image
-  image = models.ImageField(max_length=36)
+#   # the uploaded image. It is important to understand that
+#   # django will not store the image in the database.
+#   # The image field in the database table will contain the
+#   # image name (with max_length = 36) whereas the actual image
+#   image = models.ImageField(max_length=36)
 
-  # image upload date and time
-  uploaded_date = models.DateTimeField()
+#   # image upload date and time
+#   uploaded_date = models.DateTimeField()
 
 
-  # link to the user that uploaded the image
-  uploaded_by = models.ForeignKey(
-    settings.AUTH_USER_MODEL,
-    on_delete=models.CASCADE,
-  )
+#   # link to the user that uploaded the image
+#   uploaded_by = models.ForeignKey(
+#     settings.AUTH_USER_MODEL,
+#     on_delete=models.CASCADE,
+#   )
 
-  def __str__(self) -> str:
-    return f"Image<{self.id}>"
+#   def __str__(self) -> str:
+#     return f"Image<{self.id}>"
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -124,15 +124,15 @@ class ProjectFile(models.Model):
         return f"File<{self.id}> for Project<{self.project_id}>"
     
 
-class ProjectImage(models.Model):
-    project = models.ForeignKey('Project', on_delete=models.CASCADE)
-    project_cover_image = models.OneToOneField('ProjectImage', on_delete=models.SET_NULL, null=True, blank=True)
+# class ProjectImage(models.Model):
+#     project = models.ForeignKey('Project', on_delete=models.CASCADE)
+#     project_cover_image = models.OneToOneField('ProjectImage', on_delete=models.SET_NULL, null=True, blank=True)
 
 
-    uploaded_at = models.DateTimeField(auto_now_add=True)
+#     uploaded_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return f"Image<{self.id}> for Project<{self.project_id}>"
+#     def __str__(self):
+#         return f"Image<{self.id}> for Project<{self.project_id}>"
 
 class Project(models.Model):
     # choices for fields
@@ -242,10 +242,10 @@ class Project(models.Model):
 
 
 
-class Follow(models.Model):
-    followed_project = models.ForeignKey('Project', on_delete=models.CASCADE)
-    following_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
+# class Follow(models.Model):
+#     followed_project = models.ForeignKey('Project', on_delete=models.CASCADE)
+#     following_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+#     created_at = models.DateTimeField(auto_now_add=True)
 
 class PriorityAccessEnum(models.TextChoices):
     PAA1 = 'priority_area_1', "Priority Action Area 1 - Advancing policy Direct"    
