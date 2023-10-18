@@ -4,7 +4,6 @@
 {% block content %}
 
 <p class="small-heading"> Rejected Projects</p>
-<!-- <button id="addNewProject"> Add Sample New Project (Testing button only, will delete later) </button> -->
 
 {% if user.is_superuser %}
 <a href="{% url 'UNRCE_APP:projects' %}">
@@ -15,7 +14,7 @@
     {% for project in project_query %}
     <a href="{% url 'UNRCE_APP:project_specific' project.id %}">
             <div class="project">
-                <img src="https://wallsdesk.com/wp-content/uploads/2016/05/Waterfalls-Photos.jpg" alt="Project 3">
+                <img src="/media/{{ project.project_cover_image|default:"project_images/broken_image.svg" }}" alt="Cover Image">
                 <h3 class="projectTitle"> {{ project.title }} </h3>
             </div>
         </a>
