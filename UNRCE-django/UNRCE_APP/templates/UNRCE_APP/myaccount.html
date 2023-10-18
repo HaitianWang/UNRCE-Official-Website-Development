@@ -94,7 +94,7 @@
         <!-- <div class="sidebar"> -->
         <div style="background-color: white;">
             {% for project in request.user.owned_projects.all %}
-                <li> <a style="color: rgb(71, 71, 71);" href="{% url 'UNRCE_APP:specific_project' %}">➤{{ project.title }}</a></li>
+                <li> <a style="color: rgb(71, 71, 71);" href="{% url 'UNRCE_APP:project_specific' project.id %}">➤{{ project.title }}</a></li>
             {% endfor %}
         </div>
         
