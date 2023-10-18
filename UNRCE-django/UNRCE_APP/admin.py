@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Image
+#from .models import Image
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import CustomUser
@@ -29,4 +29,4 @@ class CustomUserAdmin(UserAdmin):
     )
 
 admin.site.register(CustomUser, CustomUserAdmin)
-admin.site.register(Image)
+#admin.site.register(Image)

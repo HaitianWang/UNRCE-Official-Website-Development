@@ -15,8 +15,8 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from django.views import View
 
-from .forms import ProjectForm, UploadImageForm, CustomUserCreationForm, UpdateAccountForm
-from .models import Project, CustomUser, Project, SDG, ProjectSDG, ESD, ProjectESD, ProjectPriorityArea, PriorityArea, Image
+from .forms import ProjectForm, CustomUserCreationForm, UpdateAccountForm #, UploadImageForm
+from .models import Project, CustomUser, Project, SDG, ProjectSDG, ESD, ProjectESD, ProjectPriorityArea, PriorityArea #, Image
 from .tokens import account_activation_token
 
 from sendgrid import SendGridAPIClient
@@ -302,57 +302,57 @@ def reset_password(request, uidb64, token):
 
 class IndexView(View):
     def get(self, request):
-        images = Image.objects.order_by("uploaded_date")
+        #images = Image.objects.order_by("uploaded_date")
         return render(
             request,
             "UNRCE_APP/index.html",
-            {"images": images},
+            #{"images": images},
         )
 
 
-class UploadImageView(LoginRequiredMixin, View):
-    # Not authenticated users will be redirected
-    # to /login page if they try to access this view
-    login_url = "/login/"
+# class UploadImageView(LoginRequiredMixin, View):
+#     # Not authenticated users will be redirected
+#     # to /login page if they try to access this view
+#     login_url = "/login/"
 
-    def get(self, request):
-        return render(
-            request,
-            "UNRCE_APP/upload.html",
-            {"form": UploadImageForm()},
-        )
+#     def get(self, request):
+#         return render(
+#             request,
+#             "UNRCE_APP/upload.html",
+#             {"form": UploadImageForm()},
+#         )
 
-    def post(self, request):
-        user = request.user
-        if not user.is_authenticated:
-            raise Exception("User is not authenticated")
+#     def post(self, request):
+#         user = request.user
+#         if not user.is_authenticated:
+#             raise Exception("User is not authenticated")
 
-        # File, uploaded by user, will be available at request.FILES
-        form = UploadImageForm(request.POST, request.FILES)
+#         # File, uploaded by user, will be available at request.FILES
+#         form = UploadImageForm(request.POST, request.FILES)
 
-        if not form.is_valid():
-            # re-render form, show validation errors 
-            return render(
-                request,
-                "UNRCE_APP/upload.html",
-                {"form": form},
-            )
+#         if not form.is_valid():
+#             # re-render form, show validation errors 
+#             return render(
+#                 request,
+#                 "UNRCE_APP/upload.html",
+#                 {"form": form},
+#             )
         
-        # Creating a new image model instance
-        img = Image(
-        # get title from form.data
-        title=form.data["title"],
-        # get image from form.files
-        image=form.files["image"],
-        uploaded_date=datetime.now(),
-        uploaded_by=user,
-        )
+#         # Creating a new image model instance
+#         img = Image(
+#         # get title from form.data
+#         title=form.data["title"],
+#         # get image from form.files
+#         image=form.files["image"],
+#         uploaded_date=datetime.now(),
+#         uploaded_by=user,
+#         )
 
-        # save image to database
-        img.save()
+#         # save image to database
+#         img.save()
 
-        # redirect to index page upon successful upload
-        return redirect("/")
+#         # redirect to index page upon successful upload
+#         return redirect("/")
 
 
 def contact_us(request):
