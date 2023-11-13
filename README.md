@@ -1,54 +1,63 @@
-UNRCE Website Project
-Introduction
-Welcome to the GitHub repository of the UNRCE Website, a Django-based web application designed for the United Nations Regional Centre of Expertise (UNRCE). This project aims to facilitate easy access to project reporting, organization details, and member profiles within the UNRCE community.
+# UNRCE Database Project
 
-Project Setup
-To get started with the UNRCE Website project, follow these steps:
+## Introduction
 
-Clone the repository:
+The UNRCE Database Project is a comprehensive Django-based web application developed for the United Nations Regional Centre of Expertise (UNRCE). This application is designed to streamline the management and visibility of projects, organizations, and user profiles within the UNRCE community. Our platform is tailored to facilitate collaboration and enhance user engagement across various UNRCE initiatives.
 
-bash
-Copy code
-git clone "https://github.com/HaitianWang/UNRCE-Database-project"
-Navigate to the project directory:
+## Architecture
 
-bash
-Copy code
-cd UNRCE-django
-Install virtualenv:
+### Django and MVC Pattern
 
-css
-Copy code
-python -m pip install --user virtualenv
-Create a virtual environment:
+This project is structured using the Django framework, adhering to the Model-View-Controller (MVC) architecture. This design pattern ensures a clean separation of concerns, with each component handling its specific aspect of the application:
 
-bash
-Copy code
-python -m venv env
-Activate the virtual environment:
+- **Model:** Manages the data and business logic of the application.
+- **View:** Renders data to the user and handles user interaction.
+- **Controller:** Processes user requests and renders the appropriate view.
 
-Mac: source env/bin/activate
-Windows: .\env\Scripts\activate
-Install required packages:
+## Getting Started
 
-Copy code
-pip install -r requirements.txt
-Run the Django server:
+To set up and run the UNRCE Database Project on your local machine, follow these steps:
 
-Copy code
-python3 manage.py runserver
-Features
-The UNRCE Website provides a range of features, including:
+1. **Clone the Repository:**
+`git clone [https://github.com/HaitianWang/UNRCE-Database-project](url)`
 
-Account Management: Users can manage their profiles, update personal details, and set preferences.
-Project Management: Facilitates creating, viewing, and managing projects with an approval workflow.
-Organizations: View and manage organization profiles and details.
-User and Project Search: Advanced search capabilities for users and projects.
-FAQ and Contact Us Pages: Provides helpful information and contact details.
-For a detailed guide on how to use these features, refer to the project documentation.
 
-Contribution
-Interested in contributing? Please read our contribution guidelines for details on our code of conduct, and the process for submitting pull requests.
+2. **Navigate to Project Directory:**
+`cd UNRCE-django`
 
-License
-This project is licensed under the [LICENSE NAME] - see the LICENSE.md file for details.
+
+3. **Set Up Virtual Environment:**
+`python -m pip install --user virtualenv
+python -m venv env`
+
+
+4. **Activate Virtual Environment:**
+- Mac: `source env/bin/activate`
+- Windows: `.\env\Scripts\activate`
+
+5. **Install Dependencies:**
+`pip install -r requirements.txt`
+
+
+6. **Run the Server:**
+`python3 manage.py runserver`
+
+
+## Features
+
+The UNRCE Database Project includes a variety of features designed to enhance user experience:
+
+- **User Account Management:** Enables users to manage their profiles and settings.
+- **Project Submission and Approval:** Streamlines the process of project creation, submission, and administrative approval.
+- **Organization Profiles:** Allows for detailed views and management of various organizations within the UNRCE.
+- **Comprehensive Search Functionality:** Provides robust search capabilities for users, projects, and organizations.
+- **Interactive FAQ and Contact Pages:** Offers users assistance and direct communication channels.
+
+## Contributing
+
+We welcome contributions to the UNRCE Database Project. Please ensure to read our [contribution guidelines](LINK_TO_CONTRIBUTION_GUIDELINES) before making a pull request.
+
+## License
+
+This project is licensed under [LICENSE NAME]. For more details, see the [LICENSE.md](LINK_TO_LICENSE) file.
+
