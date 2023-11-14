@@ -1,4 +1,5 @@
-# UNRCE Database Project
+# UNRCE Official Website Development
+***Empowering Global Collaboration and Community Engagement***
 
 ## Introduction
 
@@ -19,10 +20,10 @@ This project is structured using the Django framework, adhering to the Model-Vie
 To set up and run the UNRCE Database Project on your local machine, follow these steps:
 
 1. **Clone the Repository:**
-`git clone [https://github.com/HaitianWang/UNRCE-Database-project](url)`
+`git clone https://github.com/HaitianWang/UNRCE-Database-project`
 
 
-2. **Navigate to Project Directory:**
+1. **Navigate to Project Directory:**
 `cd UNRCE-django`
 
 
@@ -42,6 +43,18 @@ python -m venv env`
 6. **Run the Server:**
 `python3 manage.py runserver`
 
+## Configuring API Keys
+
+UNRCE relies on several external API to provide its full range of features. To get the application running properly, you'll need to configure the API key for SendGrid. Open the [views.py](./UNRCE-django/UNRCE_APP/views.py) file and modify the following:
+
+#### SendGrid API Key (for email services)
+**Locate the line in your code:** `sg = SendGridAPIClient('Please enter your SendGrid API key')`  
+**Provide your OpenAI API Key:** Replace the placeholder text with your actual SendGrid API key.
+
+#### Important Notes
+- Securing API Keys: It's crucial to keep your API keys confidential. Avoid pushing these keys to public repositories or sharing them in insecure environments.
+- API Key Permissions: Ensure that your API keys have the necessary permissions for the services required by MealMate.
+- Changes in Code: After updating the API keys in the code, save the changes and restart the server to apply them.
 
 ## Features
 

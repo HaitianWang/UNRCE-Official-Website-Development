@@ -206,7 +206,7 @@ class SignUpView(View):
         )
 
         # Send the email using SendGrid
-        sg = SendGridAPIClient('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')  # Make sure to replace with your SendGrid API key
+        sg = SendGridAPIClient('Please enter your SendGrid API key')  # Make sure to replace with your SendGrid API key
         email_msg = Mail(
             from_email='Rce.uwa@gmail.com',
             to_emails=email,
