@@ -3,7 +3,7 @@
 
 ## Introduction
 
-The UNRCE Database Project is a comprehensive Django-based web application developed for the United Nations Regional Centre of Expertise (UNRCE). This application is designed to streamline the management and visibility of projects, organizations, and user profiles within the UNRCE community. Our platform is tailored to facilitate collaboration and enhance user engagement across various UNRCE initiatives.
+The UNRCE Database Project is a comprehensive Django-based web application developed for the United Nations Regional Centre of Expertise (UNRCE). This application is designed to streamline the management and visibility of projects, organizations, and user profiles within the UNRCE community. Our platform is tailored to facilitate collaboration and enhance user engagement across various UNRCE initiatives. Website has been host and applied.
 
 ## Architecture
 
