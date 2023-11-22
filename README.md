@@ -72,5 +72,5 @@ We welcome contributions to the UNRCE Database Project. Please ensure to read ou
 
 ## License
 
-This project is licensed under [LICENSE NAME]. For more details, see the [LICENSE](./LICENSE) file.
+This project is licensed under MIT. For more details, see the [LICENSE](./LICENSE) file.
 
