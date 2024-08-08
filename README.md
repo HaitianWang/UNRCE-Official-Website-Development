@@ -48,7 +48,7 @@ UNRCE relies on several external API to provide its full range of features. To g
 
 #### SendGrid API Key (for email services)
 **Locate the line in your code:** `sg = SendGridAPIClient('Please enter your SendGrid API key')`  
-**Provide your OpenAI API Key:** Replace the placeholder text with your actual SendGrid API key.
+**Provide your SendGrid API Key:** Replace the placeholder text with your actual SendGrid API key.
 
 #### Important Notes
 - Securing API Keys: It's crucial to keep your API keys confidential. Avoid pushing these keys to public repositories or sharing them in insecure environments.
