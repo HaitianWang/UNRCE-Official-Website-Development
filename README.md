@@ -28,7 +28,7 @@ To set up and run the UNRCE Database Project on your local machine, follow these
 
 
 3. **Set Up Virtual Environment:**
-`python -m venv env`
+`python -m venv venv`
 
 
 4. **Activate Virtual Environment:**
