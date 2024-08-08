@@ -24,7 +24,7 @@ To set up and run the UNRCE Database Project on your local machine, follow these
 
 
 1. **Navigate to Project Directory:**
-`cd UNRCE-django`
+`cd ./UNRCE-Database-project/UNRCE-django`
 
 
 3. **Set Up Virtual Environment:**
