@@ -32,8 +32,8 @@ To set up and run the UNRCE Database Project on your local machine, follow these
 
 
 4. **Activate Virtual Environment:**
-- Mac: `source env/bin/activate`
-- Windows: `./env/Scripts/activate`
+- Mac: `source venv/bin/activate`
+- Windows: `./venv/Scripts/activate`
 
 5. **Install Dependencies:**
 `pip install -r requirements.txt`
